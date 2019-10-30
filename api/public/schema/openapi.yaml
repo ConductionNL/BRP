@@ -862,7 +862,7 @@ components:
           type: integer
         in_onderzoek: {  }
         ingangs_datum: {  }
-host: pc.zaakonline.nl
+host: irc.zaakonline.nl
 servers:
   -
     description: 'Demo Omgeving'
@@ -872,7 +872,7 @@ externalDocs:
     description: 'OAS Documentatie'
     url: 'http://proto.demo.common-ground.dev'
 x-commonground:
-  type: tool
+  type: service
   developers:
     -
       name: Conduction
