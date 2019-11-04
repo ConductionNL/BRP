@@ -39,10 +39,8 @@ class UnderInvestigationType extends Type
 	{
 		// Lets make this nullable
 		if(!$value){
-			return null;	
+			return null;
 		}
-		
-		
 		if ($value instanceof UnderInvestigation) {
 			/* @todo throw an error ir the property isn't a boolean*/
 			$value= ["properties"=> $value->getProperties(),"date"=> $value->getDate()];

@@ -9,7 +9,11 @@ parameters:
     env(APP_DESCRIPTION): ''
     env(APP_REPRO): ''
     env(APP_DEMO): ''
+    env(APP_ENV): ''
+    env(CONTAINER_REGISTRY_BASE): ''
+    env(CONTAINER_PROJECT_TITLE): ''
     env(CONTAINER_PROJECT_NAME): ''
+    env(CONTAINER_PROJECT_VERSION): ''
 
 api_platform:
     mapping:
@@ -18,9 +22,19 @@ api_platform:
     # The basic API data
     title: '%env(APP_TITLE)%'
     description: |
+        API Details
+        - Component: %env(CONTAINER_PROJECT_TITLE)%
+        - Reference: %env(CONTAINER_PROJECT_NAME)%
+        - Enviroment: %env(APP_ENV)%
+        - Version: %env(CONTAINER_PROJECT_VERSION)%
+        - Repository: [%env(APP_REPRO)%](%env(APP_REPRO)%) / [zip](%env(APP_REPRO)%/archive/master.zip)
+        - Datamodel: [postman](/schema/openapi.postman_collection) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
+        
         %env(APP_DESCRIPTION)% 
-              
-        API voor het ontsluiten van gegevens van ingeschreven personen en aanverwante gegevens uit de GBA en RNI. Met deze API worden de actuele gegevens van ingeschreven personen, hun kinderen, partners en ouders ontsloten. Ook de gegevens over reisdocumenten worden via deze API ontsloten. Zie de <a href="https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/tree/master/features">Functionele documentatie</a> voor nadere toelichting.
+                                 
+        Voor het gebruik van deze applicatie is een JWT Token nodig, deze hangt altijd vast aan een applicatie, ofwel user. Geldige JWT Tokens worden aangemaakt bij het registreren van een applicatie en kennen een beperkte houdbaarheid. 
+        JWT Tokens kunnen zowel worden verlengd, als opnieuw worden aangevraagd, dit aan de hand van de applicatie id en sleutel.
+        Let er bij het meegeven van JWT tokens op dat deze moet worden voorafgegaan door een Bearer en een spatie, onder de header Authorization. De volledig naam wordt daarmee: 'Authorization: Bearer [TOKEN]'.
         
     
     version: '%env(APP_VERSION)%'  
@@ -45,15 +59,15 @@ api_platform:
         html:     ['text/html']
     
     # Varnish integration, remove if unwanted
-    http_cache:
-        invalidation:
-            enabled: true
-            varnish_urls: ['%env(VARNISH_URL)%']
-        max_age: 0
-        shared_max_age: 3600
-        vary: ['Content-Type', 'Authorization']
-        public: true
+    # http_cache:
+    #    invalidation:
+    #        enabled: true
+    #        varnish_urls: ['%env(VARNISH_URL)%']
+    #    max_age: 0
+    #    shared_max_age: 3600
+    #    vary: ['Content-Type', 'Authorization']
+    #    public: true
         
     # Mercure integration, remove if unwanted
-    mercure:
-        hub_url: '%env(MERCURE_SUBSCRIBE_URL)%'
+    # mercure:
+    #    hub_url: '%env(MERCURE_SUBSCRIBE_URL)%'
