@@ -4,10 +4,10 @@ info:
   version: V.0.1
   description: |
     API Details
-    - Component: Proto Component
-    - Reference: pc
+    - Component: 
+    - Reference: 
     - Enviroment: dev
-    - Version: V.0.1
+    - Version: 
     - Repository: []() / [zip](/archive/master.zip)
     - Datamodel: [postman](/schema/openapi.postman_collection) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
     
@@ -337,21 +337,17 @@ paths:
           schema:
             type: integer
         -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
           name: API-Version
           description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
           example: 1.0.1
           in: header
         -
-          name: X-NLX-Request-User-Id
-          description: 'The id of the user performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Application-Id
-          description: 'The id of the application performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Subject-Identifier
-          description: 'An subject identifier for purpose registration (doelbinding)'
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
           in: header
         -
           name: X-NLX-Request-Process-Id
@@ -363,7 +359,7 @@ paths:
           in: header
         -
           name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678,kenteken=ab-12-fg`'
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
           in: header
         -
           name: X-Audit-Clarification
@@ -441,21 +437,17 @@ paths:
         description: 'The new ExampleEntity resource'
       parameters:
         -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
           name: API-Version
           description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
           example: 1.0.1
           in: header
         -
-          name: X-NLX-Request-User-Id
-          description: 'The id of the user performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Application-Id
-          description: 'The id of the application performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Subject-Identifier
-          description: 'An subject identifier for purpose registration (doelbinding)'
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
           in: header
         -
           name: X-NLX-Request-Process-Id
@@ -467,7 +459,7 @@ paths:
           in: header
         -
           name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678,kenteken=ab-12-fg`'
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
           in: header
         -
           name: X-Audit-Clarification
@@ -487,21 +479,17 @@ paths:
           schema:
             type: string
         -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
           name: API-Version
           description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
           example: 1.0.1
           in: header
         -
-          name: X-NLX-Request-User-Id
-          description: 'The id of the user performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Application-Id
-          description: 'The id of the application performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Subject-Identifier
-          description: 'An subject identifier for purpose registration (doelbinding)'
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
           in: header
         -
           name: X-NLX-Request-Process-Id
@@ -513,7 +501,7 @@ paths:
           in: header
         -
           name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678,kenteken=ab-12-fg`'
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
           in: header
         -
           name: X-Audit-Clarification
@@ -567,21 +555,17 @@ paths:
           schema:
             type: string
         -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
           name: API-Version
           description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
           example: 1.0.1
           in: header
         -
-          name: X-NLX-Request-User-Id
-          description: 'The id of the user performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Application-Id
-          description: 'The id of the application performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Subject-Identifier
-          description: 'An subject identifier for purpose registration (doelbinding)'
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
           in: header
         -
           name: X-NLX-Request-Process-Id
@@ -593,7 +577,7 @@ paths:
           in: header
         -
           name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678,kenteken=ab-12-fg`'
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
           in: header
         -
           name: X-Audit-Clarification
@@ -612,21 +596,17 @@ paths:
           schema:
             type: string
         -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
           name: API-Version
           description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
           example: 1.0.1
           in: header
         -
-          name: X-NLX-Request-User-Id
-          description: 'The id of the user performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Application-Id
-          description: 'The id of the application performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Subject-Identifier
-          description: 'An subject identifier for purpose registration (doelbinding)'
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
           in: header
         -
           name: X-NLX-Request-Process-Id
@@ -638,7 +618,7 @@ paths:
           in: header
         -
           name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678,kenteken=ab-12-fg`'
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
           in: header
         -
           name: X-Audit-Clarification
@@ -716,21 +696,17 @@ paths:
           schema:
             type: string
         -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
           name: API-Version
           description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
           example: 1.0.1
           in: header
         -
-          name: X-NLX-Request-User-Id
-          description: 'The id of the user performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Application-Id
-          description: 'The id of the application performing the request'
-          in: header
-        -
-          name: X-NLX-Request-Subject-Identifier
-          description: 'An subject identifier for purpose registration (doelbinding)'
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
           in: header
         -
           name: X-NLX-Request-Process-Id
@@ -742,7 +718,7 @@ paths:
           in: header
         -
           name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678,kenteken=ab-12-fg`'
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
           in: header
         -
           name: X-Audit-Clarification
@@ -858,10 +834,13 @@ components:
           type: string
         burgerservicenummer:
           type: string
+<<<<<<< HEAD
         leeftijd:
           type: integer
         in_onderzoek: {  }
         ingangs_datum: {  }
+=======
+>>>>>>> master
 host: irc.zaakonline.nl
 servers:
   -
