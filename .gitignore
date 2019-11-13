@@ -4,3 +4,5 @@
 api/helm/kubeconfig.yaml
 
 !/api/public/bundle/*
+
+api/helm/kubeconfig-hb.yaml
