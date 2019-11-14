@@ -910,13 +910,10 @@ components:
           type: string
         burgerservicenummer:
           type: string
-<<<<<<< HEAD
         leeftijd:
           type: integer
         in_onderzoek: {  }
         ingangs_datum: {  }
-=======
->>>>>>> master
 host: irc.zaakonline.nl
 servers:
   -
