@@ -3,131 +3,218 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\VerblijfplaatsRepository")
  * @Gedmo\Loggable
  */
 class Verblijfplaats
 {
-	/**
-	 * @var \Ramsey\Uuid\UuidInterface
-	 *
-     * @Groups({"read", "write"})
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
+    /**
+     * @var UuidInterface
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
 	private $uuid;
 
     /**
+     * @todo docblocks
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max  = 255
+     * )
      */
     private $aanduidingBijHuisnummer;
 
     /**
+     * @todo docblocks
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max  = 255
+     * )
      */
     private $funtieAdres;
 
     /**
+     * @var string $huisletter Huisletter of this Verblijfplaats
+     * @example B
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max  = 255
+     * )
      */
     private $huisletter;
 
     /**
+     * @var integer $huisnummer Huisnummer of this Verblijfplaats
+     * @example 21
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type("integer")
      */
     private $huisnummer;
 
     /**
+     * @var string $huisnummertoevoeging Huisnummertoevoeging of this Verblijfplaats
+     * @example B
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max = 255
+     * )
      */
     private $huisnummertoevoeging;
 
     /**
+     * @todo docblocks
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max = 255
+     * )
      */
     private $identificatiecodeNummeraanduiding;
 
     /**
+     * @todo docblocks
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max = 255
+     * )
      */
     private $identificatiecodeVerblijfplaats;
 
     /**
+     * @todo docblocks
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
+     * @Assert\Type("boolean")
      */
     private $indentificatieVestigingVanuitBuitenland  = false;
 
     /**
+     * @var string $locatiebeschrijving Locatiebeschrijving of this Verblijfplaats
+     * @example Appartment
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max = 255
+     * )
      */
     private $locatiebeschrijving;
 
     /**
+     * @todo docblocks
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max = 255
+     * )
      */
     private $naamOpenbareRuimte;
 
     /**
+     * @var string $postcode Postcode of this Verblijfplaats
+     * @example 08040
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max = 255
+     * )
      */
     private $postcode;
 
     /**
+     * @var string $straatnaam Straatnaam of this Verblijfplaats
+     * @example Passeig de Sant Joan
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max = 255
+     * )
      */
     private $straatnaam;
 
     /**
+     * @todo docblocks
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
+     * @Assert\Type("boolean")
      */
     private $vanuitVertrokkenOnbekendWaarheen = false;
 
     /**
+     * @var string $woonplaatsnaam Woonplaatsnaam of this Verblijfplaats
+     * @example Barcelona
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max = 255
+     * )
      */
     private $woonplaatsnaam;
 
     /**
+     * @var string $datumAanvangAdreshouding Datum aanvang adreshouding of this Verblijfplaats
+     * @example 2005-01-01
+     *
      * @Groups({"read", "write"})
      * @ORM\Column(type="object", nullable=true)
      */
     private $datumAanvangAdreshouding;
 
     /**
+     * @var string $datumIngangGeldigheid Datum ingang geldigheid of this Verblijfplaats
+     * @example 01-01-2005
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
@@ -135,6 +222,9 @@ class Verblijfplaats
     private $datumIngangGeldigheid;
 
     /**
+     * @var string $datumInschrijvingInGemeente Datum inschrijving in gemeente of this Verblijfplaats
+     * @example 01-01-2005
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
@@ -142,6 +232,9 @@ class Verblijfplaats
     private $datumInschrijvingInGemeente;
 
     /**
+     * @var string $datumVestigingInNederland Datum vestiging in Nederland of this Verblijfplaats
+     * @example 01-01-2005
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
@@ -149,6 +242,9 @@ class Verblijfplaats
     private $datumVestigingInNederland;
 
     /**
+     * @var string $gemeenteVanInschrijving Gemeente van inschrijving of this Verblijfplaats
+     * @example Barcelona
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
@@ -156,21 +252,31 @@ class Verblijfplaats
     private $gemeenteVanInschrijving;
 
     /**
+     * @var string $landVanwaarIngeschreven Land van  waar ingeschreven of this Verblijfplaats
+     * @example Spain
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @MaxDepth(1)
      */
     private $landVanwaarIngeschreven;
 
     /**
+     * @var VerblijfBuitenland $verblijfBuitenland VerblijfBuitenland of this Verblijfplaats
+     * @example Spain
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\OneToOne(targetEntity="App\Entity\VerblijfBuitenland", inversedBy="verblijfplaats", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
+     * @MaxDepth(1)
      */
     private $verblijfBuitenland;
 
     /**
+     * @todo docblocks
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
@@ -178,18 +284,21 @@ class Verblijfplaats
     private $inOnderzoek;
 
     /**
+     * @todo docblocks
+     *
      * @Gedmo\Versioned
      * @ORM\OneToOne(targetEntity="App\Entity\Ingeschrevenpersoon", mappedBy="verblijfplaats", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
+     * @MaxDepth(1)
      */
     private $ingeschrevenpersoon;
-    
+
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
     	return $this->uuid;
     }
-    
+
     public function getUuid(): ?string
     {
     	return $this->uuid;

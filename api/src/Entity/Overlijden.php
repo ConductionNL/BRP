@@ -4,65 +4,119 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\OverlijdenRepository")
  * @Gedmo\Loggable
  */
 class Overlijden
 {
-	/**
-	 * @var \Ramsey\Uuid\UuidInterface
-	 *
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
+    /**
+     * @var UuidInterface
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
 	private $uuid;
 
     /**
+     * @var boolean $indicatieOverleden Indicatie overleden of this Overlijden
+     * @example false
+     *
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank
+     * @Assert\Type("boolean")
      */
     private $indicatieOverleden;
 
     /**
+     * @var string $datum Datum of this Overlijden
+     * @example 01-01-2000
+     *
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate")
      */
     private $datum;
-    
+
     /**
+     * @var string $land Land of this Overlijden
+     * @example The Netherlands
+     *
+     * @ApiProperty(
+     * 	   identifier=true,
+     *     attributes={
+     *         "swagger_context"={
+     *         	   "description" = "Land of this overlijden",
+     *             "type"="string",
+     *             "example"="The Netherlands"
+     *         }
+     *     }
+     * )
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @MaxDepth(1)
      */
     private $land;
-    
+
     /**
+     * @var string $plaats Plaats of this Overlijden
+     * @example Amsterdam
+     *
+     * @ApiProperty(
+     * 	   identifier=true,
+     *     attributes={
+     *         "swagger_context"={
+     *         	   "description" = "Plaats of this overlijden",
+     *             "type"="string",
+     *             "example"="Amsterdam"
+     *         }
+     *     }
+     * )
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @MaxDepth(1)
      */
     private $plaats;
 
     /**
+     * @todo docblocks
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */
     private $inOnderzoek;
 
     /**
+     * @todo docblocks
      * @ORM\OneToOne(targetEntity="App\Entity\Ingeschrevenpersoon", mappedBy="overlijden", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
-    private $ingeschrevenpersoon;    
-    
+    private $ingeschrevenpersoon;
+
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
     	return $this->uuid;
     }
-    
+
     public function getUuid(): ?string
     {
     	return $this->uuid;
@@ -96,23 +150,23 @@ class Overlijden
     {
     	return $this->land;
     }
-    
+
     public function setLand(?Waardetabel $land): self
     {
     	$this->land = $land;
-    	
+
     	return $this;
     }
-    
+
     public function getPlaats(): ?Waardetabel
     {
     	return $this->plaats;
     }
-    
+
     public function setPlaats(?Waardetabel $plaats): self
     {
     	$this->plaats = $plaats;
-    	
+
     	return $this;
     }
 

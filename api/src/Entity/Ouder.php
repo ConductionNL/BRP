@@ -5,10 +5,17 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\OuderRepository")
  * @ApiResource(
  *     collectionOperations={"get"={"method"="GET","path"="/ingeschrevenpersonen/{burgerservicenummer}/ouders.{_format}","swagger_context" = {"summary"="ingeschrevenNatuurlijkPersoonOuders", "description"="Beschrijving"}}},
@@ -18,39 +25,62 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Ouder
 {
-	/**
-	 * @var \Ramsey\Uuid\UuidInterface
-	 *
-     * @Groups({"read", "write"})
-     * @ApiProperty(identifier=true)
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
+    /**
+     * @var UuidInterface
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
 	private $uuid;
 
     /**
+     * @var string $burgerservicenummer Burgerservicenummer of this Ouder
+     * @example 123456782
+     *
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     max  = 255
+     * )
      */
     private $burgerservicenummer;
 
     /**
+     * @var string $geslachtsaanduiding Geslachts aanduiding of this Ouder
+     * @example female
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=7)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     max  = 7
+     * )
      */
     private $geslachtsaanduiding;
 
     /**
+     * @todo docblocks
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=7)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     max  = 7
+     * )
      */
     private $ouderAanduiding;
 
     /**
+     *
+     * @var string $burgerservicenummer Burgerservicenummer of this Ouder
+     * @example 123456782
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
@@ -58,14 +88,20 @@ class Ouder
     private $datumIngangFamilierechtelijkeBetreking;
 
     /**
+     *
+     * @var NaamPersoon $naam Naam of this Ouder
+     * @example Joe
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\OneToOne(targetEntity="App\Entity\NaamPersoon", inversedBy="ouder", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
+     * @MaxDepth(1)
      */
     private $naam;
 
     /**
+     * @todo docblocks
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
@@ -73,26 +109,36 @@ class Ouder
     private $inOnderzoek;
 
     /**
+     *
+     * @var Geboorte $geboorte Geboorte of this Ouder
+     * @example 01-01-2000
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\OneToOne(targetEntity="App\Entity\Geboorte", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
+     * @MaxDepth(1)
      */
     private $geboorte;
 
     /**
+     *
+     * @var Ingeschrevenpersoon $ingeschrevenpersoon IngeschrevenPersoon of this Ouder
+     * @example Joe
+     *
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Ingeschrevenpersoon", inversedBy="ouders")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $ingeschrevenpersoon;
-    
+
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
     	return $this->uuid;
     }
-    
+
     public function getUuid(): ?string
     {
     	return $this->uuid;
