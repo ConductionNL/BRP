@@ -34,7 +34,8 @@ class Nationaliteit
 	private $uuid;
 
     /**
-     * @todo docblocks
+     * 
+     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Ingeschrevenpersoon", inversedBy="nationaliteit")
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)

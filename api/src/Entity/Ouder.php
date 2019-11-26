@@ -94,7 +94,7 @@ class Ouder
      *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
-     * @ORM\OneToOne(targetEntity="App\Entity\NaamPersoon", inversedBy="ouder", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\NaamPersoon", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
      * @MaxDepth(1)
      */

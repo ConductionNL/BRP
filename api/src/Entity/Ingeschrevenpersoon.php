@@ -419,7 +419,7 @@ class Ingeschrevenpersoon
      * @var Partner $partners Partner of ingeschreven persoon
      * @example Mike
      *
-     * ToMany(targetEntity="App\Entity\Partner", mappedBy="ingeschrevenpersoon", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="ingeschrevenpersoon", orphanRemoval=true, cascade={"persist", "remove"})
      * @MaxDepth(1)
      */
     private $partners;
