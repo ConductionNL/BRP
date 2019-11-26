@@ -4,61 +4,106 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\VerblijfBuitenlandRepository")
  * @Gedmo\Loggable
  */
 class VerblijfBuitenland
 {
-	/**
-	 * @var \Ramsey\Uuid\UuidInterface
-	 *
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
+    /**
+     * @var UuidInterface
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
 	private $uuid;
 
     /**
+     * @todo docblocks
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max  = 255
+     * )
      */
     private $adresregel1;
 
     /**
+     * @todo docblocks
+     *
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max  = 255
+     * )
      */
     private $adresRegel2;
 
     /**
+     * @todo docblocks
+     *
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max  = 255
+     * )
      */
     private $adresRegel3;
 
     /**
+     * @todo docblocks
+     *
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
+     * @Assert\Type("boolean")
      */
     private $vertrokkenOnbekendWaarheen;
-    
+
     /**
+     * @var string $land Land of this VerblijfBuitenland
+     * @example Spain
+     *
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @MaxDepth(1)
      */
     private $land;
-    
+
     /**
+     * @var string $plaats Plaats of this VerblijfBuitenland
+     * @example Barcelona
+     *
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @MaxDepth(1)
      */
     private $plaats;
 
     /**
+     * @var Verblijfplaats $verblijfplaats Verblijfplaats of this VerblijfBuitenland
+     * @example Passeig de Sant Joan 21
+     *
      * @ORM\OneToOne(targetEntity="App\Entity\Verblijfplaats", mappedBy="verblijfBuitenland", cascade={"persist", "remove"})
+     * @MaxDepth(1)
      */
     private $verblijfplaats;
 
@@ -114,23 +159,23 @@ class VerblijfBuitenland
     {
     	return $this->land;
     }
-    
+
     public function setLand(?Waardetabel $land): self
     {
     	$this->land = $land;
-    	
+
     	return $this;
     }
-    
+
     public function getPlaats(): ?Waardetabel
     {
     	return $this->plaats;
     }
-    
+
     public function setPlaats(?Waardetabel $plaats): self
     {
     	$this->plaats = $plaats;
-    	
+
     	return $this;
     }
 

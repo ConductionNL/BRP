@@ -5,10 +5,17 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\PartnerRepository")
  * @ApiResource(
  *     collectionOperations={"get"={"method"="GET","path"="/ingeschrevenpersonen/{burgerservicenummer}/partners.{_format}","swagger_context" = {"summary"="ingeschrevenNatuurlijkPersoonPartnerUuid", "description"="Beschrijving"}}},
@@ -19,31 +26,49 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Partner
 {
-	/**
-	 * @var \Ramsey\Uuid\UuidInterface
-	 *
-     * @ApiProperty(identifier=true)
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
+    /**
+     * @var UuidInterface
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
     private $uuid;
 
     /**
+     * @var string $burgerservicenummer Burgerservicenummer of this Partner
+     * @example 123456782
+     *
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=9)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     max  = 9
+     * )
      */
     private $burgerservicenummer;
 
     /**
+     * @var string $geslachtsaanduiding Geslachts aanduiding of this Partner
+     * @example female
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     max  = 255
+     * )
      */
     private $geslachtsaanduiding;
 
     /**
+     * @var NaamPersoon $naam Naam of this Partner
+     * @example Jessica
+     *
      * @Groups({"read", "write"})
      * @ORM\OneToOne(targetEntity="App\Entity\NaamPersoon", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
@@ -51,30 +76,38 @@ class Partner
     private $naam;
 
     /**
+     * @var Geboorte $geboorte Geboorte of this Partner
+     * @example 01-01-2000
+     *
      * @Groups({"read", "write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Geboorte", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
+     * @MaxDepth(1)
      */
     private $geboorte;
 
     /**
+     * @todo docblocks
      * @ORM\OneToOne(targetEntity="App\Entity\AangaanHuwelijkPartnerschap", inversedBy="partner", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
+     * @MaxDepth(1)
      */
     private $aangaanHuwelijkPartnerschap;
 
     /**
+     * @todo docblocks
      * @ORM\ManyToOne(targetEntity="App\Entity\Ingeschrevenpersoon", inversedBy="partners")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $ingeschrevenpersoon;
-    
+
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
     	return $this->uuid;
     }
-    
+
     public function getUuid(): ?string
     {
     	return $this->uuid;
