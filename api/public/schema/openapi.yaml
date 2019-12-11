@@ -9288,7 +9288,7 @@ components:
   schemas:
     AangaanHuwelijkPartnerschap-read:
       type: object
-      description: 'This is an example entity.'
+      description: ''
       properties:
         uuid:
           readOnly: true
@@ -9401,16 +9401,144 @@ components:
         geslachtsaanduiding:
           description: 'Geslachts aanduiding of this ingeschreven persoon'
           type: string
-        camelCase:
-          description: 'Proof that we camel case our api'
+        leeftijd:
+          description: 'Leeftijd of this ingeschreven persoon'
+          type: integer
+        datumEersteInschrijvingGBA:
+          description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
+        kiesrecht:
+          type: string
+        inOnderzoek: {  }
+        nationaliteit:
+          description: 'Nationaliteit of this ingeschreven persoon'
+          type: array
+          items:
+            $ref: '#/components/schemas/Nationaliteit-read'
+        opschortingBijhouding:
+          $ref: '#/components/schemas/OpschortingBijhouding-read'
+        overlijden:
+          description: 'Checks if ingeschreven persoon is overlijden'
+          $ref: '#/components/schemas/Overlijden-read'
+        verblijfplaats:
+          description: 'Checks if ingeschreven persoon is overlijden'
+          $ref: '#/components/schemas/Verblijfplaats-read'
+        gezagsverhouding:
+          $ref: '#/components/schemas/Gezagsverhouding-read'
+        verblijfstitel:
+          $ref: '#/components/schemas/Verblijfstitel-read'
       required:
         - burgerservicenummer
         - geheimhoudingPersoonsgegevens
         - geslachtsaanduiding
+    Ingeschrevenpersoon-write:
+      type: object
+      description: ''
+      required:
+        - burgerservicenummer
+        - geheimhoudingPersoonsgegevens
+        - geslachtsaanduiding
+      properties:
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this ingeschreven persoon'
+          type: string
+        naam:
+          description: 'Naam of this ingeschreven persoon'
+          $ref: '#/components/schemas/NaamPersoon-write'
+        geboorte:
+          description: 'Geboorte of this ingeschreven persoon'
+          $ref: '#/components/schemas/Geboorte-write'
+        geheimhoudingPersoonsgegevens:
+          description: 'Geheim houding persoongegevens of this ingeschreven persoon'
+          type: boolean
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this ingeschreven persoon'
+          type: string
+        leeftijd:
+          description: 'Leeftijd of this ingeschreven persoon'
+          type: integer
+        datumEersteInschrijvingGBA:
+          description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
+          type: string
+        kiesrecht:
+          type: string
+        inOnderzoek: {  }
+        nationaliteit:
+          description: 'Nationaliteit of this ingeschreven persoon'
+          type: array
+          items:
+            $ref: '#/components/schemas/Nationaliteit-write'
+        opschortingBijhouding:
+          $ref: '#/components/schemas/OpschortingBijhouding-write'
+        overlijden:
+          description: 'Checks if ingeschreven persoon is overlijden'
+          $ref: '#/components/schemas/Overlijden-write'
+        verblijfplaats:
+          description: 'Checks if ingeschreven persoon is overlijden'
+          $ref: '#/components/schemas/Verblijfplaats-write'
+        gezagsverhouding:
+          $ref: '#/components/schemas/Gezagsverhouding-write'
+        verblijfstitel:
+          $ref: '#/components/schemas/Verblijfstitel-write'
     Kind-read:
       type: object
-      description: 'This is an example entity.'
+      description: ''
+      properties:
+        uuid:
+          readOnly: true
+          type: string
+        leeftijd:
+          description: 'Leeftijd of this kind'
+          type: integer
+        inOnderzoek: {  }
+        naam:
+          description: 'NaamPersoon of this kind'
+          $ref: '#/components/schemas/NaamPersoon-read'
+        geboorte:
+          description: 'Geboorte of this kind'
+          $ref: '#/components/schemas/Geboorte-read'
+    Kind-write:
+      type: object
+      description: ''
+      properties:
+        leeftijd:
+          description: 'Leeftijd of this kind'
+          type: integer
+        inOnderzoek: {  }
+        naam:
+          description: 'NaamPersoon of this kind'
+          $ref: '#/components/schemas/NaamPersoon-write'
+        geboorte:
+          description: 'Geboorte of this kind'
+          $ref: '#/components/schemas/Geboorte-write'
+    NaamPersoon-read:
+      type: object
+      description: ''
+      properties:
+        uuid:
+          readOnly: true
+          type: string
+        geslachtsnaam:
+          description: 'Geslachtsnaam of this NaamPersoon'
+          type: string
+        voorletters:
+          description: 'Voorletters of this NaamPersoon'
+          type: string
+        voornamen:
+          description: 'Voornamen of this NaamPersoon'
+          type: string
+        voorvoegsel:
+          description: 'Voorvoegsel of this NaamPersoon'
+          type: string
+        inOnderzoek: {  }
+        aanhef:
+          description: 'Aanhef of this NaamPersoon'
+          type: string
+        aanschrijfwijze:
+          type: string
+        gebuikInLopendeTekst:
+          description: 'Geslachtsnaam of this NaamPersoon'
+          type: string
       required:
         - geslachtsnaam
         - voorletters
@@ -9435,61 +9563,1009 @@ components:
         voorletters:
           description: 'Voorletters of this NaamPersoon'
           type: string
-        camelCase:
-          description: 'Proof that we camel case our api'
+        voornamen:
+          description: 'Voornamen of this NaamPersoon'
+          type: string
+        voorvoegsel:
+          description: 'Voorvoegsel of this NaamPersoon'
+          type: string
+        inOnderzoek: {  }
+        aanhef:
+          description: 'Aanhef of this NaamPersoon'
+          type: string
+        aanschrijfwijze:
+          type: string
+        gebuikInLopendeTekst:
+          description: 'Geslachtsnaam of this NaamPersoon'
+          type: string
+    Nationaliteit-read:
+      type: object
+      description: ''
+      properties:
+        uuid:
+          readOnly: true
+          type: string
+        ingeschrevenpersoon:
+          $ref: '#/components/schemas/Ingeschrevenpersoon-read'
+    Nationaliteit-write:
+      type: object
+      description: ''
+      properties:
+        ingeschrevenpersoon:
+          $ref: '#/components/schemas/Ingeschrevenpersoon-write'
+    OpschortingBijhouding-read:
+      type: object
+      description: ''
+      properties:
+        uuid:
+          readOnly: true
+          type: string
+        reden:
+          description: 'Reden of this OpschortingBijhouding'
+          type: string
+        datum:
+          description: 'Datum of this NaamPersoon'
+          type: string
+      required:
+        - reden
+    OpschortingBijhouding-write:
+      type: object
+      description: ''
+      required:
+        - reden
+      properties:
+        reden:
+          description: 'Reden of this OpschortingBijhouding'
+          type: string
+        datum:
+          description: 'Datum of this NaamPersoon'
+          type: string
+    Ouder-read:
+      type: object
+      description: ''
+      properties:
+        uuid:
+          readOnly: true
+          type: string
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this Ouder'
+          type: string
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this Ouder'
+          type: string
+        ouderAanduiding:
+          type: string
+        datumIngangFamilierechtelijkeBetreking:
+          description: 'Burgerservicenummer of this Ouder'
+          type: string
+        naam:
+          description: 'Naam of this Ouder'
+          $ref: '#/components/schemas/NaamPersoon-read'
+        inOnderzoek: {  }
+        geboorte:
+          description: 'Geboorte of this Ouder'
+          $ref: '#/components/schemas/Geboorte-read'
+      required:
+        - burgerservicenummer
+        - geslachtsaanduiding
+        - ouderAanduiding
+    Ouder-write:
+      type: object
+      description: ''
+      required:
+        - burgerservicenummer
+        - geslachtsaanduiding
+        - ouderAanduiding
+      properties:
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this Ouder'
+          type: string
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this Ouder'
+          type: string
+        ouderAanduiding:
+          type: string
+        datumIngangFamilierechtelijkeBetreking:
+          description: 'Burgerservicenummer of this Ouder'
+          type: string
+        naam:
+          description: 'Naam of this Ouder'
+          $ref: '#/components/schemas/NaamPersoon-write'
+        inOnderzoek: {  }
+        geboorte:
+          description: 'Geboorte of this Ouder'
+          $ref: '#/components/schemas/Geboorte-write'
+    Overlijden-read:
+      type: object
+      description: ''
+      properties:
+        uuid:
+          readOnly: true
+          type: string
+        indicatieOverleden:
+          description: 'Indicatie overleden of this Overlijden'
+          type: boolean
+        datum:
+          description: 'Datum of this Overlijden'
+          type: string
+        inOnderzoek: {  }
+      required:
+        - indicatieOverleden
+    Overlijden-write:
+      type: object
+      description: ''
+      required:
+        - indicatieOverleden
+      properties:
+        indicatieOverleden:
+          description: 'Indicatie overleden of this Overlijden'
+          type: boolean
+        datum:
+          description: 'Datum of this Overlijden'
+          type: string
+        inOnderzoek: {  }
+    Partner-read:
+      type: object
+      description: ''
+      properties:
+        uuid:
+          readOnly: true
+          type: string
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this Partner'
+          type: string
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this Partner'
+          type: string
+        naam:
+          description: 'Naam of this Partner'
+          $ref: '#/components/schemas/NaamPersoon-read'
+        geboorte:
+          description: 'Geboorte of this Partner'
+          $ref: '#/components/schemas/Geboorte-read'
+      required:
+        - burgerservicenummer
+        - geslachtsaanduiding
+    Partner-write:
+      type: object
+      description: ''
+      required:
+        - burgerservicenummer
+        - geslachtsaanduiding
+      properties:
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this Partner'
+          type: string
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this Partner'
+          type: string
+        naam:
+          description: 'Naam of this Partner'
+          $ref: '#/components/schemas/NaamPersoon-write'
+        geboorte:
+          description: 'Geboorte of this Partner'
+          $ref: '#/components/schemas/Geboorte-write'
+    Reisdocument-read:
+      type: object
+      description: ''
+      properties:
+        id:
+          readOnly: true
+          type: string
+        aanduidingInhoudingOfVermissing:
+          type: string
+        reisdocumentnummer:
+          description: 'Reisdocumentnummer of this Reisdocument'
+          type: string
+      required:
+        - aanduidingInhoudingOfVermissing
+        - reisdocumentnummer
+    Reisdocument-write:
+      type: object
+      description: ''
+      required:
+        - aanduidingInhoudingOfVermissing
+        - reisdocumentnummer
+      properties:
+        aanduidingInhoudingOfVermissing:
+          type: string
+        reisdocumentnummer:
+          description: 'Reisdocumentnummer of this Reisdocument'
+          type: string
+    VerblijfBuitenland-read:
+      type: object
+      description: ''
+      properties:
+        adresregel1:
+          type: string
+        adresRegel2:
+          type: string
+        adresRegel3:
+          type: string
+        vertrokkenOnbekendWaarheen:
+          type: boolean
+    VerblijfBuitenland-write:
+      type: object
+      description: ''
+      properties:
+        adresregel1:
+          type: string
+        adresRegel2:
+          type: string
+        adresRegel3:
+          type: string
+        vertrokkenOnbekendWaarheen:
+          type: boolean
+    Verblijfplaats-read:
+      type: object
+      description: ''
+      properties:
+        uuid:
+          readOnly: true
+          type: string
+        aanduidingBijHuisnummer:
+          type: string
+        funtieAdres:
+          type: string
+        huisletter:
+          description: 'Huisletter of this Verblijfplaats'
+          type: string
+        huisnummer:
+          description: 'Huisnummer of this Verblijfplaats'
+          type: integer
+        huisnummertoevoeging:
+          description: 'Huisnummertoevoeging of this Verblijfplaats'
+          type: string
+        identificatiecodeNummeraanduiding:
+          type: string
+        identificatiecodeVerblijfplaats:
+          type: string
+        indentificatieVestigingVanuitBuitenland:
+          type: boolean
+        locatiebeschrijving:
+          description: 'Locatiebeschrijving of this Verblijfplaats'
+          type: string
+        naamOpenbareRuimte:
+          type: string
+        postcode:
+          description: 'Postcode of this Verblijfplaats'
+          type: string
+        straatnaam:
+          description: 'Straatnaam of this Verblijfplaats'
+          type: string
+        vanuitVertrokkenOnbekendWaarheen:
+          type: boolean
+        woonplaatsnaam:
+          description: 'Woonplaatsnaam of this Verblijfplaats'
+          type: string
+        datumAanvangAdreshouding:
+          description: 'Datum aanvang adreshouding of this Verblijfplaats'
+          type: string
+        datumIngangGeldigheid:
+          description: 'Datum ingang geldigheid of this Verblijfplaats'
+          type: string
+        datumInschrijvingInGemeente:
+          description: 'Datum inschrijving in gemeente of this Verblijfplaats'
+          type: string
+        datumVestigingInNederland:
+          description: 'Datum vestiging in Nederland of this Verblijfplaats'
+          type: string
+        gemeenteVanInschrijving:
+          description: 'Gemeente van inschrijving of this Verblijfplaats'
+          type: string
+        landVanwaarIngeschreven:
+          description: 'Land van  waar ingeschreven of this Verblijfplaats'
+          $ref: '#/components/schemas/Waardetabel-read'
+        verblijfBuitenland:
+          description: 'VerblijfBuitenland of this Verblijfplaats'
+          $ref: '#/components/schemas/VerblijfBuitenland-read'
+        inOnderzoek: {  }
+    Verblijfplaats-write:
+      type: object
+      description: ''
+      properties:
+        aanduidingBijHuisnummer:
+          type: string
+        funtieAdres:
+          type: string
+        huisletter:
+          description: 'Huisletter of this Verblijfplaats'
+          type: string
+        huisnummer:
+          description: 'Huisnummer of this Verblijfplaats'
+          type: integer
+        huisnummertoevoeging:
+          description: 'Huisnummertoevoeging of this Verblijfplaats'
+          type: string
+        identificatiecodeNummeraanduiding:
+          type: string
+        identificatiecodeVerblijfplaats:
+          type: string
+        indentificatieVestigingVanuitBuitenland:
+          type: boolean
+        locatiebeschrijving:
+          description: 'Locatiebeschrijving of this Verblijfplaats'
+          type: string
+        naamOpenbareRuimte:
+          type: string
+        postcode:
+          description: 'Postcode of this Verblijfplaats'
+          type: string
+        straatnaam:
+          description: 'Straatnaam of this Verblijfplaats'
+          type: string
+        vanuitVertrokkenOnbekendWaarheen:
+          type: boolean
+        woonplaatsnaam:
+          description: 'Woonplaatsnaam of this Verblijfplaats'
+          type: string
+        datumAanvangAdreshouding:
+          description: 'Datum aanvang adreshouding of this Verblijfplaats'
+          type: string
+        datumIngangGeldigheid:
+          description: 'Datum ingang geldigheid of this Verblijfplaats'
+          type: string
+        datumInschrijvingInGemeente:
+          description: 'Datum inschrijving in gemeente of this Verblijfplaats'
+          type: string
+        datumVestigingInNederland:
+          description: 'Datum vestiging in Nederland of this Verblijfplaats'
+          type: string
+        gemeenteVanInschrijving:
+          description: 'Gemeente van inschrijving of this Verblijfplaats'
+          type: string
+        landVanwaarIngeschreven:
+          description: 'Land van  waar ingeschreven of this Verblijfplaats'
+          $ref: '#/components/schemas/Waardetabel-write'
+        verblijfBuitenland:
+          description: 'VerblijfBuitenland of this Verblijfplaats'
+          $ref: '#/components/schemas/VerblijfBuitenland-write'
+        inOnderzoek: {  }
+    Verblijfstitel-read:
+      type: object
+      description: ''
+      properties:
+        uuid:
+          readOnly: true
+          type: string
+        datumEinde:
+          description: 'Datum einde of this Verblijftitel'
+          type: string
+        datumIngang:
+          description: 'Datum ingang of this Verblijftitel'
+          type: string
+        inOnderzoek: {  }
+    Verblijfstitel-write:
+      type: object
+      description: ''
+      properties:
+        datumEinde:
+          description: 'Datum einde of this Verblijftitel'
+          type: string
+        datumIngang:
+          description: 'Datum ingang of this Verblijftitel'
+          type: string
+        inOnderzoek: {  }
+    Waardetabel-read:
+      type: object
+      description: ''
+      properties:
+        id:
+          readOnly: true
+          type: string
+        code:
+          type: string
+        omschrijving:
+          type: string
+      required:
+        - code
+    Waardetabel-write:
+      type: object
+      description: ''
+      required:
+        - code
+      properties:
+        code:
+          type: string
+        omschrijving:
           type: string
 definitions:
-  ExampleEntity-read:
+  AangaanHuwelijkPartnerschap-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      datum:
+        example: 01-01-2000
+      inOnderzoek: []
+      land:
+        example: 'The Netherlands'
+      plaats:
+        example: Amsterdam
+      partner:
+        example: John
+    required: []
+  AangaanHuwelijkPartnerschap-write:
+    properties:
+      datum:
+        example: 01-01-2000
+      inOnderzoek: []
+      land:
+        example: 'The Netherlands'
+      plaats:
+        example: Amsterdam
+      partner:
+        example: John
+    required: []
+  Geboorte-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      datum:
+        example: 01-01-2000
+      inOnderzoek: []
+      land:
+        example: 'The Netherlands'
+      plaats:
+        example: Amsterdam
+    required: []
+  Geboorte-write:
+    properties:
+      datum:
+        example: 01-01-2000
+      inOnderzoek: []
+      land:
+        example: 'The Netherlands'
+      plaats:
+        example: Amsterdam
+    required: []
+  Gezagsverhouding-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      indicatieCurateleRegister: []
+      indicatieGezagMinderjarige:
+        maxLength: 255
+      inOnderzoek: []
+    required: []
+  Gezagsverhouding-write:
+    properties:
+      indicatieCurateleRegister: []
+      indicatieGezagMinderjarige:
+        maxLength: 255
+      inOnderzoek: []
+    required: []
+  Ingeschrevenpersoon-read:
     properties:
       id:
         example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        example: 'My Group'
-        maxLength: 255
-      description:
-        example: 'Is the best group ever'
-        maxLength: 2555
-      camelCase:
-        example: 'Best api ever'
-        maxLength: 255
-    required:
-      - name
-  ExampleEntity-write:
+      burgerservicenummer:
+        example: '123456782'
+        maxLength: 9
+      geheimhoudingPersoonsgegevens:
+        example: 'true'
+      geslachtsaanduiding:
+        example: male
+        maxLength: 7
+      leeftijd:
+        example: '18'
+      datumEersteInschrijvingGBA:
+        example: 01-01-2000
+      kiesrecht: []
+      inOnderzoek: []
+      naam:
+        example: John
+      geboorte:
+        example: 01-01-2000
+      nationaliteit:
+        example: Dutch
+      opschortingBijhouding: []
+      overlijden:
+        example: 'false'
+      verblijfplaats:
+        example: 'false'
+      gezagsverhouding: []
+      verblijfstitel: []
+    required: []
+  Ingeschrevenpersoon-write:
     properties:
-      name:
-        example: 'My Group'
+      burgerservicenummer:
+        example: '123456782'
+        maxLength: 9
+      geheimhoudingPersoonsgegevens:
+        example: 'true'
+      geslachtsaanduiding:
+        example: male
+        maxLength: 7
+      leeftijd:
+        example: '18'
+      datumEersteInschrijvingGBA:
+        example: 01-01-2000
+      kiesrecht: []
+      inOnderzoek: []
+      naam:
+        example: John
+      geboorte:
+        example: 01-01-2000
+      nationaliteit:
+        example: Dutch
+      opschortingBijhouding: []
+      overlijden:
+        example: 'false'
+      verblijfplaats:
+        example: 'false'
+      gezagsverhouding: []
+      verblijfstitel: []
+    required: []
+  Kind-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      leeftijd:
+        example: '14'
+      inOnderzoek: []
+      naam:
+        example: Michael
+      geboorte:
+        example: 01-01-2000
+    required: []
+  Kind-write:
+    properties:
+      leeftijd:
+        example: '14'
+      inOnderzoek: []
+      naam:
+        example: Michael
+      geboorte:
+        example: 01-01-2000
+    required: []
+  NaamPersoon-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      geslachtsnaam:
+        example: male
         maxLength: 255
-      description:
-        example: 'Is the best group ever'
-        maxLength: 2555
-      camelCase:
-        example: 'Best api ever'
+      voorletters:
+        example: A
         maxLength: 255
-    required:
-      - name
+      voornamen:
+        example: 'Michael Smith'
+        maxLength: 255
+      voorvoegsel:
+        example: 'van der'
+        maxLength: 255
+      inOnderzoek: []
+      aanhef:
+        example: Dhr
+        maxLength: 255
+      aanschrijfwijze: []
+      gebuikInLopendeTekst:
+        example: male
+        maxLength: 255
+    required: []
+  NaamPersoon-write:
+    properties:
+      geslachtsnaam:
+        example: male
+        maxLength: 255
+      voorletters:
+        example: A
+        maxLength: 255
+      voornamen:
+        example: 'Michael Smith'
+        maxLength: 255
+      voorvoegsel:
+        example: 'van der'
+        maxLength: 255
+      inOnderzoek: []
+      aanhef:
+        example: Dhr
+        maxLength: 255
+      aanschrijfwijze: []
+      gebuikInLopendeTekst:
+        example: male
+        maxLength: 255
+    required: []
+  Nationaliteit-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      ingeschrevenpersoon: []
+    required: []
+  Nationaliteit-write:
+    properties:
+      ingeschrevenpersoon: []
+    required: []
+  OpschortingBijhouding-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      reden:
+        example: ''
+        maxLength: 255
+      datum:
+        example: 01-01-2000
+    required: []
+  OpschortingBijhouding-write:
+    properties:
+      reden:
+        example: ''
+        maxLength: 255
+      datum:
+        example: 01-01-2000
+    required: []
+  Ouder-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      burgerservicenummer:
+        example: '123456782'
+        maxLength: 255
+      geslachtsaanduiding:
+        example: female
+        maxLength: 7
+      ouderAanduiding:
+        maxLength: 7
+      datumIngangFamilierechtelijkeBetreking:
+        example: '123456782'
+      inOnderzoek: []
+      naam:
+        example: Joe
+      geboorte:
+        example: 01-01-2000
+    required: []
+  Ouder-write:
+    properties:
+      burgerservicenummer:
+        example: '123456782'
+        maxLength: 255
+      geslachtsaanduiding:
+        example: female
+        maxLength: 7
+      ouderAanduiding:
+        maxLength: 7
+      datumIngangFamilierechtelijkeBetreking:
+        example: '123456782'
+      inOnderzoek: []
+      naam:
+        example: Joe
+      geboorte:
+        example: 01-01-2000
+    required: []
+  Overlijden-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      indicatieOverleden:
+        example: 'false'
+      datum:
+        example: 01-01-2000
+      inOnderzoek: []
+    required: []
+  Overlijden-write:
+    properties:
+      indicatieOverleden:
+        example: 'false'
+      datum:
+        example: 01-01-2000
+      inOnderzoek: []
+    required: []
+  Partner-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      burgerservicenummer:
+        example: '123456782'
+        maxLength: 9
+      geslachtsaanduiding:
+        example: female
+        maxLength: 255
+      naam:
+        example: Jessica
+      geboorte:
+        example: 01-01-2000
+    required: []
+  Partner-write:
+    properties:
+      burgerservicenummer:
+        example: '123456782'
+        maxLength: 9
+      geslachtsaanduiding:
+        example: female
+        maxLength: 255
+      naam:
+        example: Jessica
+      geboorte:
+        example: 01-01-2000
+    required: []
+  Reisdocument-read:
+    properties:
+      id:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      aanduidingInhoudingOfVermissing:
+        maxLength: 255
+      reisdocumentnummer:
+        example: AB1234CD0
+        maxLength: 255
+    required: []
+  Reisdocument-write:
+    properties:
+      aanduidingInhoudingOfVermissing:
+        maxLength: 255
+      reisdocumentnummer:
+        example: AB1234CD0
+        maxLength: 255
+    required: []
+  VerblijfBuitenland-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      adresregel1:
+        maxLength: 255
+      adresRegel2:
+        maxLength: 255
+      adresRegel3:
+        maxLength: 255
+      vertrokkenOnbekendWaarheen: []
+    required: []
+  VerblijfBuitenland-write:
+    properties:
+      adresregel1:
+        maxLength: 255
+      adresRegel2:
+        maxLength: 255
+      adresRegel3:
+        maxLength: 255
+      vertrokkenOnbekendWaarheen: []
+    required: []
+  Verblijfplaats-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      aanduidingBijHuisnummer:
+        maxLength: 255
+      funtieAdres:
+        maxLength: 255
+      huisletter:
+        example: B
+        maxLength: 255
+      huisnummer:
+        example: '21'
+      huisnummertoevoeging:
+        example: B
+        maxLength: 255
+      identificatiecodeNummeraanduiding:
+        maxLength: 255
+      identificatiecodeVerblijfplaats:
+        maxLength: 255
+      indentificatieVestigingVanuitBuitenland: []
+      locatiebeschrijving:
+        example: Appartment
+        maxLength: 255
+      naamOpenbareRuimte:
+        maxLength: 255
+      postcode:
+        example: '08040'
+        maxLength: 255
+      straatnaam:
+        example: 'Passeig de Sant Joan'
+        maxLength: 255
+      vanuitVertrokkenOnbekendWaarheen: []
+      woonplaatsnaam:
+        example: Barcelona
+        maxLength: 255
+      datumAanvangAdreshouding:
+        example: '2005-01-01'
+      datumIngangGeldigheid:
+        example: 01-01-2005
+      datumInschrijvingInGemeente:
+        example: 01-01-2005
+      datumVestigingInNederland:
+        example: 01-01-2005
+      gemeenteVanInschrijving:
+        example: Barcelona
+      inOnderzoek: []
+      landVanwaarIngeschreven:
+        example: Spain
+      verblijfBuitenland:
+        example: Spain
+    required: []
+  Verblijfplaats-write:
+    properties:
+      aanduidingBijHuisnummer:
+        maxLength: 255
+      funtieAdres:
+        maxLength: 255
+      huisletter:
+        example: B
+        maxLength: 255
+      huisnummer:
+        example: '21'
+      huisnummertoevoeging:
+        example: B
+        maxLength: 255
+      identificatiecodeNummeraanduiding:
+        maxLength: 255
+      identificatiecodeVerblijfplaats:
+        maxLength: 255
+      indentificatieVestigingVanuitBuitenland: []
+      locatiebeschrijving:
+        example: Appartment
+        maxLength: 255
+      naamOpenbareRuimte:
+        maxLength: 255
+      postcode:
+        example: '08040'
+        maxLength: 255
+      straatnaam:
+        example: 'Passeig de Sant Joan'
+        maxLength: 255
+      vanuitVertrokkenOnbekendWaarheen: []
+      woonplaatsnaam:
+        example: Barcelona
+        maxLength: 255
+      datumAanvangAdreshouding:
+        example: '2005-01-01'
+      datumIngangGeldigheid:
+        example: 01-01-2005
+      datumInschrijvingInGemeente:
+        example: 01-01-2005
+      datumVestigingInNederland:
+        example: 01-01-2005
+      gemeenteVanInschrijving:
+        example: Barcelona
+      inOnderzoek: []
+      landVanwaarIngeschreven:
+        example: Spain
+      verblijfBuitenland:
+        example: Spain
+    required: []
+  Verblijfstitel-read:
+    properties:
+      uuid:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      datumEinde:
+        example: 01-01-2005
+      datumIngang:
+        example: 01-01-2004
+      inOnderzoek: []
+    required: []
+  Verblijfstitel-write:
+    properties:
+      datumEinde:
+        example: 01-01-2005
+      datumIngang:
+        example: 01-01-2004
+      inOnderzoek: []
+    required: []
+  Waardetabel-read:
+    properties:
+      id:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      code:
+        maxLength: 255
+      omschrijving:
+        maxLength: 255
+    required: []
+  Waardetabel-write:
+    properties:
+      code:
+        maxLength: 255
+      omschrijving:
+        maxLength: 255
+    required: []
 tags:
   -
     name: AangaanHuwelijkPartnerschap
     description: |
-      This is an example entity.
       
-      With an adtional description, all in all its pritty nice [url](www.google.nl)
+      
+      
+  -
+    name: Geboorte
+    description: |
+      
+      
+      
+  -
+    name: Gezagsverhouding
+    description: |
+      
+      
+      
+  -
+    name: Ingeschrevenpersoon
+    description: |
+      
+      
+      
+  -
+    name: Kind
+    description: |
+      
+      
+      
+  -
+    name: NaamPersoon
+    description: |
+      
+      
+      
+  -
+    name: Nationaliteit
+    description: |
+      
+      
+      
+  -
+    name: OpschortingBijhouding
+    description: |
+      
+      
+      
+  -
+    name: Ouder
+    description: |
+      
+      
+      
+  -
+    name: Overlijden
+    description: |
+      
+      
+      
+  -
+    name: Partner
+    description: |
+      
+      
+      
+  -
+    name: Reisdocument
+    description: |
+      
+      
+      
+  -
+    name: VerblijfBuitenland
+    description: |
+      
+      
+      
+  -
+    name: Verblijfplaats
+    description: |
+      
+      
+      
+  -
+    name: Verblijfstitel
+    description: |
+      
+      
+      
+  -
+    name: Waardetabel
+    description: |
+      
+      
+      
 securityDefinitions:
   JWT-Oauth:
     type: oauth2
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the ExampleEntity resource'
-      write: 'write right to the ExampleEntity resource'
+      read: 'read right to the Waardetabel resource'
+      write: 'write right to the Waardetabel resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the ExampleEntity resource'
-      write: 'write right to the ExampleEntity resource'
+      read: 'read right to the Waardetabel resource'
+      write: 'write right to the Waardetabel resource'
 host: irc.zaakonline.nl
 servers:
   -
