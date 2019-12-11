@@ -9746,6 +9746,17 @@ components:
           description: 'Geboorte of this Partner'
           $ref: '#/components/schemas/Geboorte-write'
     Reisdocument-read:
+        opschorting_bijhouding:
+          type: string
+        overlijden:
+          type: string
+        verblijfplaats:
+          type: string
+        gezagsverhouding:
+          type: string
+        verblijfstitel:
+          type: string
+    Kind:
       type: object
       description: ''
       properties:
