@@ -65,6 +65,7 @@ class AppFixtures extends Fixture
     	// Geboorte
     	$persoon->getGeboorte()->setLand($nederland);
     	$persoon->getGeboorte()->setPlaats($amsterdam);
+    	$persoon->getGeboorte()->setDatum(["year"=>"1985","month"=>"01","day"=>"01"]);
     	
     	$BSN900003509 = $persoon;
     	
@@ -104,6 +105,7 @@ class AppFixtures extends Fixture
     	// Geboorte
     	$persoon->getGeboorte()->setLand($nederland);
     	$persoon->getGeboorte()->setPlaats($amsterdam);
+    	$persoon->getGeboorte()->setDatum(["year"=>"1985","month"=>"01","day"=>"01"]);
     	
     	$BSN900003508 = $persoon;
     	
@@ -144,6 +146,7 @@ class AppFixtures extends Fixture
     	// Geboorte
     	$persoon->getGeboorte()->setLand($nederland);
     	$persoon->getGeboorte()->setPlaats($amsterdam);
+    	$persoon->getGeboorte()->setDatum(["year"=>"2000","month"=>"01","day"=>"01"]);
     	
     	$BSN900003510 = $persoon;
     	
