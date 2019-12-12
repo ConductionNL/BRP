@@ -220,7 +220,7 @@ class AppFixtures extends Fixture
             $voorletters = "";
 
             foreach($firstnamessplit as $firstname){
-                $voorletters .= $firstname[0].'.';
+                $voorletters .= substr($firstname, 0, 1).'.';
             }
 
             $ingeschrevenpersoon = new Ingeschrevenpersoon();
@@ -228,15 +228,17 @@ class AppFixtures extends Fixture
             $ingeschrevenpersoon->setNaam(new NaamPersoon());
             $ingeschrevenpersoon->setGeboorte(new Geboorte());
 
+            //var_dump($line[5]);
             $ingeschrevenpersoon->setBurgerservicenummer($line[5]);
             $ingeschrevenpersoon->setGeheimhoudingPersoonsgegevens(false);
             $ingeschrevenpersoon->setGeslachtsaanduiding('X');
             $ingeschrevenpersoon->setLeeftijd(null);
 
-            $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($line[14]);
-            $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($line[15]);
-            $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($line[12]);
-            $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($line[13]);
+
+            $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($line[13]);
+            $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($line[14]);
+            $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($line[11]);
+            $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($line[12]);
             $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
             $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
 
@@ -259,8 +261,16 @@ class AppFixtures extends Fixture
             $ingeschrevenpersoon->getGeboorte()->setPlaats($utrecht);
             try {
                 $geboortedatum = new DateTime($line[7]);
-                $ingeschrevenpersoon->getGeboorte()->setDatum($geboortedatum);
+                echo $geboortedatum->format('Y');
+                echo $geboortedatum->format('m');
+                echo $geboortedatum->format('d');
+                $ingeschrevenpersoon->getGeboorte()->setDatum(["year"=>$geboortedatum->format('Y'), "month"=>$geboortedatum->format('m'), "day"=>$geboortedatum->format('d')]);
             } catch (\Exception $e) {
+            }
+            if($line[18] == 'Ja'){
+                $ingeschrevenpersoon->setInOnderzoek(true);
+            }else{
+                $ingeschrevenpersoon->setInOnderzoek(false);
             }
 
             $manager->persist($nederland);
