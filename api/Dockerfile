@@ -40,6 +40,7 @@ RUN set -eux; \
 		zip \
 		mysqli \ 
 		pdo_mysql \
+		gd \
 	; \
 	pecl install \
 		apcu-${APCU_VERSION} \
@@ -103,6 +104,9 @@ RUN set -eux; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync
 VOLUME /srv/api/var
+
+# Now that we have our own composer lets update
+RUN composer update --no-interaction
 
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
