@@ -218,12 +218,12 @@ class AppFixtures extends Fixture
         return null;
     }
     public function iterateSpreadSheet(array $rows, int $highestRow, ObjectManager $manager){
-        print_r($highestRow.'\n
-        ');
+//        print_r($highestRow.'\n
+//        ');
         $i = 0;
         foreach($rows as $key=>$row) {
-            print_r($i . '
-            ');
+//            print_r($i . '
+//            ');
             if ($i == 0) {
                 //skip the first line that contains the column title
                 $i++;
@@ -233,7 +233,7 @@ class AppFixtures extends Fixture
                 break;
             else
             {
-                var_dump($row);
+//                var_dump($row);
                 $firstnamessplit = explode(" ", $row[2]);
                 $voorletters = "";
 
