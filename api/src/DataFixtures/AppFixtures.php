@@ -267,11 +267,12 @@ class AppFixtures extends Fixture
                 $ingeschrevenpersoon->getGeboorte()->setDatum(["year"=>$geboortedatum->format('Y'), "month"=>$geboortedatum->format('m'), "day"=>$geboortedatum->format('d')]);
             } catch (\Exception $e) {
             }
-            if($line[18] == 'Ja'){
-                $ingeschrevenpersoon->setInOnderzoek(true);
-            }else{
-                $ingeschrevenpersoon->setInOnderzoek(false);
-            }
+
+//            if($line[18] == 'Ja'){
+//                $ingeschrevenpersoon->setInOnderzoek(true);
+//            }else{
+//                $ingeschrevenpersoon->setInOnderzoek(false);
+//            }
 
             $manager->persist($nederland);
             $manager->persist($utrecht);

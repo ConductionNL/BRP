@@ -115,6 +115,11 @@
       <path value="$PROJECT_DIR$/api/vendor/psr/container" />
       <path value="$PROJECT_DIR$/api/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/api/vendor/composer" />
+      <path value="$PROJECT_DIR$/api/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/api/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/api/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/api/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/api/vendor/markbaker/matrix" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

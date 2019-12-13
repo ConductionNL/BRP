@@ -1,10 +1,10 @@
 openapi: 3.0.2
 info:
-  title: 'Proto Component'
+  title: 'Basis Registratie Personen'
   version: V.0.1
   description: |
     API Details
-    - Component: Proto Component
+    - Component: Basis Registratie Personen
     - Reference: brp
     - Enviroment: dev
     - Version: V.0.1

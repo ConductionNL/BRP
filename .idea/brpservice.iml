@@ -37,6 +37,8 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/lcobucci/jwt" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/league/html-to-markdown" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/lexik/jwt-authentication-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/markbaker/complex" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/markbaker/matrix" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/moneyphp/money" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/namshi/jose" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/nelmio/cors-bundle" />
@@ -45,14 +47,17 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpdocumentor/type-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpoffice/phpspreadsheet" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/psr/link" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/psr/simple-cache" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/ramsey/uuid" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/ramsey/uuid-doctrine" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/sensio/framework-extra-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/sensiolabs/security-checker" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/stof/doctrine-extensions-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/asset" />
