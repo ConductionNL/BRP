@@ -14,6 +14,7 @@ use App\Entity\Ouder;
 use App\Entity\Partner;
 use App\Entity\Waardetabel;
 use DateTime;
+use PhpOffice\PhpSpreadsheet;
 
 class AppFixtures extends Fixture
 {
@@ -201,84 +202,115 @@ class AppFixtures extends Fixture
     	$manager->persist($BSN900003510); // kind
         $manager->flush();
     }
-    public function load(ObjectManager $manager){
-        $csv = fopen(dirname(__FILE__).'/resources/PersonaGegevens.csv', 'r');
-
-
+    public function createReader() :PhpSpreadsheet\Reader\Xlsx
+    {
+        $reader = new PhpSpreadsheet\Reader\Xlsx();
+        $reader->setReadDataOnly(true);
+        return $reader;
+    }
+    public function loadXlsx(string $filename) :PhpSpreadsheet\Spreadsheet
+    {
+        $reader = $this->createReader();
+        try {
+            return $reader->load($filename);
+        } catch (PhpSpreadsheet\Reader\Exception $e) {
+        }
+        return null;
+    }
+    public function iterateSpreadSheet(array $rows, int $highestRow, ObjectManager $manager){
+        print_r($highestRow.'\n
+        ');
         $i = 0;
-        while(!feof($csv)){
-            $line = fgetcsv($csv);
-
-            if($i == 0)
-            {
+        foreach($rows as $key=>$row) {
+            print_r($i . '
+            ');
+            if ($i == 0) {
                 //skip the first line that contains the column title
                 $i++;
                 continue;
+
+            } elseif ($i >= $highestRow)
+                break;
+            else
+            {
+                var_dump($row);
+                $firstnamessplit = explode(" ", $row[2]);
+                $voorletters = "";
+
+                foreach($firstnamessplit as $firstname){
+                    $voorletters .= substr($firstname, 0, 1).'.';
+                }
+
+                $ingeschrevenpersoon = new Ingeschrevenpersoon();
+                $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
+                $ingeschrevenpersoon->setNaam(new NaamPersoon());
+                $ingeschrevenpersoon->setGeboorte(new Geboorte());
+
+                //var_dump($line[5]);
+                $ingeschrevenpersoon->setBurgerservicenummer($row[5]);
+                $ingeschrevenpersoon->setGeheimhoudingPersoonsgegevens(false);
+                $ingeschrevenpersoon->setGeslachtsaanduiding('X');
+                $ingeschrevenpersoon->setLeeftijd(null);
+
+
+                $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[13]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[14]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[11]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
+                $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
+
+                $voorvoegsel = ''.$row[4];
+                $ingeschrevenpersoon->getNaam()->setGeslachtsnaam($row[4].' '.$row[3]);
+                $ingeschrevenpersoon->getNaam()->setVoorvoegsel($voorvoegsel);
+                $ingeschrevenpersoon->getNaam()->setVoornamen($row[2]);
+                $ingeschrevenpersoon->getNaam()->setVoorletters($voorletters);
+                $ingeschrevenpersoon->getNaam()->setAanhef('');
+                $ingeschrevenpersoon->getNaam()->setAanschrijfwijze($voorletters.' '.$row[4].' '.$row[3]);
+                $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$row[4].' '.$row[3]);
+
+                $nederland = New Waardetabel();
+                $nederland->setCode('NL');
+                $nederland->setOmschrijving('Nederland');
+                $utrecht = New Waardetabel();
+                $utrecht->setCode('0344');
+                $utrecht->setOmschrijving('Utrecht');
+
+                $ingeschrevenpersoon->getGeboorte()->setLand($nederland);
+                $ingeschrevenpersoon->getGeboorte()->setPlaats($utrecht);
+                try {
+                    $geboortedatum = new DateTime($row[7]);
+                    echo $geboortedatum->format('Y');
+                    echo $geboortedatum->format('m');
+                    echo $geboortedatum->format('d');
+                    $ingeschrevenpersoon->getGeboorte()->setDatum(["year"=>$geboortedatum->format('Y'), "month"=>$geboortedatum->format('m'), "day"=>$geboortedatum->format('d')]);
+                } catch (\Exception $e) {
+                }
+
+    //            if($line[18] == 'Ja'){
+    //                $ingeschrevenpersoon->setInOnderzoek(true);
+    //            }else{
+    //                $ingeschrevenpersoon->setInOnderzoek(false);
+    //            }
+
+                $manager->persist($nederland);
+                $manager->persist($utrecht);
+                $manager->persist($ingeschrevenpersoon);
+                $i++;
             }
-
-            $firstnamessplit = explode(" ", $line[2]);
-            $voorletters = "";
-
-            foreach($firstnamessplit as $firstname){
-                $voorletters .= substr($firstname, 0, 1).'.';
-            }
-
-            $ingeschrevenpersoon = new Ingeschrevenpersoon();
-            $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
-            $ingeschrevenpersoon->setNaam(new NaamPersoon());
-            $ingeschrevenpersoon->setGeboorte(new Geboorte());
-
-            //var_dump($line[5]);
-            $ingeschrevenpersoon->setBurgerservicenummer($line[5]);
-            $ingeschrevenpersoon->setGeheimhoudingPersoonsgegevens(false);
-            $ingeschrevenpersoon->setGeslachtsaanduiding('X');
-            $ingeschrevenpersoon->setLeeftijd(null);
-
-
-            $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($line[13]);
-            $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($line[14]);
-            $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($line[11]);
-            $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($line[12]);
-            $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
-            $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
-
-            $ingeschrevenpersoon->getNaam()->setGeslachtsnaam($line[4].' '.$line[3]);
-            $ingeschrevenpersoon->getNaam()->setVoorvoegsel($line[4]);
-            $ingeschrevenpersoon->getNaam()->setVoornamen($line[2]);
-            $ingeschrevenpersoon->getNaam()->setVoorletters($voorletters);
-            $ingeschrevenpersoon->getNaam()->setAanhef('');
-            $ingeschrevenpersoon->getNaam()->setAanschrijfwijze($voorletters.' '.$line[4].' '.$line[3]);
-            $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$line[4].' '.$line[3]);
-
-            $nederland = New Waardetabel();
-            $nederland->setCode('NL');
-            $nederland->setOmschrijving('Nederland');
-            $utrecht = New Waardetabel();
-            $utrecht->setCode('0344');
-            $utrecht->setOmschrijving('Utrecht');
-
-            $ingeschrevenpersoon->getGeboorte()->setLand($nederland);
-            $ingeschrevenpersoon->getGeboorte()->setPlaats($utrecht);
-            try {
-                $geboortedatum = new DateTime($line[7]);
-                echo $geboortedatum->format('Y');
-                echo $geboortedatum->format('m');
-                echo $geboortedatum->format('d');
-                $ingeschrevenpersoon->getGeboorte()->setDatum(["year"=>$geboortedatum->format('Y'), "month"=>$geboortedatum->format('m'), "day"=>$geboortedatum->format('d')]);
-            } catch (\Exception $e) {
-            }
-
-//            if($line[18] == 'Ja'){
-//                $ingeschrevenpersoon->setInOnderzoek(true);
-//            }else{
-//                $ingeschrevenpersoon->setInOnderzoek(false);
-//            }
-
-            $manager->persist($nederland);
-            $manager->persist($utrecht);
-            $manager->persist($ingeschrevenpersoon);
-
         }
+    }
+    public function iterateSpreadSheets(string $filename, ObjectManager $manager){
+        $spreadsheet = $this->loadXlsx($filename);
+        $sheets = $spreadsheet->getAllSheets();
+
+        $sheet = $sheets[0];
+        $rows = $sheet->toArray();
+        $highestRow = $sheet->getHighestRow();
+        $this->iterateSpreadSheet($rows, $highestRow, $manager);
         $manager->flush();
+    }
+    public function load(ObjectManager $manager){
+        $this->iterateSpreadSheets(dirname(__FILE__).'/resources/PersonaGegevens.xlsx', $manager);
     }
 }
