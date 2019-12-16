@@ -17,7 +17,7 @@ use PhpOffice\PhpSpreadsheet;
 
 class AppFixtures extends Fixture
 {
-    public function loadDenBosch(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         /*
          *  Basis waarde tabel
@@ -199,6 +199,8 @@ class AppFixtures extends Fixture
         $manager->persist($BSN900003509); // vader
         $manager->persist($BSN900003510); // kind
         $manager->flush();
+
+        $this->loadFromExcel($manager);
     }
 
     public function createReader() :PhpSpreadsheet\Reader\Xlsx
@@ -316,7 +318,7 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    public function load(ObjectManager $manager)
+    public function loadFromExcel(ObjectManager $manager)
     {
         $this->iterateSpreadSheets(dirname(__FILE__).'/resources/PersonaGegevens.xlsx', $manager);
     }
