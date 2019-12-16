@@ -39,9 +39,9 @@ RUN set -eux; \
 		intl \
 		pdo_pgsql \
 		zip \
-		mysqli \ 
+		mysqli \
 		pdo_mysql \
-		pcntl \ 
+		pcntl \
 		gd \
 	; \
 	pecl install \
@@ -143,7 +143,7 @@ COPY --from=api_platform_php /srv/api/public public/
 # 		"varnish" stage 	#
 #############################
 # does not depend on any of the above stages, but placed here to keep everything in one Dockerfile
-#FROM cooptilleuls/varnish:${VARNISH_VERSION}-alpine AS api_platform_varnish 
+#FROM cooptilleuls/varnish:${VARNISH_VERSION}-alpine AS api_platform_varnish
 FROM eeacms/varnish AS api_platform_varnish
 #FROM varnish:6.3 AS api_platform_varnish
 
