@@ -5,45 +5,64 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\GeboorteRepository")
  * @Gedmo\Loggable
  */
 class Geboorte
 {
-	/**
-	 * @var \Ramsey\Uuid\UuidInterface
-	 *
-     * @Groups({"read", "write"})
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
+    /**
+     * @var UuidInterface
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
 	private $uuid;
 
     /**
-     * @todo nullable moet hier wel vanaf
+     * @var string $land Land this person is born in
+     * @example The Netherlands
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $land;
-    
+
     /**
-     * @todo nullable moet hier wel vanaf
+     * @var string $plaats Plaats this person is born in
+     * @example Amsterdam
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $plaats;
-    
+
     /**
+     * @var string $datum Datum this person is born at
+     * @example 01-01-2000
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate",nullable=true)
@@ -51,6 +70,7 @@ class Geboorte
     private $datum;
 
     /**
+     * @todo docblocks
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
@@ -58,7 +78,9 @@ class Geboorte
     private $inOnderzoek;
 
     /**
+     * @todo docblocks
      * @ORM\OneToMany(targetEntity="App\Entity\Ingeschrevenpersoon", mappedBy="geboorte")
+     * @MaxDepth(1)
      */
     private $ingeschrevenpersonen;
 
@@ -66,14 +88,14 @@ class Geboorte
     {
         $this->ingeschrevenpersonen = new ArrayCollection();
     }
-    
-    
+
+
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
     	return $this->uuid;
     }
-    
+
     public function getUuid(): ?string
     {
     	return $this->uuid;
@@ -95,23 +117,23 @@ class Geboorte
     {
     	return $this->land;
     }
-    
+
     public function setLand(?Waardetabel $land): self
     {
     	$this->land = $land;
-    	
+
     	return $this;
     }
-    
+
     public function getPlaats(): ?Waardetabel
     {
     	return $this->plaats;
     }
-    
+
     public function setPlaats(?Waardetabel $plaats): self
     {
     	$this->plaats = $plaats;
-    	
+
     	return $this;
     }
 

@@ -4,59 +4,92 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\AangaanHuwelijkPartnerschapRepository")
  * @Gedmo\Loggable
  */
 class AangaanHuwelijkPartnerschap
 {
-	/**
-	 * @var \Ramsey\Uuid\UuidInterface
-	 *
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
+    /**
+     * @var UuidInterface
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
 	private $uuid;
 
     /**
+     * @var string $datum Datum this huwelijk has been requested
+     * @example 01-01-2000
+     *
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate")
      */
     private $datum;
 
     /**
+     * @var string $land Land this huwelijk is in
+     * @example The Netherlands
+     *
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @MaxDepth(1)
      */
     private $land;
 
     /**
+     * @var string $plaats Plaats this huwelijk is in
+     * @example Amsterdam
+     *
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @MaxDepth(1)
      */
     private $plaats;
 
     /**
+     * @todo docblocks
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */
     private $inOnderzoek;
 
     /**
+     * @var Partner $partner Other partner of this huwelijk
+     * @example John
+     *
+     * @Groups({"read","write"})
      * @Gedmo\Versioned
      * @ORM\OneToOne(targetEntity="App\Entity\Partner", mappedBy="aangaanHuwelijkPartnerschap", cascade={"persist", "remove"})
+     * @MaxDepth(1)
      */
     private $partner;
-    
+
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
     	return $this->uuid;
     }
-    
+
     public function getUuid(): ?string
     {
     	return $this->uuid;
