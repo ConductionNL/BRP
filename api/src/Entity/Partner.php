@@ -72,6 +72,7 @@ class Partner
      * @Groups({"read", "write"})
      * @ORM\OneToOne(targetEntity="App\Entity\NaamPersoon", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
+     * @MaxDepth(1)
      */
     private $naam;
 

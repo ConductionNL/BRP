@@ -6,18 +6,16 @@ settings:
   registryBase: docker.io/conduction
   projectName: brp
   name: brp
-  title: Proto Component
+  title: Basis Registratie Personen
   version: V.0.1
   description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
   repro: 'https://github.com/ConductionNL/Proto-component-commonground'
   domain: conduction.nl  
   domains:
-    - domain: conduction.nl
-    - domain: zaakonline.nl
-    - domain: larping.eu
-    - domain: common-ground.dev
-    - domain: trouwplanner.online
-    - domain: huwelijksplanner.online
+    - conduction.nl
+    - zaakonline.nl
+    - huwelijksplanner.online
+    - common-ground.dev
   organisationName: Conduction
   email: info@conduction.nl
   country: Netherlands
@@ -29,7 +27,7 @@ settings:
   debug: 1
   replicaCount: 1
   corsAllowOrigin: ['*']
-  trustedHosts: '^(.+\.)?conduction\.nl$|^(.+\.)?huwelijksplanner\.online$|^(.+\.)?larping\.eu$|^(.+\.)?common-ground\.nl$|^(.+\.)?trouwplanner\.online$|^(.+\.)?zaakonline\.nl$|localhost'
+  trustedHosts: '^(.+\.)?conduction\.nl$|^(.+\.)?vng\.cloud$|^(.+\.)?huwelijksplanner\.online$|^(.+\.)?larping\.eu$|^(.+\.)?common-ground\.dev$|^(.+\.)?trouwplanner\.online$|^(.+\.)?zaakonline\.nl$|localhost'
   pullPolicy: Always
   # You will need these proxies on kubernetes
   trustedProxies:
