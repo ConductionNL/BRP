@@ -41,27 +41,46 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
 	{
 		$result = $event->getControllerResult();
 		$burgerservicenummer= $event->getRequest()->attributes->get('burgerservicenummer');
+		$contentType= $event->getRequest()->headers->get('accept');
+		if(!$contentType){
+			$contentType= $event->getRequest()->headers->get('Accept');			
+		}
 		$method = $event->getRequest()->getMethod();
+		
 				
 		// Lats make sure that some one posts correctly
 		if (Request::METHOD_GET !== $method || $event->getRequest()->get('_route') != 'api_ingeschrevenpersoons_get_on_bsn_collection') { 
 			return;
 		}
 		
-		
+		// Lets set a return content type
+		switch ($contentType) {
+			case 'application/json':
+				$renderType = "json";
+				break;
+			case 'application/ld+json':
+				$renderType= "jsonld";
+				break;
+			case 'application/hal+json':
+				$renderType= "jsonhal";
+				break;
+			default:
+				$contentType = 'application/json';
+				$renderType = "json";
+		}
 		
 		$result = $this->em->getRepository(Ingeschrevenpersoon::class)->findOneBy(array('burgerservicenummer' => $burgerservicenummer));
 		
 		// now we need to overide the normal subscriber
 		$json = $this->serializer->serialize(
 			$result,
-			'jsonhal',['enable_max_depth' => true]
+				$renderType,['enable_max_depth' => true]
 		);
 		
 		$response = new Response(
 				$json,
 				Response::HTTP_OK,
-				['content-type' => 'application/json+hal']
+				['content-type' => $contentType]
 				);
 		
 		$event->setResponse($response);
