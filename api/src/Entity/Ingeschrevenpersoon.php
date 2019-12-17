@@ -18,8 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     subresourceOperations={
  *          "api_ingeschrevenpersoons_kinderens_get_subresource"={
  *              "method"="GET",

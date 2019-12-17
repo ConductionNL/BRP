@@ -29,6 +29,7 @@ RUN set -eux; \
 		$PHPIZE_DEPS \
 		icu-dev \
 		libzip-dev \
+		libpng-dev \
 		postgresql-dev \
 		zlib-dev \
 	; \
@@ -38,8 +39,10 @@ RUN set -eux; \
 		intl \
 		pdo_pgsql \
 		zip \
-		mysqli \ 
+		mysqli \
 		pdo_mysql \
+		pcntl \
+		gd \
 	; \
 	pecl install \
 		apcu-${APCU_VERSION} \
@@ -104,6 +107,9 @@ RUN set -eux; \
 	chmod +x bin/console; sync
 VOLUME /srv/api/var
 
+# Now that we have our own composer lets update
+RUN composer update --no-interaction
+
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
@@ -137,7 +143,7 @@ COPY --from=api_platform_php /srv/api/public public/
 # 		"varnish" stage 	#
 #############################
 # does not depend on any of the above stages, but placed here to keep everything in one Dockerfile
-#FROM cooptilleuls/varnish:${VARNISH_VERSION}-alpine AS api_platform_varnish 
+#FROM cooptilleuls/varnish:${VARNISH_VERSION}-alpine AS api_platform_varnish
 FROM eeacms/varnish AS api_platform_varnish
 #FROM varnish:6.3 AS api_platform_varnish
 
