@@ -44,6 +44,11 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		$result = $event->getControllerResult();
 		$method = $event->getRequest()->getMethod();
 		
+		$contentType= $event->getRequest()->headers->get('accept');
+		if(!$contentType){
+			$contentType= $event->getRequest()->headers->get('Accept');
+		}
+		
 		//var_dump( $event->getRequest()->get('_route'));
 				
 		// Lats make sure that some one posts correctly
@@ -89,34 +94,58 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		    ->where($qb->expr()->orX(
 		        $qb->expr()->eq('k.burgerservicenummer', ':familieEerstegraad'),
 		        $qb->expr()->eq('p.burgerservicenummer', ':familieEerstegraad'),
-		        $qb->expr()->eq('o.burgerservicenummer', ':familieEerstegraad'),
+		        $qb->expr()->eq('o.burgerservicenummer', ':familieEerstegraad')
 		        ))
 		        ->setParameter('familieEerstegraad', $familieEerstegraad);
 		}
 		
+		
+		
+		// Lets set a return content type
+		switch ($contentType) {
+			case 'application/json':
+				$renderType = "json";
+				break;
+			case 'application/ld+json':
+				$renderType= "jsonld";
+				break;
+			case 'application/hal+json':
+				$renderType= "jsonhal";
+				break;
+			default:
+				$contentType = 'application/json';
+				$renderType = "json";
+		}
+		
 		//
 		$results = $qb->getQuery()->getResult();
-		// Lets extend 
-		$response = [];
-		$response['_links'] = [];
-		$response['_links']['self'] = [];
-		$response['_links']['items'] = [];
-		$response['_links']['self']['href'] =  "/ingeschrevenpersonen"; /*todo dynamisch maken */
-		$response['_embedded'] = [];
-		$response['_embedded']['item'] = $results;
-		$response['totalItems'] = count($results);
-		$response['itemsPerPage'] = 30;
+		
+		if($renderType == "jsonld"){
+			// Lets extend 
+			$response = [];
+			$response['_links'] = [];
+			$response['_links']['self'] = [];
+			$response['_links']['items'] = [];
+			$response['_links']['self']['href'] =  "/ingeschrevenpersonen"; /*todo dynamisch maken */
+			$response['_embedded'] = [];
+			$response['_embedded']['item'] = $results;
+			$response['totalItems'] = count($results);
+			$response['itemsPerPage'] = 30;
+		}
+		else{
+			$response = $results;
+		}
 		
 		// now we need to overide the normal subscriber
 		$json = $this->serializer->serialize(
 		    $response,
-			'jsonhal',['enable_max_depth' => true]
+			$renderType,['enable_max_depth' => true]
 		);
 		
 		$response = new Response(
 				$json,
 				Response::HTTP_OK,
-				['content-type' => 'application/json+hal']
+				['content-type' => $contentType]
 				);
 		
 		$event->setResponse($response);
