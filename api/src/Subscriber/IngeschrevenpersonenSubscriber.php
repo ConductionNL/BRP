@@ -45,11 +45,12 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		$method = $event->getRequest()->getMethod();
 		
 		$contentType= $event->getRequest()->headers->get('accept');
+		
 		if(!$contentType){
 			$contentType= $event->getRequest()->headers->get('Accept');
 		}
 		
-		//var_dump( $event->getRequest()->get('_route'));
+		//var_dump( $event->getRequest()->get('_route')); dsadds adsaadsaadsa
 				
 		// Lats make sure that some one posts correctly
 		if (Request::METHOD_GET !== $method || $event->getRequest()->get('_route') != 'api_ingeschrevenpersoons_get_collection') { 
@@ -99,8 +100,6 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		        ->setParameter('familieEerstegraad', $familieEerstegraad);
 		}
 		
-		
-		
 		// Lets set a return content type
 		switch ($contentType) {
 			case 'application/json':
@@ -120,27 +119,14 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		//
 		$results = $qb->getQuery()->getResult();
 		
-		if($renderType == "jsonld"){
-			// Lets extend 
-			$response = [];
-			$response['_links'] = [];
-			$response['_links']['self'] = [];
-			$response['_links']['items'] = [];
-			$response['_links']['self']['href'] =  "/ingeschrevenpersonen"; /*todo dynamisch maken */
-			$response['_embedded'] = [];
-			$response['_embedded']['item'] = $results;
-			$response['totalItems'] = count($results);
-			$response['itemsPerPage'] = 30;
-		}
-		else{
-			$response = $results;
-		}
+		
 		
 		// now we need to overide the normal subscriber
 		$json = $this->serializer->serialize(
-		    $response,
-			$renderType,['enable_max_depth' => true]
+			$results,
+			$renderType, ['enable_max_depth' => true]
 		);
+		
 		
 		$response = new Response(
 				$json,
