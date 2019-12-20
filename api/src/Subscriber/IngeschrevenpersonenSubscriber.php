@@ -60,7 +60,7 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		$expand = $event->getRequest()->query->get('expand');
 		$fields = $event->getRequest()->query->get('fields');
 		$burgerservicenummer = strval ($event->getRequest()->query->get('burgerservicenummer'));
-		$familieEerstegraad =  strval ($event->getRequest()->query->get('familie__eerstegraad'));
+		$familieEerstegraad =  strval ($event->getRequest()->query->get('familie_eerstegraad'));
 		//$familieTweedegraad = strval ($event->getRequest()->query->get('familie_tweedegraad'));
 		//$familieDerdegraad = strval ($event->getRequest()->query->get('familie_derdegraad'));
 		//$familieVierdegraad = strval ($event->getRequest()->query->get('familie_vierdegraad'));
@@ -88,11 +88,19 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		    
 		}
 		
+		if($verblijfplaatsIdentificatiecodenummeraanduiding){
+			
+			$qb
+			->andWhere('v.bagId = :verblijfplaatsIdentificatiecodenummeraanduiding')
+			->setParameter('verblijfplaatsIdentificatiecodenummeraanduiding', $verblijfplaatsIdentificatiecodenummeraanduiding);
+			
+		}
+		
 		if($familieEerstegraad){
 		    $qb->leftJoin('i.kinderen', 'k')
 		    ->leftJoin('i.partners', 'p')
 		    ->leftJoin('i.ouders', 'o')
-		    ->where($qb->expr()->orX(
+		    ->andWhere($qb->expr()->orX(
 		        $qb->expr()->eq('k.burgerservicenummer', ':familieEerstegraad'),
 		        $qb->expr()->eq('p.burgerservicenummer', ':familieEerstegraad'),
 		        $qb->expr()->eq('o.burgerservicenummer', ':familieEerstegraad')
@@ -135,6 +143,7 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 				);
 		
 		$event->setResponse($response);
+		
 		
 		return;
 	}	
