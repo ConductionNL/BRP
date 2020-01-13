@@ -3,16 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -229,6 +225,7 @@ class Ingeschrevenpersoon
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -237,10 +234,11 @@ class Ingeschrevenpersoon
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $id;
+    private $id;
 
     /**
-     * @var string $burgerservicenummer Burgerservicenummer of this ingeschreven persoon
+     * @var string Burgerservicenummer of this ingeschreven persoon
+     *
      * @example 123456782
      *
      * @Groups({"read", "write"})
@@ -251,32 +249,35 @@ class Ingeschrevenpersoon
      *     max = 9
      * )
      */
-	private $burgerservicenummer;
-
-	/**
-     * @var string $naam Naam of this ingeschreven persoon
-     * @example John
-     *
-	 * @Groups({"read", "write"})
-	 * @ORM\ManyToOne(targetEntity="App\Entity\NaamPersoon", inversedBy="ingeschrevenpersonen", cascade={"persist", "remove"})
-	 * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
-     * @MaxDepth(1)
-	 */
-	private $naam;
-
-	/**
-     * @var Geboorte $geboorte Geboorte of this ingeschreven persoon
-     * @example 01-01-2000
-     *
-	 * @Groups({"read", "write"})
-	 * @ORM\ManyToOne(targetEntity="App\Entity\Geboorte", inversedBy="ingeschrevenpersonen", cascade={"persist", "remove"})
-	 * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
-     * @MaxDepth(1)
-	 */
-	private $geboorte;
+    private $burgerservicenummer;
 
     /**
-     * @var boolean $geheimhoudingPersoonsgegevens Geheim houding persoongegevens of this ingeschreven persoon
+     * @var string Naam of this ingeschreven persoon
+     *
+     * @example John
+     *
+     * @Groups({"read", "write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\NaamPersoon", inversedBy="ingeschrevenpersonen", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
+     * @MaxDepth(1)
+     */
+    private $naam;
+
+    /**
+     * @var Geboorte Geboorte of this ingeschreven persoon
+     *
+     * @example 01-01-2000
+     *
+     * @Groups({"read", "write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Geboorte", inversedBy="ingeschrevenpersonen", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
+     * @MaxDepth(1)
+     */
+    private $geboorte;
+
+    /**
+     * @var bool Geheim houding persoongegevens of this ingeschreven persoon
+     *
      * @example true
      *
      * @Groups({"read", "write"})
@@ -288,7 +289,8 @@ class Ingeschrevenpersoon
     private $geheimhoudingPersoonsgegevens;
 
     /**
-     * @var string $geheimhoudingPersoonsgegevens Geslachts aanduiding of this ingeschreven persoon
+     * @var string Geslachts aanduiding of this ingeschreven persoon
+     *
      * @example male
      *
      * @Groups({"read", "write"})
@@ -302,7 +304,8 @@ class Ingeschrevenpersoon
     private $geslachtsaanduiding;
 
     /**
-     * @var integer $leeftijd Leeftijd of this ingeschreven persoon
+     * @var int Leeftijd of this ingeschreven persoon
+     *
      * @example 18
      *
      * @Groups({"read", "write"})
@@ -313,7 +316,8 @@ class Ingeschrevenpersoon
     private $leeftijd;
 
     /**
-     * @var string $datumEersteInschrijvingGBA Datum eerste inschrijving gba of this ingeschreven persoon
+     * @var string Datum eerste inschrijving gba of this ingeschreven persoon
+     *
      * @example 01-01-2000
      *
      * @Groups({"read", "write"})
@@ -338,7 +342,8 @@ class Ingeschrevenpersoon
     private $inOnderzoek;
 
     /**
-     * @var string $nationaliteit Nationaliteit of this ingeschreven persoon
+     * @var string Nationaliteit of this ingeschreven persoon
+     *
      * @example Dutch
      *
      * @Groups({"read", "write"})
@@ -356,7 +361,8 @@ class Ingeschrevenpersoon
     private $opschortingBijhouding;
 
     /**
-     * @var Overlijden $overlijden Checks if ingeschreven persoon is overlijden
+     * @var Overlijden Checks if ingeschreven persoon is overlijden
+     *
      * @example false
      *
      * @Groups({"read", "write"})
@@ -367,7 +373,8 @@ class Ingeschrevenpersoon
     private $overlijden;
 
     /**
-     * @var Overlijden $overlijden Checks if ingeschreven persoon is overlijden
+     * @var Overlijden Checks if ingeschreven persoon is overlijden
+     *
      * @example false
      *
      * @Groups({"read", "write"})
@@ -389,7 +396,7 @@ class Ingeschrevenpersoon
 
     /**
      * @todo docblocks
-     * 
+     *
      * @Groups({"read", "write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Verblijfstitel", inversedBy="ingeschrevenpersoon", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
@@ -398,7 +405,8 @@ class Ingeschrevenpersoon
     private $verblijfstitel;
 
     /**
-     * @var Ouder $ouders Ouders of ingeschreven persoon
+     * @var Ouder Ouders of ingeschreven persoon
+     *
      * @example James, Jessica
      *
      * @ORM\OneToMany(targetEntity="App\Entity\Ouder", mappedBy="ingeschrevenpersoon", orphanRemoval=true, cascade={"persist", "remove"})
@@ -407,7 +415,8 @@ class Ingeschrevenpersoon
     private $ouders;
 
     /**
-     * @var Kind $kinderen Kinderen of ingeschreven persoon
+     * @var Kind Kinderen of ingeschreven persoon
+     *
      * @example John
      *
      * @ORM\OneToMany(targetEntity="App\Entity\Kind", mappedBy="ingeschrevenpersoon", orphanRemoval=true, cascade={"persist", "remove"})
@@ -416,7 +425,8 @@ class Ingeschrevenpersoon
     private $kinderen;
 
     /**
-     * @var Partner $partners Partner of ingeschreven persoon
+     * @var Partner Partner of ingeschreven persoon
+     *
      * @example Mike
      *
      * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="ingeschrevenpersoon", orphanRemoval=true, cascade={"persist", "remove"})
@@ -435,7 +445,7 @@ class Ingeschrevenpersoon
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->id;
+        return $this->id;
     }
 
     public function getBurgerservicenummer(): ?string
