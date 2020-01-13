@@ -46,7 +46,8 @@ class AppFixtures extends Fixture
         $persoon->setGeslachtsaanduiding('Man');
         $persoon->setLeeftijd(22);
 
-        // Adres gegevens
+        // Adres gegevensv
+        $persoon->getVerblijfplaats()->setBagId(123456789);
         $persoon->getVerblijfplaats()->setPostcode('1012RJ');
         $persoon->getVerblijfplaats()->setWoonplaatsnaam('Amsterdam');
         $persoon->getVerblijfplaats()->setStraatnaam('Nieuwezijds Voorburgwal ');
@@ -87,6 +88,7 @@ class AppFixtures extends Fixture
         $persoon->setLeeftijd(23);
 
         // Adres gegevens
+        $persoon->getVerblijfplaats()->setBagId(123456789);
         $persoon->getVerblijfplaats()->setPostcode('1012RJ');
         $persoon->getVerblijfplaats()->setWoonplaatsnaam('Amsterdam');
         $persoon->getVerblijfplaats()->setStraatnaam('Nieuwezijds Voorburgwal ');
@@ -127,6 +129,7 @@ class AppFixtures extends Fixture
         $persoon->setLeeftijd(5);
 
         // Adres gegevens
+        $persoon->getVerblijfplaats()->setBagId(123456789);
         $persoon->getVerblijfplaats()->setPostcode('1012RJ');
         $persoon->getVerblijfplaats()->setWoonplaatsnaam('Amsterdam');
         $persoon->getVerblijfplaats()->setStraatnaam('Nieuwezijds Voorburgwal ');
