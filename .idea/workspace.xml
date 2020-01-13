@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="088d83b4-471b-4061-a305-5e3c1cd32cf0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/brpservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/brpservice.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/.env" beforeDir="false" afterPath="$PROJECT_DIR$/api/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/api/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/api/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/api/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/helm/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api/helm/values.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/public/schema/openapi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api/public/schema/openapi.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/api/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/DataFixtures/resources/PersonaGegevens.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/DataFixtures/resources/PersonaGegevens.xlsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -189,6 +181,8 @@
       <workItem from="1574770780191" duration="4500000" />
       <workItem from="1575443613282" duration="255000" />
       <workItem from="1576224406986" duration="2876000" />
+      <workItem from="1576509677868" duration="871000" />
+      <workItem from="1576832342277" duration="636000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed language errors in Installation.md">
       <created>1573726496674</created>
@@ -351,7 +345,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576163756627</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Added loading from excel to general loading procedure.">
+      <created>1576509894864</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1576509894865</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,6 +394,7 @@
     <MESSAGE value="Test with release name" />
     <MESSAGE value="(semi) definitive fix for rollout issue" />
     <MESSAGE value="Finished csv-version for setting data fixtures" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished csv-version for setting data fixtures" />
+    <MESSAGE value="Added loading from excel to general loading procedure." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added loading from excel to general loading procedure." />
   </component>
 </project>
