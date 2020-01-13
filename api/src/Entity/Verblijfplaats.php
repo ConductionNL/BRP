@@ -247,7 +247,7 @@ class Verblijfplaats
      *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
-     * @ORM\Column(type="incompleteDate", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $gemeenteVanInschrijving;
 
