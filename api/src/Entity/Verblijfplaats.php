@@ -293,6 +293,15 @@ class Verblijfplaats
      */
     private $ingeschrevenpersoon;
 
+    /**
+     * @todo docblocks
+     *
+     * @Groups({"read", "write"})
+     * @Gedmo\Versioned
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $bagId;
+
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
@@ -581,6 +590,18 @@ class Verblijfplaats
     	if ($this !== $ingeschrevenpersoon->getVerblijfplaats()) {
     		$ingeschrevenpersoon->setVerblijfplaats($this);
         }
+
+        return $this;
+    }
+
+    public function getBagId(): ?int
+    {
+        return $this->bagId;
+    }
+
+    public function setBagId(?int $bagId): self
+    {
+        $this->bagId = $bagId;
 
         return $this;
     }

@@ -44,7 +44,13 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		$result = $event->getControllerResult();
 		$method = $event->getRequest()->getMethod();
 		
-		//var_dump( $event->getRequest()->get('_route'));
+		$contentType= $event->getRequest()->headers->get('accept');
+		
+		if(!$contentType){
+			$contentType= $event->getRequest()->headers->get('Accept');
+		}
+		
+		//var_dump( $event->getRequest()->get('_route')); dsadds adsaadsaadsa
 				
 		// Lats make sure that some one posts correctly
 		if (Request::METHOD_GET !== $method || $event->getRequest()->get('_route') != 'api_ingeschrevenpersoons_get_collection') { 
@@ -54,7 +60,7 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		$expand = $event->getRequest()->query->get('expand');
 		$fields = $event->getRequest()->query->get('fields');
 		$burgerservicenummer = strval ($event->getRequest()->query->get('burgerservicenummer'));
-		$familieEerstegraad =  strval ($event->getRequest()->query->get('familie__eerstegraad'));
+		$familieEerstegraad =  strval ($event->getRequest()->query->get('familie_eerstegraad'));
 		//$familieTweedegraad = strval ($event->getRequest()->query->get('familie_tweedegraad'));
 		//$familieDerdegraad = strval ($event->getRequest()->query->get('familie_derdegraad'));
 		//$familieVierdegraad = strval ($event->getRequest()->query->get('familie_vierdegraad'));
@@ -82,44 +88,62 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
 		    
 		}
 		
+		if($verblijfplaatsIdentificatiecodenummeraanduiding){
+			
+			$qb
+			->andWhere('v.bagId = :verblijfplaatsIdentificatiecodenummeraanduiding')
+			->setParameter('verblijfplaatsIdentificatiecodenummeraanduiding', $verblijfplaatsIdentificatiecodenummeraanduiding);
+			
+		}
+		
 		if($familieEerstegraad){
 		    $qb->leftJoin('i.kinderen', 'k')
 		    ->leftJoin('i.partners', 'p')
 		    ->leftJoin('i.ouders', 'o')
-		    ->where($qb->expr()->orX(
+		    ->andWhere($qb->expr()->orX(
 		        $qb->expr()->eq('k.burgerservicenummer', ':familieEerstegraad'),
 		        $qb->expr()->eq('p.burgerservicenummer', ':familieEerstegraad'),
-		        $qb->expr()->eq('o.burgerservicenummer', ':familieEerstegraad'),
+		        $qb->expr()->eq('o.burgerservicenummer', ':familieEerstegraad')
 		        ))
 		        ->setParameter('familieEerstegraad', $familieEerstegraad);
 		}
 		
+		// Lets set a return content type
+		switch ($contentType) {
+			case 'application/json':
+				$renderType = "json";
+				break;
+			case 'application/ld+json':
+				$renderType= "jsonld";
+				break;
+			case 'application/hal+json':
+				$renderType= "jsonhal";
+				break;
+			default:
+				$contentType = 'application/json';
+				$renderType = "json";
+		}
+		
 		//
 		$results = $qb->getQuery()->getResult();
-		// Lets extend 
-		$response = [];
-		$response['_links'] = [];
-		$response['_links']['self'] = [];
-		$response['_links']['items'] = [];
-		$response['_links']['self']['href'] =  "/ingeschrevenpersonen"; /*todo dynamisch maken */
-		$response['_embedded'] = [];
-		$response['_embedded']['item'] = $results;
-		$response['totalItems'] = count($results);
-		$response['itemsPerPage'] = 30;
+		
+		
 		
 		// now we need to overide the normal subscriber
 		$json = $this->serializer->serialize(
-		    $response,
-			'jsonhal',['enable_max_depth' => true]
+			$results,
+			$renderType, ['enable_max_depth' => true]
 		);
+		
 		
 		$response = new Response(
 				$json,
 				Response::HTTP_OK,
-				['content-type' => 'application/json+hal']
+				['content-type' => $contentType]
 				);
 		
 		$event->setResponse($response);
+		
 		
 		return;
 	}	

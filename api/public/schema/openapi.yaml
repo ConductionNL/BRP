@@ -9302,7 +9302,7 @@ components:
         plaats:
           description: 'Plaats this huwelijk is in'
           $ref: '#/components/schemas/Waardetabel-read'
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         partner:
           description: 'Other partner of this huwelijk'
           $ref: '#/components/schemas/Partner-read'
@@ -9319,7 +9319,7 @@ components:
         plaats:
           description: 'Plaats this huwelijk is in'
           $ref: '#/components/schemas/Waardetabel-write'
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         partner:
           description: 'Other partner of this huwelijk'
           $ref: '#/components/schemas/Partner-write'
@@ -9339,7 +9339,7 @@ components:
         datum:
           description: 'Datum this person is born at'
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
     Geboorte-write:
       type: object
       description: ''
@@ -9353,7 +9353,7 @@ components:
         datum:
           description: 'Datum this person is born at'
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
     Gezagsverhouding-read:
       type: object
       description: ''
@@ -9361,24 +9361,24 @@ components:
         uuid:
           readOnly: true
           type: string
-        indicatieCurateleRegister:
+        indicatie_curatele_register:
           type: boolean
-        indicatieGezagMinderjarige:
+        indicatie_gezag_minderjarige:
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
       required:
-        - indicatieCurateleRegister
+        - indicatie_curatele_register
     Gezagsverhouding-write:
       type: object
       description: ''
       required:
-        - indicatieCurateleRegister
+        - indicatie_curatele_register
       properties:
-        indicatieCurateleRegister:
+        indicatie_curatele_register:
           type: boolean
-        indicatieGezagMinderjarige:
+        indicatie_gezag_minderjarige:
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
     Ingeschrevenpersoon-read:
       type: object
       description: ''
@@ -9395,7 +9395,7 @@ components:
         geboorte:
           description: 'Geboorte of this ingeschreven persoon'
           $ref: '#/components/schemas/Geboorte-read'
-        geheimhoudingPersoonsgegevens:
+        geheimhouding_persoonsgegevens:
           description: 'Geheim houding persoongegevens of this ingeschreven persoon'
           type: boolean
         geslachtsaanduiding:
@@ -9404,18 +9404,18 @@ components:
         leeftijd:
           description: 'Leeftijd of this ingeschreven persoon'
           type: integer
-        datumEersteInschrijvingGBA:
+        datum_eerste_inschrijving_g_b_a:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
         kiesrecht:
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         nationaliteit:
           description: 'Nationaliteit of this ingeschreven persoon'
           type: array
           items:
             $ref: '#/components/schemas/Nationaliteit-read'
-        opschortingBijhouding:
+        opschorting_bijhouding:
           $ref: '#/components/schemas/OpschortingBijhouding-read'
         overlijden:
           description: 'Checks if ingeschreven persoon is overlijden'
@@ -9429,14 +9429,14 @@ components:
           $ref: '#/components/schemas/Verblijfstitel-read'
       required:
         - burgerservicenummer
-        - geheimhoudingPersoonsgegevens
+        - geheimhouding_persoonsgegevens
         - geslachtsaanduiding
     Ingeschrevenpersoon-write:
       type: object
       description: ''
       required:
         - burgerservicenummer
-        - geheimhoudingPersoonsgegevens
+        - geheimhouding_persoonsgegevens
         - geslachtsaanduiding
       properties:
         burgerservicenummer:
@@ -9448,7 +9448,7 @@ components:
         geboorte:
           description: 'Geboorte of this ingeschreven persoon'
           $ref: '#/components/schemas/Geboorte-write'
-        geheimhoudingPersoonsgegevens:
+        geheimhouding_persoonsgegevens:
           description: 'Geheim houding persoongegevens of this ingeschreven persoon'
           type: boolean
         geslachtsaanduiding:
@@ -9457,18 +9457,18 @@ components:
         leeftijd:
           description: 'Leeftijd of this ingeschreven persoon'
           type: integer
-        datumEersteInschrijvingGBA:
+        datum_eerste_inschrijving_g_b_a:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
         kiesrecht:
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         nationaliteit:
           description: 'Nationaliteit of this ingeschreven persoon'
           type: array
           items:
             $ref: '#/components/schemas/Nationaliteit-write'
-        opschortingBijhouding:
+        opschorting_bijhouding:
           $ref: '#/components/schemas/OpschortingBijhouding-write'
         overlijden:
           description: 'Checks if ingeschreven persoon is overlijden'
@@ -9490,7 +9490,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         naam:
           description: 'NaamPersoon of this kind'
           $ref: '#/components/schemas/NaamPersoon-read'
@@ -9504,7 +9504,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         naam:
           description: 'NaamPersoon of this kind'
           $ref: '#/components/schemas/NaamPersoon-write'
@@ -9530,13 +9530,13 @@ components:
         voorvoegsel:
           description: 'Voorvoegsel of this NaamPersoon'
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         aanhef:
           description: 'Aanhef of this NaamPersoon'
           type: string
         aanschrijfwijze:
           type: string
-        gebuikInLopendeTekst:
+        gebuik_in_lopende_tekst:
           description: 'Geslachtsnaam of this NaamPersoon'
           type: string
       required:
@@ -9545,7 +9545,7 @@ components:
         - voornamen
         - voorvoegsel
         - aanhef
-        - gebuikInLopendeTekst
+        - gebuik_in_lopende_tekst
     NaamPersoon-write:
       type: object
       description: ''
@@ -9555,7 +9555,7 @@ components:
         - voornamen
         - voorvoegsel
         - aanhef
-        - gebuikInLopendeTekst
+        - gebuik_in_lopende_tekst
       properties:
         geslachtsnaam:
           description: 'Geslachtsnaam of this NaamPersoon'
@@ -9569,13 +9569,13 @@ components:
         voorvoegsel:
           description: 'Voorvoegsel of this NaamPersoon'
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         aanhef:
           description: 'Aanhef of this NaamPersoon'
           type: string
         aanschrijfwijze:
           type: string
-        gebuikInLopendeTekst:
+        gebuik_in_lopende_tekst:
           description: 'Geslachtsnaam of this NaamPersoon'
           type: string
     Nationaliteit-read:
@@ -9633,29 +9633,29 @@ components:
         geslachtsaanduiding:
           description: 'Geslachts aanduiding of this Ouder'
           type: string
-        ouderAanduiding:
+        ouder_aanduiding:
           type: string
-        datumIngangFamilierechtelijkeBetreking:
+        datum_ingang_familierechtelijke_betreking:
           description: 'Burgerservicenummer of this Ouder'
           type: string
         naam:
           description: 'Naam of this Ouder'
           $ref: '#/components/schemas/NaamPersoon-read'
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         geboorte:
           description: 'Geboorte of this Ouder'
           $ref: '#/components/schemas/Geboorte-read'
       required:
         - burgerservicenummer
         - geslachtsaanduiding
-        - ouderAanduiding
+        - ouder_aanduiding
     Ouder-write:
       type: object
       description: ''
       required:
         - burgerservicenummer
         - geslachtsaanduiding
-        - ouderAanduiding
+        - ouder_aanduiding
       properties:
         burgerservicenummer:
           description: 'Burgerservicenummer of this Ouder'
@@ -9663,15 +9663,15 @@ components:
         geslachtsaanduiding:
           description: 'Geslachts aanduiding of this Ouder'
           type: string
-        ouderAanduiding:
+        ouder_aanduiding:
           type: string
-        datumIngangFamilierechtelijkeBetreking:
+        datum_ingang_familierechtelijke_betreking:
           description: 'Burgerservicenummer of this Ouder'
           type: string
         naam:
           description: 'Naam of this Ouder'
           $ref: '#/components/schemas/NaamPersoon-write'
-        inOnderzoek: {  }
+        in_onderzoek: {  }
         geboorte:
           description: 'Geboorte of this Ouder'
           $ref: '#/components/schemas/Geboorte-write'
@@ -9682,28 +9682,28 @@ components:
         uuid:
           readOnly: true
           type: string
-        indicatieOverleden:
+        indicatie_overleden:
           description: 'Indicatie overleden of this Overlijden'
           type: boolean
         datum:
           description: 'Datum of this Overlijden'
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
       required:
-        - indicatieOverleden
+        - indicatie_overleden
     Overlijden-write:
       type: object
       description: ''
       required:
-        - indicatieOverleden
+        - indicatie_overleden
       properties:
-        indicatieOverleden:
+        indicatie_overleden:
           description: 'Indicatie overleden of this Overlijden'
           type: boolean
         datum:
           description: 'Datum of this Overlijden'
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
     Partner-read:
       type: object
       description: ''
@@ -9752,22 +9752,22 @@ components:
         id:
           readOnly: true
           type: string
-        aanduidingInhoudingOfVermissing:
+        aanduiding_inhouding_of_vermissing:
           type: string
         reisdocumentnummer:
           description: 'Reisdocumentnummer of this Reisdocument'
           type: string
       required:
-        - aanduidingInhoudingOfVermissing
+        - aanduiding_inhouding_of_vermissing
         - reisdocumentnummer
     Reisdocument-write:
       type: object
       description: ''
       required:
-        - aanduidingInhoudingOfVermissing
+        - aanduiding_inhouding_of_vermissing
         - reisdocumentnummer
       properties:
-        aanduidingInhoudingOfVermissing:
+        aanduiding_inhouding_of_vermissing:
           type: string
         reisdocumentnummer:
           description: 'Reisdocumentnummer of this Reisdocument'
@@ -9778,11 +9778,11 @@ components:
       properties:
         adresregel1:
           type: string
-        adresRegel2:
+        adres_regel2:
           type: string
-        adresRegel3:
+        adres_regel3:
           type: string
-        vertrokkenOnbekendWaarheen:
+        vertrokken_onbekend_waarheen:
           type: boolean
     VerblijfBuitenland-write:
       type: object
@@ -9790,11 +9790,11 @@ components:
       properties:
         adresregel1:
           type: string
-        adresRegel2:
+        adres_regel2:
           type: string
-        adresRegel3:
+        adres_regel3:
           type: string
-        vertrokkenOnbekendWaarheen:
+        vertrokken_onbekend_waarheen:
           type: boolean
     Verblijfplaats-read:
       type: object
@@ -9803,9 +9803,9 @@ components:
         uuid:
           readOnly: true
           type: string
-        aanduidingBijHuisnummer:
+        aanduiding_bij_huisnummer:
           type: string
-        funtieAdres:
+        funtie_adres:
           type: string
         huisletter:
           description: 'Huisletter of this Verblijfplaats'
@@ -9816,16 +9816,16 @@ components:
         huisnummertoevoeging:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
-        identificatiecodeNummeraanduiding:
+        identificatiecode_nummeraanduiding:
           type: string
-        identificatiecodeVerblijfplaats:
+        identificatiecode_verblijfplaats:
           type: string
-        indentificatieVestigingVanuitBuitenland:
+        indentificatie_vestiging_vanuit_buitenland:
           type: boolean
         locatiebeschrijving:
           description: 'Locatiebeschrijving of this Verblijfplaats'
           type: string
-        naamOpenbareRuimte:
+        naam_openbare_ruimte:
           type: string
         postcode:
           description: 'Postcode of this Verblijfplaats'
@@ -9833,40 +9833,40 @@ components:
         straatnaam:
           description: 'Straatnaam of this Verblijfplaats'
           type: string
-        vanuitVertrokkenOnbekendWaarheen:
+        vanuit_vertrokken_onbekend_waarheen:
           type: boolean
         woonplaatsnaam:
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
-        datumAanvangAdreshouding:
+        datum_aanvang_adreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
           type: string
-        datumIngangGeldigheid:
+        datum_ingang_geldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
           type: string
-        datumInschrijvingInGemeente:
+        datum_inschrijving_in_gemeente:
           description: 'Datum inschrijving in gemeente of this Verblijfplaats'
           type: string
-        datumVestigingInNederland:
+        datum_vestiging_in_nederland:
           description: 'Datum vestiging in Nederland of this Verblijfplaats'
           type: string
-        gemeenteVanInschrijving:
+        gemeente_van_inschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
           type: string
-        landVanwaarIngeschreven:
+        land_vanwaar_ingeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
           $ref: '#/components/schemas/Waardetabel-read'
-        verblijfBuitenland:
+        verblijf_buitenland:
           description: 'VerblijfBuitenland of this Verblijfplaats'
           $ref: '#/components/schemas/VerblijfBuitenland-read'
-        inOnderzoek: {  }
+        in_onderzoek: {  }
     Verblijfplaats-write:
       type: object
       description: ''
       properties:
-        aanduidingBijHuisnummer:
+        aanduiding_bij_huisnummer:
           type: string
-        funtieAdres:
+        funtie_adres:
           type: string
         huisletter:
           description: 'Huisletter of this Verblijfplaats'
@@ -9877,16 +9877,16 @@ components:
         huisnummertoevoeging:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
-        identificatiecodeNummeraanduiding:
+        identificatiecode_nummeraanduiding:
           type: string
-        identificatiecodeVerblijfplaats:
+        identificatiecode_verblijfplaats:
           type: string
-        indentificatieVestigingVanuitBuitenland:
+        indentificatie_vestiging_vanuit_buitenland:
           type: boolean
         locatiebeschrijving:
           description: 'Locatiebeschrijving of this Verblijfplaats'
           type: string
-        naamOpenbareRuimte:
+        naam_openbare_ruimte:
           type: string
         postcode:
           description: 'Postcode of this Verblijfplaats'
@@ -9894,33 +9894,33 @@ components:
         straatnaam:
           description: 'Straatnaam of this Verblijfplaats'
           type: string
-        vanuitVertrokkenOnbekendWaarheen:
+        vanuit_vertrokken_onbekend_waarheen:
           type: boolean
         woonplaatsnaam:
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
-        datumAanvangAdreshouding:
+        datum_aanvang_adreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
           type: string
-        datumIngangGeldigheid:
+        datum_ingang_geldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
           type: string
-        datumInschrijvingInGemeente:
+        datum_inschrijving_in_gemeente:
           description: 'Datum inschrijving in gemeente of this Verblijfplaats'
           type: string
-        datumVestigingInNederland:
+        datum_vestiging_in_nederland:
           description: 'Datum vestiging in Nederland of this Verblijfplaats'
           type: string
-        gemeenteVanInschrijving:
+        gemeente_van_inschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
           type: string
-        landVanwaarIngeschreven:
+        land_vanwaar_ingeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
           $ref: '#/components/schemas/Waardetabel-write'
-        verblijfBuitenland:
+        verblijf_buitenland:
           description: 'VerblijfBuitenland of this Verblijfplaats'
           $ref: '#/components/schemas/VerblijfBuitenland-write'
-        inOnderzoek: {  }
+        in_onderzoek: {  }
     Verblijfstitel-read:
       type: object
       description: ''
@@ -9928,24 +9928,24 @@ components:
         uuid:
           readOnly: true
           type: string
-        datumEinde:
+        datum_einde:
           description: 'Datum einde of this Verblijftitel'
           type: string
-        datumIngang:
+        datum_ingang:
           description: 'Datum ingang of this Verblijftitel'
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
     Verblijfstitel-write:
       type: object
       description: ''
       properties:
-        datumEinde:
+        datum_einde:
           description: 'Datum einde of this Verblijftitel'
           type: string
-        datumIngang:
+        datum_ingang:
           description: 'Datum ingang of this Verblijftitel'
           type: string
-        inOnderzoek: {  }
+        in_onderzoek: {  }
     Waardetabel-read:
       type: object
       description: ''
