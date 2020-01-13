@@ -2,12 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,6 +22,7 @@ class Gezagsverhouding
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -31,7 +31,7 @@ class Gezagsverhouding
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $uuid;
+    private $uuid;
 
     /**
      * @todo docblocks
@@ -74,12 +74,12 @@ class Gezagsverhouding
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getIndicatieCurateleRegister(): ?bool
@@ -120,17 +120,17 @@ class Gezagsverhouding
 
     public function getIngeschrevenpersoon(): ?Ingeschrevenpersoon
     {
-    	return $this->ingeschrevenpersoon;
+        return $this->ingeschrevenpersoon;
     }
 
     public function setIngeschrevenpersoon(?Ingeschrevenpersoon $ingeschrevenpersoon): self
     {
-    	$this->ingeschrevenpersoon = $ingeschrevenpersoon;
+        $this->ingeschrevenpersoon = $ingeschrevenpersoon;
 
         // set (or unset) the owning side of the relation if necessary
-    	$newGezagsverhouding = $ingeschrevenpersoon=== null ? null : $this;
-    	if ($newGezagsverhouding !== $ingeschrevenpersoon->getGezagsverhouding()) {
-    		$ingeschrevenpersoon->setGezagsverhouding($newGezagsverhouding);
+        $newGezagsverhouding = $ingeschrevenpersoon === null ? null : $this;
+        if ($newGezagsverhouding !== $ingeschrevenpersoon->getGezagsverhouding()) {
+            $ingeschrevenpersoon->setGezagsverhouding($newGezagsverhouding);
         }
 
         return $this;
