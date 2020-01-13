@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,6 +23,7 @@ class Overlijden
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -31,10 +32,11 @@ class Overlijden
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $uuid;
+    private $uuid;
 
     /**
-     * @var boolean $indicatieOverleden Indicatie overleden of this Overlijden
+     * @var bool Indicatie overleden of this Overlijden
+     *
      * @example false
      *
      * @Groups({"read","write"})
@@ -46,7 +48,8 @@ class Overlijden
     private $indicatieOverleden;
 
     /**
-     * @var string $datum Datum of this Overlijden
+     * @var string Datum of this Overlijden
+     *
      * @example 01-01-2000
      *
      * @Groups({"read","write"})
@@ -56,7 +59,8 @@ class Overlijden
     private $datum;
 
     /**
-     * @var string $land Land of this Overlijden
+     * @var string Land of this Overlijden
+     *
      * @example The Netherlands
      *
      * @ApiProperty(
@@ -76,7 +80,8 @@ class Overlijden
     private $land;
 
     /**
-     * @var string $plaats Plaats of this Overlijden
+     * @var string Plaats of this Overlijden
+     *
      * @example Amsterdam
      *
      * @ApiProperty(
@@ -114,12 +119,12 @@ class Overlijden
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getIndicatieOverleden(): ?bool
@@ -148,26 +153,26 @@ class Overlijden
 
     public function getLand(): ?Waardetabel
     {
-    	return $this->land;
+        return $this->land;
     }
 
     public function setLand(?Waardetabel $land): self
     {
-    	$this->land = $land;
+        $this->land = $land;
 
-    	return $this;
+        return $this;
     }
 
     public function getPlaats(): ?Waardetabel
     {
-    	return $this->plaats;
+        return $this->plaats;
     }
 
     public function setPlaats(?Waardetabel $plaats): self
     {
-    	$this->plaats = $plaats;
+        $this->plaats = $plaats;
 
-    	return $this;
+        return $this;
     }
 
     public function getInOnderzoek()
@@ -184,17 +189,17 @@ class Overlijden
 
     public function getIngeschrevenpersoon(): ?Ingeschrevenpersoon
     {
-    	return $this->ingeschrevenpersoon;
+        return $this->ingeschrevenpersoon;
     }
 
     public function setIngeschrevenpersoon(?Ingeschrevenpersoon $ingeschrevenpersoon): self
     {
-    	$this->ingeschrevenpersoon = $ingeschrevenpersoon;
+        $this->ingeschrevenpersoon = $ingeschrevenpersoon;
 
         // set (or unset) the owning side of the relation if necessary
-    	$newOverlijden = $ingeschrevenpersoon === null ? null : $this;
-    	if ($newOverlijden !== $ingeschrevenpersoon->getOverlijden()) {
-    		$ingeschrevenpersoon->setOverlijden($newOverlijden);
+        $newOverlijden = $ingeschrevenpersoon === null ? null : $this;
+        if ($newOverlijden !== $ingeschrevenpersoon->getOverlijden()) {
+            $ingeschrevenpersoon->setOverlijden($newOverlijden);
         }
 
         return $this;
