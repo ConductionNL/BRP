@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,6 +27,7 @@ class Partner
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -39,7 +39,8 @@ class Partner
     private $uuid;
 
     /**
-     * @var string $burgerservicenummer Burgerservicenummer of this Partner
+     * @var string Burgerservicenummer of this Partner
+     *
      * @example 123456782
      *
      * @Groups({"read", "write"})
@@ -52,7 +53,8 @@ class Partner
     private $burgerservicenummer;
 
     /**
-     * @var string $geslachtsaanduiding Geslachts aanduiding of this Partner
+     * @var string Geslachts aanduiding of this Partner
+     *
      * @example female
      *
      * @Groups({"read", "write"})
@@ -66,7 +68,8 @@ class Partner
     private $geslachtsaanduiding;
 
     /**
-     * @var NaamPersoon $naam Naam of this Partner
+     * @var NaamPersoon Naam of this Partner
+     *
      * @example Jessica
      *
      * @Groups({"read", "write"})
@@ -77,7 +80,8 @@ class Partner
     private $naam;
 
     /**
-     * @var Geboorte $geboorte Geboorte of this Partner
+     * @var Geboorte Geboorte of this Partner
+     *
      * @example 01-01-2000
      *
      * @Groups({"read", "write"})
@@ -106,12 +110,12 @@ class Partner
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getBurgerservicenummer(): ?string
@@ -176,12 +180,12 @@ class Partner
 
     public function getIngeschrevenpersoon(): ?Ingeschrevenpersoon
     {
-    	return $this->ingeschrevenpersoon;
+        return $this->ingeschrevenpersoon;
     }
 
     public function setIngeschrevenpersoon(?Ingeschrevenpersoon $ingeschrevenpersoon): self
     {
-    	$this->ingeschrevenpersoon= $ingeschrevenpersoon;
+        $this->ingeschrevenpersoon = $ingeschrevenpersoon;
 
         return $this;
     }

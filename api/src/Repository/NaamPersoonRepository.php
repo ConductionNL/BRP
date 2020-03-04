@@ -14,7 +14,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class NaamPersoonRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, NaamPersoon::class);
     }

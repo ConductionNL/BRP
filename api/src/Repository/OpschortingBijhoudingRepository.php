@@ -14,7 +14,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class OpschortingBijhoudingRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, OpschortingBijhouding::class);
     }

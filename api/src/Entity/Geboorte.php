@@ -2,16 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\Mapping\Annotation as Gedmo;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -25,6 +23,7 @@ class Geboorte
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -33,10 +32,11 @@ class Geboorte
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $uuid;
+    private $uuid;
 
     /**
-     * @var string $land Land this person is born in
+     * @var string Land this person is born in
+     *
      * @example The Netherlands
      *
      * @Groups({"read", "write"})
@@ -48,7 +48,8 @@ class Geboorte
     private $land;
 
     /**
-     * @var string $plaats Plaats this person is born in
+     * @var string Plaats this person is born in
+     *
      * @example Amsterdam
      *
      * @Groups({"read", "write"})
@@ -60,7 +61,8 @@ class Geboorte
     private $plaats;
 
     /**
-     * @var string $datum Datum this person is born at
+     * @var string Datum this person is born at
+     *
      * @example 01-01-2000
      *
      * @Groups({"read", "write"})
@@ -89,16 +91,15 @@ class Geboorte
         $this->ingeschrevenpersonen = new ArrayCollection();
     }
 
-
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getDatum()
@@ -115,26 +116,26 @@ class Geboorte
 
     public function getLand(): ?Waardetabel
     {
-    	return $this->land;
+        return $this->land;
     }
 
     public function setLand(?Waardetabel $land): self
     {
-    	$this->land = $land;
+        $this->land = $land;
 
-    	return $this;
+        return $this;
     }
 
     public function getPlaats(): ?Waardetabel
     {
-    	return $this->plaats;
+        return $this->plaats;
     }
 
     public function setPlaats(?Waardetabel $plaats): self
     {
-    	$this->plaats = $plaats;
+        $this->plaats = $plaats;
 
-    	return $this;
+        return $this;
     }
 
     public function getInOnderzoek()

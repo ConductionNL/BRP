@@ -14,7 +14,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class WaardetabelRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Waardetabel::class);
     }

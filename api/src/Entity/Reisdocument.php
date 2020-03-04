@@ -3,12 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,6 +21,7 @@ class Reisdocument
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -46,7 +45,8 @@ class Reisdocument
     private $aanduidingInhoudingOfVermissing;
 
     /**
-     * @var string $reisdocumentnummer Reisdocumentnummer of this Reisdocument
+     * @var string Reisdocumentnummer of this Reisdocument
+     *
      * @example AB1234CD0
      *
      * @Groups({"read","write"})
@@ -62,12 +62,12 @@ class Reisdocument
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function setAanduidingInhoudingOfVermissing(string $aanduidingInhoudingOfVermissing): self

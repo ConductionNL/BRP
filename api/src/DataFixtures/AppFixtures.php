@@ -206,7 +206,7 @@ class AppFixtures extends Fixture
         $this->loadFromExcel($manager);
     }
 
-    public function createReader() :PhpSpreadsheet\Reader\Xlsx
+    public function createReader(): PhpSpreadsheet\Reader\Xlsx
     {
         $reader = new PhpSpreadsheet\Reader\Xlsx();
         $reader->setReadDataOnly(true);
@@ -214,7 +214,7 @@ class AppFixtures extends Fixture
         return $reader;
     }
 
-    public function loadXlsx(string $filename) :PhpSpreadsheet\Spreadsheet
+    public function loadXlsx(string $filename): PhpSpreadsheet\Spreadsheet
     {
         $reader = $this->createReader();
 

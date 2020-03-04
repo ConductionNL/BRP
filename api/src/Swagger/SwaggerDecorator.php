@@ -425,7 +425,6 @@ final class SwaggerDecorator implements NormalizerInterface
             $atributes = [];
             $groups = [];
 
-
             foreach ($tags as $tag) {
                 $name = $tag->getName();
                 $description = $tag->getDescription();
@@ -484,9 +483,8 @@ final class SwaggerDecorator implements NormalizerInterface
                         $atributes['example'] = 'America/New_York';
                         break;
                     case "Assert\Uuid":
-                    	$atributes['type'] = 'string'; 
-                    	$atributes['format'] = 'uuid';
-                    	$atributes['example'] = '9b9eea1a-ef04-427d-b8bd-7f5c24801874';
+                        $atributes['type'] = 'string';
+                        $atributes['format'] = 'uuid';
                         break;
                     case "Assert\Email":
                         $atributes['type'] = 'string';
