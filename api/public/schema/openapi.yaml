@@ -666,6 +666,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -9385,6 +9386,9 @@ components:
       properties:
         id:
           readOnly: true
+          description: 'The id of this entity'
+          externalDocs:
+            url: 'http://schema.org/identifier'
           type: string
         burgerservicenummer:
           description: 'Burgerservicenummer of this ingeschreven persoon'
