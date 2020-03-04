@@ -1,12 +1,12 @@
 publiccodeYmlVersion: "0.2"
 
-name: pa
+name: brp
 applicationSuite: commonground
 url: "https://github.com/ConductionNL/Proto-component-commonground"
-landingURL: "test.conduction.nl" 
+landingURL: "" 
 isBasedOn: "https://github.com/ConductionNL/Proto-component-commonground.git" 
 softwareVersion: "V.0.1"
-releaseDate: "2020-02-03"
+releaseDate: "2020-04-03"
 logo: pc.zaakonline.nl 
 monochromeLogo: img/logo-mono.svg
 
@@ -67,7 +67,7 @@ description:
 #          is and why one should need it.
 
     documentation: "https://github.com/ConductionNL/Proto-component-commonground/blob/master/README.md"
-    apiDocumentation: "test.conduction.nl"
+    apiDocumentation: ""
 #
 #    features:
 #       - Very important feature
