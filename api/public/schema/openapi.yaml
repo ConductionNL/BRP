@@ -9,8 +9,8 @@ info:
     - Enviroment: dev
     - Version: V.0.1
     - Repository: [online](https://github.com/ConductionNL/Proto-component-commonground) / [zip](https://github.com/ConductionNL/Proto-component-commonground/archive/master.zip)
-    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/brp-php) 
-    - Datamodel: [postman](/schema/openapi.postman_collection) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
+    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/pc-php) 
+    - Datamodel: [postman](/schema/brp.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
     
     'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
@@ -32,9 +32,14 @@ paths:
                   $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/AangaanHuwelijkPartnerschap:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -73,6 +78,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -160,7 +166,7 @@ paths:
                 $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
+                $ref: '#/components/schemas/AangaanHuwelijkPartnerschap:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
@@ -196,7 +202,7 @@ paths:
               $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
+              $ref: '#/components/schemas/AangaanHuwelijkPartnerschap:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
@@ -339,7 +345,7 @@ paths:
                 $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
+                $ref: '#/components/schemas/AangaanHuwelijkPartnerschap:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
@@ -458,7 +464,7 @@ paths:
                 $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
+                $ref: '#/components/schemas/AangaanHuwelijkPartnerschap:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
@@ -488,7 +494,7 @@ paths:
               $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
+              $ref: '#/components/schemas/AangaanHuwelijkPartnerschap:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
@@ -558,7 +564,7 @@ paths:
                 $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
+                $ref: '#/components/schemas/AangaanHuwelijkPartnerschap:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-read'
@@ -583,22 +589,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
+              $ref: '#/components/schemas/AangaanHuwelijkPartnerschap:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/AangaanHuwelijkPartnerschap-write'
           text/csv:
@@ -625,9 +634,14 @@ paths:
                   $ref: '#/components/schemas/Geboorte-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Geboorte-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Geboorte:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -754,7 +768,7 @@ paths:
                 $ref: '#/components/schemas/Geboorte-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Geboorte-read'
+                $ref: '#/components/schemas/Geboorte:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Geboorte-read'
@@ -790,7 +804,7 @@ paths:
               $ref: '#/components/schemas/Geboorte-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Geboorte-write'
+              $ref: '#/components/schemas/Geboorte:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Geboorte-write'
@@ -933,7 +947,7 @@ paths:
                 $ref: '#/components/schemas/Geboorte-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Geboorte-read'
+                $ref: '#/components/schemas/Geboorte:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Geboorte-read'
@@ -1052,7 +1066,7 @@ paths:
                 $ref: '#/components/schemas/Geboorte-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Geboorte-read'
+                $ref: '#/components/schemas/Geboorte:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Geboorte-read'
@@ -1082,7 +1096,7 @@ paths:
               $ref: '#/components/schemas/Geboorte-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Geboorte-write'
+              $ref: '#/components/schemas/Geboorte:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Geboorte-write'
@@ -1152,7 +1166,7 @@ paths:
                 $ref: '#/components/schemas/Geboorte-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Geboorte-read'
+                $ref: '#/components/schemas/Geboorte:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Geboorte-read'
@@ -1177,22 +1191,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Geboorte-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Geboorte-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Geboorte-write'
+              $ref: '#/components/schemas/Geboorte:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Geboorte-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Geboorte-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Geboorte-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Geboorte-write'
           text/csv:
@@ -1219,9 +1236,14 @@ paths:
                   $ref: '#/components/schemas/Gezagsverhouding-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Gezagsverhouding-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Gezagsverhouding:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -1260,6 +1282,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -1347,7 +1370,7 @@ paths:
                 $ref: '#/components/schemas/Gezagsverhouding-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Gezagsverhouding-read'
+                $ref: '#/components/schemas/Gezagsverhouding:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Gezagsverhouding-read'
@@ -1383,7 +1406,7 @@ paths:
               $ref: '#/components/schemas/Gezagsverhouding-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Gezagsverhouding-write'
+              $ref: '#/components/schemas/Gezagsverhouding:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Gezagsverhouding-write'
@@ -1526,7 +1549,7 @@ paths:
                 $ref: '#/components/schemas/Gezagsverhouding-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Gezagsverhouding-read'
+                $ref: '#/components/schemas/Gezagsverhouding:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Gezagsverhouding-read'
@@ -1645,7 +1668,7 @@ paths:
                 $ref: '#/components/schemas/Gezagsverhouding-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Gezagsverhouding-read'
+                $ref: '#/components/schemas/Gezagsverhouding:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Gezagsverhouding-read'
@@ -1675,7 +1698,7 @@ paths:
               $ref: '#/components/schemas/Gezagsverhouding-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Gezagsverhouding-write'
+              $ref: '#/components/schemas/Gezagsverhouding:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Gezagsverhouding-write'
@@ -1745,7 +1768,7 @@ paths:
                 $ref: '#/components/schemas/Gezagsverhouding-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Gezagsverhouding-read'
+                $ref: '#/components/schemas/Gezagsverhouding:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Gezagsverhouding-read'
@@ -1770,22 +1793,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Gezagsverhouding-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Gezagsverhouding-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Gezagsverhouding-write'
+              $ref: '#/components/schemas/Gezagsverhouding:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Gezagsverhouding-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Gezagsverhouding-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Gezagsverhouding-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Gezagsverhouding-write'
           text/csv:
@@ -1812,9 +1838,14 @@ paths:
                   $ref: '#/components/schemas/Ingeschrevenpersoon-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Ingeschrevenpersoon-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Ingeschrevenpersoon:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -1853,6 +1884,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -2019,7 +2051,7 @@ paths:
                 $ref: '#/components/schemas/Ingeschrevenpersoon-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Ingeschrevenpersoon-read'
+                $ref: '#/components/schemas/Ingeschrevenpersoon:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Ingeschrevenpersoon-read'
@@ -2059,9 +2091,14 @@ paths:
                   $ref: '#/components/schemas/Ingeschrevenpersoon-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Ingeschrevenpersoon-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Ingeschrevenpersoon:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -2100,6 +2137,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -2190,9 +2228,14 @@ paths:
                   $ref: '#/components/schemas/Kind-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Kind-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Kind:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -2231,6 +2274,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -2318,7 +2362,7 @@ paths:
                 $ref: '#/components/schemas/Kind-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Kind-read'
+                $ref: '#/components/schemas/Kind:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Kind-read'
@@ -2354,7 +2398,7 @@ paths:
               $ref: '#/components/schemas/Kind-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Kind-write'
+              $ref: '#/components/schemas/Kind:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Kind-write'
@@ -2497,7 +2541,7 @@ paths:
                 $ref: '#/components/schemas/Kind-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Kind-read'
+                $ref: '#/components/schemas/Kind:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Kind-read'
@@ -2616,7 +2660,7 @@ paths:
                 $ref: '#/components/schemas/Kind-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Kind-read'
+                $ref: '#/components/schemas/Kind:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Kind-read'
@@ -2646,7 +2690,7 @@ paths:
               $ref: '#/components/schemas/Kind-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Kind-write'
+              $ref: '#/components/schemas/Kind:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Kind-write'
@@ -2716,7 +2760,7 @@ paths:
                 $ref: '#/components/schemas/Kind-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Kind-read'
+                $ref: '#/components/schemas/Kind:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Kind-read'
@@ -2741,22 +2785,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Kind-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Kind-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Kind-write'
+              $ref: '#/components/schemas/Kind:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Kind-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Kind-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Kind-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Kind-write'
           text/csv:
@@ -2783,9 +2830,14 @@ paths:
                   $ref: '#/components/schemas/NaamPersoon-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NaamPersoon-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/NaamPersoon:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -2824,6 +2876,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -2911,7 +2964,7 @@ paths:
                 $ref: '#/components/schemas/NaamPersoon-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/NaamPersoon-read'
+                $ref: '#/components/schemas/NaamPersoon:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/NaamPersoon-read'
@@ -2947,7 +3000,7 @@ paths:
               $ref: '#/components/schemas/NaamPersoon-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/NaamPersoon-write'
+              $ref: '#/components/schemas/NaamPersoon:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/NaamPersoon-write'
@@ -3090,7 +3143,7 @@ paths:
                 $ref: '#/components/schemas/NaamPersoon-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/NaamPersoon-read'
+                $ref: '#/components/schemas/NaamPersoon:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/NaamPersoon-read'
@@ -3209,7 +3262,7 @@ paths:
                 $ref: '#/components/schemas/NaamPersoon-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/NaamPersoon-read'
+                $ref: '#/components/schemas/NaamPersoon:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/NaamPersoon-read'
@@ -3239,7 +3292,7 @@ paths:
               $ref: '#/components/schemas/NaamPersoon-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/NaamPersoon-write'
+              $ref: '#/components/schemas/NaamPersoon:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/NaamPersoon-write'
@@ -3309,7 +3362,7 @@ paths:
                 $ref: '#/components/schemas/NaamPersoon-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/NaamPersoon-read'
+                $ref: '#/components/schemas/NaamPersoon:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/NaamPersoon-read'
@@ -3334,22 +3387,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NaamPersoon-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/NaamPersoon-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/NaamPersoon-write'
+              $ref: '#/components/schemas/NaamPersoon:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/NaamPersoon-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/NaamPersoon-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/NaamPersoon-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/NaamPersoon-write'
           text/csv:
@@ -3376,9 +3432,14 @@ paths:
                   $ref: '#/components/schemas/Nationaliteit-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Nationaliteit-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Nationaliteit:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -3417,6 +3478,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -3504,7 +3566,7 @@ paths:
                 $ref: '#/components/schemas/Nationaliteit-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Nationaliteit-read'
+                $ref: '#/components/schemas/Nationaliteit:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Nationaliteit-read'
@@ -3540,7 +3602,7 @@ paths:
               $ref: '#/components/schemas/Nationaliteit-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Nationaliteit-write'
+              $ref: '#/components/schemas/Nationaliteit:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Nationaliteit-write'
@@ -3683,7 +3745,7 @@ paths:
                 $ref: '#/components/schemas/Nationaliteit-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Nationaliteit-read'
+                $ref: '#/components/schemas/Nationaliteit:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Nationaliteit-read'
@@ -3802,7 +3864,7 @@ paths:
                 $ref: '#/components/schemas/Nationaliteit-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Nationaliteit-read'
+                $ref: '#/components/schemas/Nationaliteit:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Nationaliteit-read'
@@ -3832,7 +3894,7 @@ paths:
               $ref: '#/components/schemas/Nationaliteit-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Nationaliteit-write'
+              $ref: '#/components/schemas/Nationaliteit:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Nationaliteit-write'
@@ -3902,7 +3964,7 @@ paths:
                 $ref: '#/components/schemas/Nationaliteit-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Nationaliteit-read'
+                $ref: '#/components/schemas/Nationaliteit:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Nationaliteit-read'
@@ -3927,22 +3989,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Nationaliteit-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Nationaliteit-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Nationaliteit-write'
+              $ref: '#/components/schemas/Nationaliteit:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Nationaliteit-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Nationaliteit-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Nationaliteit-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Nationaliteit-write'
           text/csv:
@@ -3969,9 +4034,14 @@ paths:
                   $ref: '#/components/schemas/OpschortingBijhouding-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/OpschortingBijhouding-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/OpschortingBijhouding:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -4010,6 +4080,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -4097,7 +4168,7 @@ paths:
                 $ref: '#/components/schemas/OpschortingBijhouding-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/OpschortingBijhouding-read'
+                $ref: '#/components/schemas/OpschortingBijhouding:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/OpschortingBijhouding-read'
@@ -4133,7 +4204,7 @@ paths:
               $ref: '#/components/schemas/OpschortingBijhouding-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/OpschortingBijhouding-write'
+              $ref: '#/components/schemas/OpschortingBijhouding:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/OpschortingBijhouding-write'
@@ -4276,7 +4347,7 @@ paths:
                 $ref: '#/components/schemas/OpschortingBijhouding-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/OpschortingBijhouding-read'
+                $ref: '#/components/schemas/OpschortingBijhouding:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/OpschortingBijhouding-read'
@@ -4395,7 +4466,7 @@ paths:
                 $ref: '#/components/schemas/OpschortingBijhouding-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/OpschortingBijhouding-read'
+                $ref: '#/components/schemas/OpschortingBijhouding:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/OpschortingBijhouding-read'
@@ -4425,7 +4496,7 @@ paths:
               $ref: '#/components/schemas/OpschortingBijhouding-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/OpschortingBijhouding-write'
+              $ref: '#/components/schemas/OpschortingBijhouding:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/OpschortingBijhouding-write'
@@ -4495,7 +4566,7 @@ paths:
                 $ref: '#/components/schemas/OpschortingBijhouding-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/OpschortingBijhouding-read'
+                $ref: '#/components/schemas/OpschortingBijhouding:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/OpschortingBijhouding-read'
@@ -4520,22 +4591,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpschortingBijhouding-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/OpschortingBijhouding-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/OpschortingBijhouding-write'
+              $ref: '#/components/schemas/OpschortingBijhouding:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/OpschortingBijhouding-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/OpschortingBijhouding-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/OpschortingBijhouding-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/OpschortingBijhouding-write'
           text/csv:
@@ -4562,9 +4636,14 @@ paths:
                   $ref: '#/components/schemas/Ouder-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Ouder-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Ouder:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -4603,6 +4682,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -4690,7 +4770,7 @@ paths:
                 $ref: '#/components/schemas/Ouder-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Ouder-read'
+                $ref: '#/components/schemas/Ouder:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Ouder-read'
@@ -4726,7 +4806,7 @@ paths:
               $ref: '#/components/schemas/Ouder-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Ouder-write'
+              $ref: '#/components/schemas/Ouder:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Ouder-write'
@@ -4869,7 +4949,7 @@ paths:
                 $ref: '#/components/schemas/Ouder-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Ouder-read'
+                $ref: '#/components/schemas/Ouder:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Ouder-read'
@@ -4988,7 +5068,7 @@ paths:
                 $ref: '#/components/schemas/Ouder-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Ouder-read'
+                $ref: '#/components/schemas/Ouder:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Ouder-read'
@@ -5018,7 +5098,7 @@ paths:
               $ref: '#/components/schemas/Ouder-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Ouder-write'
+              $ref: '#/components/schemas/Ouder:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Ouder-write'
@@ -5088,7 +5168,7 @@ paths:
                 $ref: '#/components/schemas/Ouder-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Ouder-read'
+                $ref: '#/components/schemas/Ouder:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Ouder-read'
@@ -5113,22 +5193,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ouder-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Ouder-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Ouder-write'
+              $ref: '#/components/schemas/Ouder:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Ouder-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Ouder-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Ouder-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Ouder-write'
           text/csv:
@@ -5155,9 +5238,14 @@ paths:
                   $ref: '#/components/schemas/Overlijden-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Overlijden-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Overlijden:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -5196,6 +5284,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -5283,7 +5372,7 @@ paths:
                 $ref: '#/components/schemas/Overlijden-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Overlijden-read'
+                $ref: '#/components/schemas/Overlijden:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Overlijden-read'
@@ -5321,7 +5410,7 @@ paths:
               $ref: '#/components/schemas/Overlijden-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Overlijden-write'
+              $ref: '#/components/schemas/Overlijden:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Overlijden-write'
@@ -5464,7 +5553,7 @@ paths:
                 $ref: '#/components/schemas/Overlijden-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Overlijden-read'
+                $ref: '#/components/schemas/Overlijden:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Overlijden-read'
@@ -5583,7 +5672,7 @@ paths:
                 $ref: '#/components/schemas/Overlijden-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Overlijden-read'
+                $ref: '#/components/schemas/Overlijden:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Overlijden-read'
@@ -5613,7 +5702,7 @@ paths:
               $ref: '#/components/schemas/Overlijden-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Overlijden-write'
+              $ref: '#/components/schemas/Overlijden:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Overlijden-write'
@@ -5683,7 +5772,7 @@ paths:
                 $ref: '#/components/schemas/Overlijden-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Overlijden-read'
+                $ref: '#/components/schemas/Overlijden:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Overlijden-read'
@@ -5708,22 +5797,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Overlijden-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Overlijden-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Overlijden-write'
+              $ref: '#/components/schemas/Overlijden:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Overlijden-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Overlijden-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Overlijden-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Overlijden-write'
           text/csv:
@@ -5750,9 +5842,14 @@ paths:
                   $ref: '#/components/schemas/Partner-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Partner-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Partner:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -5791,6 +5888,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -5878,7 +5976,7 @@ paths:
                 $ref: '#/components/schemas/Partner-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Partner-read'
+                $ref: '#/components/schemas/Partner:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Partner-read'
@@ -5914,7 +6012,7 @@ paths:
               $ref: '#/components/schemas/Partner-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Partner-write'
+              $ref: '#/components/schemas/Partner:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Partner-write'
@@ -6057,7 +6155,7 @@ paths:
                 $ref: '#/components/schemas/Partner-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Partner-read'
+                $ref: '#/components/schemas/Partner:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Partner-read'
@@ -6176,7 +6274,7 @@ paths:
                 $ref: '#/components/schemas/Partner-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Partner-read'
+                $ref: '#/components/schemas/Partner:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Partner-read'
@@ -6206,7 +6304,7 @@ paths:
               $ref: '#/components/schemas/Partner-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Partner-write'
+              $ref: '#/components/schemas/Partner:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Partner-write'
@@ -6276,7 +6374,7 @@ paths:
                 $ref: '#/components/schemas/Partner-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Partner-read'
+                $ref: '#/components/schemas/Partner:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Partner-read'
@@ -6301,22 +6399,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partner-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Partner-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Partner-write'
+              $ref: '#/components/schemas/Partner:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Partner-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Partner-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Partner-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Partner-write'
           text/csv:
@@ -6343,9 +6444,14 @@ paths:
                   $ref: '#/components/schemas/Reisdocument-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Reisdocument-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Reisdocument:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -6384,6 +6490,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -6471,7 +6578,7 @@ paths:
                 $ref: '#/components/schemas/Reisdocument-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Reisdocument-read'
+                $ref: '#/components/schemas/Reisdocument:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Reisdocument-read'
@@ -6507,7 +6614,7 @@ paths:
               $ref: '#/components/schemas/Reisdocument-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Reisdocument-write'
+              $ref: '#/components/schemas/Reisdocument:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Reisdocument-write'
@@ -6650,7 +6757,7 @@ paths:
                 $ref: '#/components/schemas/Reisdocument-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Reisdocument-read'
+                $ref: '#/components/schemas/Reisdocument:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Reisdocument-read'
@@ -6769,7 +6876,7 @@ paths:
                 $ref: '#/components/schemas/Reisdocument-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Reisdocument-read'
+                $ref: '#/components/schemas/Reisdocument:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Reisdocument-read'
@@ -6799,7 +6906,7 @@ paths:
               $ref: '#/components/schemas/Reisdocument-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Reisdocument-write'
+              $ref: '#/components/schemas/Reisdocument:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Reisdocument-write'
@@ -6869,7 +6976,7 @@ paths:
                 $ref: '#/components/schemas/Reisdocument-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Reisdocument-read'
+                $ref: '#/components/schemas/Reisdocument:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Reisdocument-read'
@@ -6894,22 +7001,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reisdocument-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Reisdocument-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Reisdocument-write'
+              $ref: '#/components/schemas/Reisdocument:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Reisdocument-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Reisdocument-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Reisdocument-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Reisdocument-write'
           text/csv:
@@ -6936,9 +7046,14 @@ paths:
                   $ref: '#/components/schemas/VerblijfBuitenland-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VerblijfBuitenland-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/VerblijfBuitenland:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -6977,6 +7092,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -7064,7 +7180,7 @@ paths:
                 $ref: '#/components/schemas/VerblijfBuitenland-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/VerblijfBuitenland-read'
+                $ref: '#/components/schemas/VerblijfBuitenland:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/VerblijfBuitenland-read'
@@ -7094,7 +7210,7 @@ paths:
               $ref: '#/components/schemas/VerblijfBuitenland-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/VerblijfBuitenland-write'
+              $ref: '#/components/schemas/VerblijfBuitenland:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VerblijfBuitenland-write'
@@ -7237,7 +7353,7 @@ paths:
                 $ref: '#/components/schemas/VerblijfBuitenland-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/VerblijfBuitenland-read'
+                $ref: '#/components/schemas/VerblijfBuitenland:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/VerblijfBuitenland-read'
@@ -7356,7 +7472,7 @@ paths:
                 $ref: '#/components/schemas/VerblijfBuitenland-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/VerblijfBuitenland-read'
+                $ref: '#/components/schemas/VerblijfBuitenland:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/VerblijfBuitenland-read'
@@ -7386,7 +7502,7 @@ paths:
               $ref: '#/components/schemas/VerblijfBuitenland-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/VerblijfBuitenland-write'
+              $ref: '#/components/schemas/VerblijfBuitenland:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VerblijfBuitenland-write'
@@ -7456,7 +7572,7 @@ paths:
                 $ref: '#/components/schemas/VerblijfBuitenland-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/VerblijfBuitenland-read'
+                $ref: '#/components/schemas/VerblijfBuitenland:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/VerblijfBuitenland-read'
@@ -7481,22 +7597,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerblijfBuitenland-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/VerblijfBuitenland-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/VerblijfBuitenland-write'
+              $ref: '#/components/schemas/VerblijfBuitenland:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VerblijfBuitenland-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/VerblijfBuitenland-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/VerblijfBuitenland-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/VerblijfBuitenland-write'
           text/csv:
@@ -7523,9 +7642,14 @@ paths:
                   $ref: '#/components/schemas/Verblijfplaats-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Verblijfplaats-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Verblijfplaats:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -7564,6 +7688,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -7651,7 +7776,7 @@ paths:
                 $ref: '#/components/schemas/Verblijfplaats-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Verblijfplaats-read'
+                $ref: '#/components/schemas/Verblijfplaats:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Verblijfplaats-read'
@@ -7687,7 +7812,7 @@ paths:
               $ref: '#/components/schemas/Verblijfplaats-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Verblijfplaats-write'
+              $ref: '#/components/schemas/Verblijfplaats:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Verblijfplaats-write'
@@ -7830,7 +7955,7 @@ paths:
                 $ref: '#/components/schemas/Verblijfplaats-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Verblijfplaats-read'
+                $ref: '#/components/schemas/Verblijfplaats:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Verblijfplaats-read'
@@ -7949,7 +8074,7 @@ paths:
                 $ref: '#/components/schemas/Verblijfplaats-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Verblijfplaats-read'
+                $ref: '#/components/schemas/Verblijfplaats:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Verblijfplaats-read'
@@ -7979,7 +8104,7 @@ paths:
               $ref: '#/components/schemas/Verblijfplaats-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Verblijfplaats-write'
+              $ref: '#/components/schemas/Verblijfplaats:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Verblijfplaats-write'
@@ -8049,7 +8174,7 @@ paths:
                 $ref: '#/components/schemas/Verblijfplaats-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Verblijfplaats-read'
+                $ref: '#/components/schemas/Verblijfplaats:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Verblijfplaats-read'
@@ -8074,22 +8199,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Verblijfplaats-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Verblijfplaats-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Verblijfplaats-write'
+              $ref: '#/components/schemas/Verblijfplaats:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Verblijfplaats-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Verblijfplaats-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Verblijfplaats-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Verblijfplaats-write'
           text/csv:
@@ -8116,9 +8244,14 @@ paths:
                   $ref: '#/components/schemas/Verblijfstitel-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Verblijfstitel-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Verblijfstitel:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -8157,6 +8290,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -8244,7 +8378,7 @@ paths:
                 $ref: '#/components/schemas/Verblijfstitel-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Verblijfstitel-read'
+                $ref: '#/components/schemas/Verblijfstitel:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Verblijfstitel-read'
@@ -8280,7 +8414,7 @@ paths:
               $ref: '#/components/schemas/Verblijfstitel-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Verblijfstitel-write'
+              $ref: '#/components/schemas/Verblijfstitel:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Verblijfstitel-write'
@@ -8423,7 +8557,7 @@ paths:
                 $ref: '#/components/schemas/Verblijfstitel-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Verblijfstitel-read'
+                $ref: '#/components/schemas/Verblijfstitel:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Verblijfstitel-read'
@@ -8542,7 +8676,7 @@ paths:
                 $ref: '#/components/schemas/Verblijfstitel-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Verblijfstitel-read'
+                $ref: '#/components/schemas/Verblijfstitel:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Verblijfstitel-read'
@@ -8572,7 +8706,7 @@ paths:
               $ref: '#/components/schemas/Verblijfstitel-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Verblijfstitel-write'
+              $ref: '#/components/schemas/Verblijfstitel:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Verblijfstitel-write'
@@ -8642,7 +8776,7 @@ paths:
                 $ref: '#/components/schemas/Verblijfstitel-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Verblijfstitel-read'
+                $ref: '#/components/schemas/Verblijfstitel:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Verblijfstitel-read'
@@ -8667,22 +8801,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Verblijfstitel-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Verblijfstitel-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Verblijfstitel-write'
+              $ref: '#/components/schemas/Verblijfstitel:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Verblijfstitel-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Verblijfstitel-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Verblijfstitel-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Verblijfstitel-write'
           text/csv:
@@ -8709,9 +8846,14 @@ paths:
                   $ref: '#/components/schemas/Waardetabel-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Waardetabel-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Waardetabel:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -8750,6 +8892,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -8837,7 +8980,7 @@ paths:
                 $ref: '#/components/schemas/Waardetabel-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Waardetabel-read'
+                $ref: '#/components/schemas/Waardetabel:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Waardetabel-read'
@@ -8873,7 +9016,7 @@ paths:
               $ref: '#/components/schemas/Waardetabel-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Waardetabel-write'
+              $ref: '#/components/schemas/Waardetabel:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Waardetabel-write'
@@ -9016,7 +9159,7 @@ paths:
                 $ref: '#/components/schemas/Waardetabel-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Waardetabel-read'
+                $ref: '#/components/schemas/Waardetabel:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Waardetabel-read'
@@ -9135,7 +9278,7 @@ paths:
                 $ref: '#/components/schemas/Waardetabel-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Waardetabel-read'
+                $ref: '#/components/schemas/Waardetabel:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Waardetabel-read'
@@ -9165,7 +9308,7 @@ paths:
               $ref: '#/components/schemas/Waardetabel-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Waardetabel-write'
+              $ref: '#/components/schemas/Waardetabel:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Waardetabel-write'
@@ -9235,7 +9378,7 @@ paths:
                 $ref: '#/components/schemas/Waardetabel-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Waardetabel-read'
+                $ref: '#/components/schemas/Waardetabel:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Waardetabel-read'
@@ -9260,22 +9403,25 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Waardetabel-write'
           application/hal+json:
             schema:
               $ref: '#/components/schemas/Waardetabel-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Waardetabel-write'
+              $ref: '#/components/schemas/Waardetabel:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Waardetabel-write'
-          application/json:
+          application/merge-patch+json:
             schema:
               $ref: '#/components/schemas/Waardetabel-write'
           application/xml:
             schema:
               $ref: '#/components/schemas/Waardetabel-write'
-          application/x-yaml:
+          applications/x-yaml:
             schema:
               $ref: '#/components/schemas/Waardetabel-write'
           text/csv:
@@ -9303,7 +9449,7 @@ components:
         plaats:
           description: 'Plaats this huwelijk is in'
           $ref: '#/components/schemas/Waardetabel-read'
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         partner:
           description: 'Other partner of this huwelijk'
           $ref: '#/components/schemas/Partner-read'
@@ -9320,10 +9466,65 @@ components:
         plaats:
           description: 'Plaats this huwelijk is in'
           $ref: '#/components/schemas/Waardetabel-write'
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         partner:
           description: 'Other partner of this huwelijk'
           $ref: '#/components/schemas/Partner-write'
+    'AangaanHuwelijkPartnerschap:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        datum:
+          description: 'Datum this huwelijk has been requested'
+          type: string
+        land:
+          description: 'Land this huwelijk is in'
+          $ref: '#/components/schemas/Waardetabel:jsonld-read'
+        plaats:
+          description: 'Plaats this huwelijk is in'
+          $ref: '#/components/schemas/Waardetabel:jsonld-read'
+        inOnderzoek: {  }
+        partner:
+          description: 'Other partner of this huwelijk'
+          $ref: '#/components/schemas/Partner:jsonld-read'
+    'AangaanHuwelijkPartnerschap:jsonld-write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        datum:
+          description: 'Datum this huwelijk has been requested'
+          type: string
+        land:
+          description: 'Land this huwelijk is in'
+          $ref: '#/components/schemas/Waardetabel:jsonld-write'
+        plaats:
+          description: 'Plaats this huwelijk is in'
+          $ref: '#/components/schemas/Waardetabel:jsonld-write'
+        inOnderzoek: {  }
+        partner:
+          description: 'Other partner of this huwelijk'
+          $ref: '#/components/schemas/Partner:jsonld-write'
     Geboorte-read:
       type: object
       description: ''
@@ -9340,7 +9541,7 @@ components:
         datum:
           description: 'Datum this person is born at'
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
     Geboorte-write:
       type: object
       description: ''
@@ -9354,7 +9555,56 @@ components:
         datum:
           description: 'Datum this person is born at'
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
+    'Geboorte:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        land:
+          description: 'Land this person is born in'
+          $ref: '#/components/schemas/Waardetabel:jsonld-read'
+        plaats:
+          description: 'Plaats this person is born in'
+          $ref: '#/components/schemas/Waardetabel:jsonld-read'
+        datum:
+          description: 'Datum this person is born at'
+          type: string
+        inOnderzoek: {  }
+    'Geboorte:jsonld-write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        land:
+          description: 'Land this person is born in'
+          $ref: '#/components/schemas/Waardetabel:jsonld-write'
+        plaats:
+          description: 'Plaats this person is born in'
+          $ref: '#/components/schemas/Waardetabel:jsonld-write'
+        datum:
+          description: 'Datum this person is born at'
+          type: string
+        inOnderzoek: {  }
     Gezagsverhouding-read:
       type: object
       description: ''
@@ -9362,33 +9612,73 @@ components:
         uuid:
           readOnly: true
           type: string
-        indicatie_curatele_register:
+        indicatieCurateleRegister:
           type: boolean
-        indicatie_gezag_minderjarige:
+        indicatieGezagMinderjarige:
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
       required:
-        - indicatie_curatele_register
+        - indicatieCurateleRegister
     Gezagsverhouding-write:
       type: object
       description: ''
       required:
-        - indicatie_curatele_register
+        - indicatieCurateleRegister
       properties:
-        indicatie_curatele_register:
+        indicatieCurateleRegister:
           type: boolean
-        indicatie_gezag_minderjarige:
+        indicatieGezagMinderjarige:
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
+    'Gezagsverhouding:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        indicatieCurateleRegister:
+          type: boolean
+        indicatieGezagMinderjarige:
+          type: string
+        inOnderzoek: {  }
+      required:
+        - indicatieCurateleRegister
+    'Gezagsverhouding:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - indicatieCurateleRegister
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        indicatieCurateleRegister:
+          type: boolean
+        indicatieGezagMinderjarige:
+          type: string
+        inOnderzoek: {  }
     Ingeschrevenpersoon-read:
       type: object
       description: ''
       properties:
         id:
           readOnly: true
-          description: 'The id of this entity'
-          externalDocs:
-            url: 'http://schema.org/identifier'
           type: string
         burgerservicenummer:
           description: 'Burgerservicenummer of this ingeschreven persoon'
@@ -9399,7 +9689,7 @@ components:
         geboorte:
           description: 'Geboorte of this ingeschreven persoon'
           $ref: '#/components/schemas/Geboorte-read'
-        geheimhouding_persoonsgegevens:
+        geheimhoudingPersoonsgegevens:
           description: 'Geheim houding persoongegevens of this ingeschreven persoon'
           type: boolean
         geslachtsaanduiding:
@@ -9408,18 +9698,18 @@ components:
         leeftijd:
           description: 'Leeftijd of this ingeschreven persoon'
           type: integer
-        datum_eerste_inschrijving_g_b_a:
+        datumEersteInschrijvingGBA:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
         kiesrecht:
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         nationaliteit:
           description: 'Nationaliteit of this ingeschreven persoon'
           type: array
           items:
             $ref: '#/components/schemas/Nationaliteit-read'
-        opschorting_bijhouding:
+        opschortingBijhouding:
           $ref: '#/components/schemas/OpschortingBijhouding-read'
         overlijden:
           description: 'Checks if ingeschreven persoon is overlijden'
@@ -9433,14 +9723,14 @@ components:
           $ref: '#/components/schemas/Verblijfstitel-read'
       required:
         - burgerservicenummer
-        - geheimhouding_persoonsgegevens
+        - geheimhoudingPersoonsgegevens
         - geslachtsaanduiding
     Ingeschrevenpersoon-write:
       type: object
       description: ''
       required:
         - burgerservicenummer
-        - geheimhouding_persoonsgegevens
+        - geheimhoudingPersoonsgegevens
         - geslachtsaanduiding
       properties:
         burgerservicenummer:
@@ -9452,7 +9742,7 @@ components:
         geboorte:
           description: 'Geboorte of this ingeschreven persoon'
           $ref: '#/components/schemas/Geboorte-write'
-        geheimhouding_persoonsgegevens:
+        geheimhoudingPersoonsgegevens:
           description: 'Geheim houding persoongegevens of this ingeschreven persoon'
           type: boolean
         geslachtsaanduiding:
@@ -9461,18 +9751,18 @@ components:
         leeftijd:
           description: 'Leeftijd of this ingeschreven persoon'
           type: integer
-        datum_eerste_inschrijving_g_b_a:
+        datumEersteInschrijvingGBA:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
         kiesrecht:
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         nationaliteit:
           description: 'Nationaliteit of this ingeschreven persoon'
           type: array
           items:
             $ref: '#/components/schemas/Nationaliteit-write'
-        opschorting_bijhouding:
+        opschortingBijhouding:
           $ref: '#/components/schemas/OpschortingBijhouding-write'
         overlijden:
           description: 'Checks if ingeschreven persoon is overlijden'
@@ -9484,6 +9774,125 @@ components:
           $ref: '#/components/schemas/Gezagsverhouding-write'
         verblijfstitel:
           $ref: '#/components/schemas/Verblijfstitel-write'
+    'Ingeschrevenpersoon:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          type: string
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this ingeschreven persoon'
+          type: string
+        naam:
+          description: 'Naam of this ingeschreven persoon'
+          $ref: '#/components/schemas/NaamPersoon:jsonld-read'
+        geboorte:
+          description: 'Geboorte of this ingeschreven persoon'
+          $ref: '#/components/schemas/Geboorte:jsonld-read'
+        geheimhoudingPersoonsgegevens:
+          description: 'Geheim houding persoongegevens of this ingeschreven persoon'
+          type: boolean
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this ingeschreven persoon'
+          type: string
+        leeftijd:
+          description: 'Leeftijd of this ingeschreven persoon'
+          type: integer
+        datumEersteInschrijvingGBA:
+          description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
+          type: string
+        kiesrecht:
+          type: string
+        inOnderzoek: {  }
+        nationaliteit:
+          description: 'Nationaliteit of this ingeschreven persoon'
+          type: array
+          items:
+            $ref: '#/components/schemas/Nationaliteit:jsonld-read'
+        opschortingBijhouding:
+          $ref: '#/components/schemas/OpschortingBijhouding:jsonld-read'
+        overlijden:
+          description: 'Checks if ingeschreven persoon is overlijden'
+          $ref: '#/components/schemas/Overlijden:jsonld-read'
+        verblijfplaats:
+          description: 'Checks if ingeschreven persoon is overlijden'
+          $ref: '#/components/schemas/Verblijfplaats:jsonld-read'
+        gezagsverhouding:
+          $ref: '#/components/schemas/Gezagsverhouding:jsonld-read'
+        verblijfstitel:
+          $ref: '#/components/schemas/Verblijfstitel:jsonld-read'
+      required:
+        - burgerservicenummer
+        - geheimhoudingPersoonsgegevens
+        - geslachtsaanduiding
+    'Ingeschrevenpersoon:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - burgerservicenummer
+        - geheimhoudingPersoonsgegevens
+        - geslachtsaanduiding
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this ingeschreven persoon'
+          type: string
+        naam:
+          description: 'Naam of this ingeschreven persoon'
+          $ref: '#/components/schemas/NaamPersoon:jsonld-write'
+        geboorte:
+          description: 'Geboorte of this ingeschreven persoon'
+          $ref: '#/components/schemas/Geboorte:jsonld-write'
+        geheimhoudingPersoonsgegevens:
+          description: 'Geheim houding persoongegevens of this ingeschreven persoon'
+          type: boolean
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this ingeschreven persoon'
+          type: string
+        leeftijd:
+          description: 'Leeftijd of this ingeschreven persoon'
+          type: integer
+        datumEersteInschrijvingGBA:
+          description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
+          type: string
+        kiesrecht:
+          type: string
+        inOnderzoek: {  }
+        nationaliteit:
+          description: 'Nationaliteit of this ingeschreven persoon'
+          type: array
+          items:
+            $ref: '#/components/schemas/Nationaliteit:jsonld-write'
+        opschortingBijhouding:
+          $ref: '#/components/schemas/OpschortingBijhouding:jsonld-write'
+        overlijden:
+          description: 'Checks if ingeschreven persoon is overlijden'
+          $ref: '#/components/schemas/Overlijden:jsonld-write'
+        verblijfplaats:
+          description: 'Checks if ingeschreven persoon is overlijden'
+          $ref: '#/components/schemas/Verblijfplaats:jsonld-write'
+        gezagsverhouding:
+          $ref: '#/components/schemas/Gezagsverhouding:jsonld-write'
+        verblijfstitel:
+          $ref: '#/components/schemas/Verblijfstitel:jsonld-write'
     Kind-read:
       type: object
       description: ''
@@ -9494,7 +9903,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         naam:
           description: 'NaamPersoon of this kind'
           $ref: '#/components/schemas/NaamPersoon-read'
@@ -9508,13 +9917,62 @@ components:
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         naam:
           description: 'NaamPersoon of this kind'
           $ref: '#/components/schemas/NaamPersoon-write'
         geboorte:
           description: 'Geboorte of this kind'
           $ref: '#/components/schemas/Geboorte-write'
+    'Kind:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        leeftijd:
+          description: 'Leeftijd of this kind'
+          type: integer
+        inOnderzoek: {  }
+        naam:
+          description: 'NaamPersoon of this kind'
+          $ref: '#/components/schemas/NaamPersoon:jsonld-read'
+        geboorte:
+          description: 'Geboorte of this kind'
+          $ref: '#/components/schemas/Geboorte:jsonld-read'
+    'Kind:jsonld-write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        leeftijd:
+          description: 'Leeftijd of this kind'
+          type: integer
+        inOnderzoek: {  }
+        naam:
+          description: 'NaamPersoon of this kind'
+          $ref: '#/components/schemas/NaamPersoon:jsonld-write'
+        geboorte:
+          description: 'Geboorte of this kind'
+          $ref: '#/components/schemas/Geboorte:jsonld-write'
     NaamPersoon-read:
       type: object
       description: ''
@@ -9534,13 +9992,13 @@ components:
         voorvoegsel:
           description: 'Voorvoegsel of this NaamPersoon'
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         aanhef:
           description: 'Aanhef of this NaamPersoon'
           type: string
         aanschrijfwijze:
           type: string
-        gebuik_in_lopende_tekst:
+        gebuikInLopendeTekst:
           description: 'Geslachtsnaam of this NaamPersoon'
           type: string
       required:
@@ -9549,7 +10007,7 @@ components:
         - voornamen
         - voorvoegsel
         - aanhef
-        - gebuik_in_lopende_tekst
+        - gebuikInLopendeTekst
     NaamPersoon-write:
       type: object
       description: ''
@@ -9559,7 +10017,7 @@ components:
         - voornamen
         - voorvoegsel
         - aanhef
-        - gebuik_in_lopende_tekst
+        - gebuikInLopendeTekst
       properties:
         geslachtsnaam:
           description: 'Geslachtsnaam of this NaamPersoon'
@@ -9573,13 +10031,98 @@ components:
         voorvoegsel:
           description: 'Voorvoegsel of this NaamPersoon'
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         aanhef:
           description: 'Aanhef of this NaamPersoon'
           type: string
         aanschrijfwijze:
           type: string
-        gebuik_in_lopende_tekst:
+        gebuikInLopendeTekst:
+          description: 'Geslachtsnaam of this NaamPersoon'
+          type: string
+    'NaamPersoon:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        geslachtsnaam:
+          description: 'Geslachtsnaam of this NaamPersoon'
+          type: string
+        voorletters:
+          description: 'Voorletters of this NaamPersoon'
+          type: string
+        voornamen:
+          description: 'Voornamen of this NaamPersoon'
+          type: string
+        voorvoegsel:
+          description: 'Voorvoegsel of this NaamPersoon'
+          type: string
+        inOnderzoek: {  }
+        aanhef:
+          description: 'Aanhef of this NaamPersoon'
+          type: string
+        aanschrijfwijze:
+          type: string
+        gebuikInLopendeTekst:
+          description: 'Geslachtsnaam of this NaamPersoon'
+          type: string
+      required:
+        - geslachtsnaam
+        - voorletters
+        - voornamen
+        - voorvoegsel
+        - aanhef
+        - gebuikInLopendeTekst
+    'NaamPersoon:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - geslachtsnaam
+        - voorletters
+        - voornamen
+        - voorvoegsel
+        - aanhef
+        - gebuikInLopendeTekst
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        geslachtsnaam:
+          description: 'Geslachtsnaam of this NaamPersoon'
+          type: string
+        voorletters:
+          description: 'Voorletters of this NaamPersoon'
+          type: string
+        voornamen:
+          description: 'Voornamen of this NaamPersoon'
+          type: string
+        voorvoegsel:
+          description: 'Voorvoegsel of this NaamPersoon'
+          type: string
+        inOnderzoek: {  }
+        aanhef:
+          description: 'Aanhef of this NaamPersoon'
+          type: string
+        aanschrijfwijze:
+          type: string
+        gebuikInLopendeTekst:
           description: 'Geslachtsnaam of this NaamPersoon'
           type: string
     Nationaliteit-read:
@@ -9597,6 +10140,39 @@ components:
       properties:
         ingeschrevenpersoon:
           $ref: '#/components/schemas/Ingeschrevenpersoon-write'
+    'Nationaliteit:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        ingeschrevenpersoon:
+          $ref: '#/components/schemas/Ingeschrevenpersoon:jsonld-read'
+    'Nationaliteit:jsonld-write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        ingeschrevenpersoon:
+          $ref: '#/components/schemas/Ingeschrevenpersoon:jsonld-write'
     OpschortingBijhouding-read:
       type: object
       description: ''
@@ -9624,6 +10200,51 @@ components:
         datum:
           description: 'Datum of this NaamPersoon'
           type: string
+    'OpschortingBijhouding:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        reden:
+          description: 'Reden of this OpschortingBijhouding'
+          type: string
+        datum:
+          description: 'Datum of this NaamPersoon'
+          type: string
+      required:
+        - reden
+    'OpschortingBijhouding:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - reden
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        reden:
+          description: 'Reden of this OpschortingBijhouding'
+          type: string
+        datum:
+          description: 'Datum of this NaamPersoon'
+          type: string
     Ouder-read:
       type: object
       description: ''
@@ -9637,29 +10258,29 @@ components:
         geslachtsaanduiding:
           description: 'Geslachts aanduiding of this Ouder'
           type: string
-        ouder_aanduiding:
+        ouderAanduiding:
           type: string
-        datum_ingang_familierechtelijke_betreking:
+        datumIngangFamilierechtelijkeBetreking:
           description: 'Burgerservicenummer of this Ouder'
           type: string
         naam:
           description: 'Naam of this Ouder'
           $ref: '#/components/schemas/NaamPersoon-read'
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         geboorte:
           description: 'Geboorte of this Ouder'
           $ref: '#/components/schemas/Geboorte-read'
       required:
         - burgerservicenummer
         - geslachtsaanduiding
-        - ouder_aanduiding
+        - ouderAanduiding
     Ouder-write:
       type: object
       description: ''
       required:
         - burgerservicenummer
         - geslachtsaanduiding
-        - ouder_aanduiding
+        - ouderAanduiding
       properties:
         burgerservicenummer:
           description: 'Burgerservicenummer of this Ouder'
@@ -9667,18 +10288,91 @@ components:
         geslachtsaanduiding:
           description: 'Geslachts aanduiding of this Ouder'
           type: string
-        ouder_aanduiding:
+        ouderAanduiding:
           type: string
-        datum_ingang_familierechtelijke_betreking:
+        datumIngangFamilierechtelijkeBetreking:
           description: 'Burgerservicenummer of this Ouder'
           type: string
         naam:
           description: 'Naam of this Ouder'
           $ref: '#/components/schemas/NaamPersoon-write'
-        in_onderzoek: {  }
+        inOnderzoek: {  }
         geboorte:
           description: 'Geboorte of this Ouder'
           $ref: '#/components/schemas/Geboorte-write'
+    'Ouder:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this Ouder'
+          type: string
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this Ouder'
+          type: string
+        ouderAanduiding:
+          type: string
+        datumIngangFamilierechtelijkeBetreking:
+          description: 'Burgerservicenummer of this Ouder'
+          type: string
+        naam:
+          description: 'Naam of this Ouder'
+          $ref: '#/components/schemas/NaamPersoon:jsonld-read'
+        inOnderzoek: {  }
+        geboorte:
+          description: 'Geboorte of this Ouder'
+          $ref: '#/components/schemas/Geboorte:jsonld-read'
+      required:
+        - burgerservicenummer
+        - geslachtsaanduiding
+        - ouderAanduiding
+    'Ouder:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - burgerservicenummer
+        - geslachtsaanduiding
+        - ouderAanduiding
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this Ouder'
+          type: string
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this Ouder'
+          type: string
+        ouderAanduiding:
+          type: string
+        datumIngangFamilierechtelijkeBetreking:
+          description: 'Burgerservicenummer of this Ouder'
+          type: string
+        naam:
+          description: 'Naam of this Ouder'
+          $ref: '#/components/schemas/NaamPersoon:jsonld-write'
+        inOnderzoek: {  }
+        geboorte:
+          description: 'Geboorte of this Ouder'
+          $ref: '#/components/schemas/Geboorte:jsonld-write'
     Overlijden-read:
       type: object
       description: ''
@@ -9686,28 +10380,75 @@ components:
         uuid:
           readOnly: true
           type: string
-        indicatie_overleden:
+        indicatieOverleden:
           description: 'Indicatie overleden of this Overlijden'
           type: boolean
         datum:
           description: 'Datum of this Overlijden'
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
       required:
-        - indicatie_overleden
+        - indicatieOverleden
     Overlijden-write:
       type: object
       description: ''
       required:
-        - indicatie_overleden
+        - indicatieOverleden
       properties:
-        indicatie_overleden:
+        indicatieOverleden:
           description: 'Indicatie overleden of this Overlijden'
           type: boolean
         datum:
           description: 'Datum of this Overlijden'
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
+    'Overlijden:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        indicatieOverleden:
+          description: 'Indicatie overleden of this Overlijden'
+          type: boolean
+        datum:
+          description: 'Datum of this Overlijden'
+          type: string
+        inOnderzoek: {  }
+      required:
+        - indicatieOverleden
+    'Overlijden:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - indicatieOverleden
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        indicatieOverleden:
+          description: 'Indicatie overleden of this Overlijden'
+          type: boolean
+        datum:
+          description: 'Datum of this Overlijden'
+          type: string
+        inOnderzoek: {  }
     Partner-read:
       type: object
       description: ''
@@ -9749,6 +10490,65 @@ components:
         geboorte:
           description: 'Geboorte of this Partner'
           $ref: '#/components/schemas/Geboorte-write'
+    'Partner:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this Partner'
+          type: string
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this Partner'
+          type: string
+        naam:
+          description: 'Naam of this Partner'
+          $ref: '#/components/schemas/NaamPersoon:jsonld-read'
+        geboorte:
+          description: 'Geboorte of this Partner'
+          $ref: '#/components/schemas/Geboorte:jsonld-read'
+      required:
+        - burgerservicenummer
+        - geslachtsaanduiding
+    'Partner:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - burgerservicenummer
+        - geslachtsaanduiding
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        burgerservicenummer:
+          description: 'Burgerservicenummer of this Partner'
+          type: string
+        geslachtsaanduiding:
+          description: 'Geslachts aanduiding of this Partner'
+          type: string
+        naam:
+          description: 'Naam of this Partner'
+          $ref: '#/components/schemas/NaamPersoon:jsonld-write'
+        geboorte:
+          description: 'Geboorte of this Partner'
+          $ref: '#/components/schemas/Geboorte:jsonld-write'
     Reisdocument-read:
       type: object
       description: ''
@@ -9756,22 +10556,71 @@ components:
         id:
           readOnly: true
           type: string
-        aanduiding_inhouding_of_vermissing:
+        aanduidingInhoudingOfVermissing:
+          writeOnly: true
           type: string
         reisdocumentnummer:
           description: 'Reisdocumentnummer of this Reisdocument'
           type: string
       required:
-        - aanduiding_inhouding_of_vermissing
+        - aanduidingInhoudingOfVermissing
         - reisdocumentnummer
     Reisdocument-write:
       type: object
       description: ''
       required:
-        - aanduiding_inhouding_of_vermissing
+        - aanduidingInhoudingOfVermissing
         - reisdocumentnummer
       properties:
-        aanduiding_inhouding_of_vermissing:
+        aanduidingInhoudingOfVermissing:
+          writeOnly: true
+          type: string
+        reisdocumentnummer:
+          description: 'Reisdocumentnummer of this Reisdocument'
+          type: string
+    'Reisdocument:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          type: string
+        aanduidingInhoudingOfVermissing:
+          writeOnly: true
+          type: string
+        reisdocumentnummer:
+          description: 'Reisdocumentnummer of this Reisdocument'
+          type: string
+      required:
+        - aanduidingInhoudingOfVermissing
+        - reisdocumentnummer
+    'Reisdocument:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - aanduidingInhoudingOfVermissing
+        - reisdocumentnummer
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        aanduidingInhoudingOfVermissing:
+          writeOnly: true
           type: string
         reisdocumentnummer:
           description: 'Reisdocumentnummer of this Reisdocument'
@@ -9782,11 +10631,11 @@ components:
       properties:
         adresregel1:
           type: string
-        adres_regel2:
+        adresRegel2:
           type: string
-        adres_regel3:
+        adresRegel3:
           type: string
-        vertrokken_onbekend_waarheen:
+        vertrokkenOnbekendWaarheen:
           type: boolean
     VerblijfBuitenland-write:
       type: object
@@ -9794,11 +10643,53 @@ components:
       properties:
         adresregel1:
           type: string
-        adres_regel2:
+        adresRegel2:
           type: string
-        adres_regel3:
+        adresRegel3:
           type: string
-        vertrokken_onbekend_waarheen:
+        vertrokkenOnbekendWaarheen:
+          type: boolean
+    'VerblijfBuitenland:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        adresregel1:
+          type: string
+        adresRegel2:
+          type: string
+        adresRegel3:
+          type: string
+        vertrokkenOnbekendWaarheen:
+          type: boolean
+    'VerblijfBuitenland:jsonld-write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        adresregel1:
+          type: string
+        adresRegel2:
+          type: string
+        adresRegel3:
+          type: string
+        vertrokkenOnbekendWaarheen:
           type: boolean
     Verblijfplaats-read:
       type: object
@@ -9807,9 +10698,9 @@ components:
         uuid:
           readOnly: true
           type: string
-        aanduiding_bij_huisnummer:
+        aanduidingBijHuisnummer:
           type: string
-        funtie_adres:
+        funtieAdres:
           type: string
         huisletter:
           description: 'Huisletter of this Verblijfplaats'
@@ -9820,16 +10711,16 @@ components:
         huisnummertoevoeging:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
-        identificatiecode_nummeraanduiding:
+        identificatiecodeNummeraanduiding:
           type: string
-        identificatiecode_verblijfplaats:
+        identificatiecodeVerblijfplaats:
           type: string
-        indentificatie_vestiging_vanuit_buitenland:
+        indentificatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           description: 'Locatiebeschrijving of this Verblijfplaats'
           type: string
-        naam_openbare_ruimte:
+        naamOpenbareRuimte:
           type: string
         postcode:
           description: 'Postcode of this Verblijfplaats'
@@ -9837,42 +10728,42 @@ components:
         straatnaam:
           description: 'Straatnaam of this Verblijfplaats'
           type: string
-        vanuit_vertrokken_onbekend_waarheen:
+        vanuitVertrokkenOnbekendWaarheen:
           type: boolean
         woonplaatsnaam:
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
-        datum_aanvang_adreshouding:
+        datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
           type: string
-        datum_ingang_geldigheid:
+        datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
           type: string
-        datum_inschrijving_in_gemeente:
+        datumInschrijvingInGemeente:
           description: 'Datum inschrijving in gemeente of this Verblijfplaats'
           type: string
-        datum_vestiging_in_nederland:
+        datumVestigingInNederland:
           description: 'Datum vestiging in Nederland of this Verblijfplaats'
           type: string
-        gemeente_van_inschrijving:
+        gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
           type: string
-        land_vanwaar_ingeschreven:
+        landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
           $ref: '#/components/schemas/Waardetabel-read'
-        verblijf_buitenland:
+        verblijfBuitenland:
           description: 'VerblijfBuitenland of this Verblijfplaats'
           $ref: '#/components/schemas/VerblijfBuitenland-read'
-        in_onderzoek: {  }
-        bag_id:
+        inOnderzoek: {  }
+        bagId:
           type: integer
     Verblijfplaats-write:
       type: object
       description: ''
       properties:
-        aanduiding_bij_huisnummer:
+        aanduidingBijHuisnummer:
           type: string
-        funtie_adres:
+        funtieAdres:
           type: string
         huisletter:
           description: 'Huisletter of this Verblijfplaats'
@@ -9883,16 +10774,16 @@ components:
         huisnummertoevoeging:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
-        identificatiecode_nummeraanduiding:
+        identificatiecodeNummeraanduiding:
           type: string
-        identificatiecode_verblijfplaats:
+        identificatiecodeVerblijfplaats:
           type: string
-        indentificatie_vestiging_vanuit_buitenland:
+        indentificatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           description: 'Locatiebeschrijving of this Verblijfplaats'
           type: string
-        naam_openbare_ruimte:
+        naamOpenbareRuimte:
           type: string
         postcode:
           description: 'Postcode of this Verblijfplaats'
@@ -9900,34 +10791,181 @@ components:
         straatnaam:
           description: 'Straatnaam of this Verblijfplaats'
           type: string
-        vanuit_vertrokken_onbekend_waarheen:
+        vanuitVertrokkenOnbekendWaarheen:
           type: boolean
         woonplaatsnaam:
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
-        datum_aanvang_adreshouding:
+        datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
           type: string
-        datum_ingang_geldigheid:
+        datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
           type: string
-        datum_inschrijving_in_gemeente:
+        datumInschrijvingInGemeente:
           description: 'Datum inschrijving in gemeente of this Verblijfplaats'
           type: string
-        datum_vestiging_in_nederland:
+        datumVestigingInNederland:
           description: 'Datum vestiging in Nederland of this Verblijfplaats'
           type: string
-        gemeente_van_inschrijving:
+        gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
           type: string
-        land_vanwaar_ingeschreven:
+        landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
           $ref: '#/components/schemas/Waardetabel-write'
-        verblijf_buitenland:
+        verblijfBuitenland:
           description: 'VerblijfBuitenland of this Verblijfplaats'
           $ref: '#/components/schemas/VerblijfBuitenland-write'
-        in_onderzoek: {  }
-        bag_id:
+        inOnderzoek: {  }
+        bagId:
+          type: integer
+    'Verblijfplaats:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        aanduidingBijHuisnummer:
+          type: string
+        funtieAdres:
+          type: string
+        huisletter:
+          description: 'Huisletter of this Verblijfplaats'
+          type: string
+        huisnummer:
+          description: 'Huisnummer of this Verblijfplaats'
+          type: integer
+        huisnummertoevoeging:
+          description: 'Huisnummertoevoeging of this Verblijfplaats'
+          type: string
+        identificatiecodeNummeraanduiding:
+          type: string
+        identificatiecodeVerblijfplaats:
+          type: string
+        indentificatieVestigingVanuitBuitenland:
+          type: boolean
+        locatiebeschrijving:
+          description: 'Locatiebeschrijving of this Verblijfplaats'
+          type: string
+        naamOpenbareRuimte:
+          type: string
+        postcode:
+          description: 'Postcode of this Verblijfplaats'
+          type: string
+        straatnaam:
+          description: 'Straatnaam of this Verblijfplaats'
+          type: string
+        vanuitVertrokkenOnbekendWaarheen:
+          type: boolean
+        woonplaatsnaam:
+          description: 'Woonplaatsnaam of this Verblijfplaats'
+          type: string
+        datumAanvangAdreshouding:
+          description: 'Datum aanvang adreshouding of this Verblijfplaats'
+          type: string
+        datumIngangGeldigheid:
+          description: 'Datum ingang geldigheid of this Verblijfplaats'
+          type: string
+        datumInschrijvingInGemeente:
+          description: 'Datum inschrijving in gemeente of this Verblijfplaats'
+          type: string
+        datumVestigingInNederland:
+          description: 'Datum vestiging in Nederland of this Verblijfplaats'
+          type: string
+        gemeenteVanInschrijving:
+          description: 'Gemeente van inschrijving of this Verblijfplaats'
+          type: string
+        landVanwaarIngeschreven:
+          description: 'Land van  waar ingeschreven of this Verblijfplaats'
+          $ref: '#/components/schemas/Waardetabel:jsonld-read'
+        verblijfBuitenland:
+          description: 'VerblijfBuitenland of this Verblijfplaats'
+          $ref: '#/components/schemas/VerblijfBuitenland:jsonld-read'
+        inOnderzoek: {  }
+        bagId:
+          type: integer
+    'Verblijfplaats:jsonld-write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        aanduidingBijHuisnummer:
+          type: string
+        funtieAdres:
+          type: string
+        huisletter:
+          description: 'Huisletter of this Verblijfplaats'
+          type: string
+        huisnummer:
+          description: 'Huisnummer of this Verblijfplaats'
+          type: integer
+        huisnummertoevoeging:
+          description: 'Huisnummertoevoeging of this Verblijfplaats'
+          type: string
+        identificatiecodeNummeraanduiding:
+          type: string
+        identificatiecodeVerblijfplaats:
+          type: string
+        indentificatieVestigingVanuitBuitenland:
+          type: boolean
+        locatiebeschrijving:
+          description: 'Locatiebeschrijving of this Verblijfplaats'
+          type: string
+        naamOpenbareRuimte:
+          type: string
+        postcode:
+          description: 'Postcode of this Verblijfplaats'
+          type: string
+        straatnaam:
+          description: 'Straatnaam of this Verblijfplaats'
+          type: string
+        vanuitVertrokkenOnbekendWaarheen:
+          type: boolean
+        woonplaatsnaam:
+          description: 'Woonplaatsnaam of this Verblijfplaats'
+          type: string
+        datumAanvangAdreshouding:
+          description: 'Datum aanvang adreshouding of this Verblijfplaats'
+          type: string
+        datumIngangGeldigheid:
+          description: 'Datum ingang geldigheid of this Verblijfplaats'
+          type: string
+        datumInschrijvingInGemeente:
+          description: 'Datum inschrijving in gemeente of this Verblijfplaats'
+          type: string
+        datumVestigingInNederland:
+          description: 'Datum vestiging in Nederland of this Verblijfplaats'
+          type: string
+        gemeenteVanInschrijving:
+          description: 'Gemeente van inschrijving of this Verblijfplaats'
+          type: string
+        landVanwaarIngeschreven:
+          description: 'Land van  waar ingeschreven of this Verblijfplaats'
+          $ref: '#/components/schemas/Waardetabel:jsonld-write'
+        verblijfBuitenland:
+          description: 'VerblijfBuitenland of this Verblijfplaats'
+          $ref: '#/components/schemas/VerblijfBuitenland:jsonld-write'
+        inOnderzoek: {  }
+        bagId:
           type: integer
     Verblijfstitel-read:
       type: object
@@ -9936,24 +10974,67 @@ components:
         uuid:
           readOnly: true
           type: string
-        datum_einde:
+        datumEinde:
           description: 'Datum einde of this Verblijftitel'
           type: string
-        datum_ingang:
+        datumIngang:
           description: 'Datum ingang of this Verblijftitel'
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
     Verblijfstitel-write:
       type: object
       description: ''
       properties:
-        datum_einde:
+        datumEinde:
           description: 'Datum einde of this Verblijftitel'
           type: string
-        datum_ingang:
+        datumIngang:
           description: 'Datum ingang of this Verblijftitel'
           type: string
-        in_onderzoek: {  }
+        inOnderzoek: {  }
+    'Verblijfstitel:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        uuid:
+          readOnly: true
+          type: string
+        datumEinde:
+          description: 'Datum einde of this Verblijftitel'
+          type: string
+        datumIngang:
+          description: 'Datum ingang of this Verblijftitel'
+          type: string
+        inOnderzoek: {  }
+    'Verblijfstitel:jsonld-write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        datumEinde:
+          description: 'Datum einde of this Verblijftitel'
+          type: string
+        datumIngang:
+          description: 'Datum ingang of this Verblijftitel'
+          type: string
+        inOnderzoek: {  }
     Waardetabel-read:
       type: object
       description: ''
@@ -9973,6 +11054,47 @@ components:
       required:
         - code
       properties:
+        code:
+          type: string
+        omschrijving:
+          type: string
+    'Waardetabel:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          type: string
+        code:
+          type: string
+        omschrijving:
+          type: string
+      required:
+        - code
+    'Waardetabel:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - code
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
         code:
           type: string
         omschrijving:
@@ -9999,7 +11121,9 @@ definitions:
         example: Amsterdam
       partner:
         description: 'Other partner of this huwelijk'
-        type: \Partner
+        type: object
+        eaxample: '#/components/schemas/Partner-read'
+        format: Partner
         example: John
     required: []
   AangaanHuwelijkPartnerschap-write:
@@ -10019,7 +11143,9 @@ definitions:
         example: Amsterdam
       partner:
         description: 'Other partner of this huwelijk'
-        type: \Partner
+        type: object
+        eaxample: '#/components/schemas/Partner-read'
+        format: Partner
         example: John
     required: []
   Geboorte-read:
@@ -10112,7 +11238,9 @@ definitions:
         example: John
       geboorte:
         description: 'Geboorte of this ingeschreven persoon'
-        type: \Geboorte
+        type: object
+        eaxample: '#/components/schemas/Geboorte-read'
+        format: Geboorte
         example: 01-01-2000
       nationaliteit:
         description: 'Nationaliteit of this ingeschreven persoon'
@@ -10121,11 +11249,15 @@ definitions:
       opschortingBijhouding: []
       overlijden:
         description: 'Checks if ingeschreven persoon is overlijden'
-        type: \Overlijden
+        type: object
+        eaxample: '#/components/schemas/Overlijden-read'
+        format: Overlijden
         example: 'false'
       verblijfplaats:
         description: 'Checks if ingeschreven persoon is overlijden'
-        type: \Overlijden
+        type: object
+        eaxample: '#/components/schemas/Overlijden-read'
+        format: Overlijden
         example: 'false'
       gezagsverhouding: []
       verblijfstitel: []
@@ -10162,7 +11294,9 @@ definitions:
         example: John
       geboorte:
         description: 'Geboorte of this ingeschreven persoon'
-        type: \Geboorte
+        type: object
+        eaxample: '#/components/schemas/Geboorte-read'
+        format: Geboorte
         example: 01-01-2000
       nationaliteit:
         description: 'Nationaliteit of this ingeschreven persoon'
@@ -10171,11 +11305,15 @@ definitions:
       opschortingBijhouding: []
       overlijden:
         description: 'Checks if ingeschreven persoon is overlijden'
-        type: \Overlijden
+        type: object
+        eaxample: '#/components/schemas/Overlijden-read'
+        format: Overlijden
         example: 'false'
       verblijfplaats:
         description: 'Checks if ingeschreven persoon is overlijden'
-        type: \Overlijden
+        type: object
+        eaxample: '#/components/schemas/Overlijden-read'
+        format: Overlijden
         example: 'false'
       gezagsverhouding: []
       verblijfstitel: []
@@ -10193,11 +11331,15 @@ definitions:
       inOnderzoek: []
       naam:
         description: 'NaamPersoon of this kind'
-        type: \NaamPersoon
+        type: object
+        eaxample: '#/components/schemas/NaamPersoon-read'
+        format: NaamPersoon
         example: Michael
       geboorte:
         description: 'Geboorte of this kind'
-        type: \Geboorte
+        type: object
+        eaxample: '#/components/schemas/Geboorte-read'
+        format: Geboorte
         example: 01-01-2000
     required: []
   Kind-write:
@@ -10209,11 +11351,15 @@ definitions:
       inOnderzoek: []
       naam:
         description: 'NaamPersoon of this kind'
-        type: \NaamPersoon
+        type: object
+        eaxample: '#/components/schemas/NaamPersoon-read'
+        format: NaamPersoon
         example: Michael
       geboorte:
         description: 'Geboorte of this kind'
-        type: \Geboorte
+        type: object
+        eaxample: '#/components/schemas/Geboorte-read'
+        format: Geboorte
         example: 01-01-2000
     required: []
   NaamPersoon-read:
@@ -10355,11 +11501,15 @@ definitions:
       inOnderzoek: []
       naam:
         description: 'Naam of this Ouder'
-        type: \NaamPersoon
+        type: object
+        eaxample: '#/components/schemas/NaamPersoon-read'
+        format: NaamPersoon
         example: Joe
       geboorte:
         description: 'Geboorte of this Ouder'
-        type: \Geboorte
+        type: object
+        eaxample: '#/components/schemas/Geboorte-read'
+        format: Geboorte
         example: 01-01-2000
     required: []
   Ouder-write:
@@ -10383,11 +11533,15 @@ definitions:
       inOnderzoek: []
       naam:
         description: 'Naam of this Ouder'
-        type: \NaamPersoon
+        type: object
+        eaxample: '#/components/schemas/NaamPersoon-read'
+        format: NaamPersoon
         example: Joe
       geboorte:
         description: 'Geboorte of this Ouder'
-        type: \Geboorte
+        type: object
+        eaxample: '#/components/schemas/Geboorte-read'
+        format: Geboorte
         example: 01-01-2000
     required: []
   Overlijden-read:
@@ -10436,11 +11590,15 @@ definitions:
         maxLength: 255
       naam:
         description: 'Naam of this Partner'
-        type: \NaamPersoon
+        type: object
+        eaxample: '#/components/schemas/NaamPersoon-read'
+        format: NaamPersoon
         example: Jessica
       geboorte:
         description: 'Geboorte of this Partner'
-        type: \Geboorte
+        type: object
+        eaxample: '#/components/schemas/Geboorte-read'
+        format: Geboorte
         example: 01-01-2000
     required: []
   Partner-write:
@@ -10457,11 +11615,15 @@ definitions:
         maxLength: 255
       naam:
         description: 'Naam of this Partner'
-        type: \NaamPersoon
+        type: object
+        eaxample: '#/components/schemas/NaamPersoon-read'
+        format: NaamPersoon
         example: Jessica
       geboorte:
         description: 'Geboorte of this Partner'
-        type: \Geboorte
+        type: object
+        eaxample: '#/components/schemas/Geboorte-read'
+        format: Geboorte
         example: 01-01-2000
     required: []
   Reisdocument-read:
@@ -10592,7 +11754,9 @@ definitions:
         example: Spain
       verblijfBuitenland:
         description: 'VerblijfBuitenland of this Verblijfplaats'
-        type: \VerblijfBuitenland
+        type: object
+        eaxample: '#/components/schemas/VerblijfBuitenland-read'
+        format: VerblijfBuitenland
         example: Spain
     required: []
   Verblijfplaats-write:
@@ -10671,7 +11835,9 @@ definitions:
         example: Spain
       verblijfBuitenland:
         description: 'VerblijfBuitenland of this Verblijfplaats'
-        type: \VerblijfBuitenland
+        type: object
+        eaxample: '#/components/schemas/VerblijfBuitenland-read'
+        format: VerblijfBuitenland
         example: Spain
     required: []
   Verblijfstitel-read:

@@ -163,6 +163,12 @@
             "config/packages/lexik_jwt_authentication.yaml"
         ]
     },
+    "markbaker/complex": {
+        "version": "1.4.7"
+    },
+    "markbaker/matrix": {
+        "version": "1.2.0"
+    },
     "michelf/php-markdown": {
         "version": "1.9.0"
     },
@@ -202,6 +208,9 @@
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
     },
+    "phpoffice/phpspreadsheet": {
+        "version": "1.11.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -216,6 +225,9 @@
     },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "psr/simple-cache": {
+        "version": "1.0.1"
     },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
