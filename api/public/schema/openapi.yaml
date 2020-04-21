@@ -13224,6 +13224,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         datum:
           description: 'Datum this huwelijk has been requested'
           type: string
@@ -13270,6 +13271,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         datum:
           description: 'Datum this huwelijk has been requested'
           type: string
@@ -13702,6 +13704,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         land:
           description: 'Land this person is born in'
           $ref: '#/components/schemas/Waardetabel-read'
@@ -13742,6 +13745,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         land:
           description: 'Land this person is born in'
           $ref: '#/components/schemas/Waardetabel:jsonld-read'
@@ -13782,6 +13786,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         indicatieCurateleRegister:
           type: boolean
         indicatieGezagMinderjarige:
@@ -13816,6 +13821,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         indicatieCurateleRegister:
           type: boolean
         indicatieGezagMinderjarige:
@@ -13850,6 +13856,7 @@ components:
         id:
           readOnly: true
           type: string
+          format: uuid
         burgerservicenummer:
           description: 'Burgerservicenummer of this ingeschreven persoon'
           type: string
@@ -13960,6 +13967,7 @@ components:
         id:
           readOnly: true
           type: string
+          format: uuid
         burgerservicenummer:
           description: 'Burgerservicenummer of this ingeschreven persoon'
           type: string
@@ -14070,6 +14078,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
@@ -14110,6 +14119,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
@@ -14150,6 +14160,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         geslachtsnaam:
           description: 'Geslachtsnaam of this NaamPersoon'
           type: string
@@ -14226,6 +14237,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         geslachtsnaam:
           description: 'Geslachtsnaam of this NaamPersoon'
           type: string
@@ -14302,6 +14314,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         ingeschrevenpersoon:
           $ref: '#/components/schemas/Ingeschrevenpersoon-read'
     Nationaliteit-write:
@@ -14326,6 +14339,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         ingeschrevenpersoon:
           $ref: '#/components/schemas/Ingeschrevenpersoon:jsonld-read'
     'Nationaliteit:jsonld-write':
@@ -14350,6 +14364,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         reden:
           description: 'Reden of this OpschortingBijhouding'
           type: string
@@ -14386,6 +14401,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         reden:
           description: 'Reden of this OpschortingBijhouding'
           type: string
@@ -14422,6 +14438,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         burgerservicenummer:
           description: 'Burgerservicenummer of this Ouder'
           type: string
@@ -14486,6 +14503,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         burgerservicenummer:
           description: 'Burgerservicenummer of this Ouder'
           type: string
@@ -14550,6 +14568,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         indicatieOverleden:
           description: 'Indicatie overleden of this Overlijden'
           type: boolean
@@ -14588,6 +14607,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         indicatieOverleden:
           description: 'Indicatie overleden of this Overlijden'
           type: boolean
@@ -14626,6 +14646,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         burgerservicenummer:
           description: 'Burgerservicenummer of this Partner'
           type: string
@@ -14676,6 +14697,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         burgerservicenummer:
           description: 'Burgerservicenummer of this Partner'
           type: string
@@ -14726,6 +14748,7 @@ components:
         id:
           readOnly: true
           type: string
+          format: uuid
         aanduidingInhoudingOfVermissing:
           writeOnly: true
           type: string
@@ -14764,6 +14787,7 @@ components:
         id:
           readOnly: true
           type: string
+          format: uuid
         aanduidingInhoudingOfVermissing:
           writeOnly: true
           type: string
@@ -14868,6 +14892,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         aanduidingBijHuisnummer:
           type: string
         funtieAdres:
@@ -15006,6 +15031,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         aanduidingBijHuisnummer:
           type: string
         funtieAdres:
@@ -15144,6 +15170,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         datumEinde:
           description: 'Datum einde of this Verblijftitel'
           type: string
@@ -15178,6 +15205,7 @@ components:
         uuid:
           readOnly: true
           type: string
+          format: uuid
         datumEinde:
           description: 'Datum einde of this Verblijftitel'
           type: string
@@ -15212,6 +15240,7 @@ components:
         id:
           readOnly: true
           type: string
+          format: uuid
         code:
           type: string
         omschrijving:
@@ -15244,6 +15273,7 @@ components:
         id:
           readOnly: true
           type: string
+          format: uuid
         code:
           type: string
         omschrijving:
@@ -15418,12 +15448,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-03-11 09:37:42'
+        example: '2020-04-21 17:54:49'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-03-11 09:37:42'
+        example: '2020-04-21 17:54:49'
     required: []
   AuditTrail-write:
     properties:
@@ -15471,12 +15501,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-03-11 09:37:42'
+        example: '2020-04-21 17:54:49'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-03-11 09:37:42'
+        example: '2020-04-21 17:54:49'
     required: []
   ChangeLog-write:
     properties:
@@ -16312,7 +16342,7 @@ host: irc.zaakonline.nl
 servers:
   -
     name: conduction.nl
-    url: pc.dev.conduction.nl
+    url: brp.dev.conduction.nl
 externalDocs:
   -
     description: 'OAS Documentatie'
