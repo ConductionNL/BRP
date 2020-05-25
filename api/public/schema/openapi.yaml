@@ -13230,14 +13230,23 @@ components:
           type: string
         land:
           description: 'Land this huwelijk is in'
-          $ref: '#/components/schemas/Waardetabel-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel-read'
         plaats:
           description: 'Plaats this huwelijk is in'
-          $ref: '#/components/schemas/Waardetabel-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel-read'
         inOnderzoek: {  }
         partner:
           description: 'Other partner of this huwelijk'
-          $ref: '#/components/schemas/Partner-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Partner-read'
     AangaanHuwelijkPartnerschap-write:
       type: object
       description: ''
@@ -13247,14 +13256,23 @@ components:
           type: string
         land:
           description: 'Land this huwelijk is in'
-          $ref: '#/components/schemas/Waardetabel-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel-write'
         plaats:
           description: 'Plaats this huwelijk is in'
-          $ref: '#/components/schemas/Waardetabel-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel-write'
         inOnderzoek: {  }
         partner:
           description: 'Other partner of this huwelijk'
-          $ref: '#/components/schemas/Partner-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Partner-write'
     'AangaanHuwelijkPartnerschap:jsonld-read':
       type: object
       description: ''
@@ -13277,14 +13295,23 @@ components:
           type: string
         land:
           description: 'Land this huwelijk is in'
-          $ref: '#/components/schemas/Waardetabel:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel:jsonld-read'
         plaats:
           description: 'Plaats this huwelijk is in'
-          $ref: '#/components/schemas/Waardetabel:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel:jsonld-read'
         inOnderzoek: {  }
         partner:
           description: 'Other partner of this huwelijk'
-          $ref: '#/components/schemas/Partner:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Partner:jsonld-read'
     'AangaanHuwelijkPartnerschap:jsonld-write':
       type: object
       description: ''
@@ -13303,14 +13330,23 @@ components:
           type: string
         land:
           description: 'Land this huwelijk is in'
-          $ref: '#/components/schemas/Waardetabel:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel:jsonld-write'
         plaats:
           description: 'Plaats this huwelijk is in'
-          $ref: '#/components/schemas/Waardetabel:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel:jsonld-write'
         inOnderzoek: {  }
         partner:
           description: 'Other partner of this huwelijk'
-          $ref: '#/components/schemas/Partner:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Partner:jsonld-write'
     AuditTrail-read:
       type: object
       description: 'An resource representing a log line.'
@@ -13783,6 +13819,7 @@ components:
           type: boolean
         indicatieGezagMinderjarige:
           type: string
+          nullable: true
         inOnderzoek: {  }
       required:
         - indicatieCurateleRegister
@@ -13796,6 +13833,7 @@ components:
           type: boolean
         indicatieGezagMinderjarige:
           type: string
+          nullable: true
         inOnderzoek: {  }
     'Gezagsverhouding:jsonld-read':
       type: object
@@ -13818,6 +13856,7 @@ components:
           type: boolean
         indicatieGezagMinderjarige:
           type: string
+          nullable: true
         inOnderzoek: {  }
       required:
         - indicatieCurateleRegister
@@ -13840,6 +13879,7 @@ components:
           type: boolean
         indicatieGezagMinderjarige:
           type: string
+          nullable: true
         inOnderzoek: {  }
     Ingeschrevenpersoon-read:
       type: object
@@ -13867,6 +13907,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this ingeschreven persoon'
           type: integer
+          nullable: true
         datumEersteInschrijvingGBA:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
@@ -13879,17 +13920,32 @@ components:
           items:
             $ref: '#/components/schemas/Nationaliteit-read'
         opschortingBijhouding:
-          $ref: '#/components/schemas/OpschortingBijhouding-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/OpschortingBijhouding-read'
         overlijden:
           description: 'Checks if ingeschreven persoon is overlijden'
-          $ref: '#/components/schemas/Overlijden-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Overlijden-read'
         verblijfplaats:
           description: 'Checks if ingeschreven persoon is overlijden'
-          $ref: '#/components/schemas/Verblijfplaats-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Verblijfplaats-read'
         gezagsverhouding:
-          $ref: '#/components/schemas/Gezagsverhouding-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Gezagsverhouding-read'
         verblijfstitel:
-          $ref: '#/components/schemas/Verblijfstitel-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Verblijfstitel-read'
       required:
         - burgerservicenummer
         - geheimhoudingPersoonsgegevens
@@ -13920,6 +13976,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this ingeschreven persoon'
           type: integer
+          nullable: true
         datumEersteInschrijvingGBA:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
@@ -13932,17 +13989,32 @@ components:
           items:
             $ref: '#/components/schemas/Nationaliteit-write'
         opschortingBijhouding:
-          $ref: '#/components/schemas/OpschortingBijhouding-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/OpschortingBijhouding-write'
         overlijden:
           description: 'Checks if ingeschreven persoon is overlijden'
-          $ref: '#/components/schemas/Overlijden-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Overlijden-write'
         verblijfplaats:
           description: 'Checks if ingeschreven persoon is overlijden'
-          $ref: '#/components/schemas/Verblijfplaats-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Verblijfplaats-write'
         gezagsverhouding:
-          $ref: '#/components/schemas/Gezagsverhouding-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Gezagsverhouding-write'
         verblijfstitel:
-          $ref: '#/components/schemas/Verblijfstitel-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Verblijfstitel-write'
     'Ingeschrevenpersoon:jsonld-read':
       type: object
       description: ''
@@ -13978,6 +14050,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this ingeschreven persoon'
           type: integer
+          nullable: true
         datumEersteInschrijvingGBA:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
@@ -13990,17 +14063,32 @@ components:
           items:
             $ref: '#/components/schemas/Nationaliteit:jsonld-read'
         opschortingBijhouding:
-          $ref: '#/components/schemas/OpschortingBijhouding:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/OpschortingBijhouding:jsonld-read'
         overlijden:
           description: 'Checks if ingeschreven persoon is overlijden'
-          $ref: '#/components/schemas/Overlijden:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Overlijden:jsonld-read'
         verblijfplaats:
           description: 'Checks if ingeschreven persoon is overlijden'
-          $ref: '#/components/schemas/Verblijfplaats:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Verblijfplaats:jsonld-read'
         gezagsverhouding:
-          $ref: '#/components/schemas/Gezagsverhouding:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Gezagsverhouding:jsonld-read'
         verblijfstitel:
-          $ref: '#/components/schemas/Verblijfstitel:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Verblijfstitel:jsonld-read'
       required:
         - burgerservicenummer
         - geheimhoudingPersoonsgegevens
@@ -14040,6 +14128,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this ingeschreven persoon'
           type: integer
+          nullable: true
         datumEersteInschrijvingGBA:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
@@ -14052,17 +14141,32 @@ components:
           items:
             $ref: '#/components/schemas/Nationaliteit:jsonld-write'
         opschortingBijhouding:
-          $ref: '#/components/schemas/OpschortingBijhouding:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/OpschortingBijhouding:jsonld-write'
         overlijden:
           description: 'Checks if ingeschreven persoon is overlijden'
-          $ref: '#/components/schemas/Overlijden:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Overlijden:jsonld-write'
         verblijfplaats:
           description: 'Checks if ingeschreven persoon is overlijden'
-          $ref: '#/components/schemas/Verblijfplaats:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Verblijfplaats:jsonld-write'
         gezagsverhouding:
-          $ref: '#/components/schemas/Gezagsverhouding:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Gezagsverhouding:jsonld-write'
         verblijfstitel:
-          $ref: '#/components/schemas/Verblijfstitel:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Verblijfstitel:jsonld-write'
     Kind-read:
       type: object
       description: ''
@@ -14074,6 +14178,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
+          nullable: true
         inOnderzoek: {  }
         naam:
           description: 'NaamPersoon of this kind'
@@ -14088,6 +14193,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
+          nullable: true
         inOnderzoek: {  }
         naam:
           description: 'NaamPersoon of this kind'
@@ -14115,6 +14221,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
+          nullable: true
         inOnderzoek: {  }
         naam:
           description: 'NaamPersoon of this kind'
@@ -14138,6 +14245,7 @@ components:
         leeftijd:
           description: 'Leeftijd of this kind'
           type: integer
+          nullable: true
         inOnderzoek: {  }
         naam:
           description: 'NaamPersoon of this kind'
@@ -14817,10 +14925,13 @@ components:
       properties:
         adresregel1:
           type: string
+          nullable: true
         adresRegel2:
           type: string
+          nullable: true
         adresRegel3:
           type: string
+          nullable: true
         vertrokkenOnbekendWaarheen:
           type: boolean
     VerblijfBuitenland-write:
@@ -14829,10 +14940,13 @@ components:
       properties:
         adresregel1:
           type: string
+          nullable: true
         adresRegel2:
           type: string
+          nullable: true
         adresRegel3:
           type: string
+          nullable: true
         vertrokkenOnbekendWaarheen:
           type: boolean
     'VerblijfBuitenland:jsonld-read':
@@ -14850,10 +14964,13 @@ components:
           type: string
         adresregel1:
           type: string
+          nullable: true
         adresRegel2:
           type: string
+          nullable: true
         adresRegel3:
           type: string
+          nullable: true
         vertrokkenOnbekendWaarheen:
           type: boolean
     'VerblijfBuitenland:jsonld-write':
@@ -14871,10 +14988,13 @@ components:
           type: string
         adresregel1:
           type: string
+          nullable: true
         adresRegel2:
           type: string
+          nullable: true
         adresRegel3:
           type: string
+          nullable: true
         vertrokkenOnbekendWaarheen:
           type: boolean
     Verblijfplaats-read:
@@ -14887,42 +15007,55 @@ components:
           format: uuid
         aanduidingBijHuisnummer:
           type: string
+          nullable: true
         funtieAdres:
           type: string
+          nullable: true
         huisletter:
           description: 'Huisletter of this Verblijfplaats'
           type: string
+          nullable: true
         huisnummer:
           description: 'Huisnummer of this Verblijfplaats'
           type: integer
+          nullable: true
         huisnummertoevoeging:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
+          nullable: true
         identificatiecodeNummeraanduiding:
           type: string
+          nullable: true
         identificatiecodeVerblijfplaats:
           type: string
+          nullable: true
         indentificatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           description: 'Locatiebeschrijving of this Verblijfplaats'
           type: string
+          nullable: true
         naamOpenbareRuimte:
           type: string
+          nullable: true
         postcode:
           description: 'Postcode of this Verblijfplaats'
           type: string
+          nullable: true
         straatnaam:
           description: 'Straatnaam of this Verblijfplaats'
           type: string
+          nullable: true
         vanuitVertrokkenOnbekendWaarheen:
           type: boolean
         woonplaatsnaam:
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
+          nullable: true
         datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
           type: string
+          nullable: true
         datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
           type: string
@@ -14935,57 +15068,78 @@ components:
         gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
           type: string
+          nullable: true
         landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
-          $ref: '#/components/schemas/Waardetabel-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel-read'
         verblijfBuitenland:
           description: 'VerblijfBuitenland of this Verblijfplaats'
-          $ref: '#/components/schemas/VerblijfBuitenland-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/VerblijfBuitenland-read'
         inOnderzoek: {  }
         bagId:
           type: integer
+          nullable: true
     Verblijfplaats-write:
       type: object
       description: ''
       properties:
         aanduidingBijHuisnummer:
           type: string
+          nullable: true
         funtieAdres:
           type: string
+          nullable: true
         huisletter:
           description: 'Huisletter of this Verblijfplaats'
           type: string
+          nullable: true
         huisnummer:
           description: 'Huisnummer of this Verblijfplaats'
           type: integer
+          nullable: true
         huisnummertoevoeging:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
+          nullable: true
         identificatiecodeNummeraanduiding:
           type: string
+          nullable: true
         identificatiecodeVerblijfplaats:
           type: string
+          nullable: true
         indentificatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           description: 'Locatiebeschrijving of this Verblijfplaats'
           type: string
+          nullable: true
         naamOpenbareRuimte:
           type: string
+          nullable: true
         postcode:
           description: 'Postcode of this Verblijfplaats'
           type: string
+          nullable: true
         straatnaam:
           description: 'Straatnaam of this Verblijfplaats'
           type: string
+          nullable: true
         vanuitVertrokkenOnbekendWaarheen:
           type: boolean
         woonplaatsnaam:
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
+          nullable: true
         datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
           type: string
+          nullable: true
         datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
           type: string
@@ -14998,15 +15152,23 @@ components:
         gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
           type: string
+          nullable: true
         landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
-          $ref: '#/components/schemas/Waardetabel-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel-write'
         verblijfBuitenland:
           description: 'VerblijfBuitenland of this Verblijfplaats'
-          $ref: '#/components/schemas/VerblijfBuitenland-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/VerblijfBuitenland-write'
         inOnderzoek: {  }
         bagId:
           type: integer
+          nullable: true
     'Verblijfplaats:jsonld-read':
       type: object
       description: ''
@@ -15026,42 +15188,55 @@ components:
           format: uuid
         aanduidingBijHuisnummer:
           type: string
+          nullable: true
         funtieAdres:
           type: string
+          nullable: true
         huisletter:
           description: 'Huisletter of this Verblijfplaats'
           type: string
+          nullable: true
         huisnummer:
           description: 'Huisnummer of this Verblijfplaats'
           type: integer
+          nullable: true
         huisnummertoevoeging:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
+          nullable: true
         identificatiecodeNummeraanduiding:
           type: string
+          nullable: true
         identificatiecodeVerblijfplaats:
           type: string
+          nullable: true
         indentificatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           description: 'Locatiebeschrijving of this Verblijfplaats'
           type: string
+          nullable: true
         naamOpenbareRuimte:
           type: string
+          nullable: true
         postcode:
           description: 'Postcode of this Verblijfplaats'
           type: string
+          nullable: true
         straatnaam:
           description: 'Straatnaam of this Verblijfplaats'
           type: string
+          nullable: true
         vanuitVertrokkenOnbekendWaarheen:
           type: boolean
         woonplaatsnaam:
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
+          nullable: true
         datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
           type: string
+          nullable: true
         datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
           type: string
@@ -15074,15 +15249,23 @@ components:
         gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
           type: string
+          nullable: true
         landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
-          $ref: '#/components/schemas/Waardetabel:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel:jsonld-read'
         verblijfBuitenland:
           description: 'VerblijfBuitenland of this Verblijfplaats'
-          $ref: '#/components/schemas/VerblijfBuitenland:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/VerblijfBuitenland:jsonld-read'
         inOnderzoek: {  }
         bagId:
           type: integer
+          nullable: true
     'Verblijfplaats:jsonld-write':
       type: object
       description: ''
@@ -15098,42 +15281,55 @@ components:
           type: string
         aanduidingBijHuisnummer:
           type: string
+          nullable: true
         funtieAdres:
           type: string
+          nullable: true
         huisletter:
           description: 'Huisletter of this Verblijfplaats'
           type: string
+          nullable: true
         huisnummer:
           description: 'Huisnummer of this Verblijfplaats'
           type: integer
+          nullable: true
         huisnummertoevoeging:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
+          nullable: true
         identificatiecodeNummeraanduiding:
           type: string
+          nullable: true
         identificatiecodeVerblijfplaats:
           type: string
+          nullable: true
         indentificatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           description: 'Locatiebeschrijving of this Verblijfplaats'
           type: string
+          nullable: true
         naamOpenbareRuimte:
           type: string
+          nullable: true
         postcode:
           description: 'Postcode of this Verblijfplaats'
           type: string
+          nullable: true
         straatnaam:
           description: 'Straatnaam of this Verblijfplaats'
           type: string
+          nullable: true
         vanuitVertrokkenOnbekendWaarheen:
           type: boolean
         woonplaatsnaam:
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
+          nullable: true
         datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
           type: string
+          nullable: true
         datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
           type: string
@@ -15146,15 +15342,23 @@ components:
         gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
           type: string
+          nullable: true
         landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
-          $ref: '#/components/schemas/Waardetabel:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel:jsonld-write'
         verblijfBuitenland:
           description: 'VerblijfBuitenland of this Verblijfplaats'
-          $ref: '#/components/schemas/VerblijfBuitenland:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/VerblijfBuitenland:jsonld-write'
         inOnderzoek: {  }
         bagId:
           type: integer
+          nullable: true
     Verblijfstitel-read:
       type: object
       description: ''
@@ -15237,6 +15441,7 @@ components:
           type: string
         omschrijving:
           type: string
+          nullable: true
       required:
         - code
     Waardetabel-write:
@@ -15249,6 +15454,7 @@ components:
           type: string
         omschrijving:
           type: string
+          nullable: true
     'Waardetabel:jsonld-read':
       type: object
       description: ''
@@ -15270,6 +15476,7 @@ components:
           type: string
         omschrijving:
           type: string
+          nullable: true
       required:
         - code
     'Waardetabel:jsonld-write':
@@ -15291,6 +15498,7 @@ components:
           type: string
         omschrijving:
           type: string
+          nullable: true
 definitions:
   AangaanHuwelijkPartnerschap-read:
     properties:
@@ -15336,177 +15544,143 @@ definitions:
         type: \Partner
         example: John
     required: []
-  AuditTrail-read:
+  Waardetabel-read:
     properties:
       id:
-        description: 'The UUID identifier of this object'
-        type: string
+        description: ''
+        type: \UuidInterface
         example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line looks suspicius'
-        maxLength: 2555
-      application:
-        description: 'The application that made the request'
-        type: string
-        format: url
+      code:
         maxLength: 255
-      request:
-        description: 'The id of the request within that application'
-        type: string
-        format: url
+      omschrijving:
         maxLength: 255
-      user:
-        description: 'The user on behalf of wich the request was made'
-        type: string
-        format: url
-        maxLength: 255
-      subject:
-        description: '???'
-        type: string
-        maxLength: 255
-      process:
-        description: 'The procces on behalf of wich the request was made'
-        type: string
-        maxLength: 255
-      dataElements:
-        description: 'The moment this request was created'
-        type: array
-      dataSubjects:
-        description: 'The moment this request was created'
-        type: array
-      resource:
-        description: 'The resource that was requested'
-        type: string
-        maxLength: 255
-      resourceType:
-        description: 'The type of the resource that was requested'
-        type: string
-        maxLength: 255
-      route:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      endpoint:
-        description: 'The endpoint that the request was made to'
-        type: string
-        maxLength: 255
-      method:
-        description: 'The method that was used'
-        type: string
-        maxLength: 255
-      accept:
-        description: 'The contentType that was reqousted'
-        type: string
-        maxLength: 255
-      contentType:
-        description: 'The contentType that was suplieds'
-        type: string
-        maxLength: 255
-      content:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 2555
-      ip:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      headers:
-        description: 'The headers supplied by client'
-        type: array
-      statusCode:
-        description: 'The status code returned to client'
-        type: int
-        example: '200'
-      notFound:
-        description: 'Whether or not the reqousted endpoint was found'
-        type: bool
-        example: 'false'
-      forbidden:
-        description: 'Whether or not the client was allowed to the reqousted endpoint'
-        type: bool
-        example: 'false'
-      ok:
-        description: 'Whether or not there where any problems'
-        type: bool
-        example: 'true'
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-04-21 17:54:49'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-04-21 17:54:49'
     required: []
-  AuditTrail-write:
+  Waardetabel-write:
     properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line looks suspicius'
-        maxLength: 2555
+      code:
+        maxLength: 255
+      omschrijving:
+        maxLength: 255
     required: []
-  ChangeLog-read:
+  Partner-read:
     properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
+      uuid:
+        description: ''
+        type: \UuidInterface
         example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this Partner'
         type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
+        example: '123456782'
+        maxLength: 9
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this Partner'
         type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
+        example: female
         maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-04-21 17:54:49'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-04-21 17:54:49'
+      naam:
+        description: 'Naam of this Partner'
+        type: \NaamPersoon
+        example: Jessica
+      geboorte:
+        description: 'Geboorte of this Partner'
+        type: \Geboorte
+        example: 01-01-2000
     required: []
-  ChangeLog-write:
+  Partner-write:
     properties:
-      note:
-        description: 'A note conserning this log lin'
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this Partner'
         type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
+        example: '123456782'
+        maxLength: 9
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this Partner'
+        type: string
+        example: female
+        maxLength: 255
+      naam:
+        description: 'Naam of this Partner'
+        type: \NaamPersoon
+        example: Jessica
+      geboorte:
+        description: 'Geboorte of this Partner'
+        type: \Geboorte
+        example: 01-01-2000
+    required: []
+  NaamPersoon-read:
+    properties:
+      uuid:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      geslachtsnaam:
+        description: 'Geslachtsnaam of this NaamPersoon'
+        type: string
+        example: male
+        maxLength: 255
+      voorletters:
+        description: 'Voorletters of this NaamPersoon'
+        type: string
+        example: A
+        maxLength: 255
+      voornamen:
+        description: 'Voornamen of this NaamPersoon'
+        type: string
+        example: 'Michael Smith'
+        maxLength: 255
+      voorvoegsel:
+        description: 'Voorvoegsel of this NaamPersoon'
+        type: string
+        example: 'van der'
+        maxLength: 255
+      inOnderzoek: []
+      aanhef:
+        description: 'Aanhef of this NaamPersoon'
+        type: string
+        example: Dhr
+        maxLength: 255
+      aanschrijfwijze: []
+      gebuikInLopendeTekst:
+        description: 'Geslachtsnaam of this NaamPersoon'
+        type: string
+        example: male
+        maxLength: 255
+    required: []
+  NaamPersoon-write:
+    properties:
+      geslachtsnaam:
+        description: 'Geslachtsnaam of this NaamPersoon'
+        type: string
+        example: male
+        maxLength: 255
+      voorletters:
+        description: 'Voorletters of this NaamPersoon'
+        type: string
+        example: A
+        maxLength: 255
+      voornamen:
+        description: 'Voornamen of this NaamPersoon'
+        type: string
+        example: 'Michael Smith'
+        maxLength: 255
+      voorvoegsel:
+        description: 'Voorvoegsel of this NaamPersoon'
+        type: string
+        example: 'van der'
+        maxLength: 255
+      inOnderzoek: []
+      aanhef:
+        description: 'Aanhef of this NaamPersoon'
+        type: string
+        example: Dhr
+        maxLength: 255
+      aanschrijfwijze: []
+      gebuikInLopendeTekst:
+        description: 'Geslachtsnaam of this NaamPersoon'
+        type: string
+        example: male
+        maxLength: 255
     required: []
   Geboorte-read:
     properties:
@@ -15666,116 +15840,6 @@ definitions:
       gezagsverhouding: []
       verblijfstitel: []
     required: []
-  Kind-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      leeftijd:
-        description: 'Leeftijd of this kind'
-        type: int
-        example: '14'
-      inOnderzoek: []
-      naam:
-        description: 'NaamPersoon of this kind'
-        type: \NaamPersoon
-        example: Michael
-      geboorte:
-        description: 'Geboorte of this kind'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
-  Kind-write:
-    properties:
-      leeftijd:
-        description: 'Leeftijd of this kind'
-        type: int
-        example: '14'
-      inOnderzoek: []
-      naam:
-        description: 'NaamPersoon of this kind'
-        type: \NaamPersoon
-        example: Michael
-      geboorte:
-        description: 'Geboorte of this kind'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
-  NaamPersoon-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      geslachtsnaam:
-        description: 'Geslachtsnaam of this NaamPersoon'
-        type: string
-        example: male
-        maxLength: 255
-      voorletters:
-        description: 'Voorletters of this NaamPersoon'
-        type: string
-        example: A
-        maxLength: 255
-      voornamen:
-        description: 'Voornamen of this NaamPersoon'
-        type: string
-        example: 'Michael Smith'
-        maxLength: 255
-      voorvoegsel:
-        description: 'Voorvoegsel of this NaamPersoon'
-        type: string
-        example: 'van der'
-        maxLength: 255
-      inOnderzoek: []
-      aanhef:
-        description: 'Aanhef of this NaamPersoon'
-        type: string
-        example: Dhr
-        maxLength: 255
-      aanschrijfwijze: []
-      gebuikInLopendeTekst:
-        description: 'Geslachtsnaam of this NaamPersoon'
-        type: string
-        example: male
-        maxLength: 255
-    required: []
-  NaamPersoon-write:
-    properties:
-      geslachtsnaam:
-        description: 'Geslachtsnaam of this NaamPersoon'
-        type: string
-        example: male
-        maxLength: 255
-      voorletters:
-        description: 'Voorletters of this NaamPersoon'
-        type: string
-        example: A
-        maxLength: 255
-      voornamen:
-        description: 'Voornamen of this NaamPersoon'
-        type: string
-        example: 'Michael Smith'
-        maxLength: 255
-      voorvoegsel:
-        description: 'Voorvoegsel of this NaamPersoon'
-        type: string
-        example: 'van der'
-        maxLength: 255
-      inOnderzoek: []
-      aanhef:
-        description: 'Aanhef of this NaamPersoon'
-        type: string
-        example: Dhr
-        maxLength: 255
-      aanschrijfwijze: []
-      gebuikInLopendeTekst:
-        description: 'Geslachtsnaam of this NaamPersoon'
-        type: string
-        example: male
-        maxLength: 255
-    required: []
   Nationaliteit-read:
     properties:
       uuid:
@@ -15816,66 +15880,6 @@ definitions:
         type: string
         example: 01-01-2000
     required: []
-  Ouder-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this Ouder'
-        type: string
-        example: '123456782'
-        maxLength: 255
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this Ouder'
-        type: string
-        example: female
-        maxLength: 7
-      ouderAanduiding:
-        maxLength: 7
-      datumIngangFamilierechtelijkeBetreking:
-        description: 'Burgerservicenummer of this Ouder'
-        type: string
-        example: '123456782'
-      inOnderzoek: []
-      naam:
-        description: 'Naam of this Ouder'
-        type: \NaamPersoon
-        example: Joe
-      geboorte:
-        description: 'Geboorte of this Ouder'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
-  Ouder-write:
-    properties:
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this Ouder'
-        type: string
-        example: '123456782'
-        maxLength: 255
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this Ouder'
-        type: string
-        example: female
-        maxLength: 7
-      ouderAanduiding:
-        maxLength: 7
-      datumIngangFamilierechtelijkeBetreking:
-        description: 'Burgerservicenummer of this Ouder'
-        type: string
-        example: '123456782'
-      inOnderzoek: []
-      naam:
-        description: 'Naam of this Ouder'
-        type: \NaamPersoon
-        example: Joe
-      geboorte:
-        description: 'Geboorte of this Ouder'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
   Overlijden-read:
     properties:
       uuid:
@@ -15903,100 +15907,6 @@ definitions:
         type: string
         example: 01-01-2000
       inOnderzoek: []
-    required: []
-  Partner-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this Partner'
-        type: string
-        example: '123456782'
-        maxLength: 9
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this Partner'
-        type: string
-        example: female
-        maxLength: 255
-      naam:
-        description: 'Naam of this Partner'
-        type: \NaamPersoon
-        example: Jessica
-      geboorte:
-        description: 'Geboorte of this Partner'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
-  Partner-write:
-    properties:
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this Partner'
-        type: string
-        example: '123456782'
-        maxLength: 9
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this Partner'
-        type: string
-        example: female
-        maxLength: 255
-      naam:
-        description: 'Naam of this Partner'
-        type: \NaamPersoon
-        example: Jessica
-      geboorte:
-        description: 'Geboorte of this Partner'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
-  Reisdocument-read:
-    properties:
-      id:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      aanduidingInhoudingOfVermissing:
-        maxLength: 255
-      reisdocumentnummer:
-        description: 'Reisdocumentnummer of this Reisdocument'
-        type: string
-        example: AB1234CD0
-        maxLength: 255
-    required: []
-  Reisdocument-write:
-    properties:
-      aanduidingInhoudingOfVermissing:
-        maxLength: 255
-      reisdocumentnummer:
-        description: 'Reisdocumentnummer of this Reisdocument'
-        type: string
-        example: AB1234CD0
-        maxLength: 255
-    required: []
-  VerblijfBuitenland-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      adresregel1:
-        maxLength: 255
-      adresRegel2:
-        maxLength: 255
-      adresRegel3:
-        maxLength: 255
-      vertrokkenOnbekendWaarheen: []
-    required: []
-  VerblijfBuitenland-write:
-    properties:
-      adresregel1:
-        maxLength: 255
-      adresRegel2:
-        maxLength: 255
-      adresRegel3:
-        maxLength: 255
-      vertrokkenOnbekendWaarheen: []
     required: []
   Verblijfplaats-read:
     properties:
@@ -16160,6 +16070,30 @@ definitions:
         type: \VerblijfBuitenland
         example: Spain
     required: []
+  VerblijfBuitenland-read:
+    properties:
+      uuid:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      adresregel1:
+        maxLength: 255
+      adresRegel2:
+        maxLength: 255
+      adresRegel3:
+        maxLength: 255
+      vertrokkenOnbekendWaarheen: []
+    required: []
+  VerblijfBuitenland-write:
+    properties:
+      adresregel1:
+        maxLength: 255
+      adresRegel2:
+        maxLength: 255
+      adresRegel3:
+        maxLength: 255
+      vertrokkenOnbekendWaarheen: []
+    required: []
   Verblijfstitel-read:
     properties:
       uuid:
@@ -16188,23 +16122,297 @@ definitions:
         example: 01-01-2004
       inOnderzoek: []
     required: []
-  Waardetabel-read:
+  Kind-read:
+    properties:
+      uuid:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      leeftijd:
+        description: 'Leeftijd of this kind'
+        type: int
+        example: '14'
+      inOnderzoek: []
+      naam:
+        description: 'NaamPersoon of this kind'
+        type: \NaamPersoon
+        example: Michael
+      geboorte:
+        description: 'Geboorte of this kind'
+        type: \Geboorte
+        example: 01-01-2000
+    required: []
+  Kind-write:
+    properties:
+      leeftijd:
+        description: 'Leeftijd of this kind'
+        type: int
+        example: '14'
+      inOnderzoek: []
+      naam:
+        description: 'NaamPersoon of this kind'
+        type: \NaamPersoon
+        example: Michael
+      geboorte:
+        description: 'Geboorte of this kind'
+        type: \Geboorte
+        example: 01-01-2000
+    required: []
+  Ouder-read:
+    properties:
+      uuid:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this Ouder'
+        type: string
+        example: '123456782'
+        maxLength: 255
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this Ouder'
+        type: string
+        example: female
+        maxLength: 7
+      ouderAanduiding:
+        maxLength: 7
+      datumIngangFamilierechtelijkeBetreking:
+        description: 'Burgerservicenummer of this Ouder'
+        type: string
+        example: '123456782'
+      inOnderzoek: []
+      naam:
+        description: 'Naam of this Ouder'
+        type: \NaamPersoon
+        example: Joe
+      geboorte:
+        description: 'Geboorte of this Ouder'
+        type: \Geboorte
+        example: 01-01-2000
+    required: []
+  Ouder-write:
+    properties:
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this Ouder'
+        type: string
+        example: '123456782'
+        maxLength: 255
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this Ouder'
+        type: string
+        example: female
+        maxLength: 7
+      ouderAanduiding:
+        maxLength: 7
+      datumIngangFamilierechtelijkeBetreking:
+        description: 'Burgerservicenummer of this Ouder'
+        type: string
+        example: '123456782'
+      inOnderzoek: []
+      naam:
+        description: 'Naam of this Ouder'
+        type: \NaamPersoon
+        example: Joe
+      geboorte:
+        description: 'Geboorte of this Ouder'
+        type: \Geboorte
+        example: 01-01-2000
+    required: []
+  Reisdocument-read:
     properties:
       id:
         description: ''
         type: \UuidInterface
         example: e2984465-190a-4562-829e-a8cca81aa35d
-      code:
+      aanduidingInhoudingOfVermissing:
         maxLength: 255
-      omschrijving:
+      reisdocumentnummer:
+        description: 'Reisdocumentnummer of this Reisdocument'
+        type: string
+        example: AB1234CD0
         maxLength: 255
     required: []
-  Waardetabel-write:
+  Reisdocument-write:
     properties:
-      code:
+      aanduidingInhoudingOfVermissing:
         maxLength: 255
-      omschrijving:
+      reisdocumentnummer:
+        description: 'Reisdocumentnummer of this Reisdocument'
+        type: string
+        example: AB1234CD0
         maxLength: 255
+    required: []
+  AuditTrail-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line looks suspicius'
+        maxLength: 2555
+      application:
+        description: 'The application that made the request'
+        type: string
+        format: url
+        maxLength: 255
+      request:
+        description: 'The id of the request within that application'
+        type: string
+        format: url
+        maxLength: 255
+      user:
+        description: 'The user on behalf of wich the request was made'
+        type: string
+        format: url
+        maxLength: 255
+      subject:
+        description: '???'
+        type: string
+        maxLength: 255
+      process:
+        description: 'The procces on behalf of wich the request was made'
+        type: string
+        maxLength: 255
+      dataElements:
+        description: 'The moment this request was created'
+        type: array
+      dataSubjects:
+        description: 'The moment this request was created'
+        type: array
+      resource:
+        description: 'The resource that was requested'
+        type: string
+        maxLength: 255
+      resourceType:
+        description: 'The type of the resource that was requested'
+        type: string
+        maxLength: 255
+      route:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      endpoint:
+        description: 'The endpoint that the request was made to'
+        type: string
+        maxLength: 255
+      method:
+        description: 'The method that was used'
+        type: string
+        maxLength: 255
+      accept:
+        description: 'The contentType that was reqousted'
+        type: string
+        maxLength: 255
+      contentType:
+        description: 'The contentType that was suplieds'
+        type: string
+        maxLength: 255
+      content:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 2555
+      ip:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      headers:
+        description: 'The headers supplied by client'
+        type: array
+      statusCode:
+        description: 'The status code returned to client'
+        type: int
+        example: '200'
+      notFound:
+        description: 'Whether or not the reqousted endpoint was found'
+        type: bool
+        example: 'false'
+      forbidden:
+        description: 'Whether or not the client was allowed to the reqousted endpoint'
+        type: bool
+        example: 'false'
+      ok:
+        description: 'Whether or not there where any problems'
+        type: bool
+        example: 'true'
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-05-25 14:07:51'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-05-25 14:07:51'
+    required: []
+  AuditTrail-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-05-25 14:07:51'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-05-25 14:07:51'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
     required: []
 tags:
   -
@@ -16214,17 +16422,23 @@ tags:
       
       
   -
-    name: AuditTrail
+    name: Waardetabel
     description: |
-      An resource representing a log line.
       
-      This entity represents a product that can be ordered via the OrderRegistratieComponent.
+      
+      
   -
-    name: ChangeLog
+    name: Partner
     description: |
-      An resource representing a log line.
       
-      This entity represents a product that can be ordered via the OrderRegistratieComponent.
+      
+      
+  -
+    name: NaamPersoon
+    description: |
+      
+      
+      
   -
     name: Geboorte
     description: |
@@ -16244,18 +16458,6 @@ tags:
       
       
   -
-    name: Kind
-    description: |
-      
-      
-      
-  -
-    name: NaamPersoon
-    description: |
-      
-      
-      
-  -
     name: Nationaliteit
     description: |
       
@@ -16268,31 +16470,7 @@ tags:
       
       
   -
-    name: Ouder
-    description: |
-      
-      
-      
-  -
     name: Overlijden
-    description: |
-      
-      
-      
-  -
-    name: Partner
-    description: |
-      
-      
-      
-  -
-    name: Reisdocument
-    description: |
-      
-      
-      
-  -
-    name: VerblijfBuitenland
     description: |
       
       
@@ -16304,32 +16482,62 @@ tags:
       
       
   -
+    name: VerblijfBuitenland
+    description: |
+      
+      
+      
+  -
     name: Verblijfstitel
     description: |
       
       
       
   -
-    name: Waardetabel
+    name: Kind
     description: |
       
       
       
+  -
+    name: Ouder
+    description: |
+      
+      
+      
+  -
+    name: Reisdocument
+    description: |
+      
+      
+      
+  -
+    name: AuditTrail
+    description: |
+      An resource representing a log line.
+      
+      This entity represents a product that can be ordered via the OrderRegistratieComponent.
+  -
+    name: ChangeLog
+    description: |
+      An resource representing a log line.
+      
+      This entity represents a product that can be ordered via the OrderRegistratieComponent.
 securityDefinitions:
   JWT-Oauth:
     type: oauth2
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the Waardetabel resource'
-      write: 'write right to the Waardetabel resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the Waardetabel resource'
-      write: 'write right to the Waardetabel resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
