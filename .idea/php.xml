@@ -18,7 +18,6 @@
       <path value="$PROJECT_DIR$/api/vendor/guzzlehttp/guzzle" />
       <path value="$PROJECT_DIR$/api/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/api/vendor/doctrine/reflection" />
-      <path value="$PROJECT_DIR$/api/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/api/vendor/moneyphp/money" />
       <path value="$PROJECT_DIR$/api/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/api/vendor/doctrine/instantiator" />
@@ -98,10 +97,8 @@
       <path value="$PROJECT_DIR$/api/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/api/vendor/ramsey/uuid-doctrine" />
       <path value="$PROJECT_DIR$/api/vendor/easyrdf/easyrdf" />
-      <path value="$PROJECT_DIR$/api/vendor/lexik/jwt-authentication-bundle" />
       <path value="$PROJECT_DIR$/api/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/api/vendor/league/html-to-markdown" />
-      <path value="$PROJECT_DIR$/api/vendor/namshi/jose" />
       <path value="$PROJECT_DIR$/api/vendor/twig/twig" />
       <path value="$PROJECT_DIR$/api/vendor/behat/transliterator" />
       <path value="$PROJECT_DIR$/api/vendor/gedmo/doctrine-extensions" />
@@ -116,10 +113,19 @@
       <path value="$PROJECT_DIR$/api/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/api/vendor/composer" />
       <path value="$PROJECT_DIR$/api/vendor/sensio/framework-extra-bundle" />
-      <path value="$PROJECT_DIR$/api/vendor/phpoffice/phpspreadsheet" />
       <path value="$PROJECT_DIR$/api/vendor/markbaker/complex" />
       <path value="$PROJECT_DIR$/api/vendor/psr/simple-cache" />
       <path value="$PROJECT_DIR$/api/vendor/markbaker/matrix" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/api/vendor/doctrine/rst-parser" />
+      <path value="$PROJECT_DIR$/api/vendor/mollie/mollie-api-php" />
+      <path value="$PROJECT_DIR$/api/vendor/michelf/php-markdown" />
+      <path value="$PROJECT_DIR$/api/vendor/sumup/sumup-ecom-php-sdk" />
+      <path value="$PROJECT_DIR$/api/vendor/knplabs/knp-markdown-bundle" />
+      <path value="$PROJECT_DIR$/api/vendor/ocramius/package-versions" />
+      <path value="$PROJECT_DIR$/api/vendor/twig/extensions" />
+      <path value="$PROJECT_DIR$/api/vendor/phpoffice/phpspreadsheet" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
