@@ -29,7 +29,7 @@ class IngeschrevenpersoonRepository extends ServiceEntityRepository
             $qb->expr()->eq('k.burgerservicenummer', $bsn),
             $qb->expr()->eq('p.burgerservicenummer', $bsn),
             $qb->expr()->eq('o.burgerservicenummer', $bsn)
-         ))
+        ))
         ->getQuery()
         ->getResult();
     }
