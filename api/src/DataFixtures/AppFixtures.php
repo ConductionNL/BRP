@@ -13,7 +13,6 @@ use App\Entity\Waardetabel;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use PhpOffice\PhpSpreadsheet;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -25,7 +24,7 @@ class AppFixtures extends Fixture
 //
 //    public function __construct(UserPasswordEncoderInterface $encoder)
 //    {
-////        $this->params = $params;
+    ////        $this->params = $params;
 //        $this->encoder = $encoder;
 //    }
 
