@@ -3,7 +3,7 @@ entries:
   brp:
   - apiVersion: v1
     appVersion: V.0.1
-    created: "2020-05-28T07:01:30.3735929Z"
+    created: "2020-05-28T08:58:33.3653963Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
     digest: d0700fcd907ca21dfb0f285b6cbef01457cc4bb153081e501dd9763d92510f91
@@ -13,4 +13,4 @@ entries:
     urls:
     - brp-0.1.0.tgz
     version: 0.1.0
-generated: "2020-05-28T07:01:30.3677831Z"
+generated: "2020-05-28T08:58:33.3597213Z"
