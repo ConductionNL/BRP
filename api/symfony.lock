@@ -112,6 +112,9 @@
     "doctrine/rst-parser": {
         "version": "0.1.0"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.0.1"
+    },
     "easyrdf/easyrdf": {
         "version": "0.9.1"
     },
@@ -150,6 +153,12 @@
     },
     "league/html-to-markdown": {
         "version": "4.8.1"
+    },
+    "markbaker/complex": {
+        "version": "1.4.8"
+    },
+    "markbaker/matrix": {
+        "version": "1.2.0"
     },
     "michelf/php-markdown": {
         "version": "1.9.0"
