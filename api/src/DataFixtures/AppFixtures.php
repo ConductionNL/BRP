@@ -13,7 +13,9 @@ use App\Entity\Waardetabel;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use PhpOffice\PhpSpreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class AppFixtures extends Fixture
 {
@@ -22,7 +24,7 @@ class AppFixtures extends Fixture
 //
 //    public function __construct(UserPasswordEncoderInterface $encoder)
 //    {
-////        $this->params = $params;
+    ////        $this->params = $params;
 //        $this->encoder = $encoder;
 //    }
 
@@ -215,21 +217,21 @@ class AppFixtures extends Fixture
         $this->loadFromExcel($manager);
     }
 
-    public function createReader(): PhpSpreadsheet\Reader\Xlsx
+    public function createReader(): Xlsx
     {
-        $reader = new PhpSpreadsheet\Reader\Xlsx();
+        $reader = new Xlsx();
         $reader->setReadDataOnly(true);
 
         return $reader;
     }
 
-    public function loadXlsx(string $filename): PhpSpreadsheet\Spreadsheet
+    public function loadXlsx(string $filename): Spreadsheet
     {
         $reader = $this->createReader();
 
         try {
             return $reader->load($filename);
-        } catch (PhpSpreadsheet\Reader\Exception $e) {
+        } catch (Exception $e) {
         }
 
         return null;

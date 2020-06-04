@@ -97,7 +97,7 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
                 $qb->expr()->eq('k.burgerservicenummer', ':familieEerstegraad'),
                 $qb->expr()->eq('p.burgerservicenummer', ':familieEerstegraad'),
                 $qb->expr()->eq('o.burgerservicenummer', ':familieEerstegraad')
-                ))
+            ))
                 ->setParameter('familieEerstegraad', $familieEerstegraad);
         }
 
@@ -123,14 +123,15 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
         // now we need to overide the normal subscriber
         $json = $this->serializer->serialize(
             $results,
-            $renderType, ['enable_max_depth' => true]
+            $renderType,
+            ['enable_max_depth' => true]
         );
 
         $response = new Response(
-                $json,
-                Response::HTTP_OK,
-                ['content-type' => $contentType]
-                );
+            $json,
+            Response::HTTP_OK,
+            ['content-type' => $contentType]
+        );
 
         $event->setResponse($response);
     }

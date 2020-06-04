@@ -69,14 +69,15 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
         // now we need to overide the normal subscriber
         $json = $this->serializer->serialize(
             $result,
-                $renderType, ['enable_max_depth' => true]
+            $renderType,
+            ['enable_max_depth' => true]
         );
 
         $response = new Response(
-                $json,
-                Response::HTTP_OK,
-                ['content-type' => $contentType]
-                );
+            $json,
+            Response::HTTP_OK,
+            ['content-type' => $contentType]
+        );
 
         $event->setResponse($response);
     }
