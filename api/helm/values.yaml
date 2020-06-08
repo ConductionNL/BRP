@@ -14,7 +14,7 @@ settings:
   repro: https://github.com/ConductionNL/brpservice
   demo: brp.zaakonline.nl
   container: https://hub.docker.com/repository/docker/conduction/brp-php
-  domain: conduction.nl
+  domain: mijncluster.nl
   subdomain: brp
   organisationName: Conduction
   email: info@conduction.nl
