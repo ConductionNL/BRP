@@ -16346,12 +16346,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-06-08 07:24:52'
+        example: '2020-06-08 18:14:07'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-06-08 07:24:52'
+        example: '2020-06-08 18:14:07'
     required: []
   AuditTrail-write:
     properties:
@@ -16399,12 +16399,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-06-08 07:24:52'
+        example: '2020-06-08 18:14:07'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-06-08 07:24:52'
+        example: '2020-06-08 18:14:07'
     required: []
   ChangeLog-write:
     properties:
@@ -16541,8 +16541,8 @@ securityDefinitions:
 host: irc.zaakonline.nl
 servers:
   -
-    name: conduction.nl
-    url: brp.dev.conduction.nl
+    name: mijncluster.nl
+    url: brp.dev.mijncluster.nl
 externalDocs:
   -
     description: 'OAS Documentatie'

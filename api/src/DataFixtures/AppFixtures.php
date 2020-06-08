@@ -10,23 +10,25 @@ use App\Entity\Ouder;
 use App\Entity\Partner;
 use App\Entity\Verblijfplaats;
 use App\Entity\Waardetabel;
+use Couchbase\PasswordAuthenticator;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class AppFixtures extends Fixture
 {
-//    private $params;
+    private $params;
 //    private $encoder;
 //
-//    public function __construct(UserPasswordEncoderInterface $encoder)
-//    {
-    ////        $this->params = $params;
+    public function __construct(ParameterBagInterface $params)
+    {
+       $this->params = $params;
 //        $this->encoder = $encoder;
-//    }
+    }
 
     public function load(ObjectManager $manager)
     {
@@ -40,6 +42,11 @@ class AppFixtures extends Fixture
         $amsterdam = new Waardetabel();
         $amsterdam->setCode('301');
         $amsterdam->setOmschrijving('Amsterdam');
+
+        if($this->params->get('app_domain') == 'mijncluster.nl' || strpos($this->params->get('app_domain'),'mijncluster.nl') !== false){
+            $this->loadFromExcel($manager, 'mijncluster.nl');
+            return;
+        }
 
         /*
     	 * Vader figuur
@@ -214,7 +221,7 @@ class AppFixtures extends Fixture
         $manager->persist($BSN900003510); // kind
         $manager->flush();
 
-        $this->loadFromExcel($manager);
+        $this->loadFromExcel($manager, 'PersonaGegevens');
     }
 
     public function createReader(): Xlsx
@@ -225,7 +232,7 @@ class AppFixtures extends Fixture
         return $reader;
     }
 
-    public function loadXlsx(string $filename): Spreadsheet
+    public function loadXlsx(string $filename): ?Spreadsheet
     {
         $reader = $this->createReader();
 
@@ -332,8 +339,8 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    public function loadFromExcel(ObjectManager $manager)
+    public function loadFromExcel(ObjectManager $manager, string $filename)
     {
-        $this->iterateSpreadSheets(dirname(__FILE__).'/resources/PersonaGegevens.xlsx', $manager);
+        $this->iterateSpreadSheets(dirname(__FILE__)."/resources/$filename.xlsx", $manager);
     }
 }
