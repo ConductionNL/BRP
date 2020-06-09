@@ -10,7 +10,6 @@ use App\Entity\Ouder;
 use App\Entity\Partner;
 use App\Entity\Verblijfplaats;
 use App\Entity\Waardetabel;
-use Couchbase\PasswordAuthenticator;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -22,11 +21,12 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class AppFixtures extends Fixture
 {
     private $params;
+
 //    private $encoder;
 //
     public function __construct(ParameterBagInterface $params)
     {
-       $this->params = $params;
+        $this->params = $params;
 //        $this->encoder = $encoder;
     }
 
@@ -43,8 +43,9 @@ class AppFixtures extends Fixture
         $amsterdam->setCode('301');
         $amsterdam->setOmschrijving('Amsterdam');
 
-        if($this->params->get('app_domain') == 'mijncluster.nl' || strpos($this->params->get('app_domain'),'mijncluster.nl') !== false){
+        if ($this->params->get('app_domain') == 'mijncluster.nl' || strpos($this->params->get('app_domain'), 'mijncluster.nl') !== false) {
             $this->loadFromExcel($manager, 'mijncluster.nl');
+
             return;
         }
 
