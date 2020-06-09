@@ -146,7 +146,7 @@ class NaamPersoon
     /**
      * @todo docblocks
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Ingeschrevenpersoon", mappedBy="naam")
+     * @ORM\OneToMany(targetEntity="App\Entity\Ingeschrevenpersoon", mappedBy="naam", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $ingeschrevenpersonen;
