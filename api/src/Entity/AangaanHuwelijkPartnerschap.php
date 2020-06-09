@@ -50,7 +50,7 @@ class AangaanHuwelijkPartnerschap
      *
      * @Groups({"read","write"})
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $land;
@@ -62,7 +62,7 @@ class AangaanHuwelijkPartnerschap
      *
      * @Groups({"read","write"})
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $plaats;
