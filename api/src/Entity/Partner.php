@@ -101,7 +101,7 @@ class Partner
 
     /**
      * @todo docblocks
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ingeschrevenpersoon", inversedBy="partners")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ingeschrevenpersoon", inversedBy="partners", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */

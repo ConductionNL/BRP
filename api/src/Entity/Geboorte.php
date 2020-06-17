@@ -41,7 +41,7 @@ class Geboorte
      *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */
@@ -54,7 +54,7 @@ class Geboorte
      *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */
