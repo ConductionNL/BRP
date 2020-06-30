@@ -298,6 +298,9 @@ class AppFixtures extends Fixture
                     $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
                     $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
                     $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
+                    if(key_exists(24, $row)){
+                        $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[24]);
+                    }
                 }
 
 
@@ -328,7 +331,6 @@ class AppFixtures extends Fixture
                     echo $geboortedatum->format('d');
                     $ingeschrevenpersoon->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
                     $leeftijd = $geboortedatum->diff(new DateTime("now"),true)->format("%Y");
-                    var_dump($leeftijd);
                     $ingeschrevenpersoon->setLeeftijd($leeftijd);
                 } catch (\Exception $e) {
                 }
