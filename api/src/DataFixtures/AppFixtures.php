@@ -55,9 +55,7 @@ class AppFixtures extends Fixture
             strpos($this->params->get('app_domain'), 'verhuizen.s-hertogenbosch.nl') !== false
         ) {
             $this->loadFromExcel($manager, 'Testdata');
-
         }
-
 
         /*
     	 * Vader figuur
@@ -289,7 +287,7 @@ class AppFixtures extends Fixture
                 $ingeschrevenpersoon->setGeslachtsaanduiding('X');
                 $ingeschrevenpersoon->setLeeftijd(null);
 
-                if($row[13] != "" || $row[14] != "" || $row[11] != "" || $row[12] != ""){
+                if ($row[13] != '' || $row[14] != '' || $row[11] != '' || $row[12] != '') {
                     $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
 
                     $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[13]);
@@ -299,8 +297,6 @@ class AppFixtures extends Fixture
                     $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
                     $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
                 }
-
-
 
                 $voorvoegsel = ''.$row[4];
                 $ingeschrevenpersoon->getNaam()->setGeslachtsnaam($row[4].' '.$row[3]);
@@ -336,8 +332,7 @@ class AppFixtures extends Fixture
                 //                $ingeschrevenpersoon->setInOnderzoek(false);
                 //            }
 
-
-                if(key_exists(21, $row) && $partnerRowNr = (int)$row[21]){
+                if (array_key_exists(21, $row) && $partnerRowNr = (int) $row[21]) {
                     $partnerRow = $rows[$partnerRowNr];
                     $partner = new Partner();
 
@@ -364,6 +359,7 @@ class AppFixtures extends Fixture
                     $partner->setGeboorte(new Geboorte());
                     $partner->getGeboorte()->setLand($nederland);
                     $partner->getGeboorte()->setPlaats($utrecht);
+
                     try {
                         $geboortedatum = new DateTime($partnerRow[7]);
                         echo $geboortedatum->format('Y');
@@ -375,9 +371,9 @@ class AppFixtures extends Fixture
                     $manager->persist($partner);
                     $ingeschrevenpersoon->addPartner($partner);
                 }
-                if(key_exists(23, $row) && $children = $row[23]){
-                    $children = explode(";",$children);
-                    foreach($children as $childRowNr){
+                if (array_key_exists(23, $row) && $children = $row[23]) {
+                    $children = explode(';', $children);
+                    foreach ($children as $childRowNr) {
                         $childRow = $rows[$childRowNr];
                         $kind = new Kind();
 
@@ -403,6 +399,7 @@ class AppFixtures extends Fixture
                         $kind->setGeboorte(new Geboorte());
                         $kind->getGeboorte()->setLand($nederland);
                         $kind->getGeboorte()->setPlaats($utrecht);
+
                         try {
                             $geboortedatum = new DateTime($childRow[7]);
                             echo $geboortedatum->format('Y');
@@ -415,9 +412,9 @@ class AppFixtures extends Fixture
                         $ingeschrevenpersoon->addKind($kind);
                     }
                 }
-                if(key_exists(22, $row) && $parents = $row[22]){
-                    $parents = explode(";",$parents);
-                    foreach($parents as $parentRowNr){
+                if (array_key_exists(22, $row) && $parents = $row[22]) {
+                    $parents = explode(';', $parents);
+                    foreach ($parents as $parentRowNr) {
                         $parentRow = $rows[$parentRowNr];
                         $ouder = new Ouder();
 
@@ -446,6 +443,7 @@ class AppFixtures extends Fixture
                         $ouder->setGeboorte(new Geboorte());
                         $ouder->getGeboorte()->setLand($nederland);
                         $ouder->getGeboorte()->setPlaats($utrecht);
+
                         try {
                             $geboortedatum = new DateTime($parentRow[7]);
                             echo $geboortedatum->format('Y');
