@@ -51,6 +51,8 @@ class AppFixtures extends Fixture
         if (
             $this->params->get('app_domain') == 'verhuizen.accp.s-hertogenbosch.nl' ||
             strpos($this->params->get('app_domain'), 'verhuizen.accp.s-hertogenbosch.nl') !== false ||
+            $this->params->get('app_domain') == 'zuid-drecht.nl' ||
+            strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
             $this->params->get('app_domain') == 'verhuizen.s-hertogenbosch.nl' ||
             strpos($this->params->get('app_domain'), 'verhuizen.s-hertogenbosch.nl') !== false
         ) {
