@@ -51,6 +51,8 @@ class AppFixtures extends Fixture
         if (
             $this->params->get('app_domain') == 'verhuizen.accp.s-hertogenbosch.nl' ||
             strpos($this->params->get('app_domain'), 'verhuizen.accp.s-hertogenbosch.nl') !== false ||
+            $this->params->get('app_domain') == 'zuid-drecht.nl' ||
+            strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
             $this->params->get('app_domain') == 'verhuizen.s-hertogenbosch.nl' ||
             strpos($this->params->get('app_domain'), 'verhuizen.s-hertogenbosch.nl') !== false
         ) {
@@ -296,6 +298,9 @@ class AppFixtures extends Fixture
                     $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
                     $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
                     $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
+                    if (array_key_exists(24, $row)) {
+                        $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[24]);
+                    }
                 }
 
                 $voorvoegsel = ''.$row[4];
@@ -323,6 +328,8 @@ class AppFixtures extends Fixture
                     echo $geboortedatum->format('m');
                     echo $geboortedatum->format('d');
                     $ingeschrevenpersoon->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+                    $leeftijd = $geboortedatum->diff(new DateTime('now'), true)->format('%Y');
+                    $ingeschrevenpersoon->setLeeftijd($leeftijd);
                 } catch (\Exception $e) {
                 }
 
