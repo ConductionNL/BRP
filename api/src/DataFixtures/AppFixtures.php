@@ -48,6 +48,16 @@ class AppFixtures extends Fixture
 
             return;
         }
+        if (
+            $this->params->get('app_domain') == 'verhuizen.accp.s-hertogenbosch.nl' ||
+            strpos($this->params->get('app_domain'), 'verhuizen.accp.s-hertogenbosch.nl') !== false ||
+            $this->params->get('app_domain') == 'zuid-drecht.nl' ||
+            strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
+            $this->params->get('app_domain') == 'verhuizen.s-hertogenbosch.nl' ||
+            strpos($this->params->get('app_domain'), 'verhuizen.s-hertogenbosch.nl') !== false
+        ) {
+            $this->loadFromExcel($manager, 'Testdata');
+        }
 
         /*
     	 * Vader figuur
@@ -269,7 +279,7 @@ class AppFixtures extends Fixture
                 }
 
                 $ingeschrevenpersoon = new Ingeschrevenpersoon();
-                $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
+
                 $ingeschrevenpersoon->setNaam(new NaamPersoon());
                 $ingeschrevenpersoon->setGeboorte(new Geboorte());
 
@@ -279,12 +289,19 @@ class AppFixtures extends Fixture
                 $ingeschrevenpersoon->setGeslachtsaanduiding('X');
                 $ingeschrevenpersoon->setLeeftijd(null);
 
-                $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[13]);
-                $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[14]);
-                $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[11]);
-                $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
-                $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
-                $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
+                if ($row[13] != '' || $row[14] != '' || $row[11] != '' || $row[12] != '') {
+                    $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
+
+                    $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[13]);
+                    $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[14]);
+                    $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[11]);
+                    $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
+                    $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
+                    $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
+                    if (array_key_exists(24, $row)) {
+                        $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[24]);
+                    }
+                }
 
                 $voorvoegsel = ''.$row[4];
                 $ingeschrevenpersoon->getNaam()->setGeslachtsnaam($row[4].' '.$row[3]);
@@ -311,6 +328,8 @@ class AppFixtures extends Fixture
                     echo $geboortedatum->format('m');
                     echo $geboortedatum->format('d');
                     $ingeschrevenpersoon->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+                    $leeftijd = $geboortedatum->diff(new DateTime('now'), true)->format('%Y');
+                    $ingeschrevenpersoon->setLeeftijd($leeftijd);
                 } catch (\Exception $e) {
                 }
 
@@ -319,6 +338,131 @@ class AppFixtures extends Fixture
                 //            }else{
                 //                $ingeschrevenpersoon->setInOnderzoek(false);
                 //            }
+
+                if (array_key_exists(21, $row) && $partnerRowNr = (int) $row[21]) {
+                    $partnerRow = $rows[$partnerRowNr];
+                    $partner = new Partner();
+
+                    $firstnamessplit = explode(' ', $partnerRow[2]);
+                    $voorletters = '';
+
+                    foreach ($firstnamessplit as $firstname) {
+                        $voorletters .= substr($firstname, 0, 1).'.';
+                    }
+                    $voorvoegsel = ''.$partnerRow[4];
+
+                    $partner->setBurgerservicenummer($partnerRow[5]);
+                    $partner->setGeslachtsaanduiding('X');
+
+                    $partner->setNaam(new NaamPersoon());
+                    $partner->getNaam()->setGeslachtsnaam($partnerRow[4].' '.$partnerRow[3]);
+                    $partner->getNaam()->setVoorvoegsel($voorvoegsel);
+                    $partner->getNaam()->setVoornamen($partnerRow[2]);
+                    $partner->getNaam()->setVoorletters($voorletters);
+                    $partner->getNaam()->setAanhef('');
+                    $partner->getNaam()->setAanschrijfwijze($voorletters.' '.$partnerRow[4].' '.$partnerRow[3]);
+                    $partner->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$partnerRow[4].' '.$partnerRow[3]);
+
+                    $partner->setGeboorte(new Geboorte());
+                    $partner->getGeboorte()->setLand($nederland);
+                    $partner->getGeboorte()->setPlaats($utrecht);
+
+                    try {
+                        $geboortedatum = new DateTime($partnerRow[7]);
+                        echo $geboortedatum->format('Y');
+                        echo $geboortedatum->format('m');
+                        echo $geboortedatum->format('d');
+                        $partner->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+                    } catch (\Exception $e) {
+                    }
+                    $manager->persist($partner);
+                    $ingeschrevenpersoon->addPartner($partner);
+                }
+                if (array_key_exists(23, $row) && $children = $row[23]) {
+                    $children = explode(';', $children);
+                    foreach ($children as $childRowNr) {
+                        $childRow = $rows[$childRowNr];
+                        $kind = new Kind();
+
+                        $firstnamessplit = explode(' ', $childRow[2]);
+                        $voorletters = '';
+
+                        foreach ($firstnamessplit as $firstname) {
+                            $voorletters .= substr($firstname, 0, 1).'.';
+                        }
+                        $voorvoegsel = ''.$childRow[4];
+
+                        $kind->setBurgerservicenummer($childRow[5]);
+
+                        $kind->setNaam(new NaamPersoon());
+                        $kind->getNaam()->setGeslachtsnaam($childRow[4].' '.$childRow[3]);
+                        $kind->getNaam()->setVoorvoegsel($voorvoegsel);
+                        $kind->getNaam()->setVoornamen($childRow[2]);
+                        $kind->getNaam()->setVoorletters($voorletters);
+                        $kind->getNaam()->setAanhef('');
+                        $kind->getNaam()->setAanschrijfwijze($voorletters.' '.$childRow[4].' '.$childRow[3]);
+                        $kind->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$childRow[4].' '.$childRow[3]);
+
+                        $kind->setGeboorte(new Geboorte());
+                        $kind->getGeboorte()->setLand($nederland);
+                        $kind->getGeboorte()->setPlaats($utrecht);
+
+                        try {
+                            $geboortedatum = new DateTime($childRow[7]);
+                            echo $geboortedatum->format('Y');
+                            echo $geboortedatum->format('m');
+                            echo $geboortedatum->format('d');
+                            $kind->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+                        } catch (\Exception $e) {
+                        }
+                        $manager->persist($kind);
+                        $ingeschrevenpersoon->addKind($kind);
+                    }
+                }
+                if (array_key_exists(22, $row) && $parents = $row[22]) {
+                    $parents = explode(';', $parents);
+                    foreach ($parents as $parentRowNr) {
+                        $parentRow = $rows[$parentRowNr];
+                        $ouder = new Ouder();
+
+                        $firstnamessplit = explode(' ', $parentRow[2]);
+                        $voorletters = '';
+
+                        foreach ($firstnamessplit as $firstname) {
+                            $voorletters .= substr($firstname, 0, 1).'.';
+                        }
+                        $voorvoegsel = ''.$parentRow[4];
+
+                        $ouder->setBurgerservicenummer($parentRow[5]);
+
+                        $ouder->setNaam(new NaamPersoon());
+                        $ouder->getNaam()->setGeslachtsnaam($parentRow[4].' '.$parentRow[3]);
+                        $ouder->getNaam()->setVoorvoegsel($voorvoegsel);
+                        $ouder->getNaam()->setVoornamen($parentRow[2]);
+                        $ouder->getNaam()->setVoorletters($voorletters);
+                        $ouder->getNaam()->setAanhef('');
+                        $ouder->getNaam()->setAanschrijfwijze($voorletters.' '.$parentRow[4].' '.$parentRow[3]);
+                        $ouder->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$parentRow[4].' '.$parentRow[3]);
+
+                        $ouder->setGeslachtsaanduiding('X');
+                        $ouder->setOuderAanduiding('wut');
+
+                        $ouder->setGeboorte(new Geboorte());
+                        $ouder->getGeboorte()->setLand($nederland);
+                        $ouder->getGeboorte()->setPlaats($utrecht);
+
+                        try {
+                            $geboortedatum = new DateTime($parentRow[7]);
+                            echo $geboortedatum->format('Y');
+                            echo $geboortedatum->format('m');
+                            echo $geboortedatum->format('d');
+                            $ouder->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+                        } catch (\Exception $e) {
+                        }
+                        $manager->persist($ouder);
+                        $ingeschrevenpersoon->addOuder($ouder);
+                    }
+                }
 
                 $manager->persist($nederland);
                 $manager->persist($utrecht);
