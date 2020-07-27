@@ -7,7 +7,6 @@ use App\Entity\Ingeschrevenpersoon;
 use App\Entity\Kind;
 use App\Entity\Ouder;
 use App\Entity\Partner;
-use Conduction\CommonGroundBundle\Entity\AuditTrail;
 use Conduction\CommonGroundBundle\Service\NLXLogService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -48,10 +47,8 @@ class FamilieSubscriber implements EventSubscriberInterface
             !strpos($route, '_ouders') &&
             !strpos($route, '_kinderen') &&
             !strpos($route, '_partners')
-
-            )) {
+        )) {
             return;
-
         }
         // Lets get the rest of the data
         $result = $event->getControllerResult();
@@ -78,13 +75,11 @@ class FamilieSubscriber implements EventSubscriberInterface
         $result = $this->em->getRepository(Ingeschrevenpersoon::class)->findOneBy(['burgerservicenummer' => $burgerservicenummer]);
         $itemId = $result->getid();
 
-        if(strpos($route, '_ouders')){
+        if (strpos($route, '_ouders')) {
             $results = $this->em->getRepository(Ouder::class)->findBy(['ingeschrevenpersoon'=> $itemId]);
-        }
-        elseif(strpos($route, '_partners')){
+        } elseif (strpos($route, '_partners')) {
             $results = $this->em->getRepository(Partner::class)->findBy(['ingeschrevenpersoon'=> $itemId]);
-        }
-        elseif(strpos($route, '_kinderen')){
+        } elseif (strpos($route, '_kinderen')) {
             $results = $this->em->getRepository(Kind::class)->findBy(['ingeschrevenpersoon'=> $itemId]);
         }
 
