@@ -2760,6 +2760,38 @@ paths:
                   $ref: '#/components/schemas/Geboorte-read'
       parameters:
         -
+          name: datum
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'datum[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: plaats
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'plaats[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: page
           in: query
           required: false
@@ -4222,6 +4254,136 @@ paths:
                   $ref: '#/components/schemas/Ingeschrevenpersoon-read'
       parameters:
         -
+          name: geboorte.datum
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.datum[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geboorte.plaats
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.plaats[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geslachtsaanduiding
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geslachtsaanduiding[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: naam.geslachtsnaam
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voornamen
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voorvoegsel
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: verblijfplaats.postcode
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.postcode[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummer
+          in: query
+          required: false
+          schema:
+            type: integer
+        -
+          name: 'verblijfplaats.huisnummer[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummertoevoeging
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisnummertoevoeging[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisletter
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisletter[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: page
           in: query
           required: false
@@ -4529,6 +4691,136 @@ paths:
                   $ref: '#/components/schemas/Ingeschrevenpersoon-read'
       parameters:
         -
+          name: geboorte.datum
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.datum[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geboorte.plaats
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.plaats[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geslachtsaanduiding
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geslachtsaanduiding[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: naam.geslachtsnaam
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voornamen
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voorvoegsel
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: verblijfplaats.postcode
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.postcode[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummer
+          in: query
+          required: false
+          schema:
+            type: integer
+        -
+          name: 'verblijfplaats.huisnummer[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummertoevoeging
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisnummertoevoeging[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisletter
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisletter[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: page
           in: query
           required: false
@@ -4704,6 +4996,136 @@ paths:
                 items:
                   $ref: '#/components/schemas/Ingeschrevenpersoon-read'
       parameters:
+        -
+          name: geboorte.datum
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.datum[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geboorte.plaats
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.plaats[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geslachtsaanduiding
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geslachtsaanduiding[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: naam.geslachtsnaam
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voornamen
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voorvoegsel
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: verblijfplaats.postcode
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.postcode[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummer
+          in: query
+          required: false
+          schema:
+            type: integer
+        -
+          name: 'verblijfplaats.huisnummer[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummertoevoeging
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisnummertoevoeging[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisletter
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisletter[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
         -
           name: page
           in: query
@@ -4881,6 +5303,136 @@ paths:
                   $ref: '#/components/schemas/Ingeschrevenpersoon-read'
       parameters:
         -
+          name: geboorte.datum
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.datum[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geboorte.plaats
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.plaats[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geslachtsaanduiding
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geslachtsaanduiding[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: naam.geslachtsnaam
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voornamen
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voorvoegsel
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: verblijfplaats.postcode
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.postcode[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummer
+          in: query
+          required: false
+          schema:
+            type: integer
+        -
+          name: 'verblijfplaats.huisnummer[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummertoevoeging
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisnummertoevoeging[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisletter
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisletter[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: page
           in: query
           required: false
@@ -5056,6 +5608,136 @@ paths:
                 items:
                   $ref: '#/components/schemas/Ingeschrevenpersoon-read'
       parameters:
+        -
+          name: geboorte.datum
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.datum[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geboorte.plaats
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geboorte.plaats[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: geslachtsaanduiding
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'geslachtsaanduiding[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: naam.geslachtsnaam
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voornamen
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: naam.voorvoegsel
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: verblijfplaats.postcode
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.postcode[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummer
+          in: query
+          required: false
+          schema:
+            type: integer
+        -
+          name: 'verblijfplaats.huisnummer[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisnummertoevoeging
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisnummertoevoeging[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: verblijfplaats.huisletter
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'verblijfplaats.huisletter[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
         -
           name: page
           in: query
@@ -5963,6 +6645,24 @@ paths:
                 items:
                   $ref: '#/components/schemas/NaamPersoon-read'
       parameters:
+        -
+          name: geslachtsnaam
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: voornamen
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: voorvoegsel
+          in: query
+          required: false
+          schema:
+            type: string
         -
           name: page
           in: query
@@ -11808,6 +12508,70 @@ paths:
                   $ref: '#/components/schemas/Verblijfplaats-read'
       parameters:
         -
+          name: postcode
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'postcode[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: huisnummer
+          in: query
+          required: false
+          schema:
+            type: integer
+        -
+          name: 'huisnummer[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+        -
+          name: huisnummertoevoeging
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'huisnummertoevoeging[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: huisletter
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'huisletter[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: page
           in: query
           required: false
@@ -17045,12 +17809,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-07-27 12:20:01'
+        example: '2020-07-27 13:56:28'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-07-27 12:20:01'
+        example: '2020-07-27 13:56:28'
     required: []
   AuditTrail-write:
     properties:
@@ -17098,12 +17862,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-07-27 12:20:01'
+        example: '2020-07-27 13:56:28'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-07-27 12:20:01'
+        example: '2020-07-27 13:56:28'
     required: []
   ChangeLog-write:
     properties:
