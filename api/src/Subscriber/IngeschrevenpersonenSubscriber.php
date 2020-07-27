@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -39,8 +38,8 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
     public function IngeschrevenpersonenQuery(RequestEvent $event)
     {
         $query = $event->getRequest()->server->get('QUERY_STRING');
-        $event->getRequest()->server->set('QUERY_STRING', str_replace('__','.',$query));
-        return;
+        $event->getRequest()->server->set('QUERY_STRING', str_replace('__', '.', $query));
+
 //        $result = $event->getControllerResult();
 //        $method = $event->getRequest()->getMethod();
 //
