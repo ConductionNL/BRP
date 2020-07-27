@@ -209,6 +209,39 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     				"description"="Beschrijving"
  *     			}
  *     		},
+ *     		"get_bsn_ouders"={
+ *     			"method"="GET",
+ *     			"path"="/ingeschrevenpersonen/{burgerservicenummer}/ouders",
+ *     			"requirements"={"burgerservicenummer"="\d+"},
+ *     			"defaults"={"color"="brown"},
+ *     			"options"={"my_option"="my_option_value"},
+ *     			"swagger_context" = {
+ *     				"summary"="ingeschrevenNatuurlijkPersoon",
+ *     				"description"="Beschrijving"
+ *     			}
+ *     		},
+ *     		"get_bsn_kinderen"={
+ *     			"method"="GET",
+ *     			"path"="/ingeschrevenpersonen/{burgerservicenummer}/kinderen",
+ *     			"requirements"={"burgerservicenummer"="\d+"},
+ *     			"defaults"={"color"="brown"},
+ *     			"options"={"my_option"="my_option_value"},
+ *     			"swagger_context" = {
+ *     				"summary"="ingeschrevenNatuurlijkPersoon",
+ *     				"description"="Beschrijving"
+ *     			}
+ *     		},
+ *     		"get_bsn_partners"={
+ *     			"method"="GET",
+ *     			"path"="/ingeschrevenpersonen/{burgerservicenummer}/partners",
+ *     			"requirements"={"burgerservicenummer"="\d+"},
+ *     			"defaults"={"color"="brown"},
+ *     			"options"={"my_option"="my_option_value"},
+ *     			"swagger_context" = {
+ *     				"summary"="ingeschrevenNatuurlijkPersoon",
+ *     				"description"="Beschrijving"
+ *     			}
+ *     		},
  *     },
  *     itemOperations={
  *     		"get"={
