@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,6 +20,11 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\GeboorteRepository")
  * @Gedmo\Loggable
+ *
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "datum":"exact",
+ *     "plaats":"ipartional",
+ * })
  */
 class Geboorte
 {

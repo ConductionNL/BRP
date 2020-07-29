@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,6 +21,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\NaamPersoonRepository")
  * @Gedmo\Loggable
+ *
+ *  * @ApiFilter(SearchFilter::class, properties={
+ *     "geslachtsnaam":"ipartial",
+ *     "voornamen":"ipartional",
+ *     "voorvoegsel":"ipartional",
+ * })
  */
 class NaamPersoon
 {
