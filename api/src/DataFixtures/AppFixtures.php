@@ -269,6 +269,8 @@ class AppFixtures extends Fixture
                 continue;
             } elseif ($i >= $highestRow) {
                 break;
+            } elseif ($row[5] == null) {
+                continue;
             } else {
 //                var_dump($row);
                 $firstnamessplit = explode(' ', $row[2]);
@@ -328,6 +330,7 @@ class AppFixtures extends Fixture
                     echo $geboortedatum->format('m');
                     echo $geboortedatum->format('d');
                     $ingeschrevenpersoon->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+                    var_dump($ingeschrevenpersoon->getGeboorte());
                     $leeftijd = $geboortedatum->diff(new DateTime('now'), true)->format('%Y');
                     $ingeschrevenpersoon->setLeeftijd($leeftijd);
                 } catch (\Exception $e) {
