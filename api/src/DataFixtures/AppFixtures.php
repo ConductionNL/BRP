@@ -269,7 +269,7 @@ class AppFixtures extends Fixture
                 continue;
             } elseif ($i >= $highestRow) {
                 break;
-            } elseif ($row[5] == null){
+            } elseif ($row[5] == null) {
                 continue;
             } else {
 //                var_dump($row);
