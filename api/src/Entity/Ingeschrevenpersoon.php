@@ -100,6 +100,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "geboorte.datum":"exact",
  *     "geboorte.plaats":"ipartional",
  *     "geslachtsaanduiding":"exact",
+ *     "burgerservicenummer":"exact",
  *     "naam.geslachtsnaam":"ipartial",
  *     "naam.voornamen":"ipartional",
  *     "naam.voorvoegsel":"ipartional",
