@@ -10,6 +10,7 @@ use App\Entity\Ouder;
 use App\Entity\Partner;
 use App\Entity\Verblijfplaats;
 use App\Entity\Waardetabel;
+use Conduction\CommonGroundBundle\ValueObject\UnderInvestigation;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -68,14 +69,10 @@ class BZKFixtures extends Fixture
 
     public function iterateSpreadSheet(array $rows, int $highestRow, ObjectManager $manager)
     {
-//        print_r($highestRow.'\n
-//        ');
         $i = 0;
         echo $highestRow;
         foreach ($rows as $key=>$row) {
-            echo "line: $i\n";
-//            print_r($i . '
-//            ');
+//            echo "line: $i\n";
             if ($i == 0) {
                 //skip the first line that contains the column title
                 $i++;
@@ -87,12 +84,11 @@ class BZKFixtures extends Fixture
                 $i++;
                 continue;
             } else {
-//                var_dump($row);
                 $firstnamessplit = explode(' ', $row[2]);
                 $voorletters = '';
 
                 foreach ($firstnamessplit as $firstname) {
-                    $voorletters .= substr($firstname, 0, 1).'.';
+                    $voorletters .= mb_substr($firstname, 0, 1).'.';
                 }
 
                 $ingeschrevenpersoon = new Ingeschrevenpersoon();
@@ -133,7 +129,6 @@ class BZKFixtures extends Fixture
                 $ingeschrevenpersoon->getNaam()->setGeslachtsnaam($row[4].' '.$row[5]);
                 $ingeschrevenpersoon->getNaam()->setVoorvoegsel($voorvoegsel);
                 if($row[2]){
-                    var_dump($row[2]);
                     $ingeschrevenpersoon->getNaam()->setVoornamen($row[2]);
                 }else{
                     $ingeschrevenpersoon->getNaam()->setVoornamen('');
@@ -142,8 +137,8 @@ class BZKFixtures extends Fixture
                 $ingeschrevenpersoon->getNaam()->setVoorletters($voorletters);
                 if($row[3]){
                     $ingeschrevenpersoon->getNaam()->setAanhef($row[3]);
-                    $ingeschrevenpersoon->getNaam()->setAanschrijfwijze($row[3].$voorletters.' '.$row[4].' '.$row[5]);
-                    $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($row[3].$voorletters.' '.$row[4].' '.$row[5]);
+                    $ingeschrevenpersoon->getNaam()->setAanschrijfwijze($row[3].' '.$voorletters.' '.$row[4].' '.$row[5]);
+                    $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($row[3].' '.$voorletters.' '.$row[4].' '.$row[5]);
                 }
                 else{
                     $ingeschrevenpersoon->getNaam()->setAanhef('');
@@ -164,7 +159,6 @@ class BZKFixtures extends Fixture
                 try {
                     $geboortedatum = $row[6];
                     $ingeschrevenpersoon->getGeboorte()->setDatum(['year'=>substr($geboortedatum,0,4), 'month'=>substr($geboortedatum,4,2), 'day'=>substr($geboortedatum,6,8)]);
-//                    var_dump($ingeschrevenpersoon->getGeboorte()->getDatum());
 
                     $geboortedatum = new DateTime($row[6]);
                     $leeftijd = $geboortedatum->diff(new DateTime('now'), true)->format('%Y');
@@ -172,11 +166,10 @@ class BZKFixtures extends Fixture
                 } catch (\Exception $e) {
                 }
 
-                //            if($line[18] == 'Ja'){
-                //                $ingeschrevenpersoon->setInOnderzoek(true);
-                //            }else{
-                //                $ingeschrevenpersoon->setInOnderzoek(false);
-                //            }
+                if($row[18]){
+                    $inOnderzoek = new UnderInvestigation(['aanduiding'=>$row[18]], $row[19]);
+                    $ingeschrevenpersoon->setInOnderzoek($inOnderzoek);
+                }
 
 //                if (array_key_exists(21, $row) && $partnerRowNr = (int) $row[21]) {
 //                    $partnerRow = $rows[$partnerRowNr];
