@@ -3,14 +3,14 @@ entries:
   brp:
   - apiVersion: v1
     appVersion: V.0.1
-    created: "2020-08-03T10:13:15.9582032Z"
+    created: "2020-08-03T15:27:10.3174907Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
-    digest: 7ed55ea6a27d17a9fad4300fc253e37d68799e94e9b8f6bd72bf2b3b93b662a1
+    digest: a27d644673999f8842e3541f65bcb0c44311f0531872c7df22a4ec164f82fad5
     home: brp.zaakonline.nl
     icon: brp.zaakonline.nl
     name: brp
     urls:
     - brp-0.1.0.tgz
     version: 0.1.0
-generated: "2020-08-03T10:13:15.9509063Z"
+generated: "2020-08-03T15:27:10.3119544Z"

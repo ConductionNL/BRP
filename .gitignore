@@ -11,4 +11,4 @@ api/helm/*-kubeconfig.yaml
 api/helm/kubeconfig*
 api/helm/huwelijksplanner-kubeconfig.yaml
 
-api/src/DataFixtures/resources/~$PersonaGegevens.xlsx
+api/src/DataFixtures/resources/~$*.xlsx

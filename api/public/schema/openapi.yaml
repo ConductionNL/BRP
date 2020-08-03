@@ -4302,6 +4302,22 @@ paths:
           style: form
           explode: true
         -
+          name: burgerservicenummer
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'burgerservicenummer[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: naam.geslachtsnaam
           in: query
           required: false
@@ -4739,6 +4755,22 @@ paths:
           style: form
           explode: true
         -
+          name: burgerservicenummer
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'burgerservicenummer[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: naam.geslachtsnaam
           in: query
           required: false
@@ -5036,6 +5068,22 @@ paths:
             type: string
         -
           name: 'geslachtsaanduiding[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: burgerservicenummer
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'burgerservicenummer[]'
           in: query
           required: false
           schema:
@@ -5351,6 +5399,22 @@ paths:
           style: form
           explode: true
         -
+          name: burgerservicenummer
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'burgerservicenummer[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: naam.geslachtsnaam
           in: query
           required: false
@@ -5648,6 +5712,22 @@ paths:
             type: string
         -
           name: 'geslachtsaanduiding[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: burgerservicenummer
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'burgerservicenummer[]'
           in: query
           required: false
           schema:
@@ -17809,12 +17889,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-03 10:15:19'
+        example: '2020-08-03 15:29:50'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-03 10:15:19'
+        example: '2020-08-03 15:29:50'
     required: []
   AuditTrail-write:
     properties:
@@ -17862,12 +17942,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-03 10:15:19'
+        example: '2020-08-03 15:29:50'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-03 10:15:19'
+        example: '2020-08-03 15:29:50'
     required: []
   ChangeLog-write:
     properties:
