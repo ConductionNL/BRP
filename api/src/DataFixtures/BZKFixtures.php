@@ -36,7 +36,7 @@ class BZKFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        ini_set("memory_limit", "2G");
+        ini_set('memory_limit', '2G');
         /*
          *  Basis waarde tabel
          */
@@ -47,7 +47,6 @@ class BZKFixtures extends Fixture
         ) {
             $this->loadFromExcel($manager, 'BZKgegevens');
         }
-
     }
 
     public function createReader(): Xlsx
@@ -80,14 +79,13 @@ class BZKFixtures extends Fixture
                 continue;
             } elseif ($i >= $highestRow) {
                 break;
-            } elseif ($row[1] || $row[28] || $row[51] || $row[91] || $row[186])  {
-                if($row[1]){
-
+            } elseif ($row[1] || $row[28] || $row[51] || $row[91] || $row[186]) {
+                if ($row[1]) {
                     $firstnamessplit = explode(' ', $row[2]);
                     $voorletters = '';
 
                     foreach ($firstnamessplit as $firstname) {
-                        $voorletters .= mb_substr($firstname, 0, 1) . '.';
+                        $voorletters .= mb_substr($firstname, 0, 1).'.';
                     }
 
                     $ingeschrevenpersoon = new Ingeschrevenpersoon();
@@ -124,24 +122,23 @@ class BZKFixtures extends Fixture
                         }
                     }
 
-                    $voorvoegsel = '' . $row[4];
-                    $ingeschrevenpersoon->getNaam()->setGeslachtsnaam($row[4] . ' ' . $row[5]);
+                    $voorvoegsel = ''.$row[4];
+                    $ingeschrevenpersoon->getNaam()->setGeslachtsnaam($row[4].' '.$row[5]);
                     $ingeschrevenpersoon->getNaam()->setVoorvoegsel($voorvoegsel);
                     if ($row[2]) {
                         $ingeschrevenpersoon->getNaam()->setVoornamen($row[2]);
                     } else {
                         $ingeschrevenpersoon->getNaam()->setVoornamen('');
-
                     }
                     $ingeschrevenpersoon->getNaam()->setVoorletters($voorletters);
                     if ($row[3]) {
                         $ingeschrevenpersoon->getNaam()->setAanhef($row[3]);
-                        $ingeschrevenpersoon->getNaam()->setAanschrijfwijze($row[3] . ' ' . $voorletters . ' ' . $row[4] . ' ' . $row[5]);
-                        $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($row[3] . ' ' . $voorletters . ' ' . $row[4] . ' ' . $row[5]);
+                        $ingeschrevenpersoon->getNaam()->setAanschrijfwijze($row[3].' '.$voorletters.' '.$row[4].' '.$row[5]);
+                        $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($row[3].' '.$voorletters.' '.$row[4].' '.$row[5]);
                     } else {
                         $ingeschrevenpersoon->getNaam()->setAanhef('');
-                        $ingeschrevenpersoon->getNaam()->setAanschrijfwijze($voorletters . ' ' . $row[4] . ' ' . $row[5]);
-                        $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($voorletters . ' ' . $row[4] . ' ' . $row[5]);
+                        $ingeschrevenpersoon->getNaam()->setAanschrijfwijze($voorletters.' '.$row[4].' '.$row[5]);
+                        $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$row[4].' '.$row[5]);
                     }
 
                     $nederland = new Waardetabel();
@@ -161,10 +158,8 @@ class BZKFixtures extends Fixture
                         $leeftijd = $geboortedatum->diff(new DateTime('now'), true)->format('%Y');
                         $ingeschrevenpersoon->setLeeftijd($leeftijd);
                     } catch (\Exception $e) {
-
                     }
                     if ($row[18]) {
-
                         $inOnderzoek = new UnderInvestigation(['aanduiding' => $row[18]], $row[19]);
                         $ingeschrevenpersoon->setInOnderzoek($inOnderzoek);
                     }
@@ -194,7 +189,6 @@ class BZKFixtures extends Fixture
                         $manager->persist($overlijden);
                     }
                     if ($row[138]) {
-
                         $opschortingBijhouding = new OpschortingBijhouding();
                         $datumOpschorting = $row[138];
                         $opschortingBijhouding->setDatum(['year' => substr($datumOpschorting, 0, 4), 'month' => substr($datumOpschorting, 4, 2), 'day' => substr($datumOpschorting, 6, 2)]);
@@ -208,7 +202,6 @@ class BZKFixtures extends Fixture
                     $manager->persist($utrecht);
                     $manager->persist($ingeschrevenpersoon);
                     $manager->flush();
-
                 }
 
                 if ($row[28]) {
@@ -218,25 +211,25 @@ class BZKFixtures extends Fixture
                     $voorletters = '';
 
                     foreach ($firstnamessplit as $firstname) {
-                        $voorletters .= mb_substr($firstname, 0, 1) . '.';
+                        $voorletters .= mb_substr($firstname, 0, 1).'.';
                     }
-                    $voorvoegsel = '' . $row[31];
+                    $voorvoegsel = ''.$row[31];
 
                     $ouder->setBurgerservicenummer($row[28]);
 
                     $ouder->setNaam(new NaamPersoon());
-                    $ouder->getNaam()->setGeslachtsnaam($row[31] . ' ' . $row[32]);
+                    $ouder->getNaam()->setGeslachtsnaam($row[31].' '.$row[32]);
                     $ouder->getNaam()->setVoorvoegsel($voorvoegsel);
                     $ouder->getNaam()->setVoornamen($row[29]);
                     $ouder->getNaam()->setVoorletters($voorletters);
                     if ($row[30]) {
                         $ouder->getNaam()->setAanhef($row[30]);
-                        $ouder->getNaam()->setAanschrijfwijze($row[30] . ' ' . $voorletters . ' ' . $row[31] . ' ' . $row[32]);
-                        $ouder->getNaam()->setGebuikInLopendeTekst($row[30] . ' ' . $voorletters . ' ' . $row[31] . ' ' . $row[32]);
+                        $ouder->getNaam()->setAanschrijfwijze($row[30].' '.$voorletters.' '.$row[31].' '.$row[32]);
+                        $ouder->getNaam()->setGebuikInLopendeTekst($row[30].' '.$voorletters.' '.$row[31].' '.$row[32]);
                     } else {
                         $ouder->getNaam()->setAanhef('');
-                        $ouder->getNaam()->setAanschrijfwijze($voorletters . ' ' . $row[31] . ' ' . $row[32]);
-                        $ouder->getNaam()->setGebuikInLopendeTekst($voorletters . ' ' . $row[31] . ' ' . $row[32]);
+                        $ouder->getNaam()->setAanschrijfwijze($voorletters.' '.$row[31].' '.$row[32]);
+                        $ouder->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$row[31].' '.$row[32]);
                     }
                     if ($row[36]) {
                         $ouder->setGeslachtsaanduiding($row[36]);
@@ -263,22 +256,20 @@ class BZKFixtures extends Fixture
                     $ingeschrevenpersoon->addOuder($ouder);
                 }
                 if ($row[51]) {
-
                     $ouder = new Ouder();
 
                     $firstnamessplit = explode(' ', $row[52]);
                     $voorletters = '';
 
                     foreach ($firstnamessplit as $firstname) {
-                        $voorletters .= mb_substr($firstname, 0, 1) . '.';
+                        $voorletters .= mb_substr($firstname, 0, 1).'.';
                     }
-                    $voorvoegsel = '' . $row[54];
+                    $voorvoegsel = ''.$row[54];
 
                     $ouder->setBurgerservicenummer($row[51]);
 
                     $ouder->setNaam(new NaamPersoon());
-                    $ouder->getNaam()->setGeslachtsnaam($row[54] . ' ' . $row[55]);
-
+                    $ouder->getNaam()->setGeslachtsnaam($row[54].' '.$row[55]);
 
                     $ouder->getNaam()->setVoorvoegsel($voorvoegsel);
                     $ouder->getNaam()->setVoornamen($row[52]);
@@ -286,12 +277,12 @@ class BZKFixtures extends Fixture
 
                     if ($row[53]) {
                         $ouder->getNaam()->setAanhef($row[53]);
-                        $ouder->getNaam()->setAanschrijfwijze($row[53] . ' ' . $voorletters . ' ' . $ouder->getNaam()->getGeslachtsnaam());
-                        $ouder->getNaam()->setGebuikInLopendeTekst($row[53] . ' ' . $voorletters . ' ' . $ouder->getNaam()->getGeslachtsnaam());
+                        $ouder->getNaam()->setAanschrijfwijze($row[53].' '.$voorletters.' '.$ouder->getNaam()->getGeslachtsnaam());
+                        $ouder->getNaam()->setGebuikInLopendeTekst($row[53].' '.$voorletters.' '.$ouder->getNaam()->getGeslachtsnaam());
                     } else {
                         $ouder->getNaam()->setAanhef('');
-                        $ouder->getNaam()->setAanschrijfwijze($voorletters . ' ' . $ouder->getNaam()->getGeslachtsnaam());
-                        $ouder->getNaam()->setGebuikInLopendeTekst($voorletters . ' ' . $ouder->getNaam()->getGeslachtsnaam());
+                        $ouder->getNaam()->setAanschrijfwijze($voorletters.' '.$ouder->getNaam()->getGeslachtsnaam());
+                        $ouder->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$ouder->getNaam()->getGeslachtsnaam());
                     }
                     if ($row[59]) {
                         $ouder->setGeslachtsaanduiding($row[59]);
@@ -324,32 +315,31 @@ class BZKFixtures extends Fixture
                     $voorletters = '';
 
                     foreach ($firstnamessplit as $firstname) {
-                        $voorletters .= mb_substr($firstname, 0, 1) . '.';
+                        $voorletters .= mb_substr($firstname, 0, 1).'.';
                     }
-                    $voorvoegsel = '' . $row[94];
+                    $voorvoegsel = ''.$row[94];
 
                     $partner->setBurgerservicenummer($row[91]);
 
                     $partner->setNaam(new NaamPersoon());
-                    $partner->getNaam()->setGeslachtsnaam($row[94] . ' ' . $row[95]);
+                    $partner->getNaam()->setGeslachtsnaam($row[94].' '.$row[95]);
                     $partner->getNaam()->setVoorvoegsel($voorvoegsel);
                     $partner->getNaam()->setVoornamen($row[92]);
                     $partner->getNaam()->setVoorletters($voorletters);
                     if ($row[93]) {
                         $partner->getNaam()->setAanhef($row[93]);
-                        $partner->getNaam()->setAanschrijfwijze($row[93] . ' ' . $voorletters . ' ' . $row[94] . ' ' . $row[95]);
-                        $partner->getNaam()->setGebuikInLopendeTekst($row[93] . ' ' . $voorletters . ' ' . $row[94] . ' ' . $row[95]);
+                        $partner->getNaam()->setAanschrijfwijze($row[93].' '.$voorletters.' '.$row[94].' '.$row[95]);
+                        $partner->getNaam()->setGebuikInLopendeTekst($row[93].' '.$voorletters.' '.$row[94].' '.$row[95]);
                     } else {
                         $partner->getNaam()->setAanhef('');
-                        $partner->getNaam()->setAanschrijfwijze($voorletters . ' ' . $row[94] . ' ' . $row[95]);
-                        $partner->getNaam()->setGebuikInLopendeTekst($voorletters . ' ' . $row[94] . ' ' . $row[95]);
+                        $partner->getNaam()->setAanschrijfwijze($voorletters.' '.$row[94].' '.$row[95]);
+                        $partner->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$row[94].' '.$row[95]);
                     }
                     if ($row[99]) {
                         $partner->setGeslachtsaanduiding($row[99]);
                     } else {
                         $partner->setGeslachtsaanduiding('X');
                     }
-
 
                     $partner->setGeboorte(new Geboorte());
                     $partner->getGeboorte()->setLand($nederland);
@@ -375,7 +365,6 @@ class BZKFixtures extends Fixture
                     $ingeschrevenpersoon->addPartner($partner);
                 }
                 if ($row[186]) {
-
                     $kind = new Kind();
 
                     $firstnamessplit = explode(' ', $row[187]);
@@ -393,16 +382,15 @@ class BZKFixtures extends Fixture
                     $kind->getNaam()->setVoorvoegsel($voorvoegsel);
                     $kind->getNaam()->setVoornamen($row[187]);
                     $kind->getNaam()->setVoorletters($voorletters);
-                    if($row[188]) {
+                    if ($row[188]) {
                         $kind->getNaam()->setAanhef($row[188]);
                         $kind->getNaam()->setAanschrijfwijze($row[188].' '.$voorletters.' '.$row[189].' '.$row[190]);
                         $kind->getNaam()->setGebuikInLopendeTekst($row[188].' '.$voorletters.' '.$row[189].' '.$row[190]);
-                    }else {
+                    } else {
                         $kind->getNaam()->setAanhef('');
                         $kind->getNaam()->setAanschrijfwijze($voorletters.' '.$row[189].' '.$row[190]);
                         $kind->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$row[189].' '.$row[190]);
                     }
-
 
                     $kind->setGeboorte(new Geboorte());
                     $kind->getGeboorte()->setLand($nederland);
@@ -410,20 +398,17 @@ class BZKFixtures extends Fixture
 
                     try {
                         $geboortedatum = $row[191];
-                        $partner->getGeboorte()->setDatum(['year'=>substr($geboortedatum,0,4), 'month'=>substr($geboortedatum,4,2), 'day'=>substr($geboortedatum,6,2)]);
+                        $partner->getGeboorte()->setDatum(['year'=>substr($geboortedatum, 0, 4), 'month'=>substr($geboortedatum, 4, 2), 'day'=>substr($geboortedatum, 6, 2)]);
                     } catch (\Exception $e) {
                     }
 
-
-                    if($row[199]){
+                    if ($row[199]) {
                         $kind->setInOnderzoek(new UnderInvestigation(['aanduiding'=>$row[199]], $row[200]));
                     }
 
                     $manager->persist($kind);
                     $ingeschrevenpersoon->addKind($kind);
                 }
-
-
 
                 $manager->persist($ingeschrevenpersoon);
                 $manager->flush();
