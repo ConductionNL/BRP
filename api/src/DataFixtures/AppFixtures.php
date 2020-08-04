@@ -330,7 +330,7 @@ class AppFixtures extends Fixture
                     echo $geboortedatum->format('m');
                     echo $geboortedatum->format('d');
                     $ingeschrevenpersoon->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
-                    var_dump($ingeschrevenpersoon->getGeboorte());
+//                    var_dump($ingeschrevenpersoon->getGeboorte());
                     $leeftijd = $geboortedatum->diff(new DateTime('now'), true)->format('%Y');
                     $ingeschrevenpersoon->setLeeftijd($leeftijd);
                 } catch (\Exception $e) {
