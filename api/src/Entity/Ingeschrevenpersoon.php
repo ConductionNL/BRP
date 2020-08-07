@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -36,171 +38,44 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     collectionOperations={
  *     		"get"={
  *     			"method"="GET",
- *     			"path"="/ingeschrevenpersonen",
- *     			"swagger_context" = {
- *     				"summary"="ingeschrevenNatuurlijkPersonen",
- *     				"description"="Beschrijving",
- *                  "parameters" = {
- *                      {
- *                          "in" = "query",
- *                          "name" = "expand",
- *                          "description" = "Hier kan aangegeven worden welke gerelateerde resources meegeladen moeten worden. Resources en velden van resources die gewenst zijn kunnen in de expand parameter kommagescheiden worden opgegeven. Specifieke velden van resource kunnen worden opgegeven door het opgeven van de resource-naam gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)",
- *                          "required" = "true",
- *                          "type" : "string",
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "fields",
- *                          "description": "Geeft de mogelijkheid de inhoud van de body van het antwoord naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400 Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen, worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)",
- *                          "required": false,
- *                          "type": "string"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "burgerservicenummer",
- *                          "description": "Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer. Alle nummers waarvoor geldt dat, indien aangeduid als (s0 s1 s2 s3 s4 s5 s6 s7 s8), het resultaat van (9*s0) + (8*s1) + (7*s2) +...+ (2*s7) - (1*s8) deelbaar is door elf. Er moeten dus 9 cijfers aanwezig zijn.",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 9,
- *                          "minLength": 9
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "familie__eerstegraad",
- *                          "description": "Filterd op de eerstegraads familie leden van een opgegeven burgerservicenummer",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 9,
- *                          "minLength": 9
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "geboorte__datum",
- *                          "description": "Datum waarop de INGESCHREVEN NATUURLIJK PERSOON geboren is. Er kan alleen gezocht worden met een volledige geboortedatum. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/parametervalidatie.feature)",
- *                          "required": false,
- *                          "type": "string",
- *                          "format": "date",
- *                          "example": "1964-09-24"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "geboorte__plaats",
- *                          "description": "Gemeentenaam of een buitenlandse plaats of een plaatsbepaling, die aangeeft waar de persoon is geboren. **Zoeken met tekstvelden is [case-Insensitive](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/case_insensitive.feature).**",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 40,
- *                          "example": "Utrecht"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "geslachtsaanduiding",
- *                          "description": "Een aanduiding die aangeeft dat de ingeschrevene een man of een vrouw is, of dat het geslacht (nog) onbekend is.",
- *                          "required": false
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "inclusiefoverledenpersonen",
- *                          "description": "Indien in het antwoord op de zoekvraag ook overleden personen moeten worden geretourneerd, dan dient de parameter *inclusiefOverledenPersonen* opgenomen te zijn met de waarde _True_. Indien de parameter *inclusiefOverledenPersonen* ontbreekt of de waarde _False_ heeft worden geen overleden personen opgenomen in het zoekresultaat. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/overleden_personen.feature)",
- *                          "required": false,
- *                          "type": "boolean",
- *                          "example": false
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "naam__geslachtsnaam",
- *                          "description": "De (geslachts)naam waarvan de eventueel aanwezige voorvoegsels en adellijke titel/predikaat zijn afgesplitst. **Gebruik van de wildcard is toegestaan. Zie [feature-beschrijving](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/wildcard.feature)** **Zoeken met tekstvelden is [case-Insensitive](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/case_insensitive.feature).**",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 200,
- *                          "example": "Vries"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "naam__voornamen",
- *                          "description": "De verzameling namen die, gescheiden door spaties, aan de geslachtsnaam voorafgaat. ** Bij deze query-parameter is het gebruik van een [wildcard](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/wildcard.feature) toegestaan in combinatie met minimaal 2 karakters.** **Zoeken met tekstvelden is [case-Insensitive](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/case_insensitive.feature).**",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 200,
- *                          "example": "Dirk"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "verblijfplaats__gemeentevaninschrijving",
- *                          "description": "Een code die aangeeft in welke gemeente de PL zich bevindt of de gemeente waarnaar de PL is uitgeschreven of de gemeente waar de PL voor de eerste keer is opgenomen. De waarde (0000) is geen geldige inhoud voor de query-parameter.",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 4,
- *                          "example": "0518"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "verblijfplaats__huisletter",
- *                          "description": "Een door of namens het bevoegd gemeentelijk orgaan ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 1,
- *                          "example": "a"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "verblijfplaats__huisnummer",
- *                          "description": "Een door of namens het bevoegd gemeentelijk orgaan ten aanzien van een adresseerbaar object toegekende nummering. Alle natuurlijke getallen tussen 1 en 99999.",
- *                          "required": false,
- *                          "type": "integer",
- *                          "maximum": 99999,
- *                          "example": 14
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "verblijfplaats__huisnummertoevoeging",
- *                          "description": "Een door of namens het bevoegd gemeentelijk orgaan ten aanzien van een adresseerbaar object toegekende nadere toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter. ",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 4,
- *                          "example": "bis"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "verblijfplaats__identificatiecodenummeraanduiding",
- *                          "description": "De unieke aanduiding van een NUMMERAANDUIDING. Combinatie van de viercijferige 'gemeentecode' , de tweecijferige 'objecttypecode' en een voor het betreffende objecttype binnen een gemeente uniek tiencijferig 'objectvolgnummer'. De objecttypecode kent in de BAG de volgende waarde:20 nummeraanduiding.",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 16,
- *                          "example": "0518200000366054"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "verblijfplaats__naamopenbareruimte",
- *                          "description": "Een door het bevoegde gemeentelijke orgaan aan een OPENBARE RUIMTE toegekende benaming **Gebruik van de wildcard is toegestaan. Zie [feature-beschrijving](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/wildcard.feature)** **Zoeken met tekstvelden is [case-Insensitive](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/case_insensitive.feature).** Tekens gecodeerd volgens de UTF-8 standaard",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 80,
- *                          "example": "Tulpstraat"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "verblijfplaats__postcode",
- *                          "description": "De door PostNL vastgestelde code behorende bij een bepaalde combinatie van een naam van een woonplaats, naam van een openbare ruimte en een huisnummer",
- *                          "required": false,
- *                          "type": "string",
- *                          "pattern": "^[1-9]{1}[0-9]{3}[A-Z]{2}$",
- *                          "example": "2341SX"
- *                      },
- *                      {
- *                      	"in": "query",
- *                          "name": "naam__voorvoegsel",
- *                          "description": "Dat deel van de geslachtsnaam dat voorkomt in de Voorvoegseltabel en, gescheiden door een spatie, vooraf gaat aan de rest van de geslachtsnaam. **De tabel bevat vorvoegsels met hoofdletters en met kleine letters. Het zoeken op het voorvoegsel is [case-Insensitive](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/case_insensitive.feature).**",
- *                          "required": false,
- *                          "type": "string",
- *                          "maxLength": 10,
- *                          "example": "de"
- *                      }
- *                  }
- *     			}
+ *     			"path"="/ingeschrevenpersonen"
  *     		},
  *     		"get_on_bsn"={
  *     			"method"="GET",
  *     			"path"="/ingeschrevenpersonen/{burgerservicenummer}",
+ *     			"requirements"={"burgerservicenummer"="\d+"},
+ *     			"defaults"={"color"="brown"},
+ *     			"options"={"my_option"="my_option_value"},
+ *     			"swagger_context" = {
+ *     				"summary"="ingeschrevenNatuurlijkPersoon",
+ *     				"description"="Beschrijving"
+ *     			}
+ *     		},
+ *     		"get_bsn_ouders"={
+ *     			"method"="GET",
+ *     			"path"="/ingeschrevenpersonen/{burgerservicenummer}/ouders",
+ *     			"requirements"={"burgerservicenummer"="\d+"},
+ *     			"defaults"={"color"="brown"},
+ *     			"options"={"my_option"="my_option_value"},
+ *     			"swagger_context" = {
+ *     				"summary"="ingeschrevenNatuurlijkPersoon",
+ *     				"description"="Beschrijving"
+ *     			}
+ *     		},
+ *     		"get_bsn_kinderen"={
+ *     			"method"="GET",
+ *     			"path"="/ingeschrevenpersonen/{burgerservicenummer}/kinderen",
+ *     			"requirements"={"burgerservicenummer"="\d+"},
+ *     			"defaults"={"color"="brown"},
+ *     			"options"={"my_option"="my_option_value"},
+ *     			"swagger_context" = {
+ *     				"summary"="ingeschrevenNatuurlijkPersoon",
+ *     				"description"="Beschrijving"
+ *     			}
+ *     		},
+ *     		"get_bsn_partners"={
+ *     			"method"="GET",
+ *     			"path"="/ingeschrevenpersonen/{burgerservicenummer}/partners",
  *     			"requirements"={"burgerservicenummer"="\d+"},
  *     			"defaults"={"color"="brown"},
  *     			"options"={"my_option"="my_option_value"},
@@ -220,6 +95,23 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\IngeschrevenpersoonRepository")
  * @Gedmo\Loggable
+ *
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "geboorte.datum":"exact",
+ *     "geboorte.plaats":"ipartional",
+ *     "geslachtsaanduiding":"exact",
+ *     "burgerservicenummer":"exact",
+ *     "naam.geslachtsnaam":"ipartial",
+ *     "naam.voornamen":"ipartional",
+ *     "naam.voorvoegsel":"ipartional",
+ *     "verblijfplaats.postcode": "exact",
+ *     "verblijfplaats.huisnummer":"exact",
+ *     "verblijfplaats.huisnummertoevoeging":"exact",
+ *     "verblijfplaats.huisletter":"exact",
+ *     "verblijfplaats.naamopenbareruimte":"exact",
+ *     "verblijfplaats.gemeentevaninschrijving":"exact",
+ *     "verblijfplaats.identificatiecodenummeraanduiding":"exact",
+ * })
  */
 class Ingeschrevenpersoon
 {

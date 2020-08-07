@@ -20,7 +20,9 @@ parameters:
     env(CONTAINER_PROJECT_NAME): ''
     env(CONTAINER_REPRO): ''
 
-api_platform:            
+api_platform:
+    graphql:
+        nesting_separator: __
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
 
@@ -88,3 +90,4 @@ api_platform:
     # Mercure integration, remove if unwanted
     # mercure:
     #    hub_url: '%env(MERCURE_SUBSCRIBE_URL)%'
+
