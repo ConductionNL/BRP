@@ -43,7 +43,9 @@ class BZKFixtures extends Fixture
 
         if (
             $this->params->get('app_domain') == 'zuid-drecht.nl' ||
-            strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false
+            strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
+            $this->params->get('app_domain') == 'westfriesland.commonground.nu' ||
+            strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') !== false
         ) {
             $this->loadFromExcel($manager, 'BZKgegevens');
         }
