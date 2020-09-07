@@ -24,8 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  *  * @ApiFilter(SearchFilter::class, properties={
  *     "geslachtsnaam":"ipartial",
- *     "voornamen":"ipartional",
- *     "voorvoegsel":"ipartional",
+ *     "voornamen":"ipartial",
+ *     "voorvoegsel":"ipartial",
  * })
  */
 class NaamPersoon
