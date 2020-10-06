@@ -7,15 +7,18 @@ settings:
   projectName: brp
   name: brp
   title: Basis Registratie Personen
-  version: V.0.1
+  version: V1.0
+  majorVersion: v1
   id: 
-  description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
+  description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
   type: component
   repro: https://github.com/ConductionNL/brpservice
   demo: brp.zaakonline.nl
   container: https://hub.docker.com/repository/docker/conduction/brp-php
   domain: zuid-drecht.nl
   subdomain: brp
+  subpath: brp
+  subpathRouting: true
   organisationName: Conduction
   email: info@conduction.nl
   country: Netherlands
