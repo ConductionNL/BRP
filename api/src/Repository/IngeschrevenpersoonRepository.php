@@ -14,11 +14,11 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class IngeschrevenpersoonRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
-    	parent::__construct($registry, Ingeschrevenpersoon::class);
+        parent::__construct($registry, Ingeschrevenpersoon::class);
     }
-    
+
     public function getFamilly($bsn)
     {
         return $this->createQueryBuilder('i')
@@ -29,12 +29,11 @@ class IngeschrevenpersoonRepository extends ServiceEntityRepository
             $qb->expr()->eq('k.burgerservicenummer', $bsn),
             $qb->expr()->eq('p.burgerservicenummer', $bsn),
             $qb->expr()->eq('o.burgerservicenummer', $bsn)
-         ))
+        ))
         ->getQuery()
-        ->getResult()
-        ;
+        ->getResult();
     }
-    
+
     // /**
     //  * @return NatuurlijkPersoon[] Returns an array of NatuurlijkPersoon objects
     //  */

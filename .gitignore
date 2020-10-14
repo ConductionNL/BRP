@@ -7,4 +7,8 @@ api/helm/kubeconfig.yaml
 
 .idea/
 
-api/helm/kubeconfig-hb.yaml
+api/helm/*-kubeconfig.yaml
+api/helm/kubeconfig*
+api/helm/huwelijksplanner-kubeconfig.yaml
+
+api/src/DataFixtures/resources/~$*.xlsx

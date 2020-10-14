@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -23,6 +21,7 @@ class AangaanHuwelijkPartnerschap
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -31,10 +30,11 @@ class AangaanHuwelijkPartnerschap
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $uuid;
+    private $uuid;
 
     /**
-     * @var string $datum Datum this huwelijk has been requested
+     * @var string Datum this huwelijk has been requested
+     *
      * @example 01-01-2000
      *
      * @Groups({"read","write"})
@@ -44,23 +44,25 @@ class AangaanHuwelijkPartnerschap
     private $datum;
 
     /**
-     * @var string $land Land this huwelijk is in
+     * @var string Land this huwelijk is in
+     *
      * @example The Netherlands
      *
      * @Groups({"read","write"})
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $land;
 
     /**
-     * @var string $plaats Plaats this huwelijk is in
+     * @var string Plaats this huwelijk is in
+     *
      * @example Amsterdam
      *
      * @Groups({"read","write"})
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $plaats;
@@ -74,7 +76,8 @@ class AangaanHuwelijkPartnerschap
     private $inOnderzoek;
 
     /**
-     * @var Partner $partner Other partner of this huwelijk
+     * @var Partner Other partner of this huwelijk
+     *
      * @example John
      *
      * @Groups({"read","write"})
@@ -87,12 +90,12 @@ class AangaanHuwelijkPartnerschap
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getDatum()

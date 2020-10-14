@@ -2,12 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,6 +22,7 @@ class VerblijfBuitenland
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -31,7 +31,7 @@ class VerblijfBuitenland
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $uuid;
+    private $uuid;
 
     /**
      * @todo docblocks
@@ -79,27 +79,30 @@ class VerblijfBuitenland
     private $vertrokkenOnbekendWaarheen;
 
     /**
-     * @var string $land Land of this VerblijfBuitenland
+     * @var string Land of this VerblijfBuitenland
+     *
      * @example Spain
      *
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $land;
 
     /**
-     * @var string $plaats Plaats of this VerblijfBuitenland
+     * @var string Plaats of this VerblijfBuitenland
+     *
      * @example Barcelona
      *
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $plaats;
 
     /**
-     * @var Verblijfplaats $verblijfplaats Verblijfplaats of this VerblijfBuitenland
+     * @var Verblijfplaats Verblijfplaats of this VerblijfBuitenland
+     *
      * @example Passeig de Sant Joan 21
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Verblijfplaats", mappedBy="verblijfBuitenland", cascade={"persist", "remove"})
@@ -157,26 +160,26 @@ class VerblijfBuitenland
 
     public function getLand(): ?Waardetabel
     {
-    	return $this->land;
+        return $this->land;
     }
 
     public function setLand(?Waardetabel $land): self
     {
-    	$this->land = $land;
+        $this->land = $land;
 
-    	return $this;
+        return $this;
     }
 
     public function getPlaats(): ?Waardetabel
     {
-    	return $this->plaats;
+        return $this->plaats;
     }
 
     public function setPlaats(?Waardetabel $plaats): self
     {
-    	$this->plaats = $plaats;
+        $this->plaats = $plaats;
 
-    	return $this;
+        return $this;
     }
 
     public function getVerblijfplaats(): ?Verblijfplaats

@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,6 +26,7 @@ class Kind
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -38,7 +38,8 @@ class Kind
     private $uuid;
 
     /**
-     * @var string $burgerservicenummer Burgerservicenummer of this kind
+     * @var string Burgerservicenummer of this kind
+     *
      * @example 123456782
      *
      * @ORM\Column(type="string", length=9)
@@ -50,7 +51,8 @@ class Kind
     private $burgerservicenummer;
 
     /**
-     * @var integer $leeftijd Leeftijd of this kind
+     * @var int Leeftijd of this kind
+     *
      * @example 14
      *
      * @Groups({"read", "write"})
@@ -67,7 +69,8 @@ class Kind
     private $inOnderzoek;
 
     /**
-     * @var NaamPersoon $naam NaamPersoon of this kind
+     * @var NaamPersoon NaamPersoon of this kind
+     *
      * @example Michael
      *
      * @Groups({"read", "write"})
@@ -79,7 +82,8 @@ class Kind
     private $naam;
 
     /**
-     * @var Geboorte $geboorte Geboorte of this kind
+     * @var Geboorte Geboorte of this kind
+     *
      * @example 01-01-2000
      *
      * @Groups({"read", "write"})
@@ -103,12 +107,12 @@ class Kind
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getBurgerservicenummer(): ?string
@@ -173,12 +177,12 @@ class Kind
 
     public function getIngeschrevenpersoon(): ?Ingeschrevenpersoon
     {
-    	return $this->ingeschrevenpersoon;
+        return $this->ingeschrevenpersoon;
     }
 
     public function setIngeschrevenpersoon(?Ingeschrevenpersoon $ingeschrevenpersoon): self
     {
-    	$this->ingeschrevenpersoon = $ingeschrevenpersoon;
+        $this->ingeschrevenpersoon = $ingeschrevenpersoon;
 
         return $this;
     }

@@ -307,15 +307,9 @@ More information on using data fixtures can be found at the [symfony website](ht
 ## Sharing your work 
 A vital part of te common ground community is sharing your work, and telling other people what you are working. This way people can help you with problems that you run into. And keep tabs on any (security) updates that you make to you code. Sounds like a lot of work right?
 
-Wel it actually isn't, there is a specific common ground platform over at common-ground.dev that reads repositories and updates user. So the only thing we need to do is tell this platform that we have started a new common ground repository. And tell it when we have updates ours. We can do all that by simply adding a webhook to our component. 
+Wel it actually isn't, there is a specific common ground platform over at common-ground.dev that reads repositories and updates user. So the only thing we need to do is tell this platform that we have started a new common ground repository. How do we do that? Simple we use the name common ground (or commonground) in the discription of our repository. common-ground.dev should then pick up our repository within the hour.
 
-When using Github. To set up a webhook, go to the settings page of your repository or organization. From there, click Webhooks, then Add webhook. Use te following settings:
-* Payload URL: https://www.common-ground.dev/webhook/github
-* Content type: Application/JSON
-* Secret: [leave blanck]
-* Events: [just the push event]
-
-Now every time you update your repository the commonground dev page will alerted, rescan your repository and do al the appropriate platform actions. It just as easy as that.
+Another option that we have is to declare our repository on [publiccode](), to do this you need to copy the publiccode.yaml from the [api/public/schema](api/public/schema]) folder to your root folder (dont forget to redo this every time you make a major change to your repository concerning versioning or licencing).  
 
 
 Continues integration
@@ -345,6 +339,18 @@ Afther you have abtained a kuneconfig you need to save it to your repository as 
 Documentation and dockblocks
 -------
 You want both your redoc documentation and your code to be readable and reausable to other developers. To this effect we use docblok annotation. You can read more about that [here](https://docs.phpdoc.org/references/phpdoc/basic-syntax.html) but the basic is this, we supply each class and propery with a docblock contained within /\* \* / characters. At the very least we want to describe our properties, the expected results and example data (see the example under [audittrail](#audittrail)
+
+You can generate documantation trough docker-compose exec php php phpDocumentor.phar -d src -t public/docs
+
+### Adjusting your readme file 
+
+### Using docblocks for in code documentation
+
+### Setting up you Read the Docs page
+
+### Setting up github pages
+
+### Exposing your API documentation
 
 Audittrail
 -------

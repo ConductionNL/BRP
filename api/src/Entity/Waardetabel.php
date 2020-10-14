@@ -3,11 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,6 +19,7 @@ class Waardetabel
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -29,7 +28,7 @@ class Waardetabel
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $id;
+    private $id;
 
     /**
      * @todo docblocks
@@ -54,11 +53,10 @@ class Waardetabel
      */
     private $omschrijving;
 
-
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->id;
+        return $this->id;
     }
 
     public function getCode(): ?string

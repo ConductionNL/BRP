@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -23,6 +21,7 @@ class Verblijfstitel
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -31,19 +30,20 @@ class Verblijfstitel
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $uuid;
+    private $uuid;
 
     /**
      * @todo docblocks
      *
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $aanduiding;
 
     /**
-     * @var string $datumEinde Datum einde of this Verblijftitel
+     * @var string Datum einde of this Verblijftitel
+     *
      * @example 01-01-2005
      *
      * @Groups({"read","write"})
@@ -53,7 +53,8 @@ class Verblijfstitel
     private $datumEinde;
 
     /**
-     * @var string $datumIngang Datum ingang of this Verblijftitel
+     * @var string Datum ingang of this Verblijftitel
+     *
      * @example 01-01-2004
      *
      * @Groups({"read","write"})
@@ -79,16 +80,15 @@ class Verblijfstitel
      */
     private $ingeschrevenpersoon;
 
-
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->id;
+        return $this->id;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->id;
+        return $this->id;
     }
 
     public function getAanduiding(): ?Waardetabel
@@ -141,17 +141,17 @@ class Verblijfstitel
 
     public function getIngeschrevenpersoon(): ?Ingeschrevenpersoon
     {
-    	return $this->ingeschrevenpersoon;
+        return $this->ingeschrevenpersoon;
     }
 
     public function setIngeschrevenpersoon(?Ingeschrevenpersoon $ingeschrevenpersoon): self
     {
-    	$this->ingeschrevenpersoon= $ingeschrevenpersoon;
+        $this->ingeschrevenpersoon = $ingeschrevenpersoon;
 
         // set (or unset) the owning side of the relation if necessary
-    	$newVerblijfstitel = $ingeschrevenpersoon=== null ? null : $this;
-    	if ($newVerblijfstitel !== $ingeschrevenpersoon->getVerblijfstitel()) {
-    		$ingeschrevenpersoon->setVerblijfstitel($newVerblijfstitel);
+        $newVerblijfstitel = $ingeschrevenpersoon === null ? null : $this;
+        if ($newVerblijfstitel !== $ingeschrevenpersoon->getVerblijfstitel()) {
+            $ingeschrevenpersoon->setVerblijfstitel($newVerblijfstitel);
         }
 
         return $this;

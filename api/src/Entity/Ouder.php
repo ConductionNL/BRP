@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,6 +26,7 @@ class Ouder
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -35,10 +35,11 @@ class Ouder
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $uuid;
+    private $uuid;
 
     /**
-     * @var string $burgerservicenummer Burgerservicenummer of this Ouder
+     * @var string Burgerservicenummer of this Ouder
+     *
      * @example 123456782
      *
      * @Groups({"read", "write"})
@@ -51,7 +52,8 @@ class Ouder
     private $burgerservicenummer;
 
     /**
-     * @var string $geslachtsaanduiding Geslachts aanduiding of this Ouder
+     * @var string Geslachts aanduiding of this Ouder
+     *
      * @example female
      *
      * @Groups({"read", "write"})
@@ -77,8 +79,8 @@ class Ouder
     private $ouderAanduiding;
 
     /**
+     * @var string Burgerservicenummer of this Ouder
      *
-     * @var string $burgerservicenummer Burgerservicenummer of this Ouder
      * @example 123456782
      *
      * @Groups({"read", "write"})
@@ -88,8 +90,8 @@ class Ouder
     private $datumIngangFamilierechtelijkeBetreking;
 
     /**
+     * @var NaamPersoon Naam of this Ouder
      *
-     * @var NaamPersoon $naam Naam of this Ouder
      * @example Joe
      *
      * @Groups({"read", "write"})
@@ -109,8 +111,8 @@ class Ouder
     private $inOnderzoek;
 
     /**
+     * @var Geboorte Geboorte of this Ouder
      *
-     * @var Geboorte $geboorte Geboorte of this Ouder
      * @example 01-01-2000
      *
      * @Groups({"read", "write"})
@@ -122,12 +124,12 @@ class Ouder
     private $geboorte;
 
     /**
+     * @var Ingeschrevenpersoon IngeschrevenPersoon of this Ouder
      *
-     * @var Ingeschrevenpersoon $ingeschrevenpersoon IngeschrevenPersoon of this Ouder
      * @example Joe
      *
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ingeschrevenpersoon", inversedBy="ouders")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ingeschrevenpersoon", inversedBy="ouders", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */
@@ -136,12 +138,12 @@ class Ouder
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getBurgerservicenummer(): ?string
@@ -230,12 +232,12 @@ class Ouder
 
     public function getIngeschrevenpersoon(): ?Ingeschrevenpersoon
     {
-    	return $this->ingeschrevenpersoon;
+        return $this->ingeschrevenpersoon;
     }
 
     public function setIngeschrevenpersoon(?Ingeschrevenpersoon $ingeschrevenpersoon): self
     {
-    	$this->ingeschrevenpersoon = $ingeschrevenpersoon;
+        $this->ingeschrevenpersoon = $ingeschrevenpersoon;
 
         return $this;
     }

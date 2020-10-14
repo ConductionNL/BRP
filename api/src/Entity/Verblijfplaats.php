@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\Mapping\Annotation as Gedmo;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,11 +19,21 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\VerblijfplaatsRepository")
  * @Gedmo\Loggable
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "postcode": "exact",
+ *     "huisnummer":"exact",
+ *     "huisnummertoevoeging":"exact",
+ *     "huisletter":"exact",
+ *     "naamopenbareruimte":"exact",
+ *     "gemeentevaninschrijving":"exact",
+ *     "identificatiecodenummeraanduiding":"exact",
+ *     })
  */
 class Verblijfplaats
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -31,7 +42,7 @@ class Verblijfplaats
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $uuid;
+    private $uuid;
 
     /**
      * @todo docblocks
@@ -58,7 +69,8 @@ class Verblijfplaats
     private $funtieAdres;
 
     /**
-     * @var string $huisletter Huisletter of this Verblijfplaats
+     * @var string Huisletter of this Verblijfplaats
+     *
      * @example B
      *
      * @Groups({"read", "write"})
@@ -71,7 +83,8 @@ class Verblijfplaats
     private $huisletter;
 
     /**
-     * @var integer $huisnummer Huisnummer of this Verblijfplaats
+     * @var int Huisnummer of this Verblijfplaats
+     *
      * @example 21
      *
      * @Groups({"read", "write"})
@@ -82,7 +95,8 @@ class Verblijfplaats
     private $huisnummer;
 
     /**
-     * @var string $huisnummertoevoeging Huisnummertoevoeging of this Verblijfplaats
+     * @var string Huisnummertoevoeging of this Verblijfplaats
+     *
      * @example B
      *
      * @Groups({"read", "write"})
@@ -126,10 +140,11 @@ class Verblijfplaats
      * @ORM\Column(type="boolean")
      * @Assert\Type("boolean")
      */
-    private $indentificatieVestigingVanuitBuitenland  = false;
+    private $indentificatieVestigingVanuitBuitenland = false;
 
     /**
-     * @var string $locatiebeschrijving Locatiebeschrijving of this Verblijfplaats
+     * @var string Locatiebeschrijving of this Verblijfplaats
+     *
      * @example Appartment
      *
      * @Groups({"read", "write"})
@@ -154,7 +169,8 @@ class Verblijfplaats
     private $naamOpenbareRuimte;
 
     /**
-     * @var string $postcode Postcode of this Verblijfplaats
+     * @var string Postcode of this Verblijfplaats
+     *
      * @example 08040
      *
      * @Groups({"read", "write"})
@@ -167,7 +183,8 @@ class Verblijfplaats
     private $postcode;
 
     /**
-     * @var string $straatnaam Straatnaam of this Verblijfplaats
+     * @var string Straatnaam of this Verblijfplaats
+     *
      * @example Passeig de Sant Joan
      *
      * @Groups({"read", "write"})
@@ -190,7 +207,8 @@ class Verblijfplaats
     private $vanuitVertrokkenOnbekendWaarheen = false;
 
     /**
-     * @var string $woonplaatsnaam Woonplaatsnaam of this Verblijfplaats
+     * @var string Woonplaatsnaam of this Verblijfplaats
+     *
      * @example Barcelona
      *
      * @Groups({"read", "write"})
@@ -203,7 +221,8 @@ class Verblijfplaats
     private $woonplaatsnaam;
 
     /**
-     * @var string $datumAanvangAdreshouding Datum aanvang adreshouding of this Verblijfplaats
+     * @var string Datum aanvang adreshouding of this Verblijfplaats
+     *
      * @example 2005-01-01
      *
      * @Groups({"read", "write"})
@@ -212,7 +231,8 @@ class Verblijfplaats
     private $datumAanvangAdreshouding;
 
     /**
-     * @var string $datumIngangGeldigheid Datum ingang geldigheid of this Verblijfplaats
+     * @var string Datum ingang geldigheid of this Verblijfplaats
+     *
      * @example 01-01-2005
      *
      * @Groups({"read", "write"})
@@ -222,7 +242,8 @@ class Verblijfplaats
     private $datumIngangGeldigheid;
 
     /**
-     * @var string $datumInschrijvingInGemeente Datum inschrijving in gemeente of this Verblijfplaats
+     * @var string Datum inschrijving in gemeente of this Verblijfplaats
+     *
      * @example 01-01-2005
      *
      * @Groups({"read", "write"})
@@ -232,7 +253,8 @@ class Verblijfplaats
     private $datumInschrijvingInGemeente;
 
     /**
-     * @var string $datumVestigingInNederland Datum vestiging in Nederland of this Verblijfplaats
+     * @var string Datum vestiging in Nederland of this Verblijfplaats
+     *
      * @example 01-01-2005
      *
      * @Groups({"read", "write"})
@@ -242,28 +264,31 @@ class Verblijfplaats
     private $datumVestigingInNederland;
 
     /**
-     * @var string $gemeenteVanInschrijving Gemeente van inschrijving of this Verblijfplaats
+     * @var string Gemeente van inschrijving of this Verblijfplaats
+     *
      * @example Barcelona
      *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
-     * @ORM\Column(type="incompleteDate", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $gemeenteVanInschrijving;
 
     /**
-     * @var string $landVanwaarIngeschreven Land van  waar ingeschreven of this Verblijfplaats
+     * @var string Land van  waar ingeschreven of this Verblijfplaats
+     *
      * @example Spain
      *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
-     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $landVanwaarIngeschreven;
 
     /**
-     * @var VerblijfBuitenland $verblijfBuitenland VerblijfBuitenland of this Verblijfplaats
+     * @var VerblijfBuitenland VerblijfBuitenland of this Verblijfplaats
+     *
      * @example Spain
      *
      * @Groups({"read", "write"})
@@ -293,15 +318,24 @@ class Verblijfplaats
      */
     private $ingeschrevenpersoon;
 
+    /**
+     * @todo docblocks
+     *
+     * @Groups({"read", "write"})
+     * @Gedmo\Versioned
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $bagId;
+
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getAanduidingBijHuisnummer(): ?string
@@ -570,17 +604,29 @@ class Verblijfplaats
 
     public function getIngeschrevenpersoon(): ?Ingeschrevenpersoon
     {
-    	return $this->ingeschrevenpersoon;
+        return $this->ingeschrevenpersoon;
     }
 
-    public function setIngeschrevenpersoon(Ingeschrevenpersoon$ingeschrevenpersoon): self
+    public function setIngeschrevenpersoon(Ingeschrevenpersoon $ingeschrevenpersoon): self
     {
-    	$this->ingeschrevenpersoon= $ingeschrevenpersoon;
+        $this->ingeschrevenpersoon = $ingeschrevenpersoon;
 
         // set the owning side of the relation if necessary
-    	if ($this !== $ingeschrevenpersoon->getVerblijfplaats()) {
-    		$ingeschrevenpersoon->setVerblijfplaats($this);
+        if ($this !== $ingeschrevenpersoon->getVerblijfplaats()) {
+            $ingeschrevenpersoon->setVerblijfplaats($this);
         }
+
+        return $this;
+    }
+
+    public function getBagId(): ?int
+    {
+        return $this->bagId;
+    }
+
+    public function setBagId(?int $bagId): self
+    {
+        $this->bagId = $bagId;
 
         return $this;
     }

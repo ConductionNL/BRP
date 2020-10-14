@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\Mapping\Annotation as Gedmo;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,11 +21,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\NaamPersoonRepository")
  * @Gedmo\Loggable
+ *
+ *  * @ApiFilter(SearchFilter::class, properties={
+ *     "geslachtsnaam":"ipartial",
+ *     "voornamen":"ipartial",
+ *     "voorvoegsel":"ipartial",
+ * })
  */
 class NaamPersoon
 {
     /**
      * @var UuidInterface
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Groups({"read"})
@@ -33,10 +41,11 @@ class NaamPersoon
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-	private $uuid;
+    private $uuid;
 
     /**
-     * @var string $geslachtsnaam Geslachtsnaam of this NaamPersoon
+     * @var string Geslachtsnaam of this NaamPersoon
+     *
      * @example male
      *
      * @Groups({"read", "write"})
@@ -50,7 +59,8 @@ class NaamPersoon
     private $geslachtsnaam;
 
     /**
-     * @var string $voorletters Voorletters of this NaamPersoon
+     * @var string Voorletters of this NaamPersoon
+     *
      * @example A
      *
      * @Groups({"read", "write"})
@@ -64,7 +74,8 @@ class NaamPersoon
     private $voorletters;
 
     /**
-     * @var string $voornamen Voornamen of this NaamPersoon
+     * @var string Voornamen of this NaamPersoon
+     *
      * @example Michael Smith
      *
      * @Groups({"read", "write"})
@@ -78,7 +89,8 @@ class NaamPersoon
     private $voornamen;
 
     /**
-     * @var string $voorvoegsel Voorvoegsel of this NaamPersoon
+     * @var string Voorvoegsel of this NaamPersoon
+     *
      * @example van der
      *
      * @Groups({"read", "write"})
@@ -101,7 +113,8 @@ class NaamPersoon
     private $inOnderzoek;
 
     /**
-     * @var string $aanhef Aanhef of this NaamPersoon
+     * @var string Aanhef of this NaamPersoon
+     *
      * @example Dhr
      *
      * @Groups({"read", "write"})
@@ -124,7 +137,8 @@ class NaamPersoon
     private $aanschrijfwijze;
 
     /**
-     * @var string $geslachtsnaam Geslachtsnaam of this NaamPersoon
+     * @var string Geslachtsnaam of this NaamPersoon
+     *
      * @example male
      *
      * @Groups({"read", "write"})
@@ -140,7 +154,7 @@ class NaamPersoon
     /**
      * @todo docblocks
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Ingeschrevenpersoon", mappedBy="naam")
+     * @ORM\OneToMany(targetEntity="App\Entity\Ingeschrevenpersoon", mappedBy="naam", cascade={"persist"})
      * @MaxDepth(1)
      */
     private $ingeschrevenpersonen;
@@ -153,12 +167,12 @@ class NaamPersoon
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-    	return $this->uuid;
+        return $this->uuid;
     }
 
     public function getGeslachtsnaam(): ?string
