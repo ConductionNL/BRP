@@ -13,10 +13,10 @@ use App\Entity\Waardetabel;
 use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class AppFixtures extends Fixture
@@ -97,7 +97,7 @@ class AppFixtures extends Fixture
         // Geboorte
         $persoon->getGeboorte()->setLand($nederland);
         $persoon->getGeboorte()->setPlaats($amsterdam);
-        $persoon->getGeboorte()->setDatum(new IncompleteDate(1985, 1, 1));//['year'=>'1985', 'month'=>'01', 'day'=>'01']);
+        $persoon->getGeboorte()->setDatum(new IncompleteDate(1985, 1, 1)); //['year'=>'1985', 'month'=>'01', 'day'=>'01']);
 
         $BSN900003509 = $persoon;
 
