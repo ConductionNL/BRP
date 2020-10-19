@@ -2776,21 +2776,11 @@ paths:
           style: form
           explode: true
         -
-          name: plaats
+          name: plaats.omschrijving
           in: query
           required: false
           schema:
             type: string
-        -
-          name: 'plaats[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: page
           in: query
@@ -4270,21 +4260,11 @@ paths:
           style: form
           explode: true
         -
-          name: geboorte.plaats
+          name: geboorte.plaats.omschrijving
           in: query
           required: false
           schema:
             type: string
-        -
-          name: 'geboorte.plaats[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: geslachtsaanduiding
           in: query
@@ -4723,21 +4703,11 @@ paths:
           style: form
           explode: true
         -
-          name: geboorte.plaats
+          name: geboorte.plaats.omschrijving
           in: query
           required: false
           schema:
             type: string
-        -
-          name: 'geboorte.plaats[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: geslachtsaanduiding
           in: query
@@ -5045,21 +5015,11 @@ paths:
           style: form
           explode: true
         -
-          name: geboorte.plaats
+          name: geboorte.plaats.omschrijving
           in: query
           required: false
           schema:
             type: string
-        -
-          name: 'geboorte.plaats[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: geslachtsaanduiding
           in: query
@@ -5367,21 +5327,11 @@ paths:
           style: form
           explode: true
         -
-          name: geboorte.plaats
+          name: geboorte.plaats.omschrijving
           in: query
           required: false
           schema:
             type: string
-        -
-          name: 'geboorte.plaats[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: geslachtsaanduiding
           in: query
@@ -5689,21 +5639,11 @@ paths:
           style: form
           explode: true
         -
-          name: geboorte.plaats
+          name: geboorte.plaats.omschrijving
           in: query
           required: false
           schema:
             type: string
-        -
-          name: 'geboorte.plaats[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: geslachtsaanduiding
           in: query
@@ -14951,18 +14891,23 @@ components:
         route:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         endpoint:
           description: 'The endpoint that the request was made to'
           type: string
+          nullable: true
         method:
           description: 'The method that was used'
           type: string
+          nullable: true
         accept:
           description: 'The contentType that was reqousted'
           type: string
+          nullable: true
         contentType:
           description: 'The contentType that was suplieds'
           type: string
+          nullable: true
         content:
           description: 'The moment this request was created'
           type: string
@@ -14970,6 +14915,7 @@ components:
         ip:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         session:
           description: 'The moment this request was created'
           type: string
@@ -15081,18 +15027,23 @@ components:
         route:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         endpoint:
           description: 'The endpoint that the request was made to'
           type: string
+          nullable: true
         method:
           description: 'The method that was used'
           type: string
+          nullable: true
         accept:
           description: 'The contentType that was reqousted'
           type: string
+          nullable: true
         contentType:
           description: 'The contentType that was suplieds'
           type: string
+          nullable: true
         content:
           description: 'The moment this request was created'
           type: string
@@ -15100,6 +15051,7 @@ components:
         ip:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         session:
           description: 'The moment this request was created'
           type: string
@@ -15284,7 +15236,7 @@ components:
           $ref: '#/components/schemas/Waardetabel-read'
         datum:
           description: 'Datum this person is born at'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate-read'
         inOnderzoek: {  }
     Geboorte-write:
       type: object
@@ -15298,7 +15250,7 @@ components:
           $ref: '#/components/schemas/Waardetabel-write'
         datum:
           description: 'Datum this person is born at'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate-write'
         inOnderzoek: {  }
     'Geboorte:jsonld-read':
       type: object
@@ -15325,7 +15277,7 @@ components:
           $ref: '#/components/schemas/Waardetabel:jsonld-read'
         datum:
           description: 'Datum this person is born at'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate:jsonld-read'
         inOnderzoek: {  }
     'Geboorte:jsonld-write':
       type: object
@@ -15348,7 +15300,7 @@ components:
           $ref: '#/components/schemas/Waardetabel:jsonld-write'
         datum:
           description: 'Datum this person is born at'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate:jsonld-write'
         inOnderzoek: {  }
     Gezagsverhouding-read:
       type: object
@@ -15424,6 +15376,34 @@ components:
           type: string
           nullable: true
         inOnderzoek: {  }
+    IncompleteDate-read:
+      type: object
+    IncompleteDate-write:
+      type: object
+    'IncompleteDate:jsonld-read':
+      type: object
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+    'IncompleteDate:jsonld-write':
+      type: object
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
     Ingeschrevenpersoon-read:
       type: object
       description: ''
@@ -16013,7 +15993,7 @@ components:
           type: string
         datum:
           description: 'Datum of this NaamPersoon'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate-read'
       required:
         - reden
     OpschortingBijhouding-write:
@@ -16027,7 +16007,7 @@ components:
           type: string
         datum:
           description: 'Datum of this NaamPersoon'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate-write'
     'OpschortingBijhouding:jsonld-read':
       type: object
       description: ''
@@ -16050,7 +16030,7 @@ components:
           type: string
         datum:
           description: 'Datum of this NaamPersoon'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate:jsonld-read'
       required:
         - reden
     'OpschortingBijhouding:jsonld-write':
@@ -16073,7 +16053,7 @@ components:
           type: string
         datum:
           description: 'Datum of this NaamPersoon'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate:jsonld-write'
     Ouder-read:
       type: object
       description: ''
@@ -16217,7 +16197,7 @@ components:
           type: boolean
         datum:
           description: 'Datum of this Overlijden'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate-read'
         inOnderzoek: {  }
       required:
         - indicatieOverleden
@@ -16232,7 +16212,7 @@ components:
           type: boolean
         datum:
           description: 'Datum of this Overlijden'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate-write'
         inOnderzoek: {  }
     'Overlijden:jsonld-read':
       type: object
@@ -16256,7 +16236,7 @@ components:
           type: boolean
         datum:
           description: 'Datum of this Overlijden'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate:jsonld-read'
         inOnderzoek: {  }
       required:
         - indicatieOverleden
@@ -16280,7 +16260,7 @@ components:
           type: boolean
         datum:
           description: 'Datum of this Overlijden'
-          type: string
+          $ref: '#/components/schemas/IncompleteDate:jsonld-write'
         inOnderzoek: {  }
     Partner-read:
       type: object
@@ -17095,7 +17075,7 @@ definitions:
         example: e2984465-190a-4562-829e-a8cca81aa35d
       datum:
         description: 'Datum this person is born at'
-        type: string
+        type: \IncompleteDate
         example: 01-01-2000
       inOnderzoek: []
       land:
@@ -17111,7 +17091,7 @@ definitions:
     properties:
       datum:
         description: 'Datum this person is born at'
-        type: string
+        type: \IncompleteDate
         example: 01-01-2000
       inOnderzoek: []
       land:
@@ -17380,7 +17360,7 @@ definitions:
         maxLength: 255
       datum:
         description: 'Datum of this NaamPersoon'
-        type: string
+        type: \IncompleteDate
         example: 01-01-2000
     required: []
   OpschortingBijhouding-write:
@@ -17392,7 +17372,7 @@ definitions:
         maxLength: 255
       datum:
         description: 'Datum of this NaamPersoon'
-        type: string
+        type: \IncompleteDate
         example: 01-01-2000
     required: []
   Ouder-read:
@@ -17467,7 +17447,7 @@ definitions:
         example: 'false'
       datum:
         description: 'Datum of this Overlijden'
-        type: string
+        type: \IncompleteDate
         example: 01-01-2000
       inOnderzoek: []
     required: []
@@ -17479,7 +17459,7 @@ definitions:
         example: 'false'
       datum:
         description: 'Datum of this Overlijden'
-        type: string
+        type: \IncompleteDate
         example: 01-01-2000
       inOnderzoek: []
     required: []
@@ -17889,12 +17869,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-06 11:12:48'
+        example: '2020-10-19 13:09:23'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-06 11:12:48'
+        example: '2020-10-19 13:09:23'
     required: []
   AuditTrail-write:
     properties:
@@ -17942,12 +17922,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-06 11:12:48'
+        example: '2020-10-19 13:09:23'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-06 11:12:48'
+        example: '2020-10-19 13:09:23'
     required: []
   ChangeLog-write:
     properties:

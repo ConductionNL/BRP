@@ -38,7 +38,20 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
     public function IngeschrevenpersonenQuery(RequestEvent $event)
     {
         $query = $event->getRequest()->server->get('QUERY_STRING');
-        $event->getRequest()->server->set('QUERY_STRING', str_replace('__', '.', $query));
+        $query = str_replace('__', '.', $query);
+        $query = explode('&', $query);
+        foreach ($query as $key=> $parameter) {
+            $parameter = explode('=', $parameter);
+            if ($parameter[0] == 'geboorte.datum') {
+                $parameter[1] = str_replace('-', '', $parameter[1]);
+            }
+            if ($parameter[0] == 'geboorte.plaats') {
+                $parameter[0] = 'geboorte.plaats.omschrijving';
+            }
+            $query[$key] = implode('=', $parameter);
+        }
+        $query = implode('&', $query);
+        $event->getRequest()->server->set('QUERY_STRING', $query);
 
 //        $result = $event->getControllerResult();
 //        $method = $event->getRequest()->getMethod();
