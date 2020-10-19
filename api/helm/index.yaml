@@ -11,6 +11,6 @@ entries:
     icon: brp.zaakonline.nl
     name: brp
     urls:
-    - brp-0.1.0.tgz
+    - pc-0.1.0.tgz
     version: 0.1.0
 generated: "2020-10-19T13:15:08.1236634Z"

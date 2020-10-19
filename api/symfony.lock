@@ -28,6 +28,9 @@
     "composer/ca-bundle": {
         "version": "1.2.6"
     },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99"
+    },
     "composer/semver": {
         "version": "1.5.0"
     },
@@ -183,10 +186,10 @@
         "version": "2.1.0"
     },
     "markbaker/complex": {
-        "version": "1.4.8"
+        "version": "1.5.0"
     },
     "markbaker/matrix": {
-        "version": "1.2.0"
+        "version": "1.2.1"
     },
     "michelf/php-markdown": {
         "version": "1.9.0"
@@ -237,7 +240,7 @@
         "version": "0.4.0"
     },
     "phpoffice/phpspreadsheet": {
-        "version": "1.11.0"
+        "version": "1.14.1"
     },
     "psr/cache": {
         "version": "1.0.1"
