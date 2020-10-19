@@ -13,6 +13,7 @@ use App\Entity\Overlijden;
 use App\Entity\Partner;
 use App\Entity\Verblijfplaats;
 use App\Entity\Waardetabel;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use Conduction\CommonGroundBundle\ValueObject\UnderInvestigation;
 use DateTime;
@@ -27,11 +28,14 @@ class BZKFixtures extends Fixture
 {
     private $params;
 
+    private $commonGroundService;
+
 //    private $encoder;
 //
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(ParameterBagInterface $params, CommonGroundService $commonGroundService)
     {
         $this->params = $params;
+        $this->commonGroundService = $commonGroundService;
 //        $this->encoder = $encoder;
     }
 
@@ -145,13 +149,41 @@ class BZKFixtures extends Fixture
                     }
 
                     $nationaliteit = new Waardetabel();
-                    $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel34'], ['gemeentecode'=>$row[151]]);
-                    $nationaliteit->setCode('NL');
-                    $nationaliteit->setOmschrijving('Nederland');
+                    $nationaliteiten = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel32'], ['nationaliteitcode'=>$row[73]])["hydra:member"];
+                    if(
+                        count($nationaliteiten) > 0 &&
+                        $fetchedNationaliteit = $nationaliteiten[0]
+                    ) {
+                        if (key_exists('nationaliteitcode', $fetchedNationaliteit) && key_exists('omschrijving', $fetchedNationaliteit)) {
+                            $nationaliteit->setCode($fetchedNationaliteit['nationaliteitcode']);
+                            $nationaliteit->setOmschrijving($fetchedNationaliteit['omschrijving']);
+                        } else {
+                            $nationaliteit->setCode('0001');
+                            $nationaliteit->setOmschrijving('Nederlandse');
+                        }
+                    } else {
+                            $nationaliteit->setCode('0001');
+                            $nationaliteit->setOmschrijving('Nederlandse');
+                    }
                     $geboorteplaats = new Waardetabel();
-                    $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel33'], ['gemeentecode'=>$row[151]]);
-                    $geboorteplaats->setCode($row[151]);
-                    $geboorteplaats->setOmschrijving($row[164]);
+                    $gemeentes = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel33'], ['gemeentecode'=>$row[151]])["hydra:member"];
+                    if(
+                        count($gemeentes) > 0 &&
+                        $gemeente = $gemeentes[0]
+                    ){
+                        if(key_exists('gemeentecode', $gemeente) && key_exists('omschrijving', $gemeente)) {
+                            $geboorteplaats->setCode($gemeente['gemeentecode']);
+                            $geboorteplaats->setOmschrijving($gemeente['omschrijving']);
+                        }
+                        else{
+                            $geboorteplaats->setCode('1999');
+                            $geboorteplaats->setOmschrijving("Registratie Niet Ingezetenen (RNI)");
+                        }
+                    }
+                    else{
+                        $geboorteplaats->setCode('1999');
+                        $geboorteplaats->setOmschrijving("Registratie Niet Ingezetenen (RNI)");
+                    }
 
                     $ingeschrevenpersoon->getGeboorte()->setLand($nationaliteit);
                     $ingeschrevenpersoon->getGeboorte()->setPlaats($geboorteplaats);

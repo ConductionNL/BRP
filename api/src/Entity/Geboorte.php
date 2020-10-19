@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *
  * @ApiFilter(SearchFilter::class, properties={
  *     "datum":"exact",
- *     "plaats":"ipartional",
+ *     "plaats.omschrijving":"ipartial",
  * })
  */
 class Geboorte

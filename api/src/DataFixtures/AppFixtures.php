@@ -374,9 +374,9 @@ class AppFixtures extends Fixture
 
                     try {
                         $geboortedatum = new DateTime($partnerRow[7]);
-                        echo $geboortedatum->format('Y');
-                        echo $geboortedatum->format('m');
-                        echo $geboortedatum->format('d');
+//                        echo $geboortedatum->format('Y');
+//                        echo $geboortedatum->format('m');
+//                        echo $geboortedatum->format('d');
                         $partner->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
                     } catch (\Exception $e) {
                     }
@@ -414,9 +414,9 @@ class AppFixtures extends Fixture
 
                         try {
                             $geboortedatum = new DateTime($childRow[7]);
-                            echo $geboortedatum->format('Y');
-                            echo $geboortedatum->format('m');
-                            echo $geboortedatum->format('d');
+//                            echo $geboortedatum->format('Y');
+//                            echo $geboortedatum->format('m');
+//                            echo $geboortedatum->format('d');
                             $kind->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
                         } catch (\Exception $e) {
                         }
@@ -458,9 +458,9 @@ class AppFixtures extends Fixture
 
                         try {
                             $geboortedatum = new DateTime($parentRow[7]);
-                            echo $geboortedatum->format('Y');
-                            echo $geboortedatum->format('m');
-                            echo $geboortedatum->format('d');
+//                            echo $geboortedatum->format('Y');
+//                            echo $geboortedatum->format('m');
+//                            echo $geboortedatum->format('d');
                             $ouder->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
                         } catch (\Exception $e) {
                         }

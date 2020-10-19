@@ -45,6 +45,9 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
             if($parameter[0]=='geboorte.datum'){
                 $parameter[1] = str_replace('-','',$parameter[1]);
             }
+            if($parameter[0] == 'geboorte.plaats'){
+                $parameter[0] = 'geboorte.plaats.omschrijving';
+            }
             $query[$key] = implode('=', $parameter);
         }
         $query = implode('&', $query);
