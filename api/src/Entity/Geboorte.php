@@ -97,7 +97,6 @@ class Geboorte
     public function __construct()
     {
         $this->ingeschrevenpersonen = new ArrayCollection();
-
     }
 
     // On an object level we stil want to be able to gett the id
@@ -111,7 +110,7 @@ class Geboorte
         return $this->uuid;
     }
 
-    public function getDatum() :IncompleteDate
+    public function getDatum(): IncompleteDate
     {
         return $this->datum;
     }

@@ -140,7 +140,7 @@ class Overlijden
         return $this;
     }
 
-    public function getDatum():IncompleteDate
+    public function getDatum(): IncompleteDate
     {
         return $this->datum;
     }

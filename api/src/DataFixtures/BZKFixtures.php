@@ -149,8 +149,8 @@ class BZKFixtures extends Fixture
                     }
 
                     $nationaliteit = new Waardetabel();
-                    $nationaliteiten = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel32'], ['nationaliteitcode'=>$row[73]])["hydra:member"];
-                    if(
+                    $nationaliteiten = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel32'], ['nationaliteitcode'=>$row[73]])['hydra:member'];
+                    if (
                         count($nationaliteiten) > 0 &&
                         $fetchedNationaliteit = $nationaliteiten[0]
                     ) {
@@ -162,27 +162,25 @@ class BZKFixtures extends Fixture
                             $nationaliteit->setOmschrijving('Nederlandse');
                         }
                     } else {
-                            $nationaliteit->setCode('0001');
-                            $nationaliteit->setOmschrijving('Nederlandse');
+                        $nationaliteit->setCode('0001');
+                        $nationaliteit->setOmschrijving('Nederlandse');
                     }
                     $geboorteplaats = new Waardetabel();
-                    $gemeentes = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel33'], ['gemeentecode'=>$row[151]])["hydra:member"];
-                    if(
+                    $gemeentes = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel33'], ['gemeentecode'=>$row[151]])['hydra:member'];
+                    if (
                         count($gemeentes) > 0 &&
                         $gemeente = $gemeentes[0]
-                    ){
-                        if(key_exists('gemeentecode', $gemeente) && key_exists('omschrijving', $gemeente)) {
+                    ) {
+                        if (key_exists('gemeentecode', $gemeente) && key_exists('omschrijving', $gemeente)) {
                             $geboorteplaats->setCode($gemeente['gemeentecode']);
                             $geboorteplaats->setOmschrijving($gemeente['omschrijving']);
-                        }
-                        else{
+                        } else {
                             $geboorteplaats->setCode('1999');
-                            $geboorteplaats->setOmschrijving("Registratie Niet Ingezetenen (RNI)");
+                            $geboorteplaats->setOmschrijving('Registratie Niet Ingezetenen (RNI)');
                         }
-                    }
-                    else{
+                    } else {
                         $geboorteplaats->setCode('1999');
-                        $geboorteplaats->setOmschrijving("Registratie Niet Ingezetenen (RNI)");
+                        $geboorteplaats->setOmschrijving('Registratie Niet Ingezetenen (RNI)');
                     }
 
                     $ingeschrevenpersoon->getGeboorte()->setLand($nationaliteit);
@@ -228,7 +226,7 @@ class BZKFixtures extends Fixture
                     if ($row[138]) {
                         $opschortingBijhouding = new OpschortingBijhouding();
                         $datumOpschorting = $row[138];
-                        $opschortingBijhouding->setDatum(new IncompleteDate((int) substr($datumOpschorting, 0, 4), (int) substr($datumOpschorting, 4, 2), (int)  substr($datumOpschorting, 6, 2)));
+                        $opschortingBijhouding->setDatum(new IncompleteDate((int) substr($datumOpschorting, 0, 4), (int) substr($datumOpschorting, 4, 2), (int) substr($datumOpschorting, 6, 2)));
                         $opschortingBijhouding->setReden($row[139]);
                         $opschortingBijhouding->setIngeschrevenpersoon($ingeschrevenpersoon);
                         $ingeschrevenpersoon->setOpschortingBijhouding($opschortingBijhouding);
@@ -281,7 +279,7 @@ class BZKFixtures extends Fixture
 
                     try {
                         $geboortedatum = $row[33];
-                        $ouder->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int)  substr($geboortedatum, 6, 2)));
+                        $ouder->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
                     } catch (\Exception $e) {
                     }
                     if ($row[43]) {
@@ -334,7 +332,7 @@ class BZKFixtures extends Fixture
 
                     try {
                         $geboortedatum = $row[56];
-                        $ouder->getGeboorte()->setDatum(new IncompleteDate((int)  substr($geboortedatum, 0, 4), (int)  substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
+                        $ouder->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
                     } catch (\Exception $e) {
                     }
                     if ($row[66]) {
@@ -384,12 +382,12 @@ class BZKFixtures extends Fixture
 
                     try {
                         $geboortedatum = $row[96];
-                        $partner->getGeboorte()->setDatum(new IncompleteDate((int)  substr($geboortedatum, 0, 4), (int)  substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
+                        $partner->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
                     } catch (\Exception $e) {
                     }
                     $partner->setAangaanHuwelijkPartnerschap(new AangaanHuwelijkPartnerschap());
                     $huwelijksdatum = $row[100];
-                    $partner->getAangaanHuwelijkPartnerschap()->setDatum(new IncompleteDate((int)  substr($huwelijksdatum, 0, 4), (int)  substr($huwelijksdatum, 4, 2), (int) substr($huwelijksdatum, 6, 2)));
+                    $partner->getAangaanHuwelijkPartnerschap()->setDatum(new IncompleteDate((int) substr($huwelijksdatum, 0, 4), (int) substr($huwelijksdatum, 4, 2), (int) substr($huwelijksdatum, 6, 2)));
                     $partner->getAangaanHuwelijkPartnerschap()->setPlaats($geboorteplaats);
                     $partner->getAangaanHuwelijkPartnerschap()->setLand($nationaliteit);
                     $partner->getAangaanHuwelijkPartnerschap()->setPartner($partner);
@@ -435,7 +433,7 @@ class BZKFixtures extends Fixture
 
                     try {
                         $geboortedatum = $row[191];
-                        $partner->getGeboorte()->setDatum(new IncompleteDate((int)  substr($geboortedatum, 0, 4), (int)  substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
+                        $partner->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
                     } catch (\Exception $e) {
                     }
 

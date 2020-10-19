@@ -40,12 +40,12 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
         $query = $event->getRequest()->server->get('QUERY_STRING');
         $query = str_replace('__', '.', $query);
         $query = explode('&', $query);
-        foreach($query as $key=>$parameter){
+        foreach ($query as $key=> $parameter) {
             $parameter = explode('=', $parameter);
-            if($parameter[0]=='geboorte.datum'){
-                $parameter[1] = str_replace('-','',$parameter[1]);
+            if ($parameter[0] == 'geboorte.datum') {
+                $parameter[1] = str_replace('-', '', $parameter[1]);
             }
-            if($parameter[0] == 'geboorte.plaats'){
+            if ($parameter[0] == 'geboorte.plaats') {
                 $parameter[0] = 'geboorte.plaats.omschrijving';
             }
             $query[$key] = implode('=', $parameter);
