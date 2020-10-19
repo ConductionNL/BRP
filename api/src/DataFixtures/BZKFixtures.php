@@ -17,7 +17,7 @@ use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use Conduction\CommonGroundBundle\ValueObject\UnderInvestigation;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

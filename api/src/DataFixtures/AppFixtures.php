@@ -327,9 +327,9 @@ class AppFixtures extends Fixture
 
                 try {
                     $geboortedatum = new DateTime($row[7]);
-                    echo $geboortedatum->format('Y');
-                    echo $geboortedatum->format('m');
-                    echo $geboortedatum->format('d');
+//                    echo $geboortedatum->format('Y');
+//                    echo $geboortedatum->format('m');
+//                    echo $geboortedatum->format('d');
                     new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d'));
                     $ingeschrevenpersoon->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
 //                    var_dump($ingeschrevenpersoon->getGeboorte());
