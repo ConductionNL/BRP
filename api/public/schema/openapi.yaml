@@ -10,9 +10,9 @@ info:
     - Version: V1.0
     - Repository: [online](https://github.com/ConductionNL/brpservice) / [zip](https://github.com/ConductionNL/brpservice/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/brp-php) 
-    - Datamodel: [postman](/schema/brp.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
+    - Datamodel: [postman](schema/brp.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
   /aangaan_huwelijk_partnerschaps:
@@ -17869,12 +17869,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-19 13:09:23'
+        example: '2020-12-01 10:38:01'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-19 13:09:23'
+        example: '2020-12-01 10:38:01'
     required: []
   AuditTrail-write:
     properties:
@@ -17922,12 +17922,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-19 13:09:23'
+        example: '2020-12-01 10:38:01'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-19 13:09:23'
+        example: '2020-12-01 10:38:01'
     required: []
   ChangeLog-write:
     properties:
