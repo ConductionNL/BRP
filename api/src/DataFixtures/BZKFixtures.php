@@ -45,7 +45,7 @@ class BZKFixtures extends Fixture
         /*
          *  Basis waarde tabel
          */
-        if(!$this->params->get("app_build_all_fixtures") || $this->params->get("app_build_all_fixtures") == "false"){
+        if (!$this->params->get('app_build_all_fixtures') || $this->params->get('app_build_all_fixtures') == 'false') {
             $this->loadFromExcel($manager, 'BZKgegevens');
         }
     }
