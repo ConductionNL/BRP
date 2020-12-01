@@ -13,10 +13,12 @@ use App\Entity\Overlijden;
 use App\Entity\Partner;
 use App\Entity\Verblijfplaats;
 use App\Entity\Waardetabel;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
+use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use Conduction\CommonGroundBundle\ValueObject\UnderInvestigation;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -26,11 +28,14 @@ class BZKFixtures extends Fixture
 {
     private $params;
 
+    private $commonGroundService;
+
 //    private $encoder;
 //
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(ParameterBagInterface $params, CommonGroundService $commonGroundService)
     {
         $this->params = $params;
+        $this->commonGroundService = $commonGroundService;
 //        $this->encoder = $encoder;
     }
 
@@ -40,15 +45,7 @@ class BZKFixtures extends Fixture
         /*
          *  Basis waarde tabel
          */
-
-        if (
-            $this->params->get('app_domain') == 'zuid-drecht.nl' ||
-            strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
-            $this->params->get('app_domain') == 'westfriesland.commonground.nu' ||
-            strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') !== false
-        ) {
-            $this->loadFromExcel($manager, 'BZKgegevens');
-        }
+        $this->loadFromExcel($manager, 'BZKgegevens');
     }
 
     public function createReader(): Xlsx
@@ -143,19 +140,47 @@ class BZKFixtures extends Fixture
                         $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$row[4].' '.$row[5]);
                     }
 
-                    $nederland = new Waardetabel();
-                    $nederland->setCode('NL');
-                    $nederland->setOmschrijving('Nederland');
-                    $utrecht = new Waardetabel();
-                    $utrecht->setCode('0344');
-                    $utrecht->setOmschrijving('Utrecht');
+                    $nationaliteit = new Waardetabel();
+                    $nationaliteiten = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel32'], ['nationaliteitcode'=>$row[73]])['hydra:member'];
+                    if (
+                        count($nationaliteiten) > 0 &&
+                        $fetchedNationaliteit = $nationaliteiten[0]
+                    ) {
+                        if (key_exists('nationaliteitcode', $fetchedNationaliteit) && key_exists('omschrijving', $fetchedNationaliteit)) {
+                            $nationaliteit->setCode($fetchedNationaliteit['nationaliteitcode']);
+                            $nationaliteit->setOmschrijving($fetchedNationaliteit['omschrijving']);
+                        } else {
+                            $nationaliteit->setCode('0001');
+                            $nationaliteit->setOmschrijving('Nederlandse');
+                        }
+                    } else {
+                        $nationaliteit->setCode('0001');
+                        $nationaliteit->setOmschrijving('Nederlandse');
+                    }
+                    $geboorteplaats = new Waardetabel();
+                    $gemeentes = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel33'], ['gemeentecode'=>$row[151]])['hydra:member'];
+                    if (
+                        count($gemeentes) > 0 &&
+                        $gemeente = $gemeentes[0]
+                    ) {
+                        if (key_exists('gemeentecode', $gemeente) && key_exists('omschrijving', $gemeente)) {
+                            $geboorteplaats->setCode($gemeente['gemeentecode']);
+                            $geboorteplaats->setOmschrijving($gemeente['omschrijving']);
+                        } else {
+                            $geboorteplaats->setCode('1999');
+                            $geboorteplaats->setOmschrijving('Registratie Niet Ingezetenen (RNI)');
+                        }
+                    } else {
+                        $geboorteplaats->setCode('1999');
+                        $geboorteplaats->setOmschrijving('Registratie Niet Ingezetenen (RNI)');
+                    }
 
-                    $ingeschrevenpersoon->getGeboorte()->setLand($nederland);
-                    $ingeschrevenpersoon->getGeboorte()->setPlaats($utrecht);
+                    $ingeschrevenpersoon->getGeboorte()->setLand($nationaliteit);
+                    $ingeschrevenpersoon->getGeboorte()->setPlaats($geboorteplaats);
 
                     try {
                         $geboortedatum = $row[6];
-                        $ingeschrevenpersoon->getGeboorte()->setDatum(['year' => substr($geboortedatum, 0, 4), 'month' => substr($geboortedatum, 4, 2), 'day' => substr($geboortedatum, 6, 2)]);
+                        $ingeschrevenpersoon->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
                         $geboortedatum = new DateTime($row[6]);
                         $leeftijd = $geboortedatum->diff(new DateTime('now'), true)->format('%Y');
                         $ingeschrevenpersoon->setLeeftijd($leeftijd);
@@ -173,9 +198,9 @@ class BZKFixtures extends Fixture
                     if ($row[120]) {
                         $overlijden = new Overlijden();
                         $overlijdensdatum = $row[120];
-                        $overlijden->setDatum(['year' => substr($overlijdensdatum, 0, 4), 'month' => substr($overlijdensdatum, 4, 2), 'day' => substr($overlijdensdatum, 6, 2)]);
-                        $overlijden->setLand($nederland);
-                        $overlijden->setPlaats($utrecht);
+                        $overlijden->setDatum(new IncompleteDate((int) substr($overlijdensdatum, 0, 4), (int) substr($overlijdensdatum, 4, 2), (int) substr($overlijdensdatum, 6, 2)));
+                        $overlijden->setLand($nationaliteit);
+                        $overlijden->setPlaats($geboorteplaats);
                         if ($row[131]) {
                             $overlijden->setIndicatieOverleden(false);
                         } else {
@@ -193,15 +218,15 @@ class BZKFixtures extends Fixture
                     if ($row[138]) {
                         $opschortingBijhouding = new OpschortingBijhouding();
                         $datumOpschorting = $row[138];
-                        $opschortingBijhouding->setDatum(['year' => substr($datumOpschorting, 0, 4), 'month' => substr($datumOpschorting, 4, 2), 'day' => substr($datumOpschorting, 6, 2)]);
+                        $opschortingBijhouding->setDatum(new IncompleteDate((int) substr($datumOpschorting, 0, 4), (int) substr($datumOpschorting, 4, 2), (int) substr($datumOpschorting, 6, 2)));
                         $opschortingBijhouding->setReden($row[139]);
                         $opschortingBijhouding->setIngeschrevenpersoon($ingeschrevenpersoon);
                         $ingeschrevenpersoon->setOpschortingBijhouding($opschortingBijhouding);
                         $manager->persist($opschortingBijhouding);
                     }
 
-                    $manager->persist($nederland);
-                    $manager->persist($utrecht);
+                    $manager->persist($nationaliteit);
+                    $manager->persist($geboorteplaats);
                     $manager->persist($ingeschrevenpersoon);
                     $manager->flush();
                 }
@@ -241,12 +266,12 @@ class BZKFixtures extends Fixture
                     $ouder->setOuderAanduiding('ouder1');
 
                     $ouder->setGeboorte(new Geboorte());
-                    $ouder->getGeboorte()->setLand($nederland);
-                    $ouder->getGeboorte()->setPlaats($utrecht);
+                    $ouder->getGeboorte()->setLand($nationaliteit);
+                    $ouder->getGeboorte()->setPlaats($geboorteplaats);
 
                     try {
                         $geboortedatum = $row[33];
-                        $ouder->getGeboorte()->setDatum(['year' => substr($geboortedatum, 0, 4), 'month' => substr($geboortedatum, 4, 2), 'day' => substr($geboortedatum, 6, 2)]);
+                        $ouder->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
                     } catch (\Exception $e) {
                     }
                     if ($row[43]) {
@@ -294,12 +319,12 @@ class BZKFixtures extends Fixture
                     $ouder->setOuderAanduiding('ouder2');
 
                     $ouder->setGeboorte(new Geboorte());
-                    $ouder->getGeboorte()->setLand($nederland);
-                    $ouder->getGeboorte()->setPlaats($utrecht);
+                    $ouder->getGeboorte()->setLand($nationaliteit);
+                    $ouder->getGeboorte()->setPlaats($geboorteplaats);
 
                     try {
                         $geboortedatum = $row[56];
-                        $ouder->getGeboorte()->setDatum(['year' => substr($geboortedatum, 0, 4), 'month' => substr($geboortedatum, 4, 2), 'day' => substr($geboortedatum, 6, 2)]);
+                        $ouder->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
                     } catch (\Exception $e) {
                     }
                     if ($row[66]) {
@@ -344,19 +369,19 @@ class BZKFixtures extends Fixture
                     }
 
                     $partner->setGeboorte(new Geboorte());
-                    $partner->getGeboorte()->setLand($nederland);
-                    $partner->getGeboorte()->setPlaats($utrecht);
+                    $partner->getGeboorte()->setLand($nationaliteit);
+                    $partner->getGeboorte()->setPlaats($geboorteplaats);
 
                     try {
                         $geboortedatum = $row[96];
-                        $partner->getGeboorte()->setDatum(['year' => substr($geboortedatum, 0, 4), 'month' => substr($geboortedatum, 4, 2), 'day' => substr($geboortedatum, 6, 2)]);
+                        $partner->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
                     } catch (\Exception $e) {
                     }
                     $partner->setAangaanHuwelijkPartnerschap(new AangaanHuwelijkPartnerschap());
                     $huwelijksdatum = $row[100];
-                    $partner->getAangaanHuwelijkPartnerschap()->setDatum(['year' => substr($huwelijksdatum, 0, 4), 'month' => substr($huwelijksdatum, 4, 2), 'day' => substr($huwelijksdatum, 6, 8)]);
-                    $partner->getAangaanHuwelijkPartnerschap()->setPlaats($utrecht);
-                    $partner->getAangaanHuwelijkPartnerschap()->setLand($nederland);
+                    $partner->getAangaanHuwelijkPartnerschap()->setDatum(new IncompleteDate((int) substr($huwelijksdatum, 0, 4), (int) substr($huwelijksdatum, 4, 2), (int) substr($huwelijksdatum, 6, 2)));
+                    $partner->getAangaanHuwelijkPartnerschap()->setPlaats($geboorteplaats);
+                    $partner->getAangaanHuwelijkPartnerschap()->setLand($nationaliteit);
                     $partner->getAangaanHuwelijkPartnerschap()->setPartner($partner);
 
                     if ($row[113]) {
@@ -395,12 +420,12 @@ class BZKFixtures extends Fixture
                     }
 
                     $kind->setGeboorte(new Geboorte());
-                    $kind->getGeboorte()->setLand($nederland);
-                    $kind->getGeboorte()->setPlaats($utrecht);
+                    $kind->getGeboorte()->setLand($nationaliteit);
+                    $kind->getGeboorte()->setPlaats($geboorteplaats);
 
                     try {
                         $geboortedatum = $row[191];
-                        $partner->getGeboorte()->setDatum(['year'=>substr($geboortedatum, 0, 4), 'month'=>substr($geboortedatum, 4, 2), 'day'=>substr($geboortedatum, 6, 2)]);
+                        $partner->getGeboorte()->setDatum(new IncompleteDate((int) substr($geboortedatum, 0, 4), (int) substr($geboortedatum, 4, 2), (int) substr($geboortedatum, 6, 2)));
                     } catch (\Exception $e) {
                     }
 

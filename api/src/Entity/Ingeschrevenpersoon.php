@@ -98,7 +98,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiFilter(SearchFilter::class, properties={
  *     "geboorte.datum":"exact",
- *     "geboorte.plaats":"ipartional",
+ *     "geboorte.plaats.omschrijving":"ipartial",
  *     "geslachtsaanduiding":"exact",
  *     "burgerservicenummer":"exact",
  *     "naam.geslachtsnaam":"ipartial",

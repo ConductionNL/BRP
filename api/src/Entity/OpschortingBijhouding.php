@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
@@ -49,7 +50,7 @@ class OpschortingBijhouding
     private $reden;
 
     /**
-     * @var string Datum of this NaamPersoon
+     * @var IncompleteDate Datum of this NaamPersoon
      *
      * @example 01-01-2000
      *
@@ -90,12 +91,12 @@ class OpschortingBijhouding
         return $this;
     }
 
-    public function getDatum()
+    public function getDatum(): IncompleteDate
     {
         return $this->datum;
     }
 
-    public function setDatum($datum): self
+    public function setDatum(IncompleteDate $datum): self
     {
         $this->datum = $datum;
 
