@@ -45,7 +45,7 @@ class BZKFixtures extends Fixture
         /*
          *  Basis waarde tabel
          */
-            $this->loadFromExcel($manager, 'BZKgegevens');
+        $this->loadFromExcel($manager, 'BZKgegevens');
     }
 
     public function createReader(): Xlsx
