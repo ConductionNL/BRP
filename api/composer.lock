@@ -358,7 +358,7 @@
             ],
             "funding": [
                 {
-                    "url": "https://packagist.com",
+                    "url": "https://packagist.com/",
                     "type": "custom"
                 },
                 {
