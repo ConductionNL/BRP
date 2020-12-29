@@ -110,7 +110,7 @@ class Geboorte
         return $this->uuid;
     }
 
-    public function getDatum(): IncompleteDate
+    public function getDatum(): ?IncompleteDate
     {
         return $this->datum;
     }

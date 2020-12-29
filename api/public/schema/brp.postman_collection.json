@@ -1,0 +1,2700 @@
+{
+	"info": {
+		"_postman_id": "5a255b84-b4cb-4598-919f-b680ed0ee8bd",
+		"name": "Basis Registratie Personen",
+		"description": "API Details\n- Component: Basis Registratie Personen\n- Reference: brp\n- Enviroment: dev\n- Version: V1.0\n- Repository: [online](https://github.com/ConductionNL/brpservice) / [zip](https://github.com/ConductionNL/brpservice/archive/master.zip)\n- Docker Image: [online](https://hub.docker.com/repository/docker/conduction/brp-php) \n- Datamodel: [postman](schema/brp.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) \n\n'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         \n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ingeschrevenpersonen",
+			"item": [
+				{
+					"name": "Retrieves the collection of Ingeschrevenpersoon resources.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});\r",
+									"pm.test(\"Set ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    //var payloadData = JSON.parse(jsonData.Payload); //parsed payload\r",
+									"\r",
+									"    //console.log(payloadData.Id);\r",
+									"\r",
+									"    pm.environment.set(\"ingeschrevenPersoon\", jsonData['hydra:member'][0].burgerservicenummer);\r",
+									"    pm.environment.set(\"ingeschrevenPersoonId\", jsonData['hydra:member'][0].id);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "The JWT of the entity performing the request",
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+								"key": "API-Version",
+								"value": ""
+							},
+							{
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+								"key": "X-NLX-Logrecord-ID",
+								"value": ""
+							},
+							{
+								"description": "A process id for purpose registration (doelbinding)",
+								"key": "X-NLX-Request-Process-Id",
+								"value": ""
+							},
+							{
+								"description": "A list of requested data elements",
+								"key": "X-NLX-Request-Data-Elements",
+								"value": ""
+							},
+							{
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+								"key": "X-NLX-Request-Data-Subject",
+								"value": ""
+							},
+							{
+								"description": "A clarification as to why a request has been made  (doelbinding)",
+								"key": "X-NLX-Audit-Clarification",
+								"value": ""
+							},
+							{
+								"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+								"key": "Link",
+								"value": ""
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/ingeschrevenpersonen",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingeschrevenpersonen"
+							],
+							"query": [
+								{
+									"key": "geboorte.datum",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.plaats.omschrijving",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.geslachtsnaam",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voornamen",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voorvoegsel",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "The collection page number",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "30",
+									"description": "The number of items per page",
+									"disabled": true
+								},
+								{
+									"key": "extend[]",
+									"value": "<array>",
+									"description": "An array of nested objects to include in the return object",
+									"disabled": true
+								},
+								{
+									"key": "fields[]",
+									"value": "<array>",
+									"description": "An array of fields to return in output, wil return all fields is not supplied",
+									"disabled": true
+								},
+								{
+									"key": "validOn",
+									"value": "<dateTime>",
+									"description": "Returns object as valid on a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validFrom",
+									"value": "<dateTime>",
+									"description": "Returns objects valid from a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validUntil",
+									"value": "<dateTime>",
+									"description": "Returns objects valid until a given date time",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ingeschrevenpersoon collection response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "The JWT of the entity performing the request",
+										"key": "Authorization",
+										"value": ""
+									},
+									{
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+										"key": "API-Version",
+										"value": ""
+									},
+									{
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+										"key": "X-NLX-Logrecord-ID",
+										"value": ""
+									},
+									{
+										"description": "A process id for purpose registration (doelbinding)",
+										"key": "X-NLX-Request-Process-Id",
+										"value": ""
+									},
+									{
+										"description": "A list of requested data elements",
+										"key": "X-NLX-Request-Data-Elements",
+										"value": ""
+									},
+									{
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+										"key": "X-NLX-Request-Data-Subject",
+										"value": ""
+									},
+									{
+										"description": "A clarification as to why a request has been made  (doelbinding)",
+										"key": "X-NLX-Audit-Clarification",
+										"value": ""
+									},
+									{
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+										"key": "Link",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/ingeschrevenpersonen?geboorte.datum=<string>&geboorte.datum[]=<string>&geboorte.datum[]=<string>&geboorte.plaats.omschrijving=<string>&geslachtsaanduiding=<string>&geslachtsaanduiding[]=<string>&geslachtsaanduiding[]=<string>&burgerservicenummer=<string>&burgerservicenummer[]=<string>&burgerservicenummer[]=<string>&naam.geslachtsnaam=<string>&naam.voornamen=<string>&naam.voorvoegsel=<string>&verblijfplaats.postcode=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.huisnummer=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummertoevoeging=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisletter=<string>&verblijfplaats.huisletter[]=<string>&verblijfplaats.huisletter[]=<string>&page=1&limit=30&extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ingeschrevenpersonen"
+									],
+									"query": [
+										{
+											"key": "geboorte.datum",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.plaats.omschrijving",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.geslachtsnaam",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voornamen",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voorvoegsel",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "30"
+										},
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/ld+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"hydra:member\": [\n  {\n   \"burgerservicenummer\": \"Ut ad Lorem\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"Excepteur veniam aliquip\",\n   \"@context\": \"aliquip tempor\",\n   \"@id\": \"fugiat officia\",\n   \"@type\": \"sit enim veniam\",\n   \"id\": \"urn:uuid:a43a94b9-b40c-738d-c046-ac9d90be7597\",\n   \"naam\": {\n    \"geslachtsnaam\": \"fugiat\",\n    \"voorletters\": \"reprehenderit in in ipsum\",\n    \"voornamen\": \"id consectetur amet dolor\",\n    \"voorvoegsel\": \"qui \",\n    \"aanhef\": \"dolore\",\n    \"gebuikInLopendeTekst\": \"nostrud et officia non\",\n    \"@context\": \"anim et e\",\n    \"@id\": \"laboris ut\",\n    \"@type\": \"nulla elit\",\n    \"uuid\": \"urn:uuid:cfae45c2-54ca-080a-7a32-1ba9a64a47b8\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"ad amet commodo mollit sint\"\n   },\n   \"geboorte\": {\n    \"@context\": \"Lorem quis veniam reprehenderit laboris\",\n    \"@id\": \"cillum ea ut labore sint\",\n    \"@type\": \"occaecat\",\n    \"uuid\": \"urn:uuid:ebba4578-586a-e805-e2cb-731f3573f6b2\",\n    \"land\": {\n     \"code\": \"deserunt laborum qui\",\n     \"@context\": \"irure cillum\",\n     \"@id\": \"quis dolor esse pariatur\",\n     \"@type\": \"nostrud velit sed exercitation\",\n     \"id\": \"urn:uuid:87de0b91-70c3-b7af-cb05-21078d3a17fd\",\n     \"omschrijving\": \"in in laboris\"\n    },\n    \"plaats\": {\n     \"code\": \"adipisicing aute nulla consequat irure\",\n     \"@context\": \"fugiat id in culpa\",\n     \"@id\": \"veniam adipisicing labore\",\n     \"@type\": \"culpa labore reprehenderit\",\n     \"id\": \"urn:uuid:32469ae4-485f-1fba-a9fe-5397dca00e89\",\n     \"omschrijving\": \"do laborum ut ullamco\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": -27940037,\n   \"datumEersteInschrijvingGBA\": \"id proident v\",\n   \"kiesrecht\": \"qui sed\",\n   \"inOnderzoek\": {\n    \"@context\": \"mollit in in\",\n    \"@id\": \"ut cupidatat\",\n    \"@type\": \"sunt ipsum dolor adipisicing velit\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"aliqua amet ut magna\",\n     \"@id\": \"dolore\",\n     \"@type\": \"dolor cupidatat irure consequat\",\n     \"uuid\": \"urn:uuid:8b3359d3-6ccb-ff64-d372-e0ffe63eda25\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"aliqua anim\",\n     \"@id\": \"fugiat Excepteur elit ipsum\",\n     \"@type\": \"reprehenderit Ut sint\",\n     \"uuid\": \"4689ec41-c007-0c1f-7c38-60517e5f386f\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"in incididunt in id sed\",\n    \"@context\": \"adipisicing\",\n    \"@id\": \"reprehenderit voluptate\",\n    \"@type\": \"mollit nisi amet et Excepteur\",\n    \"uuid\": \"fbec1ad8-c7d1-9c63-31e4-77e6a577884f\",\n    \"datum\": {\n     \"@context\": \"enim sed in\",\n     \"@id\": \"aliquip amet nisi qui\",\n     \"@type\": \"in eiusmod dolor dolore magna\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"elit Lorem qui dolore nisi\",\n    \"@id\": \"adipisicing\",\n    \"@type\": \"consequat Lorem\",\n    \"uuid\": \"20075e88-806b-b6cb-64be-f5ecfb9a9988\",\n    \"datum\": {\n     \"@context\": \"velit ut veniam exercitation\",\n     \"@id\": \"elit ex Lorem proident\",\n     \"@type\": \"voluptate\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"aliqua\",\n    \"@id\": \"Duis dolor ea mollit\",\n    \"@type\": \"dolor cupidatat sunt\",\n    \"uuid\": \"4708b071-4e6e-249e-cfb9-bcb5cd9e4e2e\",\n    \"aanduidingBijHuisnummer\": \"tempor proident eu\",\n    \"funtieAdres\": \"exercitation eiusmod reprehenderit\",\n    \"huisletter\": \"et sit pariatur\",\n    \"huisnummer\": 14273210,\n    \"huisnummertoevoeging\": \"tempor labore\",\n    \"identificatiecodeNummeraanduiding\": \"sunt in dolor Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"commodo anim ad cupidatat\",\n    \"indentificatieVestigingVanuitBuitenland\": false,\n    \"locatiebeschrijving\": \"tempor eu\",\n    \"naamOpenbareRuimte\": \"cillum anim aliquip\",\n    \"postcode\": \"culpa irure voluptate elit\",\n    \"straatnaam\": \"proident dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": true,\n    \"woonplaatsnaam\": \"cupidatat exerci\",\n    \"datumAanvangAdreshouding\": \"eiusmod laborum\",\n    \"datumIngangGeldigheid\": \"do\",\n    \"datumInschrijvingInGemeente\": \"proident est nostrud pariatur Excepteur\",\n    \"datumVestigingInNederland\": \"Duis pariatur occaecat qui\",\n    \"gemeenteVanInschrijving\": \"in eiusmod a\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"sint esse dolor\",\n     \"@context\": \"anim\",\n     \"@id\": \"ipsum sit sint exercitation labore\",\n     \"@type\": \"mollit exercitation anim non\",\n     \"id\": \"948013bc-754e-21d4-9a5e-d451c2191700\",\n     \"omschrijving\": \"eiusmod exercitation tempor\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 49407843\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"proident amet do ullamco\",\n    \"@id\": \"ut\",\n    \"@type\": \"Excepteur amet aliquip\",\n    \"uuid\": \"urn:uuid:c60b06a1-15b9-46dc-5398-6ed9796b8bc6\",\n    \"indicatieGezagMinderjarige\": \"magna in officia\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"Lorem\",\n    \"@id\": \"exercitation ut\",\n    \"@type\": \"elit mollit voluptate Lorem\",\n    \"uuid\": \"0294f5c0-b7c7-ac93-9e1a-556f7bd1d464\",\n    \"datumEinde\": \"aliquip anim pariatur\",\n    \"datumIngang\": \"fugiat nulla dolore adipisicing\",\n    \"inOnderzoek\": {}\n   }\n  },\n  {\n   \"burgerservicenummer\": \"cupidatat\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"laboris aute\",\n   \"@context\": \"dolor elit Excepteur sed\",\n   \"@id\": \"nostrud ipsum et minim\",\n   \"@type\": \"non esse dolor\",\n   \"id\": \"urn:uuid:e8b7dc66-6ef8-a7ee-7049-f7c4477f8cd0\",\n   \"naam\": {\n    \"geslachtsnaam\": \"labore elit laborum ullamc\",\n    \"voorletters\": \"dolor ut commodo magna elit\",\n    \"voornamen\": \"enim esse\",\n    \"voorvoegsel\": \"officia nostrud incididunt\",\n    \"aanhef\": \"cupidatat dolore ullamco non\",\n    \"gebuikInLopendeTekst\": \"Duis\",\n    \"@context\": \"fugiat\",\n    \"@id\": \"in qui veniam\",\n    \"@type\": \"sit\",\n    \"uuid\": \"urn:uuid:8649caaa-80f4-1b2f-331c-da0e31b7d013\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"eu aliquip do in\"\n   },\n   \"geboorte\": {\n    \"@context\": \"sed\",\n    \"@id\": \"sed et do\",\n    \"@type\": \"ullamco ad Excepteur\",\n    \"uuid\": \"urn:uuid:732b6b99-c041-dd07-8d43-b0a40a343c40\",\n    \"land\": {\n     \"code\": \"tempor id labore Excepteur\",\n     \"@context\": \"Excepteur proident Lorem sed\",\n     \"@id\": \"in ex\",\n     \"@type\": \"aute dolo\",\n     \"id\": \"a5f9ace7-597b-7e82-1609-9d4b87d79d8d\",\n     \"omschrijving\": \"amet aliqua\"\n    },\n    \"plaats\": {\n     \"code\": \"ullamco quis\",\n     \"@context\": \"ea nisi enim\",\n     \"@id\": \"tempor aliqua \",\n     \"@type\": \"dolor deserunt\",\n     \"id\": \"965edd31-a7b3-5417-6408-33fdacab4c61\",\n     \"omschrijving\": \"aute sed nisi aliquip\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": 64988554,\n   \"datumEersteInschrijvingGBA\": \"laborum elit\",\n   \"kiesrecht\": \"minim\",\n   \"inOnderzoek\": {\n    \"@context\": \"elit enim\",\n    \"@id\": \"laborum elit eu ullamco\",\n    \"@type\": \"qui pariatur\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"proident ad officia\",\n     \"@id\": \"pariatur qui cillum dolore\",\n     \"@type\": \"et\",\n     \"uuid\": \"4853d407-e728-82d2-135c-ffef921c1b76\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"sed\",\n     \"@id\": \"nisi incididunt\",\n     \"@type\": \"enim\",\n     \"uuid\": \"80b11fba-f9e6-ef5e-36d2-4c4fcf204d78\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"deserunt labore Duis ut\",\n    \"@context\": \"voluptate fugi\",\n    \"@id\": \"adipisicing sed\",\n    \"@type\": \"et ipsum consequat anim aliquip\",\n    \"uuid\": \"46677ffd-8b13-e810-d014-09c95489d32e\",\n    \"datum\": {\n     \"@context\": \"Ut Excepteur\",\n     \"@id\": \"elit in\",\n     \"@type\": \"tempor dolor\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"culpa\",\n    \"@id\": \"cillum\",\n    \"@type\": \"cillum officia reprehenderit ullamco\",\n    \"uuid\": \"urn:uuid:46f6c910-f579-ae05-a3d2-5181ca0ee8df\",\n    \"datum\": {\n     \"@context\": \"in aliquip elit dolore\",\n     \"@id\": \"in est non\",\n     \"@type\": \"est ex in\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"dolor aute\",\n    \"@id\": \"adipisicing exercitation\",\n    \"@type\": \"dolor consectetur elit mollit\",\n    \"uuid\": \"urn:uuid:82520cc9-2b46-e1e9-e521-00602407dc2a\",\n    \"aanduidingBijHuisnummer\": \"Duis\",\n    \"funtieAdres\": \"sit cupidatat ipsum\",\n    \"huisletter\": \"commodo dolor est\",\n    \"huisnummer\": 72113105,\n    \"huisnummertoevoeging\": \"consectetur si\",\n    \"identificatiecodeNummeraanduiding\": \"incididunt deserunt dolore Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"dolore in qui\",\n    \"indentificatieVestigingVanuitBuitenland\": true,\n    \"locatiebeschrijving\": \"dolore\",\n    \"naamOpenbareRuimte\": \"deserunt magna\",\n    \"postcode\": \"ex anim\",\n    \"straatnaam\": \"dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": false,\n    \"woonplaatsnaam\": \"ea occaecat Lorem quis\",\n    \"datumAanvangAdreshouding\": \"enim cillum ad adipisicing occa\",\n    \"datumIngangGeldigheid\": \"qui est voluptate\",\n    \"datumInschrijvingInGemeente\": \"reprehenderit\",\n    \"datumVestigingInNederland\": \"ex veniam\",\n    \"gemeenteVanInschrijving\": \"nulla dolor\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"nulla exercitation\",\n     \"@context\": \"commodo aliquip incidi\",\n     \"@id\": \"nisi Ut dolor\",\n     \"@type\": \"enim\",\n     \"id\": \"866cfdc3-5a92-d7d2-3ad1-0dbc9028e216\",\n     \"omschrijving\": \"id sit\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 77408655\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"id et ex\",\n    \"@id\": \"aliqua laboris ut occaecat\",\n    \"@type\": \"in nulla Ut sint\",\n    \"uuid\": \"53de99f8-8d40-4621-df4c-dd43fc2f5ae9\",\n    \"indicatieGezagMinderjarige\": \"veniam sed in magna\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"laboris\",\n    \"@id\": \"pariatur ut nisi quis adipisicing\",\n    \"@type\": \"laboris tempor dolor eiu\",\n    \"uuid\": \"67a383d7-ab1d-cfdf-708d-01aa45da8212\",\n    \"datumEinde\": \"qui voluptate\",\n    \"datumIngang\": \"dolore cillum\",\n    \"inOnderzoek\": {}\n   }\n  }\n ],\n \"hydra:totalItems\": 54838058,\n \"hydra:view\": {\n  \"@id\": \"anim sit elit\",\n  \"@type\": \"id et ut\",\n  \"hydra:first\": \"Lorem do nisi\",\n  \"hydra:last\": \"reprehenderit\",\n  \"hydra:next\": \"quis eiusmod minim\"\n },\n \"hydra:search\": {\n  \"@type\": \"nostrud velit eu\",\n  \"hydra:template\": \"officia\",\n  \"hydra:variableRepresentation\": \"amet qui fugiat laboris\",\n  \"hydra:mapping\": [\n   {\n    \"@type\": \"ut dolore amet aliquip et\",\n    \"variable\": \"\",\n    \"property\": \"sit laborum sint commodo\",\n    \"required\": false\n   },\n   {\n    \"@type\": \"laboris nostrud\",\n    \"variable\": \"cupidatat\",\n    \"property\": \"Excepteur Ut dolore consectetur\",\n    \"required\": false\n   }\n  ]\n }\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieves a Ingeschrevenpersoon resource.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "The JWT of the entity performing the request",
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+								"key": "API-Version",
+								"value": ""
+							},
+							{
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+								"key": "X-NLX-Logrecord-ID",
+								"value": ""
+							},
+							{
+								"description": "A process id for purpose registration (doelbinding)",
+								"key": "X-NLX-Request-Process-Id",
+								"value": ""
+							},
+							{
+								"description": "A list of requested data elements",
+								"key": "X-NLX-Request-Data-Elements",
+								"value": ""
+							},
+							{
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+								"key": "X-NLX-Request-Data-Subject",
+								"value": ""
+							},
+							{
+								"description": "A clarification as to why a request has been made  (doelbinding)",
+								"key": "X-NLX-Audit-Clarification",
+								"value": ""
+							},
+							{
+								"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+								"key": "Link",
+								"value": ""
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/ingeschrevenpersonen/uuid/{{ingeschrevenPersoonId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingeschrevenpersonen",
+								"uuid",
+								"{{ingeschrevenPersoonId}}"
+							],
+							"query": [
+								{
+									"key": "extend[]",
+									"value": "<array>",
+									"description": "An array of nested objects to include in the return object",
+									"disabled": true
+								},
+								{
+									"key": "fields[]",
+									"value": "<array>",
+									"description": "An array of fields to return in output, wil return all fields is not supplied",
+									"disabled": true
+								},
+								{
+									"key": "validOn",
+									"value": "<dateTime>",
+									"description": "Returns object as valid on a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validFrom",
+									"value": "<dateTime>",
+									"description": "Returns objects valid from a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validUntil",
+									"value": "<dateTime>",
+									"description": "Returns objects valid until a given date time",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ingeschrevenpersoon resource response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "The JWT of the entity performing the request",
+										"key": "Authorization",
+										"value": ""
+									},
+									{
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+										"key": "API-Version",
+										"value": ""
+									},
+									{
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+										"key": "X-NLX-Logrecord-ID",
+										"value": ""
+									},
+									{
+										"description": "A process id for purpose registration (doelbinding)",
+										"key": "X-NLX-Request-Process-Id",
+										"value": ""
+									},
+									{
+										"description": "A list of requested data elements",
+										"key": "X-NLX-Request-Data-Elements",
+										"value": ""
+									},
+									{
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+										"key": "X-NLX-Request-Data-Subject",
+										"value": ""
+									},
+									{
+										"description": "A clarification as to why a request has been made  (doelbinding)",
+										"key": "X-NLX-Audit-Clarification",
+										"value": ""
+									},
+									{
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+										"key": "Link",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/ingeschrevenpersonen/uuid/:id?extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ingeschrevenpersonen",
+										"uuid",
+										":id"
+									],
+									"query": [
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/ld+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"burgerservicenummer\": \"incididunt aute Duis magn\",\n \"geheimhoudingPersoonsgegevens\": true,\n \"geslachtsaanduiding\": \"ut\",\n \"@context\": \"veniam ut in fugiat\",\n \"@id\": \"non est in ea\",\n \"@type\": \"reprehenderit voluptate\",\n \"id\": \"urn:uuid:ed1b77c6-da54-1c9c-b347-1e027fe73192\",\n \"naam\": {\n  \"geslachtsnaam\": \"non incididunt aliquip reprehenderit\",\n  \"voorletters\": \"irure quis cupidatat\",\n  \"voornamen\": \"quis\",\n  \"voorvoegsel\": \"proident quis in ex n\",\n  \"aanhef\": \"sint\",\n  \"gebuikInLopendeTekst\": \"nostrud sint\",\n  \"@context\": \"esse et\",\n  \"@id\": \"elit est\",\n  \"@type\": \"deserunt aute exercitation occae\",\n  \"uuid\": \"4679b20e-f8e4-4935-cd07-db7a1e3de889\",\n  \"inOnderzoek\": {},\n  \"aanschrijfwijze\": \"ea sit aute\"\n },\n \"geboorte\": {\n  \"@context\": \"ullamco et eu pariatur\",\n  \"@id\": \"velit anim et labore fugiat\",\n  \"@type\": \"Excepteur ipsum occaecat quis nulla\",\n  \"uuid\": \"urn:uuid:08fe952f-d704-9850-5bcb-15aa56baddb6\",\n  \"land\": {\n   \"code\": \"aliqua anim reprehenderit eiusmod sunt\",\n   \"@context\": \"anim consectetur fugiat sit\",\n   \"@id\": \"consequat\",\n   \"@type\": \"occaecat veniam\",\n   \"id\": \"76f4beed-3fb7-336a-2982-9a6ee0396918\",\n   \"omschrijving\": \"sint dolor irure\"\n  },\n  \"plaats\": {\n   \"code\": \"ipsum qui mollit eiusmod quis\",\n   \"@context\": \"velit in\",\n   \"@id\": \"eu aliquip non voluptate dolor\",\n   \"@type\": \"laboris occaecat eu dolor\",\n   \"id\": \"f644ba85-e18e-e107-8ba6-5998f1224848\",\n   \"omschrijving\": \"u\"\n  },\n  \"datum\": {\n   \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"inOnderzoek\": {}\n },\n \"leeftijd\": 8898099,\n \"datumEersteInschrijvingGBA\": \"et dolore Lorem\",\n \"kiesrecht\": \"Lore\",\n \"inOnderzoek\": {\n  \"@context\": \"velit ullamco ex commodo\",\n  \"@id\": \"Excep\",\n  \"@type\": \"labore aute quis dolor mollit\"\n },\n \"nationaliteit\": [\n  {\n   \"@context\": \"incididunt irure dolore ut\",\n   \"@id\": \"incididunt sit\",\n   \"@type\": \"non est do\",\n   \"uuid\": \"b628aa6a-7ba4-f031-02f6-22d6769ba346\",\n   \"ingeschrevenpersoon\": {\n    \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n   }\n  },\n  {\n   \"@context\": \"ipsum enim eiusmod in\",\n   \"@id\": \"minim incididunt magna dolore\",\n   \"@type\": \"dolor cupidatat sint offici\",\n   \"uuid\": \"urn:uuid:7b17b92d-39ca-dc3f-aff6-d9a15d5fb044\",\n   \"ingeschrevenpersoon\": {\n    \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n   }\n  }\n ],\n \"opschortingBijhouding\": {\n  \"reden\": \"Ut Lorem voluptate sunt\",\n  \"@context\": \"in\",\n  \"@id\": \"pariatur mollit\",\n  \"@type\": \"aute pariatur dolor Ut quis\",\n  \"uuid\": \"9672f379-65f2-4265-0b97-6686f1ab9e3e\",\n  \"datum\": {\n   \"@context\": \"consequat laboris est\",\n   \"@id\": \"adipisicing Ut veniam\",\n   \"@type\": \"dolore sed occaecat ullamco commodo\"\n  }\n },\n \"overlijden\": {\n  \"indicatieOverleden\": true,\n  \"@context\": \"incididunt irure\",\n  \"@id\": \"sed ullamco consectetur elit nulla\",\n  \"@type\": \"occaecat qui\",\n  \"uuid\": \"9d121495-051b-d41f-7c59-b68fab613912\",\n  \"datum\": {\n   \"@context\": \"cupidatat sint enim ullamco\",\n   \"@id\": \"ips\",\n   \"@type\": \"in velit sunt Ut\"\n  },\n  \"inOnderzoek\": {}\n },\n \"verblijfplaats\": {\n  \"@context\": \"Ut\",\n  \"@id\": \"Lorem dolore sint nostrud\",\n  \"@type\": \"dolore minim\",\n  \"uuid\": \"ca75779c-8311-b5ab-ed6b-882fc6b74461\",\n  \"aanduidingBijHuisnummer\": \"cupidatat amet aliqua Excepteur\",\n  \"funtieAdres\": \"culpa nostrud incididunt qui\",\n  \"huisletter\": \"fugiat sed sunt volupta\",\n  \"huisnummer\": -75648588,\n  \"huisnummertoevoeging\": \"nostrud amet velit minim\",\n  \"identificatiecodeNummeraanduiding\": \"labor\",\n  \"identificatiecodeVerblijfplaats\": \"voluptate esse\",\n  \"indentificatieVestigingVanuitBuitenland\": true,\n  \"locatiebeschrijving\": \"esse Exc\",\n  \"naamOpenbareRuimte\": \"enim deserunt consequat nisi\",\n  \"postcode\": \"adipisicing cillum irure\",\n  \"straatnaam\": \"ea commodo\",\n  \"vanuitVertrokkenOnbekendWaarheen\": true,\n  \"woonplaatsnaam\": \"in laborum\",\n  \"datumAanvangAdreshouding\": \"proident quis adipisicing officia\",\n  \"datumIngangGeldigheid\": \"exercitation ut\",\n  \"datumInschrijvingInGemeente\": \"et ut\",\n  \"datumVestigingInNederland\": \"sed quis officia\",\n  \"gemeenteVanInschrijving\": \"cillum in\",\n  \"landVanwaarIngeschreven\": {\n   \"code\": \"in exercitation\",\n   \"@context\": \"quis fugiat\",\n   \"@id\": \"pariatur incididunt f\",\n   \"@type\": \"laborum nulla non\",\n   \"id\": \"5db54bca-44d5-3720-cd7d-d82774670cf9\",\n   \"omschrijving\": \"sint Duis in dolor\"\n  },\n  \"verblijfBuitenland\": {\n   \"@context\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n   },\n   \"@id\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n   },\n   \"@type\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n   },\n   \"adresregel1\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n   },\n   \"adresRegel2\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n   },\n   \"adresRegel3\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n   },\n   \"vertrokkenOnbekendWaarheen\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n   }\n  },\n  \"inOnderzoek\": {},\n  \"bagId\": -11929670\n },\n \"gezagsverhouding\": {\n  \"indicatieCurateleRegister\": true,\n  \"@context\": \"nulla proident\",\n  \"@id\": \"adipisicing reprehenderit consectetur fugiat labore\",\n  \"@type\": \"pariatur cillum dolore\",\n  \"uuid\": \"91e387ca-6248-1b97-940f-95eb42aeefad\",\n  \"indicatieGezagMinderjarige\": \"non aliquip cupidatat\",\n  \"inOnderzoek\": {}\n },\n \"verblijfstitel\": {\n  \"@context\": \"anim cillum\",\n  \"@id\": \"nulla et dolore proident\",\n  \"@type\": \"enim aute anim Duis\",\n  \"uuid\": \"urn:uuid:3aff420b-8108-4f03-e7bf-610362e868a0\",\n  \"datumEinde\": \"ad laborum cillum adipisicing et\",\n  \"datumIngang\": \"occaecat ipsum in exercitation cupidatat\",\n  \"inOnderzoek\": {}\n }\n}"
+						},
+						{
+							"name": "Resource not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "The JWT of the entity performing the request",
+										"key": "Authorization",
+										"value": ""
+									},
+									{
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+										"key": "API-Version",
+										"value": ""
+									},
+									{
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+										"key": "X-NLX-Logrecord-ID",
+										"value": ""
+									},
+									{
+										"description": "A process id for purpose registration (doelbinding)",
+										"key": "X-NLX-Request-Process-Id",
+										"value": ""
+									},
+									{
+										"description": "A list of requested data elements",
+										"key": "X-NLX-Request-Data-Elements",
+										"value": ""
+									},
+									{
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+										"key": "X-NLX-Request-Data-Subject",
+										"value": ""
+									},
+									{
+										"description": "A clarification as to why a request has been made  (doelbinding)",
+										"key": "X-NLX-Audit-Clarification",
+										"value": ""
+									},
+									{
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+										"key": "Link",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/ingeschrevenpersonen/uuid/:id?extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ingeschrevenpersonen",
+										"uuid",
+										":id"
+									],
+									"query": [
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "{burgerservicenummer}",
+			"item": [
+				{
+					"name": "Retrieves the collection of Ingeschrevenpersoon resources.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "The JWT of the entity performing the request",
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+								"key": "API-Version",
+								"value": ""
+							},
+							{
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+								"key": "X-NLX-Logrecord-ID",
+								"value": ""
+							},
+							{
+								"description": "A process id for purpose registration (doelbinding)",
+								"key": "X-NLX-Request-Process-Id",
+								"value": ""
+							},
+							{
+								"description": "A list of requested data elements",
+								"key": "X-NLX-Request-Data-Elements",
+								"value": ""
+							},
+							{
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+								"key": "X-NLX-Request-Data-Subject",
+								"value": ""
+							},
+							{
+								"description": "A clarification as to why a request has been made  (doelbinding)",
+								"key": "X-NLX-Audit-Clarification",
+								"value": ""
+							},
+							{
+								"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+								"key": "Link",
+								"value": ""
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/ingeschrevenpersonen/{{ingeschrevenPersoon}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingeschrevenpersonen",
+								"{{ingeschrevenPersoon}}"
+							],
+							"query": [
+								{
+									"key": "geboorte.datum",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.plaats.omschrijving",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.geslachtsnaam",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voornamen",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voorvoegsel",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "The collection page number",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "30",
+									"description": "The number of items per page",
+									"disabled": true
+								},
+								{
+									"key": "extend[]",
+									"value": "<array>",
+									"description": "An array of nested objects to include in the return object",
+									"disabled": true
+								},
+								{
+									"key": "fields[]",
+									"value": "<array>",
+									"description": "An array of fields to return in output, wil return all fields is not supplied",
+									"disabled": true
+								},
+								{
+									"key": "validOn",
+									"value": "<dateTime>",
+									"description": "Returns object as valid on a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validFrom",
+									"value": "<dateTime>",
+									"description": "Returns objects valid from a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validUntil",
+									"value": "<dateTime>",
+									"description": "Returns objects valid until a given date time",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ingeschrevenpersoon collection response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "The JWT of the entity performing the request",
+										"key": "Authorization",
+										"value": ""
+									},
+									{
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+										"key": "API-Version",
+										"value": ""
+									},
+									{
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+										"key": "X-NLX-Logrecord-ID",
+										"value": ""
+									},
+									{
+										"description": "A process id for purpose registration (doelbinding)",
+										"key": "X-NLX-Request-Process-Id",
+										"value": ""
+									},
+									{
+										"description": "A list of requested data elements",
+										"key": "X-NLX-Request-Data-Elements",
+										"value": ""
+									},
+									{
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+										"key": "X-NLX-Request-Data-Subject",
+										"value": ""
+									},
+									{
+										"description": "A clarification as to why a request has been made  (doelbinding)",
+										"key": "X-NLX-Audit-Clarification",
+										"value": ""
+									},
+									{
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+										"key": "Link",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/ingeschrevenpersonen/:burgerservicenummer?geboorte.datum=<string>&geboorte.datum[]=<string>&geboorte.datum[]=<string>&geboorte.plaats.omschrijving=<string>&geslachtsaanduiding=<string>&geslachtsaanduiding[]=<string>&geslachtsaanduiding[]=<string>&burgerservicenummer=<string>&burgerservicenummer[]=<string>&burgerservicenummer[]=<string>&naam.geslachtsnaam=<string>&naam.voornamen=<string>&naam.voorvoegsel=<string>&verblijfplaats.postcode=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.huisnummer=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummertoevoeging=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisletter=<string>&verblijfplaats.huisletter[]=<string>&verblijfplaats.huisletter[]=<string>&page=1&limit=30&extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ingeschrevenpersonen",
+										":burgerservicenummer"
+									],
+									"query": [
+										{
+											"key": "geboorte.datum",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.plaats.omschrijving",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.geslachtsnaam",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voornamen",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voorvoegsel",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "30"
+										},
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									],
+									"variable": [
+										{
+											"key": "burgerservicenummer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/ld+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"hydra:member\": [\n  {\n   \"burgerservicenummer\": \"Ut ad Lorem\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"Excepteur veniam aliquip\",\n   \"@context\": \"aliquip tempor\",\n   \"@id\": \"fugiat officia\",\n   \"@type\": \"sit enim veniam\",\n   \"id\": \"urn:uuid:a43a94b9-b40c-738d-c046-ac9d90be7597\",\n   \"naam\": {\n    \"geslachtsnaam\": \"fugiat\",\n    \"voorletters\": \"reprehenderit in in ipsum\",\n    \"voornamen\": \"id consectetur amet dolor\",\n    \"voorvoegsel\": \"qui \",\n    \"aanhef\": \"dolore\",\n    \"gebuikInLopendeTekst\": \"nostrud et officia non\",\n    \"@context\": \"anim et e\",\n    \"@id\": \"laboris ut\",\n    \"@type\": \"nulla elit\",\n    \"uuid\": \"urn:uuid:cfae45c2-54ca-080a-7a32-1ba9a64a47b8\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"ad amet commodo mollit sint\"\n   },\n   \"geboorte\": {\n    \"@context\": \"Lorem quis veniam reprehenderit laboris\",\n    \"@id\": \"cillum ea ut labore sint\",\n    \"@type\": \"occaecat\",\n    \"uuid\": \"urn:uuid:ebba4578-586a-e805-e2cb-731f3573f6b2\",\n    \"land\": {\n     \"code\": \"deserunt laborum qui\",\n     \"@context\": \"irure cillum\",\n     \"@id\": \"quis dolor esse pariatur\",\n     \"@type\": \"nostrud velit sed exercitation\",\n     \"id\": \"urn:uuid:87de0b91-70c3-b7af-cb05-21078d3a17fd\",\n     \"omschrijving\": \"in in laboris\"\n    },\n    \"plaats\": {\n     \"code\": \"adipisicing aute nulla consequat irure\",\n     \"@context\": \"fugiat id in culpa\",\n     \"@id\": \"veniam adipisicing labore\",\n     \"@type\": \"culpa labore reprehenderit\",\n     \"id\": \"urn:uuid:32469ae4-485f-1fba-a9fe-5397dca00e89\",\n     \"omschrijving\": \"do laborum ut ullamco\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": -27940037,\n   \"datumEersteInschrijvingGBA\": \"id proident v\",\n   \"kiesrecht\": \"qui sed\",\n   \"inOnderzoek\": {\n    \"@context\": \"mollit in in\",\n    \"@id\": \"ut cupidatat\",\n    \"@type\": \"sunt ipsum dolor adipisicing velit\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"aliqua amet ut magna\",\n     \"@id\": \"dolore\",\n     \"@type\": \"dolor cupidatat irure consequat\",\n     \"uuid\": \"urn:uuid:8b3359d3-6ccb-ff64-d372-e0ffe63eda25\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"aliqua anim\",\n     \"@id\": \"fugiat Excepteur elit ipsum\",\n     \"@type\": \"reprehenderit Ut sint\",\n     \"uuid\": \"4689ec41-c007-0c1f-7c38-60517e5f386f\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"in incididunt in id sed\",\n    \"@context\": \"adipisicing\",\n    \"@id\": \"reprehenderit voluptate\",\n    \"@type\": \"mollit nisi amet et Excepteur\",\n    \"uuid\": \"fbec1ad8-c7d1-9c63-31e4-77e6a577884f\",\n    \"datum\": {\n     \"@context\": \"enim sed in\",\n     \"@id\": \"aliquip amet nisi qui\",\n     \"@type\": \"in eiusmod dolor dolore magna\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"elit Lorem qui dolore nisi\",\n    \"@id\": \"adipisicing\",\n    \"@type\": \"consequat Lorem\",\n    \"uuid\": \"20075e88-806b-b6cb-64be-f5ecfb9a9988\",\n    \"datum\": {\n     \"@context\": \"velit ut veniam exercitation\",\n     \"@id\": \"elit ex Lorem proident\",\n     \"@type\": \"voluptate\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"aliqua\",\n    \"@id\": \"Duis dolor ea mollit\",\n    \"@type\": \"dolor cupidatat sunt\",\n    \"uuid\": \"4708b071-4e6e-249e-cfb9-bcb5cd9e4e2e\",\n    \"aanduidingBijHuisnummer\": \"tempor proident eu\",\n    \"funtieAdres\": \"exercitation eiusmod reprehenderit\",\n    \"huisletter\": \"et sit pariatur\",\n    \"huisnummer\": 14273210,\n    \"huisnummertoevoeging\": \"tempor labore\",\n    \"identificatiecodeNummeraanduiding\": \"sunt in dolor Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"commodo anim ad cupidatat\",\n    \"indentificatieVestigingVanuitBuitenland\": false,\n    \"locatiebeschrijving\": \"tempor eu\",\n    \"naamOpenbareRuimte\": \"cillum anim aliquip\",\n    \"postcode\": \"culpa irure voluptate elit\",\n    \"straatnaam\": \"proident dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": true,\n    \"woonplaatsnaam\": \"cupidatat exerci\",\n    \"datumAanvangAdreshouding\": \"eiusmod laborum\",\n    \"datumIngangGeldigheid\": \"do\",\n    \"datumInschrijvingInGemeente\": \"proident est nostrud pariatur Excepteur\",\n    \"datumVestigingInNederland\": \"Duis pariatur occaecat qui\",\n    \"gemeenteVanInschrijving\": \"in eiusmod a\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"sint esse dolor\",\n     \"@context\": \"anim\",\n     \"@id\": \"ipsum sit sint exercitation labore\",\n     \"@type\": \"mollit exercitation anim non\",\n     \"id\": \"948013bc-754e-21d4-9a5e-d451c2191700\",\n     \"omschrijving\": \"eiusmod exercitation tempor\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 49407843\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"proident amet do ullamco\",\n    \"@id\": \"ut\",\n    \"@type\": \"Excepteur amet aliquip\",\n    \"uuid\": \"urn:uuid:c60b06a1-15b9-46dc-5398-6ed9796b8bc6\",\n    \"indicatieGezagMinderjarige\": \"magna in officia\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"Lorem\",\n    \"@id\": \"exercitation ut\",\n    \"@type\": \"elit mollit voluptate Lorem\",\n    \"uuid\": \"0294f5c0-b7c7-ac93-9e1a-556f7bd1d464\",\n    \"datumEinde\": \"aliquip anim pariatur\",\n    \"datumIngang\": \"fugiat nulla dolore adipisicing\",\n    \"inOnderzoek\": {}\n   }\n  },\n  {\n   \"burgerservicenummer\": \"cupidatat\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"laboris aute\",\n   \"@context\": \"dolor elit Excepteur sed\",\n   \"@id\": \"nostrud ipsum et minim\",\n   \"@type\": \"non esse dolor\",\n   \"id\": \"urn:uuid:e8b7dc66-6ef8-a7ee-7049-f7c4477f8cd0\",\n   \"naam\": {\n    \"geslachtsnaam\": \"labore elit laborum ullamc\",\n    \"voorletters\": \"dolor ut commodo magna elit\",\n    \"voornamen\": \"enim esse\",\n    \"voorvoegsel\": \"officia nostrud incididunt\",\n    \"aanhef\": \"cupidatat dolore ullamco non\",\n    \"gebuikInLopendeTekst\": \"Duis\",\n    \"@context\": \"fugiat\",\n    \"@id\": \"in qui veniam\",\n    \"@type\": \"sit\",\n    \"uuid\": \"urn:uuid:8649caaa-80f4-1b2f-331c-da0e31b7d013\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"eu aliquip do in\"\n   },\n   \"geboorte\": {\n    \"@context\": \"sed\",\n    \"@id\": \"sed et do\",\n    \"@type\": \"ullamco ad Excepteur\",\n    \"uuid\": \"urn:uuid:732b6b99-c041-dd07-8d43-b0a40a343c40\",\n    \"land\": {\n     \"code\": \"tempor id labore Excepteur\",\n     \"@context\": \"Excepteur proident Lorem sed\",\n     \"@id\": \"in ex\",\n     \"@type\": \"aute dolo\",\n     \"id\": \"a5f9ace7-597b-7e82-1609-9d4b87d79d8d\",\n     \"omschrijving\": \"amet aliqua\"\n    },\n    \"plaats\": {\n     \"code\": \"ullamco quis\",\n     \"@context\": \"ea nisi enim\",\n     \"@id\": \"tempor aliqua \",\n     \"@type\": \"dolor deserunt\",\n     \"id\": \"965edd31-a7b3-5417-6408-33fdacab4c61\",\n     \"omschrijving\": \"aute sed nisi aliquip\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": 64988554,\n   \"datumEersteInschrijvingGBA\": \"laborum elit\",\n   \"kiesrecht\": \"minim\",\n   \"inOnderzoek\": {\n    \"@context\": \"elit enim\",\n    \"@id\": \"laborum elit eu ullamco\",\n    \"@type\": \"qui pariatur\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"proident ad officia\",\n     \"@id\": \"pariatur qui cillum dolore\",\n     \"@type\": \"et\",\n     \"uuid\": \"4853d407-e728-82d2-135c-ffef921c1b76\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"sed\",\n     \"@id\": \"nisi incididunt\",\n     \"@type\": \"enim\",\n     \"uuid\": \"80b11fba-f9e6-ef5e-36d2-4c4fcf204d78\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"deserunt labore Duis ut\",\n    \"@context\": \"voluptate fugi\",\n    \"@id\": \"adipisicing sed\",\n    \"@type\": \"et ipsum consequat anim aliquip\",\n    \"uuid\": \"46677ffd-8b13-e810-d014-09c95489d32e\",\n    \"datum\": {\n     \"@context\": \"Ut Excepteur\",\n     \"@id\": \"elit in\",\n     \"@type\": \"tempor dolor\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"culpa\",\n    \"@id\": \"cillum\",\n    \"@type\": \"cillum officia reprehenderit ullamco\",\n    \"uuid\": \"urn:uuid:46f6c910-f579-ae05-a3d2-5181ca0ee8df\",\n    \"datum\": {\n     \"@context\": \"in aliquip elit dolore\",\n     \"@id\": \"in est non\",\n     \"@type\": \"est ex in\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"dolor aute\",\n    \"@id\": \"adipisicing exercitation\",\n    \"@type\": \"dolor consectetur elit mollit\",\n    \"uuid\": \"urn:uuid:82520cc9-2b46-e1e9-e521-00602407dc2a\",\n    \"aanduidingBijHuisnummer\": \"Duis\",\n    \"funtieAdres\": \"sit cupidatat ipsum\",\n    \"huisletter\": \"commodo dolor est\",\n    \"huisnummer\": 72113105,\n    \"huisnummertoevoeging\": \"consectetur si\",\n    \"identificatiecodeNummeraanduiding\": \"incididunt deserunt dolore Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"dolore in qui\",\n    \"indentificatieVestigingVanuitBuitenland\": true,\n    \"locatiebeschrijving\": \"dolore\",\n    \"naamOpenbareRuimte\": \"deserunt magna\",\n    \"postcode\": \"ex anim\",\n    \"straatnaam\": \"dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": false,\n    \"woonplaatsnaam\": \"ea occaecat Lorem quis\",\n    \"datumAanvangAdreshouding\": \"enim cillum ad adipisicing occa\",\n    \"datumIngangGeldigheid\": \"qui est voluptate\",\n    \"datumInschrijvingInGemeente\": \"reprehenderit\",\n    \"datumVestigingInNederland\": \"ex veniam\",\n    \"gemeenteVanInschrijving\": \"nulla dolor\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"nulla exercitation\",\n     \"@context\": \"commodo aliquip incidi\",\n     \"@id\": \"nisi Ut dolor\",\n     \"@type\": \"enim\",\n     \"id\": \"866cfdc3-5a92-d7d2-3ad1-0dbc9028e216\",\n     \"omschrijving\": \"id sit\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 77408655\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"id et ex\",\n    \"@id\": \"aliqua laboris ut occaecat\",\n    \"@type\": \"in nulla Ut sint\",\n    \"uuid\": \"53de99f8-8d40-4621-df4c-dd43fc2f5ae9\",\n    \"indicatieGezagMinderjarige\": \"veniam sed in magna\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"laboris\",\n    \"@id\": \"pariatur ut nisi quis adipisicing\",\n    \"@type\": \"laboris tempor dolor eiu\",\n    \"uuid\": \"67a383d7-ab1d-cfdf-708d-01aa45da8212\",\n    \"datumEinde\": \"qui voluptate\",\n    \"datumIngang\": \"dolore cillum\",\n    \"inOnderzoek\": {}\n   }\n  }\n ],\n \"hydra:totalItems\": 54838058,\n \"hydra:view\": {\n  \"@id\": \"anim sit elit\",\n  \"@type\": \"id et ut\",\n  \"hydra:first\": \"Lorem do nisi\",\n  \"hydra:last\": \"reprehenderit\",\n  \"hydra:next\": \"quis eiusmod minim\"\n },\n \"hydra:search\": {\n  \"@type\": \"nostrud velit eu\",\n  \"hydra:template\": \"officia\",\n  \"hydra:variableRepresentation\": \"amet qui fugiat laboris\",\n  \"hydra:mapping\": [\n   {\n    \"@type\": \"ut dolore amet aliquip et\",\n    \"variable\": \"\",\n    \"property\": \"sit laborum sint commodo\",\n    \"required\": false\n   },\n   {\n    \"@type\": \"laboris nostrud\",\n    \"variable\": \"cupidatat\",\n    \"property\": \"Excepteur Ut dolore consectetur\",\n    \"required\": false\n   }\n  ]\n }\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieves the collection of Ingeschrevenpersoon resources.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "The JWT of the entity performing the request",
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+								"key": "API-Version",
+								"value": ""
+							},
+							{
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+								"key": "X-NLX-Logrecord-ID",
+								"value": ""
+							},
+							{
+								"description": "A process id for purpose registration (doelbinding)",
+								"key": "X-NLX-Request-Process-Id",
+								"value": ""
+							},
+							{
+								"description": "A list of requested data elements",
+								"key": "X-NLX-Request-Data-Elements",
+								"value": ""
+							},
+							{
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+								"key": "X-NLX-Request-Data-Subject",
+								"value": ""
+							},
+							{
+								"description": "A clarification as to why a request has been made  (doelbinding)",
+								"key": "X-NLX-Audit-Clarification",
+								"value": ""
+							},
+							{
+								"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+								"key": "Link",
+								"value": ""
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/ingeschrevenpersonen/{{ingeschrevenPersoon}}/kinderen",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingeschrevenpersonen",
+								"{{ingeschrevenPersoon}}",
+								"kinderen"
+							],
+							"query": [
+								{
+									"key": "geboorte.datum",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.plaats.omschrijving",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.geslachtsnaam",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voornamen",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voorvoegsel",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "The collection page number",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "30",
+									"description": "The number of items per page",
+									"disabled": true
+								},
+								{
+									"key": "extend[]",
+									"value": "<array>",
+									"description": "An array of nested objects to include in the return object",
+									"disabled": true
+								},
+								{
+									"key": "fields[]",
+									"value": "<array>",
+									"description": "An array of fields to return in output, wil return all fields is not supplied",
+									"disabled": true
+								},
+								{
+									"key": "validOn",
+									"value": "<dateTime>",
+									"description": "Returns object as valid on a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validFrom",
+									"value": "<dateTime>",
+									"description": "Returns objects valid from a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validUntil",
+									"value": "<dateTime>",
+									"description": "Returns objects valid until a given date time",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ingeschrevenpersoon collection response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "The JWT of the entity performing the request",
+										"key": "Authorization",
+										"value": ""
+									},
+									{
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+										"key": "API-Version",
+										"value": ""
+									},
+									{
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+										"key": "X-NLX-Logrecord-ID",
+										"value": ""
+									},
+									{
+										"description": "A process id for purpose registration (doelbinding)",
+										"key": "X-NLX-Request-Process-Id",
+										"value": ""
+									},
+									{
+										"description": "A list of requested data elements",
+										"key": "X-NLX-Request-Data-Elements",
+										"value": ""
+									},
+									{
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+										"key": "X-NLX-Request-Data-Subject",
+										"value": ""
+									},
+									{
+										"description": "A clarification as to why a request has been made  (doelbinding)",
+										"key": "X-NLX-Audit-Clarification",
+										"value": ""
+									},
+									{
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+										"key": "Link",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/ingeschrevenpersonen/:burgerservicenummer/kinderen?geboorte.datum=<string>&geboorte.datum[]=<string>&geboorte.datum[]=<string>&geboorte.plaats.omschrijving=<string>&geslachtsaanduiding=<string>&geslachtsaanduiding[]=<string>&geslachtsaanduiding[]=<string>&burgerservicenummer=<string>&burgerservicenummer[]=<string>&burgerservicenummer[]=<string>&naam.geslachtsnaam=<string>&naam.voornamen=<string>&naam.voorvoegsel=<string>&verblijfplaats.postcode=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.huisnummer=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummertoevoeging=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisletter=<string>&verblijfplaats.huisletter[]=<string>&verblijfplaats.huisletter[]=<string>&page=1&limit=30&extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ingeschrevenpersonen",
+										":burgerservicenummer",
+										"kinderen"
+									],
+									"query": [
+										{
+											"key": "geboorte.datum",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.plaats.omschrijving",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.geslachtsnaam",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voornamen",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voorvoegsel",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "30"
+										},
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									],
+									"variable": [
+										{
+											"key": "burgerservicenummer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/ld+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"hydra:member\": [\n  {\n   \"burgerservicenummer\": \"Ut ad Lorem\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"Excepteur veniam aliquip\",\n   \"@context\": \"aliquip tempor\",\n   \"@id\": \"fugiat officia\",\n   \"@type\": \"sit enim veniam\",\n   \"id\": \"urn:uuid:a43a94b9-b40c-738d-c046-ac9d90be7597\",\n   \"naam\": {\n    \"geslachtsnaam\": \"fugiat\",\n    \"voorletters\": \"reprehenderit in in ipsum\",\n    \"voornamen\": \"id consectetur amet dolor\",\n    \"voorvoegsel\": \"qui \",\n    \"aanhef\": \"dolore\",\n    \"gebuikInLopendeTekst\": \"nostrud et officia non\",\n    \"@context\": \"anim et e\",\n    \"@id\": \"laboris ut\",\n    \"@type\": \"nulla elit\",\n    \"uuid\": \"urn:uuid:cfae45c2-54ca-080a-7a32-1ba9a64a47b8\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"ad amet commodo mollit sint\"\n   },\n   \"geboorte\": {\n    \"@context\": \"Lorem quis veniam reprehenderit laboris\",\n    \"@id\": \"cillum ea ut labore sint\",\n    \"@type\": \"occaecat\",\n    \"uuid\": \"urn:uuid:ebba4578-586a-e805-e2cb-731f3573f6b2\",\n    \"land\": {\n     \"code\": \"deserunt laborum qui\",\n     \"@context\": \"irure cillum\",\n     \"@id\": \"quis dolor esse pariatur\",\n     \"@type\": \"nostrud velit sed exercitation\",\n     \"id\": \"urn:uuid:87de0b91-70c3-b7af-cb05-21078d3a17fd\",\n     \"omschrijving\": \"in in laboris\"\n    },\n    \"plaats\": {\n     \"code\": \"adipisicing aute nulla consequat irure\",\n     \"@context\": \"fugiat id in culpa\",\n     \"@id\": \"veniam adipisicing labore\",\n     \"@type\": \"culpa labore reprehenderit\",\n     \"id\": \"urn:uuid:32469ae4-485f-1fba-a9fe-5397dca00e89\",\n     \"omschrijving\": \"do laborum ut ullamco\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": -27940037,\n   \"datumEersteInschrijvingGBA\": \"id proident v\",\n   \"kiesrecht\": \"qui sed\",\n   \"inOnderzoek\": {\n    \"@context\": \"mollit in in\",\n    \"@id\": \"ut cupidatat\",\n    \"@type\": \"sunt ipsum dolor adipisicing velit\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"aliqua amet ut magna\",\n     \"@id\": \"dolore\",\n     \"@type\": \"dolor cupidatat irure consequat\",\n     \"uuid\": \"urn:uuid:8b3359d3-6ccb-ff64-d372-e0ffe63eda25\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"aliqua anim\",\n     \"@id\": \"fugiat Excepteur elit ipsum\",\n     \"@type\": \"reprehenderit Ut sint\",\n     \"uuid\": \"4689ec41-c007-0c1f-7c38-60517e5f386f\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"in incididunt in id sed\",\n    \"@context\": \"adipisicing\",\n    \"@id\": \"reprehenderit voluptate\",\n    \"@type\": \"mollit nisi amet et Excepteur\",\n    \"uuid\": \"fbec1ad8-c7d1-9c63-31e4-77e6a577884f\",\n    \"datum\": {\n     \"@context\": \"enim sed in\",\n     \"@id\": \"aliquip amet nisi qui\",\n     \"@type\": \"in eiusmod dolor dolore magna\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"elit Lorem qui dolore nisi\",\n    \"@id\": \"adipisicing\",\n    \"@type\": \"consequat Lorem\",\n    \"uuid\": \"20075e88-806b-b6cb-64be-f5ecfb9a9988\",\n    \"datum\": {\n     \"@context\": \"velit ut veniam exercitation\",\n     \"@id\": \"elit ex Lorem proident\",\n     \"@type\": \"voluptate\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"aliqua\",\n    \"@id\": \"Duis dolor ea mollit\",\n    \"@type\": \"dolor cupidatat sunt\",\n    \"uuid\": \"4708b071-4e6e-249e-cfb9-bcb5cd9e4e2e\",\n    \"aanduidingBijHuisnummer\": \"tempor proident eu\",\n    \"funtieAdres\": \"exercitation eiusmod reprehenderit\",\n    \"huisletter\": \"et sit pariatur\",\n    \"huisnummer\": 14273210,\n    \"huisnummertoevoeging\": \"tempor labore\",\n    \"identificatiecodeNummeraanduiding\": \"sunt in dolor Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"commodo anim ad cupidatat\",\n    \"indentificatieVestigingVanuitBuitenland\": false,\n    \"locatiebeschrijving\": \"tempor eu\",\n    \"naamOpenbareRuimte\": \"cillum anim aliquip\",\n    \"postcode\": \"culpa irure voluptate elit\",\n    \"straatnaam\": \"proident dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": true,\n    \"woonplaatsnaam\": \"cupidatat exerci\",\n    \"datumAanvangAdreshouding\": \"eiusmod laborum\",\n    \"datumIngangGeldigheid\": \"do\",\n    \"datumInschrijvingInGemeente\": \"proident est nostrud pariatur Excepteur\",\n    \"datumVestigingInNederland\": \"Duis pariatur occaecat qui\",\n    \"gemeenteVanInschrijving\": \"in eiusmod a\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"sint esse dolor\",\n     \"@context\": \"anim\",\n     \"@id\": \"ipsum sit sint exercitation labore\",\n     \"@type\": \"mollit exercitation anim non\",\n     \"id\": \"948013bc-754e-21d4-9a5e-d451c2191700\",\n     \"omschrijving\": \"eiusmod exercitation tempor\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 49407843\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"proident amet do ullamco\",\n    \"@id\": \"ut\",\n    \"@type\": \"Excepteur amet aliquip\",\n    \"uuid\": \"urn:uuid:c60b06a1-15b9-46dc-5398-6ed9796b8bc6\",\n    \"indicatieGezagMinderjarige\": \"magna in officia\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"Lorem\",\n    \"@id\": \"exercitation ut\",\n    \"@type\": \"elit mollit voluptate Lorem\",\n    \"uuid\": \"0294f5c0-b7c7-ac93-9e1a-556f7bd1d464\",\n    \"datumEinde\": \"aliquip anim pariatur\",\n    \"datumIngang\": \"fugiat nulla dolore adipisicing\",\n    \"inOnderzoek\": {}\n   }\n  },\n  {\n   \"burgerservicenummer\": \"cupidatat\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"laboris aute\",\n   \"@context\": \"dolor elit Excepteur sed\",\n   \"@id\": \"nostrud ipsum et minim\",\n   \"@type\": \"non esse dolor\",\n   \"id\": \"urn:uuid:e8b7dc66-6ef8-a7ee-7049-f7c4477f8cd0\",\n   \"naam\": {\n    \"geslachtsnaam\": \"labore elit laborum ullamc\",\n    \"voorletters\": \"dolor ut commodo magna elit\",\n    \"voornamen\": \"enim esse\",\n    \"voorvoegsel\": \"officia nostrud incididunt\",\n    \"aanhef\": \"cupidatat dolore ullamco non\",\n    \"gebuikInLopendeTekst\": \"Duis\",\n    \"@context\": \"fugiat\",\n    \"@id\": \"in qui veniam\",\n    \"@type\": \"sit\",\n    \"uuid\": \"urn:uuid:8649caaa-80f4-1b2f-331c-da0e31b7d013\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"eu aliquip do in\"\n   },\n   \"geboorte\": {\n    \"@context\": \"sed\",\n    \"@id\": \"sed et do\",\n    \"@type\": \"ullamco ad Excepteur\",\n    \"uuid\": \"urn:uuid:732b6b99-c041-dd07-8d43-b0a40a343c40\",\n    \"land\": {\n     \"code\": \"tempor id labore Excepteur\",\n     \"@context\": \"Excepteur proident Lorem sed\",\n     \"@id\": \"in ex\",\n     \"@type\": \"aute dolo\",\n     \"id\": \"a5f9ace7-597b-7e82-1609-9d4b87d79d8d\",\n     \"omschrijving\": \"amet aliqua\"\n    },\n    \"plaats\": {\n     \"code\": \"ullamco quis\",\n     \"@context\": \"ea nisi enim\",\n     \"@id\": \"tempor aliqua \",\n     \"@type\": \"dolor deserunt\",\n     \"id\": \"965edd31-a7b3-5417-6408-33fdacab4c61\",\n     \"omschrijving\": \"aute sed nisi aliquip\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": 64988554,\n   \"datumEersteInschrijvingGBA\": \"laborum elit\",\n   \"kiesrecht\": \"minim\",\n   \"inOnderzoek\": {\n    \"@context\": \"elit enim\",\n    \"@id\": \"laborum elit eu ullamco\",\n    \"@type\": \"qui pariatur\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"proident ad officia\",\n     \"@id\": \"pariatur qui cillum dolore\",\n     \"@type\": \"et\",\n     \"uuid\": \"4853d407-e728-82d2-135c-ffef921c1b76\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"sed\",\n     \"@id\": \"nisi incididunt\",\n     \"@type\": \"enim\",\n     \"uuid\": \"80b11fba-f9e6-ef5e-36d2-4c4fcf204d78\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"deserunt labore Duis ut\",\n    \"@context\": \"voluptate fugi\",\n    \"@id\": \"adipisicing sed\",\n    \"@type\": \"et ipsum consequat anim aliquip\",\n    \"uuid\": \"46677ffd-8b13-e810-d014-09c95489d32e\",\n    \"datum\": {\n     \"@context\": \"Ut Excepteur\",\n     \"@id\": \"elit in\",\n     \"@type\": \"tempor dolor\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"culpa\",\n    \"@id\": \"cillum\",\n    \"@type\": \"cillum officia reprehenderit ullamco\",\n    \"uuid\": \"urn:uuid:46f6c910-f579-ae05-a3d2-5181ca0ee8df\",\n    \"datum\": {\n     \"@context\": \"in aliquip elit dolore\",\n     \"@id\": \"in est non\",\n     \"@type\": \"est ex in\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"dolor aute\",\n    \"@id\": \"adipisicing exercitation\",\n    \"@type\": \"dolor consectetur elit mollit\",\n    \"uuid\": \"urn:uuid:82520cc9-2b46-e1e9-e521-00602407dc2a\",\n    \"aanduidingBijHuisnummer\": \"Duis\",\n    \"funtieAdres\": \"sit cupidatat ipsum\",\n    \"huisletter\": \"commodo dolor est\",\n    \"huisnummer\": 72113105,\n    \"huisnummertoevoeging\": \"consectetur si\",\n    \"identificatiecodeNummeraanduiding\": \"incididunt deserunt dolore Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"dolore in qui\",\n    \"indentificatieVestigingVanuitBuitenland\": true,\n    \"locatiebeschrijving\": \"dolore\",\n    \"naamOpenbareRuimte\": \"deserunt magna\",\n    \"postcode\": \"ex anim\",\n    \"straatnaam\": \"dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": false,\n    \"woonplaatsnaam\": \"ea occaecat Lorem quis\",\n    \"datumAanvangAdreshouding\": \"enim cillum ad adipisicing occa\",\n    \"datumIngangGeldigheid\": \"qui est voluptate\",\n    \"datumInschrijvingInGemeente\": \"reprehenderit\",\n    \"datumVestigingInNederland\": \"ex veniam\",\n    \"gemeenteVanInschrijving\": \"nulla dolor\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"nulla exercitation\",\n     \"@context\": \"commodo aliquip incidi\",\n     \"@id\": \"nisi Ut dolor\",\n     \"@type\": \"enim\",\n     \"id\": \"866cfdc3-5a92-d7d2-3ad1-0dbc9028e216\",\n     \"omschrijving\": \"id sit\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 77408655\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"id et ex\",\n    \"@id\": \"aliqua laboris ut occaecat\",\n    \"@type\": \"in nulla Ut sint\",\n    \"uuid\": \"53de99f8-8d40-4621-df4c-dd43fc2f5ae9\",\n    \"indicatieGezagMinderjarige\": \"veniam sed in magna\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"laboris\",\n    \"@id\": \"pariatur ut nisi quis adipisicing\",\n    \"@type\": \"laboris tempor dolor eiu\",\n    \"uuid\": \"67a383d7-ab1d-cfdf-708d-01aa45da8212\",\n    \"datumEinde\": \"qui voluptate\",\n    \"datumIngang\": \"dolore cillum\",\n    \"inOnderzoek\": {}\n   }\n  }\n ],\n \"hydra:totalItems\": 54838058,\n \"hydra:view\": {\n  \"@id\": \"anim sit elit\",\n  \"@type\": \"id et ut\",\n  \"hydra:first\": \"Lorem do nisi\",\n  \"hydra:last\": \"reprehenderit\",\n  \"hydra:next\": \"quis eiusmod minim\"\n },\n \"hydra:search\": {\n  \"@type\": \"nostrud velit eu\",\n  \"hydra:template\": \"officia\",\n  \"hydra:variableRepresentation\": \"amet qui fugiat laboris\",\n  \"hydra:mapping\": [\n   {\n    \"@type\": \"ut dolore amet aliquip et\",\n    \"variable\": \"\",\n    \"property\": \"sit laborum sint commodo\",\n    \"required\": false\n   },\n   {\n    \"@type\": \"laboris nostrud\",\n    \"variable\": \"cupidatat\",\n    \"property\": \"Excepteur Ut dolore consectetur\",\n    \"required\": false\n   }\n  ]\n }\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieves the collection of Ingeschrevenpersoon resources.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "The JWT of the entity performing the request",
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+								"key": "API-Version",
+								"value": ""
+							},
+							{
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+								"key": "X-NLX-Logrecord-ID",
+								"value": ""
+							},
+							{
+								"description": "A process id for purpose registration (doelbinding)",
+								"key": "X-NLX-Request-Process-Id",
+								"value": ""
+							},
+							{
+								"description": "A list of requested data elements",
+								"key": "X-NLX-Request-Data-Elements",
+								"value": ""
+							},
+							{
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+								"key": "X-NLX-Request-Data-Subject",
+								"value": ""
+							},
+							{
+								"description": "A clarification as to why a request has been made  (doelbinding)",
+								"key": "X-NLX-Audit-Clarification",
+								"value": ""
+							},
+							{
+								"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+								"key": "Link",
+								"value": ""
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/ingeschrevenpersonen/{{ingeschrevenPersoon}}/ouders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingeschrevenpersonen",
+								"{{ingeschrevenPersoon}}",
+								"ouders"
+							],
+							"query": [
+								{
+									"key": "geboorte.datum",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.plaats.omschrijving",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.geslachtsnaam",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voornamen",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voorvoegsel",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "The collection page number",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "30",
+									"description": "The number of items per page",
+									"disabled": true
+								},
+								{
+									"key": "extend[]",
+									"value": "<array>",
+									"description": "An array of nested objects to include in the return object",
+									"disabled": true
+								},
+								{
+									"key": "fields[]",
+									"value": "<array>",
+									"description": "An array of fields to return in output, wil return all fields is not supplied",
+									"disabled": true
+								},
+								{
+									"key": "validOn",
+									"value": "<dateTime>",
+									"description": "Returns object as valid on a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validFrom",
+									"value": "<dateTime>",
+									"description": "Returns objects valid from a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validUntil",
+									"value": "<dateTime>",
+									"description": "Returns objects valid until a given date time",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ingeschrevenpersoon collection response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "The JWT of the entity performing the request",
+										"key": "Authorization",
+										"value": ""
+									},
+									{
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+										"key": "API-Version",
+										"value": ""
+									},
+									{
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+										"key": "X-NLX-Logrecord-ID",
+										"value": ""
+									},
+									{
+										"description": "A process id for purpose registration (doelbinding)",
+										"key": "X-NLX-Request-Process-Id",
+										"value": ""
+									},
+									{
+										"description": "A list of requested data elements",
+										"key": "X-NLX-Request-Data-Elements",
+										"value": ""
+									},
+									{
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+										"key": "X-NLX-Request-Data-Subject",
+										"value": ""
+									},
+									{
+										"description": "A clarification as to why a request has been made  (doelbinding)",
+										"key": "X-NLX-Audit-Clarification",
+										"value": ""
+									},
+									{
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+										"key": "Link",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/ingeschrevenpersonen/:burgerservicenummer/ouders?geboorte.datum=<string>&geboorte.datum[]=<string>&geboorte.datum[]=<string>&geboorte.plaats.omschrijving=<string>&geslachtsaanduiding=<string>&geslachtsaanduiding[]=<string>&geslachtsaanduiding[]=<string>&burgerservicenummer=<string>&burgerservicenummer[]=<string>&burgerservicenummer[]=<string>&naam.geslachtsnaam=<string>&naam.voornamen=<string>&naam.voorvoegsel=<string>&verblijfplaats.postcode=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.huisnummer=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummertoevoeging=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisletter=<string>&verblijfplaats.huisletter[]=<string>&verblijfplaats.huisletter[]=<string>&page=1&limit=30&extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ingeschrevenpersonen",
+										":burgerservicenummer",
+										"ouders"
+									],
+									"query": [
+										{
+											"key": "geboorte.datum",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.plaats.omschrijving",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.geslachtsnaam",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voornamen",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voorvoegsel",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "30"
+										},
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									],
+									"variable": [
+										{
+											"key": "burgerservicenummer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/ld+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"hydra:member\": [\n  {\n   \"burgerservicenummer\": \"Ut ad Lorem\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"Excepteur veniam aliquip\",\n   \"@context\": \"aliquip tempor\",\n   \"@id\": \"fugiat officia\",\n   \"@type\": \"sit enim veniam\",\n   \"id\": \"urn:uuid:a43a94b9-b40c-738d-c046-ac9d90be7597\",\n   \"naam\": {\n    \"geslachtsnaam\": \"fugiat\",\n    \"voorletters\": \"reprehenderit in in ipsum\",\n    \"voornamen\": \"id consectetur amet dolor\",\n    \"voorvoegsel\": \"qui \",\n    \"aanhef\": \"dolore\",\n    \"gebuikInLopendeTekst\": \"nostrud et officia non\",\n    \"@context\": \"anim et e\",\n    \"@id\": \"laboris ut\",\n    \"@type\": \"nulla elit\",\n    \"uuid\": \"urn:uuid:cfae45c2-54ca-080a-7a32-1ba9a64a47b8\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"ad amet commodo mollit sint\"\n   },\n   \"geboorte\": {\n    \"@context\": \"Lorem quis veniam reprehenderit laboris\",\n    \"@id\": \"cillum ea ut labore sint\",\n    \"@type\": \"occaecat\",\n    \"uuid\": \"urn:uuid:ebba4578-586a-e805-e2cb-731f3573f6b2\",\n    \"land\": {\n     \"code\": \"deserunt laborum qui\",\n     \"@context\": \"irure cillum\",\n     \"@id\": \"quis dolor esse pariatur\",\n     \"@type\": \"nostrud velit sed exercitation\",\n     \"id\": \"urn:uuid:87de0b91-70c3-b7af-cb05-21078d3a17fd\",\n     \"omschrijving\": \"in in laboris\"\n    },\n    \"plaats\": {\n     \"code\": \"adipisicing aute nulla consequat irure\",\n     \"@context\": \"fugiat id in culpa\",\n     \"@id\": \"veniam adipisicing labore\",\n     \"@type\": \"culpa labore reprehenderit\",\n     \"id\": \"urn:uuid:32469ae4-485f-1fba-a9fe-5397dca00e89\",\n     \"omschrijving\": \"do laborum ut ullamco\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": -27940037,\n   \"datumEersteInschrijvingGBA\": \"id proident v\",\n   \"kiesrecht\": \"qui sed\",\n   \"inOnderzoek\": {\n    \"@context\": \"mollit in in\",\n    \"@id\": \"ut cupidatat\",\n    \"@type\": \"sunt ipsum dolor adipisicing velit\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"aliqua amet ut magna\",\n     \"@id\": \"dolore\",\n     \"@type\": \"dolor cupidatat irure consequat\",\n     \"uuid\": \"urn:uuid:8b3359d3-6ccb-ff64-d372-e0ffe63eda25\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"aliqua anim\",\n     \"@id\": \"fugiat Excepteur elit ipsum\",\n     \"@type\": \"reprehenderit Ut sint\",\n     \"uuid\": \"4689ec41-c007-0c1f-7c38-60517e5f386f\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"in incididunt in id sed\",\n    \"@context\": \"adipisicing\",\n    \"@id\": \"reprehenderit voluptate\",\n    \"@type\": \"mollit nisi amet et Excepteur\",\n    \"uuid\": \"fbec1ad8-c7d1-9c63-31e4-77e6a577884f\",\n    \"datum\": {\n     \"@context\": \"enim sed in\",\n     \"@id\": \"aliquip amet nisi qui\",\n     \"@type\": \"in eiusmod dolor dolore magna\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"elit Lorem qui dolore nisi\",\n    \"@id\": \"adipisicing\",\n    \"@type\": \"consequat Lorem\",\n    \"uuid\": \"20075e88-806b-b6cb-64be-f5ecfb9a9988\",\n    \"datum\": {\n     \"@context\": \"velit ut veniam exercitation\",\n     \"@id\": \"elit ex Lorem proident\",\n     \"@type\": \"voluptate\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"aliqua\",\n    \"@id\": \"Duis dolor ea mollit\",\n    \"@type\": \"dolor cupidatat sunt\",\n    \"uuid\": \"4708b071-4e6e-249e-cfb9-bcb5cd9e4e2e\",\n    \"aanduidingBijHuisnummer\": \"tempor proident eu\",\n    \"funtieAdres\": \"exercitation eiusmod reprehenderit\",\n    \"huisletter\": \"et sit pariatur\",\n    \"huisnummer\": 14273210,\n    \"huisnummertoevoeging\": \"tempor labore\",\n    \"identificatiecodeNummeraanduiding\": \"sunt in dolor Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"commodo anim ad cupidatat\",\n    \"indentificatieVestigingVanuitBuitenland\": false,\n    \"locatiebeschrijving\": \"tempor eu\",\n    \"naamOpenbareRuimte\": \"cillum anim aliquip\",\n    \"postcode\": \"culpa irure voluptate elit\",\n    \"straatnaam\": \"proident dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": true,\n    \"woonplaatsnaam\": \"cupidatat exerci\",\n    \"datumAanvangAdreshouding\": \"eiusmod laborum\",\n    \"datumIngangGeldigheid\": \"do\",\n    \"datumInschrijvingInGemeente\": \"proident est nostrud pariatur Excepteur\",\n    \"datumVestigingInNederland\": \"Duis pariatur occaecat qui\",\n    \"gemeenteVanInschrijving\": \"in eiusmod a\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"sint esse dolor\",\n     \"@context\": \"anim\",\n     \"@id\": \"ipsum sit sint exercitation labore\",\n     \"@type\": \"mollit exercitation anim non\",\n     \"id\": \"948013bc-754e-21d4-9a5e-d451c2191700\",\n     \"omschrijving\": \"eiusmod exercitation tempor\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 49407843\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"proident amet do ullamco\",\n    \"@id\": \"ut\",\n    \"@type\": \"Excepteur amet aliquip\",\n    \"uuid\": \"urn:uuid:c60b06a1-15b9-46dc-5398-6ed9796b8bc6\",\n    \"indicatieGezagMinderjarige\": \"magna in officia\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"Lorem\",\n    \"@id\": \"exercitation ut\",\n    \"@type\": \"elit mollit voluptate Lorem\",\n    \"uuid\": \"0294f5c0-b7c7-ac93-9e1a-556f7bd1d464\",\n    \"datumEinde\": \"aliquip anim pariatur\",\n    \"datumIngang\": \"fugiat nulla dolore adipisicing\",\n    \"inOnderzoek\": {}\n   }\n  },\n  {\n   \"burgerservicenummer\": \"cupidatat\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"laboris aute\",\n   \"@context\": \"dolor elit Excepteur sed\",\n   \"@id\": \"nostrud ipsum et minim\",\n   \"@type\": \"non esse dolor\",\n   \"id\": \"urn:uuid:e8b7dc66-6ef8-a7ee-7049-f7c4477f8cd0\",\n   \"naam\": {\n    \"geslachtsnaam\": \"labore elit laborum ullamc\",\n    \"voorletters\": \"dolor ut commodo magna elit\",\n    \"voornamen\": \"enim esse\",\n    \"voorvoegsel\": \"officia nostrud incididunt\",\n    \"aanhef\": \"cupidatat dolore ullamco non\",\n    \"gebuikInLopendeTekst\": \"Duis\",\n    \"@context\": \"fugiat\",\n    \"@id\": \"in qui veniam\",\n    \"@type\": \"sit\",\n    \"uuid\": \"urn:uuid:8649caaa-80f4-1b2f-331c-da0e31b7d013\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"eu aliquip do in\"\n   },\n   \"geboorte\": {\n    \"@context\": \"sed\",\n    \"@id\": \"sed et do\",\n    \"@type\": \"ullamco ad Excepteur\",\n    \"uuid\": \"urn:uuid:732b6b99-c041-dd07-8d43-b0a40a343c40\",\n    \"land\": {\n     \"code\": \"tempor id labore Excepteur\",\n     \"@context\": \"Excepteur proident Lorem sed\",\n     \"@id\": \"in ex\",\n     \"@type\": \"aute dolo\",\n     \"id\": \"a5f9ace7-597b-7e82-1609-9d4b87d79d8d\",\n     \"omschrijving\": \"amet aliqua\"\n    },\n    \"plaats\": {\n     \"code\": \"ullamco quis\",\n     \"@context\": \"ea nisi enim\",\n     \"@id\": \"tempor aliqua \",\n     \"@type\": \"dolor deserunt\",\n     \"id\": \"965edd31-a7b3-5417-6408-33fdacab4c61\",\n     \"omschrijving\": \"aute sed nisi aliquip\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": 64988554,\n   \"datumEersteInschrijvingGBA\": \"laborum elit\",\n   \"kiesrecht\": \"minim\",\n   \"inOnderzoek\": {\n    \"@context\": \"elit enim\",\n    \"@id\": \"laborum elit eu ullamco\",\n    \"@type\": \"qui pariatur\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"proident ad officia\",\n     \"@id\": \"pariatur qui cillum dolore\",\n     \"@type\": \"et\",\n     \"uuid\": \"4853d407-e728-82d2-135c-ffef921c1b76\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"sed\",\n     \"@id\": \"nisi incididunt\",\n     \"@type\": \"enim\",\n     \"uuid\": \"80b11fba-f9e6-ef5e-36d2-4c4fcf204d78\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"deserunt labore Duis ut\",\n    \"@context\": \"voluptate fugi\",\n    \"@id\": \"adipisicing sed\",\n    \"@type\": \"et ipsum consequat anim aliquip\",\n    \"uuid\": \"46677ffd-8b13-e810-d014-09c95489d32e\",\n    \"datum\": {\n     \"@context\": \"Ut Excepteur\",\n     \"@id\": \"elit in\",\n     \"@type\": \"tempor dolor\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"culpa\",\n    \"@id\": \"cillum\",\n    \"@type\": \"cillum officia reprehenderit ullamco\",\n    \"uuid\": \"urn:uuid:46f6c910-f579-ae05-a3d2-5181ca0ee8df\",\n    \"datum\": {\n     \"@context\": \"in aliquip elit dolore\",\n     \"@id\": \"in est non\",\n     \"@type\": \"est ex in\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"dolor aute\",\n    \"@id\": \"adipisicing exercitation\",\n    \"@type\": \"dolor consectetur elit mollit\",\n    \"uuid\": \"urn:uuid:82520cc9-2b46-e1e9-e521-00602407dc2a\",\n    \"aanduidingBijHuisnummer\": \"Duis\",\n    \"funtieAdres\": \"sit cupidatat ipsum\",\n    \"huisletter\": \"commodo dolor est\",\n    \"huisnummer\": 72113105,\n    \"huisnummertoevoeging\": \"consectetur si\",\n    \"identificatiecodeNummeraanduiding\": \"incididunt deserunt dolore Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"dolore in qui\",\n    \"indentificatieVestigingVanuitBuitenland\": true,\n    \"locatiebeschrijving\": \"dolore\",\n    \"naamOpenbareRuimte\": \"deserunt magna\",\n    \"postcode\": \"ex anim\",\n    \"straatnaam\": \"dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": false,\n    \"woonplaatsnaam\": \"ea occaecat Lorem quis\",\n    \"datumAanvangAdreshouding\": \"enim cillum ad adipisicing occa\",\n    \"datumIngangGeldigheid\": \"qui est voluptate\",\n    \"datumInschrijvingInGemeente\": \"reprehenderit\",\n    \"datumVestigingInNederland\": \"ex veniam\",\n    \"gemeenteVanInschrijving\": \"nulla dolor\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"nulla exercitation\",\n     \"@context\": \"commodo aliquip incidi\",\n     \"@id\": \"nisi Ut dolor\",\n     \"@type\": \"enim\",\n     \"id\": \"866cfdc3-5a92-d7d2-3ad1-0dbc9028e216\",\n     \"omschrijving\": \"id sit\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 77408655\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"id et ex\",\n    \"@id\": \"aliqua laboris ut occaecat\",\n    \"@type\": \"in nulla Ut sint\",\n    \"uuid\": \"53de99f8-8d40-4621-df4c-dd43fc2f5ae9\",\n    \"indicatieGezagMinderjarige\": \"veniam sed in magna\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"laboris\",\n    \"@id\": \"pariatur ut nisi quis adipisicing\",\n    \"@type\": \"laboris tempor dolor eiu\",\n    \"uuid\": \"67a383d7-ab1d-cfdf-708d-01aa45da8212\",\n    \"datumEinde\": \"qui voluptate\",\n    \"datumIngang\": \"dolore cillum\",\n    \"inOnderzoek\": {}\n   }\n  }\n ],\n \"hydra:totalItems\": 54838058,\n \"hydra:view\": {\n  \"@id\": \"anim sit elit\",\n  \"@type\": \"id et ut\",\n  \"hydra:first\": \"Lorem do nisi\",\n  \"hydra:last\": \"reprehenderit\",\n  \"hydra:next\": \"quis eiusmod minim\"\n },\n \"hydra:search\": {\n  \"@type\": \"nostrud velit eu\",\n  \"hydra:template\": \"officia\",\n  \"hydra:variableRepresentation\": \"amet qui fugiat laboris\",\n  \"hydra:mapping\": [\n   {\n    \"@type\": \"ut dolore amet aliquip et\",\n    \"variable\": \"\",\n    \"property\": \"sit laborum sint commodo\",\n    \"required\": false\n   },\n   {\n    \"@type\": \"laboris nostrud\",\n    \"variable\": \"cupidatat\",\n    \"property\": \"Excepteur Ut dolore consectetur\",\n    \"required\": false\n   }\n  ]\n }\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieves the collection of Ingeschrevenpersoon resources.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// example using pm.response.to.have\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// example using response assertions\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"// example using pm.response.to.be*\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "The JWT of the entity performing the request",
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+								"key": "API-Version",
+								"value": ""
+							},
+							{
+								"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+								"key": "X-NLX-Logrecord-ID",
+								"value": ""
+							},
+							{
+								"description": "A process id for purpose registration (doelbinding)",
+								"key": "X-NLX-Request-Process-Id",
+								"value": ""
+							},
+							{
+								"description": "A list of requested data elements",
+								"key": "X-NLX-Request-Data-Elements",
+								"value": ""
+							},
+							{
+								"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+								"key": "X-NLX-Request-Data-Subject",
+								"value": ""
+							},
+							{
+								"description": "A clarification as to why a request has been made  (doelbinding)",
+								"key": "X-NLX-Audit-Clarification",
+								"value": ""
+							},
+							{
+								"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+								"key": "Link",
+								"value": ""
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/ingeschrevenpersonen/{{ingeschrevenPersoon}}/partners",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingeschrevenpersonen",
+								"{{ingeschrevenPersoon}}",
+								"partners"
+							],
+							"query": [
+								{
+									"key": "geboorte.datum",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.datum[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geboorte.plaats.omschrijving",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "geslachtsaanduiding[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "burgerservicenummer[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.geslachtsnaam",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voornamen",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "naam.voorvoegsel",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.postcode[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummer[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisnummertoevoeging[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "verblijfplaats.huisletter[]",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "The collection page number",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "30",
+									"description": "The number of items per page",
+									"disabled": true
+								},
+								{
+									"key": "extend[]",
+									"value": "<array>",
+									"description": "An array of nested objects to include in the return object",
+									"disabled": true
+								},
+								{
+									"key": "fields[]",
+									"value": "<array>",
+									"description": "An array of fields to return in output, wil return all fields is not supplied",
+									"disabled": true
+								},
+								{
+									"key": "validOn",
+									"value": "<dateTime>",
+									"description": "Returns object as valid on a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validFrom",
+									"value": "<dateTime>",
+									"description": "Returns objects valid from a given date time",
+									"disabled": true
+								},
+								{
+									"key": "validUntil",
+									"value": "<dateTime>",
+									"description": "Returns objects valid until a given date time",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ingeschrevenpersoon collection response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "The JWT of the entity performing the request",
+										"key": "Authorization",
+										"value": ""
+									},
+									{
+										"description": "The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)",
+										"key": "API-Version",
+										"value": ""
+									},
+									{
+										"description": "A  globally unique id of the request, which makes a request traceable throughout the network.",
+										"key": "X-NLX-Logrecord-ID",
+										"value": ""
+									},
+									{
+										"description": "A process id for purpose registration (doelbinding)",
+										"key": "X-NLX-Request-Process-Id",
+										"value": ""
+									},
+									{
+										"description": "A list of requested data elements",
+										"key": "X-NLX-Request-Data-Elements",
+										"value": ""
+									},
+									{
+										"description": "A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`",
+										"key": "X-NLX-Request-Data-Subject",
+										"value": ""
+									},
+									{
+										"description": "A clarification as to why a request has been made  (doelbinding)",
+										"key": "X-NLX-Audit-Clarification",
+										"value": ""
+									},
+									{
+										"description": "A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel=\"hub\"",
+										"key": "Link",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/ingeschrevenpersonen/:burgerservicenummer/partners?geboorte.datum=<string>&geboorte.datum[]=<string>&geboorte.datum[]=<string>&geboorte.plaats.omschrijving=<string>&geslachtsaanduiding=<string>&geslachtsaanduiding[]=<string>&geslachtsaanduiding[]=<string>&burgerservicenummer=<string>&burgerservicenummer[]=<string>&burgerservicenummer[]=<string>&naam.geslachtsnaam=<string>&naam.voornamen=<string>&naam.voorvoegsel=<string>&verblijfplaats.postcode=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.postcode[]=<string>&verblijfplaats.huisnummer=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummer[]=<integer>&verblijfplaats.huisnummertoevoeging=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisnummertoevoeging[]=<string>&verblijfplaats.huisletter=<string>&verblijfplaats.huisletter[]=<string>&verblijfplaats.huisletter[]=<string>&page=1&limit=30&extend[]=<array>&fields[]=<array>&validOn=<dateTime>&validFrom=<dateTime>&validUntil=<dateTime>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ingeschrevenpersonen",
+										":burgerservicenummer",
+										"partners"
+									],
+									"query": [
+										{
+											"key": "geboorte.datum",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.datum[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geboorte.plaats.omschrijving",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "geslachtsaanduiding[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "burgerservicenummer[]",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.geslachtsnaam",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voornamen",
+											"value": "<string>"
+										},
+										{
+											"key": "naam.voorvoegsel",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.postcode[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummer[]",
+											"value": "<integer>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisnummertoevoeging[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "verblijfplaats.huisletter[]",
+											"value": "<string>"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "30"
+										},
+										{
+											"key": "extend[]",
+											"value": "<array>"
+										},
+										{
+											"key": "fields[]",
+											"value": "<array>"
+										},
+										{
+											"key": "validOn",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validFrom",
+											"value": "<dateTime>"
+										},
+										{
+											"key": "validUntil",
+											"value": "<dateTime>"
+										}
+									],
+									"variable": [
+										{
+											"key": "burgerservicenummer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/ld+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"hydra:member\": [\n  {\n   \"burgerservicenummer\": \"Ut ad Lorem\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"Excepteur veniam aliquip\",\n   \"@context\": \"aliquip tempor\",\n   \"@id\": \"fugiat officia\",\n   \"@type\": \"sit enim veniam\",\n   \"id\": \"urn:uuid:a43a94b9-b40c-738d-c046-ac9d90be7597\",\n   \"naam\": {\n    \"geslachtsnaam\": \"fugiat\",\n    \"voorletters\": \"reprehenderit in in ipsum\",\n    \"voornamen\": \"id consectetur amet dolor\",\n    \"voorvoegsel\": \"qui \",\n    \"aanhef\": \"dolore\",\n    \"gebuikInLopendeTekst\": \"nostrud et officia non\",\n    \"@context\": \"anim et e\",\n    \"@id\": \"laboris ut\",\n    \"@type\": \"nulla elit\",\n    \"uuid\": \"urn:uuid:cfae45c2-54ca-080a-7a32-1ba9a64a47b8\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"ad amet commodo mollit sint\"\n   },\n   \"geboorte\": {\n    \"@context\": \"Lorem quis veniam reprehenderit laboris\",\n    \"@id\": \"cillum ea ut labore sint\",\n    \"@type\": \"occaecat\",\n    \"uuid\": \"urn:uuid:ebba4578-586a-e805-e2cb-731f3573f6b2\",\n    \"land\": {\n     \"code\": \"deserunt laborum qui\",\n     \"@context\": \"irure cillum\",\n     \"@id\": \"quis dolor esse pariatur\",\n     \"@type\": \"nostrud velit sed exercitation\",\n     \"id\": \"urn:uuid:87de0b91-70c3-b7af-cb05-21078d3a17fd\",\n     \"omschrijving\": \"in in laboris\"\n    },\n    \"plaats\": {\n     \"code\": \"adipisicing aute nulla consequat irure\",\n     \"@context\": \"fugiat id in culpa\",\n     \"@id\": \"veniam adipisicing labore\",\n     \"@type\": \"culpa labore reprehenderit\",\n     \"id\": \"urn:uuid:32469ae4-485f-1fba-a9fe-5397dca00e89\",\n     \"omschrijving\": \"do laborum ut ullamco\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": -27940037,\n   \"datumEersteInschrijvingGBA\": \"id proident v\",\n   \"kiesrecht\": \"qui sed\",\n   \"inOnderzoek\": {\n    \"@context\": \"mollit in in\",\n    \"@id\": \"ut cupidatat\",\n    \"@type\": \"sunt ipsum dolor adipisicing velit\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"aliqua amet ut magna\",\n     \"@id\": \"dolore\",\n     \"@type\": \"dolor cupidatat irure consequat\",\n     \"uuid\": \"urn:uuid:8b3359d3-6ccb-ff64-d372-e0ffe63eda25\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"aliqua anim\",\n     \"@id\": \"fugiat Excepteur elit ipsum\",\n     \"@type\": \"reprehenderit Ut sint\",\n     \"uuid\": \"4689ec41-c007-0c1f-7c38-60517e5f386f\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"in incididunt in id sed\",\n    \"@context\": \"adipisicing\",\n    \"@id\": \"reprehenderit voluptate\",\n    \"@type\": \"mollit nisi amet et Excepteur\",\n    \"uuid\": \"fbec1ad8-c7d1-9c63-31e4-77e6a577884f\",\n    \"datum\": {\n     \"@context\": \"enim sed in\",\n     \"@id\": \"aliquip amet nisi qui\",\n     \"@type\": \"in eiusmod dolor dolore magna\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"elit Lorem qui dolore nisi\",\n    \"@id\": \"adipisicing\",\n    \"@type\": \"consequat Lorem\",\n    \"uuid\": \"20075e88-806b-b6cb-64be-f5ecfb9a9988\",\n    \"datum\": {\n     \"@context\": \"velit ut veniam exercitation\",\n     \"@id\": \"elit ex Lorem proident\",\n     \"@type\": \"voluptate\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"aliqua\",\n    \"@id\": \"Duis dolor ea mollit\",\n    \"@type\": \"dolor cupidatat sunt\",\n    \"uuid\": \"4708b071-4e6e-249e-cfb9-bcb5cd9e4e2e\",\n    \"aanduidingBijHuisnummer\": \"tempor proident eu\",\n    \"funtieAdres\": \"exercitation eiusmod reprehenderit\",\n    \"huisletter\": \"et sit pariatur\",\n    \"huisnummer\": 14273210,\n    \"huisnummertoevoeging\": \"tempor labore\",\n    \"identificatiecodeNummeraanduiding\": \"sunt in dolor Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"commodo anim ad cupidatat\",\n    \"indentificatieVestigingVanuitBuitenland\": false,\n    \"locatiebeschrijving\": \"tempor eu\",\n    \"naamOpenbareRuimte\": \"cillum anim aliquip\",\n    \"postcode\": \"culpa irure voluptate elit\",\n    \"straatnaam\": \"proident dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": true,\n    \"woonplaatsnaam\": \"cupidatat exerci\",\n    \"datumAanvangAdreshouding\": \"eiusmod laborum\",\n    \"datumIngangGeldigheid\": \"do\",\n    \"datumInschrijvingInGemeente\": \"proident est nostrud pariatur Excepteur\",\n    \"datumVestigingInNederland\": \"Duis pariatur occaecat qui\",\n    \"gemeenteVanInschrijving\": \"in eiusmod a\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"sint esse dolor\",\n     \"@context\": \"anim\",\n     \"@id\": \"ipsum sit sint exercitation labore\",\n     \"@type\": \"mollit exercitation anim non\",\n     \"id\": \"948013bc-754e-21d4-9a5e-d451c2191700\",\n     \"omschrijving\": \"eiusmod exercitation tempor\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 49407843\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"proident amet do ullamco\",\n    \"@id\": \"ut\",\n    \"@type\": \"Excepteur amet aliquip\",\n    \"uuid\": \"urn:uuid:c60b06a1-15b9-46dc-5398-6ed9796b8bc6\",\n    \"indicatieGezagMinderjarige\": \"magna in officia\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"Lorem\",\n    \"@id\": \"exercitation ut\",\n    \"@type\": \"elit mollit voluptate Lorem\",\n    \"uuid\": \"0294f5c0-b7c7-ac93-9e1a-556f7bd1d464\",\n    \"datumEinde\": \"aliquip anim pariatur\",\n    \"datumIngang\": \"fugiat nulla dolore adipisicing\",\n    \"inOnderzoek\": {}\n   }\n  },\n  {\n   \"burgerservicenummer\": \"cupidatat\",\n   \"geheimhoudingPersoonsgegevens\": false,\n   \"geslachtsaanduiding\": \"laboris aute\",\n   \"@context\": \"dolor elit Excepteur sed\",\n   \"@id\": \"nostrud ipsum et minim\",\n   \"@type\": \"non esse dolor\",\n   \"id\": \"urn:uuid:e8b7dc66-6ef8-a7ee-7049-f7c4477f8cd0\",\n   \"naam\": {\n    \"geslachtsnaam\": \"labore elit laborum ullamc\",\n    \"voorletters\": \"dolor ut commodo magna elit\",\n    \"voornamen\": \"enim esse\",\n    \"voorvoegsel\": \"officia nostrud incididunt\",\n    \"aanhef\": \"cupidatat dolore ullamco non\",\n    \"gebuikInLopendeTekst\": \"Duis\",\n    \"@context\": \"fugiat\",\n    \"@id\": \"in qui veniam\",\n    \"@type\": \"sit\",\n    \"uuid\": \"urn:uuid:8649caaa-80f4-1b2f-331c-da0e31b7d013\",\n    \"inOnderzoek\": {},\n    \"aanschrijfwijze\": \"eu aliquip do in\"\n   },\n   \"geboorte\": {\n    \"@context\": \"sed\",\n    \"@id\": \"sed et do\",\n    \"@type\": \"ullamco ad Excepteur\",\n    \"uuid\": \"urn:uuid:732b6b99-c041-dd07-8d43-b0a40a343c40\",\n    \"land\": {\n     \"code\": \"tempor id labore Excepteur\",\n     \"@context\": \"Excepteur proident Lorem sed\",\n     \"@id\": \"in ex\",\n     \"@type\": \"aute dolo\",\n     \"id\": \"a5f9ace7-597b-7e82-1609-9d4b87d79d8d\",\n     \"omschrijving\": \"amet aliqua\"\n    },\n    \"plaats\": {\n     \"code\": \"ullamco quis\",\n     \"@context\": \"ea nisi enim\",\n     \"@id\": \"tempor aliqua \",\n     \"@type\": \"dolor deserunt\",\n     \"id\": \"965edd31-a7b3-5417-6408-33fdacab4c61\",\n     \"omschrijving\": \"aute sed nisi aliquip\"\n    },\n    \"datum\": {\n     \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"leeftijd\": 64988554,\n   \"datumEersteInschrijvingGBA\": \"laborum elit\",\n   \"kiesrecht\": \"minim\",\n   \"inOnderzoek\": {\n    \"@context\": \"elit enim\",\n    \"@id\": \"laborum elit eu ullamco\",\n    \"@type\": \"qui pariatur\"\n   },\n   \"nationaliteit\": [\n    {\n     \"@context\": \"proident ad officia\",\n     \"@id\": \"pariatur qui cillum dolore\",\n     \"@type\": \"et\",\n     \"uuid\": \"4853d407-e728-82d2-135c-ffef921c1b76\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    },\n    {\n     \"@context\": \"sed\",\n     \"@id\": \"nisi incididunt\",\n     \"@type\": \"enim\",\n     \"uuid\": \"80b11fba-f9e6-ef5e-36d2-4c4fcf204d78\",\n     \"ingeschrevenpersoon\": {\n      \"value\": \"<Circular reference to #/components/schemas/Ingeschrevenpersoon:jsonld-read detected>\"\n     }\n    }\n   ],\n   \"opschortingBijhouding\": {\n    \"reden\": \"deserunt labore Duis ut\",\n    \"@context\": \"voluptate fugi\",\n    \"@id\": \"adipisicing sed\",\n    \"@type\": \"et ipsum consequat anim aliquip\",\n    \"uuid\": \"46677ffd-8b13-e810-d014-09c95489d32e\",\n    \"datum\": {\n     \"@context\": \"Ut Excepteur\",\n     \"@id\": \"elit in\",\n     \"@type\": \"tempor dolor\"\n    }\n   },\n   \"overlijden\": {\n    \"indicatieOverleden\": false,\n    \"@context\": \"culpa\",\n    \"@id\": \"cillum\",\n    \"@type\": \"cillum officia reprehenderit ullamco\",\n    \"uuid\": \"urn:uuid:46f6c910-f579-ae05-a3d2-5181ca0ee8df\",\n    \"datum\": {\n     \"@context\": \"in aliquip elit dolore\",\n     \"@id\": \"in est non\",\n     \"@type\": \"est ex in\"\n    },\n    \"inOnderzoek\": {}\n   },\n   \"verblijfplaats\": {\n    \"@context\": \"dolor aute\",\n    \"@id\": \"adipisicing exercitation\",\n    \"@type\": \"dolor consectetur elit mollit\",\n    \"uuid\": \"urn:uuid:82520cc9-2b46-e1e9-e521-00602407dc2a\",\n    \"aanduidingBijHuisnummer\": \"Duis\",\n    \"funtieAdres\": \"sit cupidatat ipsum\",\n    \"huisletter\": \"commodo dolor est\",\n    \"huisnummer\": 72113105,\n    \"huisnummertoevoeging\": \"consectetur si\",\n    \"identificatiecodeNummeraanduiding\": \"incididunt deserunt dolore Lorem\",\n    \"identificatiecodeVerblijfplaats\": \"dolore in qui\",\n    \"indentificatieVestigingVanuitBuitenland\": true,\n    \"locatiebeschrijving\": \"dolore\",\n    \"naamOpenbareRuimte\": \"deserunt magna\",\n    \"postcode\": \"ex anim\",\n    \"straatnaam\": \"dolore\",\n    \"vanuitVertrokkenOnbekendWaarheen\": false,\n    \"woonplaatsnaam\": \"ea occaecat Lorem quis\",\n    \"datumAanvangAdreshouding\": \"enim cillum ad adipisicing occa\",\n    \"datumIngangGeldigheid\": \"qui est voluptate\",\n    \"datumInschrijvingInGemeente\": \"reprehenderit\",\n    \"datumVestigingInNederland\": \"ex veniam\",\n    \"gemeenteVanInschrijving\": \"nulla dolor\",\n    \"landVanwaarIngeschreven\": {\n     \"code\": \"nulla exercitation\",\n     \"@context\": \"commodo aliquip incidi\",\n     \"@id\": \"nisi Ut dolor\",\n     \"@type\": \"enim\",\n     \"id\": \"866cfdc3-5a92-d7d2-3ad1-0dbc9028e216\",\n     \"omschrijving\": \"id sit\"\n    },\n    \"verblijfBuitenland\": {\n     \"@context\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"@type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresregel1\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel2\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"adresRegel3\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     },\n     \"vertrokkenOnbekendWaarheen\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n     }\n    },\n    \"inOnderzoek\": {},\n    \"bagId\": 77408655\n   },\n   \"gezagsverhouding\": {\n    \"indicatieCurateleRegister\": false,\n    \"@context\": \"id et ex\",\n    \"@id\": \"aliqua laboris ut occaecat\",\n    \"@type\": \"in nulla Ut sint\",\n    \"uuid\": \"53de99f8-8d40-4621-df4c-dd43fc2f5ae9\",\n    \"indicatieGezagMinderjarige\": \"veniam sed in magna\",\n    \"inOnderzoek\": {}\n   },\n   \"verblijfstitel\": {\n    \"@context\": \"laboris\",\n    \"@id\": \"pariatur ut nisi quis adipisicing\",\n    \"@type\": \"laboris tempor dolor eiu\",\n    \"uuid\": \"67a383d7-ab1d-cfdf-708d-01aa45da8212\",\n    \"datumEinde\": \"qui voluptate\",\n    \"datumIngang\": \"dolore cillum\",\n    \"inOnderzoek\": {}\n   }\n  }\n ],\n \"hydra:totalItems\": 54838058,\n \"hydra:view\": {\n  \"@id\": \"anim sit elit\",\n  \"@type\": \"id et ut\",\n  \"hydra:first\": \"Lorem do nisi\",\n  \"hydra:last\": \"reprehenderit\",\n  \"hydra:next\": \"quis eiusmod minim\"\n },\n \"hydra:search\": {\n  \"@type\": \"nostrud velit eu\",\n  \"hydra:template\": \"officia\",\n  \"hydra:variableRepresentation\": \"amet qui fugiat laboris\",\n  \"hydra:mapping\": [\n   {\n    \"@type\": \"ut dolore amet aliquip et\",\n    \"variable\": \"\",\n    \"property\": \"sit laborum sint commodo\",\n    \"required\": false\n   },\n   {\n    \"@type\": \"laboris nostrud\",\n    \"variable\": \"cupidatat\",\n    \"property\": \"Excepteur Ut dolore consectetur\",\n    \"required\": false\n   }\n  ]\n }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{authorization}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost"
+		},
+		{
+			"key": "authorization",
+			"value": "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
+		}
+	]
+}
