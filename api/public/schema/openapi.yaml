@@ -15435,8 +15435,11 @@ components:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
         kiesrecht:
+          description: 'Wether the ingeschreven persoon has the right to vote'
           type: string
-        inOnderzoek: {  }
+        inOnderzoek:
+          description: 'If the ingeschreven persoon is being investigated, and the properties of that investigation'
+          $ref: '#/components/schemas/UnderInvestigation-read'
         nationaliteit:
           description: 'Nationaliteit of this ingeschreven persoon'
           type: array
@@ -15454,7 +15457,7 @@ components:
             -
               $ref: '#/components/schemas/Overlijden-read'
         verblijfplaats:
-          description: 'Checks if ingeschreven persoon is overlijden'
+          description: 'the residence of the ingeschrevenpersoon'
           nullable: true
           anyOf:
             -
@@ -15504,8 +15507,11 @@ components:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
         kiesrecht:
+          description: 'Wether the ingeschreven persoon has the right to vote'
           type: string
-        inOnderzoek: {  }
+        inOnderzoek:
+          description: 'If the ingeschreven persoon is being investigated, and the properties of that investigation'
+          $ref: '#/components/schemas/UnderInvestigation-write'
         nationaliteit:
           description: 'Nationaliteit of this ingeschreven persoon'
           type: array
@@ -15523,7 +15529,7 @@ components:
             -
               $ref: '#/components/schemas/Overlijden-write'
         verblijfplaats:
-          description: 'Checks if ingeschreven persoon is overlijden'
+          description: 'the residence of the ingeschrevenpersoon'
           nullable: true
           anyOf:
             -
@@ -15578,8 +15584,11 @@ components:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
         kiesrecht:
+          description: 'Wether the ingeschreven persoon has the right to vote'
           type: string
-        inOnderzoek: {  }
+        inOnderzoek:
+          description: 'If the ingeschreven persoon is being investigated, and the properties of that investigation'
+          $ref: '#/components/schemas/UnderInvestigation:jsonld-read'
         nationaliteit:
           description: 'Nationaliteit of this ingeschreven persoon'
           type: array
@@ -15597,7 +15606,7 @@ components:
             -
               $ref: '#/components/schemas/Overlijden:jsonld-read'
         verblijfplaats:
-          description: 'Checks if ingeschreven persoon is overlijden'
+          description: 'the residence of the ingeschrevenpersoon'
           nullable: true
           anyOf:
             -
@@ -15656,8 +15665,11 @@ components:
           description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
           type: string
         kiesrecht:
+          description: 'Wether the ingeschreven persoon has the right to vote'
           type: string
-        inOnderzoek: {  }
+        inOnderzoek:
+          description: 'If the ingeschreven persoon is being investigated, and the properties of that investigation'
+          $ref: '#/components/schemas/UnderInvestigation:jsonld-write'
         nationaliteit:
           description: 'Nationaliteit of this ingeschreven persoon'
           type: array
@@ -15675,7 +15687,7 @@ components:
             -
               $ref: '#/components/schemas/Overlijden:jsonld-write'
         verblijfplaats:
-          description: 'Checks if ingeschreven persoon is overlijden'
+          description: 'the residence of the ingeschrevenpersoon'
           nullable: true
           anyOf:
             -
@@ -16442,6 +16454,34 @@ components:
         reisdocumentnummer:
           description: 'Reisdocumentnummer of this Reisdocument'
           type: string
+    UnderInvestigation-read:
+      type: object
+    UnderInvestigation-write:
+      type: object
+    'UnderInvestigation:jsonld-read':
+      type: object
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+    'UnderInvestigation:jsonld-write':
+      type: object
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
     VerblijfBuitenland-read:
       type: object
       description: ''
@@ -17067,197 +17107,67 @@ definitions:
         type: \Partner
         example: John
     required: []
-  Geboorte-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      datum:
-        description: 'Datum this person is born at'
-        type: \IncompleteDate
-        example: 01-01-2000
-      inOnderzoek: []
-      land:
-        description: 'Land this person is born in'
-        type: string
-        example: 'The Netherlands'
-      plaats:
-        description: 'Plaats this person is born in'
-        type: string
-        example: Amsterdam
-    required: []
-  Geboorte-write:
-    properties:
-      datum:
-        description: 'Datum this person is born at'
-        type: \IncompleteDate
-        example: 01-01-2000
-      inOnderzoek: []
-      land:
-        description: 'Land this person is born in'
-        type: string
-        example: 'The Netherlands'
-      plaats:
-        description: 'Plaats this person is born in'
-        type: string
-        example: Amsterdam
-    required: []
-  Gezagsverhouding-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      indicatieCurateleRegister: []
-      indicatieGezagMinderjarige:
-        maxLength: 255
-      inOnderzoek: []
-    required: []
-  Gezagsverhouding-write:
-    properties:
-      indicatieCurateleRegister: []
-      indicatieGezagMinderjarige:
-        maxLength: 255
-      inOnderzoek: []
-    required: []
-  Ingeschrevenpersoon-read:
+  Waardetabel-read:
     properties:
       id:
         description: ''
         type: \UuidInterface
         example: e2984465-190a-4562-829e-a8cca81aa35d
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this ingeschreven persoon'
-        type: string
-        example: '123456782'
-        maxLength: 9
-      geheimhoudingPersoonsgegevens:
-        description: 'Geheim houding persoongegevens of this ingeschreven persoon'
-        type: bool
-        example: 'true'
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this ingeschreven persoon'
-        type: string
-        example: male
-        maxLength: 7
-      leeftijd:
-        description: 'Leeftijd of this ingeschreven persoon'
-        type: int
-        example: '18'
-      datumEersteInschrijvingGBA:
-        description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
-        type: string
-        example: 01-01-2000
-      kiesrecht: []
-      inOnderzoek: []
-      naam:
-        description: 'Naam of this ingeschreven persoon'
-        type: string
-        example: John
-      geboorte:
-        description: 'Geboorte of this ingeschreven persoon'
-        type: \Geboorte
-        example: 01-01-2000
-      nationaliteit:
-        description: 'Nationaliteit of this ingeschreven persoon'
-        type: string
-        example: Dutch
-      opschortingBijhouding: []
-      overlijden:
-        description: 'Checks if ingeschreven persoon is overlijden'
-        type: \Overlijden
-        example: 'false'
-      verblijfplaats:
-        description: 'Checks if ingeschreven persoon is overlijden'
-        type: \Overlijden
-        example: 'false'
-      gezagsverhouding: []
-      verblijfstitel: []
+      code:
+        maxLength: 255
+      omschrijving:
+        maxLength: 255
     required: []
-  Ingeschrevenpersoon-write:
+  Waardetabel-write:
     properties:
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this ingeschreven persoon'
-        type: string
-        example: '123456782'
-        maxLength: 9
-      geheimhoudingPersoonsgegevens:
-        description: 'Geheim houding persoongegevens of this ingeschreven persoon'
-        type: bool
-        example: 'true'
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this ingeschreven persoon'
-        type: string
-        example: male
-        maxLength: 7
-      leeftijd:
-        description: 'Leeftijd of this ingeschreven persoon'
-        type: int
-        example: '18'
-      datumEersteInschrijvingGBA:
-        description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
-        type: string
-        example: 01-01-2000
-      kiesrecht: []
-      inOnderzoek: []
-      naam:
-        description: 'Naam of this ingeschreven persoon'
-        type: string
-        example: John
-      geboorte:
-        description: 'Geboorte of this ingeschreven persoon'
-        type: \Geboorte
-        example: 01-01-2000
-      nationaliteit:
-        description: 'Nationaliteit of this ingeschreven persoon'
-        type: string
-        example: Dutch
-      opschortingBijhouding: []
-      overlijden:
-        description: 'Checks if ingeschreven persoon is overlijden'
-        type: \Overlijden
-        example: 'false'
-      verblijfplaats:
-        description: 'Checks if ingeschreven persoon is overlijden'
-        type: \Overlijden
-        example: 'false'
-      gezagsverhouding: []
-      verblijfstitel: []
+      code:
+        maxLength: 255
+      omschrijving:
+        maxLength: 255
     required: []
-  Kind-read:
+  Partner-read:
     properties:
       uuid:
         description: ''
         type: \UuidInterface
         example: e2984465-190a-4562-829e-a8cca81aa35d
-      leeftijd:
-        description: 'Leeftijd of this kind'
-        type: int
-        example: '14'
-      inOnderzoek: []
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this Partner'
+        type: string
+        example: '123456782'
+        maxLength: 9
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this Partner'
+        type: string
+        example: female
+        maxLength: 255
       naam:
-        description: 'NaamPersoon of this kind'
+        description: 'Naam of this Partner'
         type: \NaamPersoon
-        example: Michael
+        example: Jessica
       geboorte:
-        description: 'Geboorte of this kind'
+        description: 'Geboorte of this Partner'
         type: \Geboorte
         example: 01-01-2000
     required: []
-  Kind-write:
+  Partner-write:
     properties:
-      leeftijd:
-        description: 'Leeftijd of this kind'
-        type: int
-        example: '14'
-      inOnderzoek: []
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this Partner'
+        type: string
+        example: '123456782'
+        maxLength: 9
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this Partner'
+        type: string
+        example: female
+        maxLength: 255
       naam:
-        description: 'NaamPersoon of this kind'
+        description: 'Naam of this Partner'
         type: \NaamPersoon
-        example: Michael
+        example: Jessica
       geboorte:
-        description: 'Geboorte of this kind'
+        description: 'Geboorte of this Partner'
         type: \Geboorte
         example: 01-01-2000
     required: []
@@ -17335,6 +17245,174 @@ definitions:
         example: male
         maxLength: 255
     required: []
+  Geboorte-read:
+    properties:
+      uuid:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      datum:
+        description: 'Datum this person is born at'
+        type: \IncompleteDate
+        example: 01-01-2000
+      inOnderzoek: []
+      land:
+        description: 'Land this person is born in'
+        type: string
+        example: 'The Netherlands'
+      plaats:
+        description: 'Plaats this person is born in'
+        type: string
+        example: Amsterdam
+    required: []
+  Geboorte-write:
+    properties:
+      datum:
+        description: 'Datum this person is born at'
+        type: \IncompleteDate
+        example: 01-01-2000
+      inOnderzoek: []
+      land:
+        description: 'Land this person is born in'
+        type: string
+        example: 'The Netherlands'
+      plaats:
+        description: 'Plaats this person is born in'
+        type: string
+        example: Amsterdam
+    required: []
+  Ingeschrevenpersoon-read:
+    properties:
+      id:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this ingeschreven persoon'
+        type: string
+        example: '123456782'
+        maxLength: 9
+      geheimhoudingPersoonsgegevens:
+        description: 'Geheim houding persoongegevens of this ingeschreven persoon'
+        type: bool
+        example: 'true'
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this ingeschreven persoon'
+        type: string
+        example: male
+        maxLength: 7
+      leeftijd:
+        description: 'Leeftijd of this ingeschreven persoon'
+        type: int
+        example: '18'
+      datumEersteInschrijvingGBA:
+        description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
+        type: string
+        example: 01-01-2000
+      kiesrecht:
+        description: 'Wether the ingeschreven persoon has the right to vote'
+        type: bool
+        example: 'true'
+      inOnderzoek:
+        description: 'If the ingeschreven persoon is being investigated, and the properties of that investigation'
+        type: \UnderInvestigation
+      naam:
+        description: 'Naam of this ingeschreven persoon'
+        type: string
+        example: John
+      geboorte:
+        description: 'Geboorte of this ingeschreven persoon'
+        type: \Geboorte
+        example: 01-01-2000
+      nationaliteit:
+        description: 'Nationaliteit of this ingeschreven persoon'
+        type: string
+        example: Dutch
+      opschortingBijhouding: []
+      overlijden:
+        description: 'Checks if ingeschreven persoon is overlijden'
+        type: \Overlijden
+        example: 'false'
+      verblijfplaats:
+        description: 'the residence of the ingeschrevenpersoon'
+        type: \Verblijfplaats
+        example: 'false'
+      gezagsverhouding: []
+      verblijfstitel: []
+    required: []
+  Ingeschrevenpersoon-write:
+    properties:
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this ingeschreven persoon'
+        type: string
+        example: '123456782'
+        maxLength: 9
+      geheimhoudingPersoonsgegevens:
+        description: 'Geheim houding persoongegevens of this ingeschreven persoon'
+        type: bool
+        example: 'true'
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this ingeschreven persoon'
+        type: string
+        example: male
+        maxLength: 7
+      leeftijd:
+        description: 'Leeftijd of this ingeschreven persoon'
+        type: int
+        example: '18'
+      datumEersteInschrijvingGBA:
+        description: 'Datum eerste inschrijving gba of this ingeschreven persoon'
+        type: string
+        example: 01-01-2000
+      kiesrecht:
+        description: 'Wether the ingeschreven persoon has the right to vote'
+        type: bool
+        example: 'true'
+      inOnderzoek:
+        description: 'If the ingeschreven persoon is being investigated, and the properties of that investigation'
+        type: \UnderInvestigation
+      naam:
+        description: 'Naam of this ingeschreven persoon'
+        type: string
+        example: John
+      geboorte:
+        description: 'Geboorte of this ingeschreven persoon'
+        type: \Geboorte
+        example: 01-01-2000
+      nationaliteit:
+        description: 'Nationaliteit of this ingeschreven persoon'
+        type: string
+        example: Dutch
+      opschortingBijhouding: []
+      overlijden:
+        description: 'Checks if ingeschreven persoon is overlijden'
+        type: \Overlijden
+        example: 'false'
+      verblijfplaats:
+        description: 'the residence of the ingeschrevenpersoon'
+        type: \Verblijfplaats
+        example: 'false'
+      gezagsverhouding: []
+      verblijfstitel: []
+    required: []
+  Gezagsverhouding-read:
+    properties:
+      uuid:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      indicatieCurateleRegister: []
+      indicatieGezagMinderjarige:
+        maxLength: 255
+      inOnderzoek: []
+    required: []
+  Gezagsverhouding-write:
+    properties:
+      indicatieCurateleRegister: []
+      indicatieGezagMinderjarige:
+        maxLength: 255
+      inOnderzoek: []
+    required: []
   Nationaliteit-read:
     properties:
       uuid:
@@ -17375,66 +17453,6 @@ definitions:
         type: \IncompleteDate
         example: 01-01-2000
     required: []
-  Ouder-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this Ouder'
-        type: string
-        example: '123456782'
-        maxLength: 255
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this Ouder'
-        type: string
-        example: female
-        maxLength: 7
-      ouderAanduiding:
-        maxLength: 7
-      datumIngangFamilierechtelijkeBetreking:
-        description: 'Burgerservicenummer of this Ouder'
-        type: string
-        example: '123456782'
-      inOnderzoek: []
-      naam:
-        description: 'Naam of this Ouder'
-        type: \NaamPersoon
-        example: Joe
-      geboorte:
-        description: 'Geboorte of this Ouder'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
-  Ouder-write:
-    properties:
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this Ouder'
-        type: string
-        example: '123456782'
-        maxLength: 255
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this Ouder'
-        type: string
-        example: female
-        maxLength: 7
-      ouderAanduiding:
-        maxLength: 7
-      datumIngangFamilierechtelijkeBetreking:
-        description: 'Burgerservicenummer of this Ouder'
-        type: string
-        example: '123456782'
-      inOnderzoek: []
-      naam:
-        description: 'Naam of this Ouder'
-        type: \NaamPersoon
-        example: Joe
-      geboorte:
-        description: 'Geboorte of this Ouder'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
   Overlijden-read:
     properties:
       uuid:
@@ -17462,100 +17480,6 @@ definitions:
         type: \IncompleteDate
         example: 01-01-2000
       inOnderzoek: []
-    required: []
-  Partner-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this Partner'
-        type: string
-        example: '123456782'
-        maxLength: 9
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this Partner'
-        type: string
-        example: female
-        maxLength: 255
-      naam:
-        description: 'Naam of this Partner'
-        type: \NaamPersoon
-        example: Jessica
-      geboorte:
-        description: 'Geboorte of this Partner'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
-  Partner-write:
-    properties:
-      burgerservicenummer:
-        description: 'Burgerservicenummer of this Partner'
-        type: string
-        example: '123456782'
-        maxLength: 9
-      geslachtsaanduiding:
-        description: 'Geslachts aanduiding of this Partner'
-        type: string
-        example: female
-        maxLength: 255
-      naam:
-        description: 'Naam of this Partner'
-        type: \NaamPersoon
-        example: Jessica
-      geboorte:
-        description: 'Geboorte of this Partner'
-        type: \Geboorte
-        example: 01-01-2000
-    required: []
-  Reisdocument-read:
-    properties:
-      id:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      aanduidingInhoudingOfVermissing:
-        maxLength: 255
-      reisdocumentnummer:
-        description: 'Reisdocumentnummer of this Reisdocument'
-        type: string
-        example: AB1234CD0
-        maxLength: 255
-    required: []
-  Reisdocument-write:
-    properties:
-      aanduidingInhoudingOfVermissing:
-        maxLength: 255
-      reisdocumentnummer:
-        description: 'Reisdocumentnummer of this Reisdocument'
-        type: string
-        example: AB1234CD0
-        maxLength: 255
-    required: []
-  VerblijfBuitenland-read:
-    properties:
-      uuid:
-        description: ''
-        type: \UuidInterface
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-      adresregel1:
-        maxLength: 255
-      adresRegel2:
-        maxLength: 255
-      adresRegel3:
-        maxLength: 255
-      vertrokkenOnbekendWaarheen: []
-    required: []
-  VerblijfBuitenland-write:
-    properties:
-      adresregel1:
-        maxLength: 255
-      adresRegel2:
-        maxLength: 255
-      adresRegel3:
-        maxLength: 255
-      vertrokkenOnbekendWaarheen: []
     required: []
   Verblijfplaats-read:
     properties:
@@ -17719,6 +17643,30 @@ definitions:
         type: \VerblijfBuitenland
         example: Spain
     required: []
+  VerblijfBuitenland-read:
+    properties:
+      uuid:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      adresregel1:
+        maxLength: 255
+      adresRegel2:
+        maxLength: 255
+      adresRegel3:
+        maxLength: 255
+      vertrokkenOnbekendWaarheen: []
+    required: []
+  VerblijfBuitenland-write:
+    properties:
+      adresregel1:
+        maxLength: 255
+      adresRegel2:
+        maxLength: 255
+      adresRegel3:
+        maxLength: 255
+      vertrokkenOnbekendWaarheen: []
+    required: []
   Verblijfstitel-read:
     properties:
       uuid:
@@ -17747,22 +17695,124 @@ definitions:
         example: 01-01-2004
       inOnderzoek: []
     required: []
-  Waardetabel-read:
+  Ouder-read:
+    properties:
+      uuid:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this Ouder'
+        type: string
+        example: '123456782'
+        maxLength: 255
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this Ouder'
+        type: string
+        example: female
+        maxLength: 7
+      ouderAanduiding:
+        maxLength: 7
+      datumIngangFamilierechtelijkeBetreking:
+        description: 'Burgerservicenummer of this Ouder'
+        type: string
+        example: '123456782'
+      inOnderzoek: []
+      naam:
+        description: 'Naam of this Ouder'
+        type: \NaamPersoon
+        example: Joe
+      geboorte:
+        description: 'Geboorte of this Ouder'
+        type: \Geboorte
+        example: 01-01-2000
+    required: []
+  Ouder-write:
+    properties:
+      burgerservicenummer:
+        description: 'Burgerservicenummer of this Ouder'
+        type: string
+        example: '123456782'
+        maxLength: 255
+      geslachtsaanduiding:
+        description: 'Geslachts aanduiding of this Ouder'
+        type: string
+        example: female
+        maxLength: 7
+      ouderAanduiding:
+        maxLength: 7
+      datumIngangFamilierechtelijkeBetreking:
+        description: 'Burgerservicenummer of this Ouder'
+        type: string
+        example: '123456782'
+      inOnderzoek: []
+      naam:
+        description: 'Naam of this Ouder'
+        type: \NaamPersoon
+        example: Joe
+      geboorte:
+        description: 'Geboorte of this Ouder'
+        type: \Geboorte
+        example: 01-01-2000
+    required: []
+  Kind-read:
+    properties:
+      uuid:
+        description: ''
+        type: \UuidInterface
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+      leeftijd:
+        description: 'Leeftijd of this kind'
+        type: int
+        example: '14'
+      inOnderzoek: []
+      naam:
+        description: 'NaamPersoon of this kind'
+        type: \NaamPersoon
+        example: Michael
+      geboorte:
+        description: 'Geboorte of this kind'
+        type: \Geboorte
+        example: 01-01-2000
+    required: []
+  Kind-write:
+    properties:
+      leeftijd:
+        description: 'Leeftijd of this kind'
+        type: int
+        example: '14'
+      inOnderzoek: []
+      naam:
+        description: 'NaamPersoon of this kind'
+        type: \NaamPersoon
+        example: Michael
+      geboorte:
+        description: 'Geboorte of this kind'
+        type: \Geboorte
+        example: 01-01-2000
+    required: []
+  Reisdocument-read:
     properties:
       id:
         description: ''
         type: \UuidInterface
         example: e2984465-190a-4562-829e-a8cca81aa35d
-      code:
+      aanduidingInhoudingOfVermissing:
         maxLength: 255
-      omschrijving:
+      reisdocumentnummer:
+        description: 'Reisdocumentnummer of this Reisdocument'
+        type: string
+        example: AB1234CD0
         maxLength: 255
     required: []
-  Waardetabel-write:
+  Reisdocument-write:
     properties:
-      code:
+      aanduidingInhoudingOfVermissing:
         maxLength: 255
-      omschrijving:
+      reisdocumentnummer:
+        description: 'Reisdocumentnummer of this Reisdocument'
+        type: string
+        example: AB1234CD0
         maxLength: 255
     required: []
   AuditTrail-read:
@@ -17869,12 +17919,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-12-01 10:38:01'
+        example: '2020-12-29 09:10:50'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-12-01 10:38:01'
+        example: '2020-12-29 09:10:50'
     required: []
   AuditTrail-write:
     properties:
@@ -17922,12 +17972,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-12-01 10:38:01'
+        example: '2020-12-29 09:10:50'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-12-01 10:38:01'
+        example: '2020-12-29 09:10:50'
     required: []
   ChangeLog-write:
     properties:
@@ -17945,13 +17995,25 @@ tags:
       
       
   -
-    name: Geboorte
+    name: Waardetabel
     description: |
       
       
       
   -
-    name: Gezagsverhouding
+    name: Partner
+    description: |
+      
+      
+      
+  -
+    name: NaamPersoon
+    description: |
+      
+      
+      
+  -
+    name: Geboorte
     description: |
       
       
@@ -17963,13 +18025,7 @@ tags:
       
       
   -
-    name: Kind
-    description: |
-      
-      
-      
-  -
-    name: NaamPersoon
+    name: Gezagsverhouding
     description: |
       
       
@@ -17987,31 +18043,7 @@ tags:
       
       
   -
-    name: Ouder
-    description: |
-      
-      
-      
-  -
     name: Overlijden
-    description: |
-      
-      
-      
-  -
-    name: Partner
-    description: |
-      
-      
-      
-  -
-    name: Reisdocument
-    description: |
-      
-      
-      
-  -
-    name: VerblijfBuitenland
     description: |
       
       
@@ -18023,13 +18055,31 @@ tags:
       
       
   -
+    name: VerblijfBuitenland
+    description: |
+      
+      
+      
+  -
     name: Verblijfstitel
     description: |
       
       
       
   -
-    name: Waardetabel
+    name: Ouder
+    description: |
+      
+      
+      
+  -
+    name: Kind
+    description: |
+      
+      
+      
+  -
+    name: Reisdocument
     description: |
       
       
