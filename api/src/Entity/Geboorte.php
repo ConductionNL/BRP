@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *
  * @ApiFilter(SearchFilter::class, properties={
  *     "datum":"exact",
- *     "plaats":"ipartional",
+ *     "plaats.omschrijving":"ipartial",
  * })
  */
 class Geboorte
@@ -68,7 +69,7 @@ class Geboorte
     private $plaats;
 
     /**
-     * @var string Datum this person is born at
+     * @var IncompleteDate Datum this person is born at
      *
      * @example 01-01-2000
      *
@@ -109,12 +110,12 @@ class Geboorte
         return $this->uuid;
     }
 
-    public function getDatum()
+    public function getDatum(): ?IncompleteDate
     {
         return $this->datum;
     }
 
-    public function setDatum($datum): self
+    public function setDatum(IncompleteDate $datum): self
     {
         $this->datum = $datum;
 

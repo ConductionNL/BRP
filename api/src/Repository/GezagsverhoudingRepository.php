@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Gezagsverhouding;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Gezagsverhouding|null find($id, $lockMode = null, $lockVersion = null)

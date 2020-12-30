@@ -10,9 +10,10 @@ use App\Entity\Ouder;
 use App\Entity\Partner;
 use App\Entity\Verblijfplaats;
 use App\Entity\Waardetabel;
+use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -96,7 +97,7 @@ class AppFixtures extends Fixture
         // Geboorte
         $persoon->getGeboorte()->setLand($nederland);
         $persoon->getGeboorte()->setPlaats($amsterdam);
-        $persoon->getGeboorte()->setDatum(['year'=>'1985', 'month'=>'01', 'day'=>'01']);
+        $persoon->getGeboorte()->setDatum(new IncompleteDate(1985, 1, 1)); //['year'=>'1985', 'month'=>'01', 'day'=>'01']);
 
         $BSN900003509 = $persoon;
 
@@ -137,7 +138,7 @@ class AppFixtures extends Fixture
         // Geboorte
         $persoon->getGeboorte()->setLand($nederland);
         $persoon->getGeboorte()->setPlaats($amsterdam);
-        $persoon->getGeboorte()->setDatum(['year'=>'1985', 'month'=>'01', 'day'=>'01']);
+        $persoon->getGeboorte()->setDatum(new IncompleteDate(1985, 1, 1));
 
         $BSN900003508 = $persoon;
 
@@ -178,7 +179,7 @@ class AppFixtures extends Fixture
         // Geboorte
         $persoon->getGeboorte()->setLand($nederland);
         $persoon->getGeboorte()->setPlaats($amsterdam);
-        $persoon->getGeboorte()->setDatum(['year'=>'2000', 'month'=>'01', 'day'=>'01']);
+        $persoon->getGeboorte()->setDatum(new IncompleteDate(2000, 1, 1));
 
         $BSN900003510 = $persoon;
 
@@ -326,10 +327,9 @@ class AppFixtures extends Fixture
 
                 try {
                     $geboortedatum = new DateTime($row[7]);
-                    echo $geboortedatum->format('Y');
-                    echo $geboortedatum->format('m');
-                    echo $geboortedatum->format('d');
-                    $ingeschrevenpersoon->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+//                    echo $geboortedatum->format('Y-m-d')."\n";
+                    new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d'));
+                    $ingeschrevenpersoon->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
 //                    var_dump($ingeschrevenpersoon->getGeboorte());
                     $leeftijd = $geboortedatum->diff(new DateTime('now'), true)->format('%Y');
                     $ingeschrevenpersoon->setLeeftijd($leeftijd);
@@ -372,10 +372,8 @@ class AppFixtures extends Fixture
 
                     try {
                         $geboortedatum = new DateTime($partnerRow[7]);
-                        echo $geboortedatum->format('Y');
-                        echo $geboortedatum->format('m');
-                        echo $geboortedatum->format('d');
-                        $partner->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+//                        echo $geboortedatum->format('Y-m-d')."\n";
+                        $partner->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
                     } catch (\Exception $e) {
                     }
                     $manager->persist($partner);
@@ -412,10 +410,8 @@ class AppFixtures extends Fixture
 
                         try {
                             $geboortedatum = new DateTime($childRow[7]);
-                            echo $geboortedatum->format('Y');
-                            echo $geboortedatum->format('m');
-                            echo $geboortedatum->format('d');
-                            $kind->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+//                            echo $geboortedatum->format('Y-m-d')."\n";
+                            $kind->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
                         } catch (\Exception $e) {
                         }
                         $manager->persist($kind);
@@ -456,10 +452,8 @@ class AppFixtures extends Fixture
 
                         try {
                             $geboortedatum = new DateTime($parentRow[7]);
-                            echo $geboortedatum->format('Y');
-                            echo $geboortedatum->format('m');
-                            echo $geboortedatum->format('d');
-                            $ouder->getGeboorte()->setDatum(['year'=>$geboortedatum->format('Y'), 'month'=>$geboortedatum->format('m'), 'day'=>$geboortedatum->format('d')]);
+//                            echo $geboortedatum->format('Y-m-d')."\n";
+                            $ouder->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
                         } catch (\Exception $e) {
                         }
                         $manager->persist($ouder);

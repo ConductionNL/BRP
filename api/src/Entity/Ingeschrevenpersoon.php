@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Conduction\CommonGroundBundle\ValueObject\UnderInvestigation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -98,7 +99,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiFilter(SearchFilter::class, properties={
  *     "geboorte.datum":"exact",
- *     "geboorte.plaats":"ipartional",
+ *     "geboorte.plaats.omschrijving":"ipartial",
  *     "geslachtsaanduiding":"exact",
  *     "burgerservicenummer":"exact",
  *     "naam.geslachtsnaam":"ipartial",
@@ -219,6 +220,10 @@ class Ingeschrevenpersoon
     private $datumEersteInschrijvingGBA;
 
     /**
+     * @var bool Wether the ingeschreven persoon has the right to vote
+     *
+     * @example true
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="object")
@@ -226,7 +231,8 @@ class Ingeschrevenpersoon
     private $kiesrecht;
 
     /**
-     * @todo docblocks
+     * @var UnderInvestigation If the ingeschreven persoon is being investigated, and the properties of that investigation
+     *
      * @Groups({"read", "write"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
@@ -265,7 +271,7 @@ class Ingeschrevenpersoon
     private $overlijden;
 
     /**
-     * @var Overlijden Checks if ingeschreven persoon is overlijden
+     * @var Verblijfplaats the residence of the ingeschrevenpersoon
      *
      * @example false
      *
@@ -297,7 +303,7 @@ class Ingeschrevenpersoon
     private $verblijfstitel;
 
     /**
-     * @var Ouder Ouders of ingeschreven persoon
+     * @var Collection Ouders of ingeschreven persoon
      *
      * @example James, Jessica
      *
@@ -307,7 +313,7 @@ class Ingeschrevenpersoon
     private $ouders;
 
     /**
-     * @var Kind Kinderen of ingeschreven persoon
+     * @var Collection Kinderen of ingeschreven persoon
      *
      * @example John
      *
@@ -317,7 +323,7 @@ class Ingeschrevenpersoon
     private $kinderen;
 
     /**
-     * @var Partner Partner of ingeschreven persoon
+     * @var Collection Partner of ingeschreven persoon
      *
      * @example Mike
      *
