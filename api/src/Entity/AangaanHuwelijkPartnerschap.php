@@ -37,7 +37,7 @@ class AangaanHuwelijkPartnerschap
      *
      * @example 01-01-2000
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate")
      */
@@ -48,7 +48,7 @@ class AangaanHuwelijkPartnerschap
      *
      * @example The Netherlands
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
@@ -60,7 +60,7 @@ class AangaanHuwelijkPartnerschap
      *
      * @example Amsterdam
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
@@ -69,7 +69,7 @@ class AangaanHuwelijkPartnerschap
 
     /**
      * @todo docblocks
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */
@@ -80,7 +80,7 @@ class AangaanHuwelijkPartnerschap
      *
      * @example John
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\OneToOne(targetEntity="App\Entity\Partner", mappedBy="aangaanHuwelijkPartnerschap", cascade={"persist", "remove"})
      * @MaxDepth(1)

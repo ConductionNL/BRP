@@ -46,7 +46,7 @@ class Verblijfstitel
      *
      * @example 01-01-2005
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate")
      */
@@ -57,7 +57,7 @@ class Verblijfstitel
      *
      * @example 01-01-2004
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate")
      */
@@ -66,7 +66,7 @@ class Verblijfstitel
     /**
      * @todo docblocks
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */

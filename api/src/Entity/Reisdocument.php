@@ -34,7 +34,7 @@ class Reisdocument
 
     /**
      * @todo docblocks
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
@@ -49,7 +49,7 @@ class Reisdocument
      *
      * @example AB1234CD0
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
