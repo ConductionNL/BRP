@@ -67,11 +67,22 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
         $result = $this->em->getRepository(Ingeschrevenpersoon::class)->findOneBy(['burgerservicenummer' => $burgerservicenummer]);
 
         // now we need to overide the normal subscriber
-        $json = $this->serializer->serialize(
-            $result,
-            $renderType,
-            ['enable_max_depth' => true]
-        );
+        if(
+            $event->getRequest()->query->has('geefFamilie') &&
+            $event->getRequest()->query->get('geefFamilie') == 'true'
+        ) {
+            $json = $this->serializer->serialize(
+                $result,
+                $renderType,
+                ['enable_max_depth' => true, 'groups' => ['show_family']]
+            );
+        } else {
+            $json = $this->serializer->serialize(
+                $result,
+                $renderType,
+                ['enable_max_depth' => true]
+            );
+        }
 
         $response = new Response(
             $json,

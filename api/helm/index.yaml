@@ -3,10 +3,10 @@ entries:
   brp:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-12-29T09:09:49.0856755Z"
+    created: "2021-01-08T11:21:09.250518Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
-    digest: df1ac1e52966ad4f24d58c3ed69244e19effcc40f075d81295315881657b1899
+    digest: de8fb8b0ae222c74a9ccc1a8de281eb5175d714d0a4dd228e8f3557f557ade69
     home: brp.zaakonline.nl
     icon: brp.zaakonline.nl
     name: brp
@@ -18,7 +18,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2020-12-29T09:09:49.0980339Z"
+    created: "2021-01-08T11:21:09.2643045Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -47,4 +47,4 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2020-12-29T09:09:49.0666904Z"
+generated: "2021-01-08T11:21:09.2239522Z"
