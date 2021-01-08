@@ -141,7 +141,7 @@ class Partner
     {
         return $this->burgerservicenummer;
     }
-    
+
     public function setBurgerservicenummer(string $burgerservicenummer): self
     {
         $this->burgerservicenummer = $burgerservicenummer;
