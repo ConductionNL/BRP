@@ -47,7 +47,7 @@ class Verblijfplaats
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -59,7 +59,7 @@ class Verblijfplaats
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -73,7 +73,7 @@ class Verblijfplaats
      *
      * @example B
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -87,7 +87,7 @@ class Verblijfplaats
      *
      * @example 21
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Type("integer")
@@ -99,7 +99,7 @@ class Verblijfplaats
      *
      * @example B
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -111,7 +111,7 @@ class Verblijfplaats
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -123,7 +123,7 @@ class Verblijfplaats
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -135,7 +135,7 @@ class Verblijfplaats
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
      * @Assert\Type("boolean")
@@ -147,7 +147,7 @@ class Verblijfplaats
      *
      * @example Appartment
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -159,7 +159,7 @@ class Verblijfplaats
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -173,7 +173,7 @@ class Verblijfplaats
      *
      * @example 08040
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -187,7 +187,7 @@ class Verblijfplaats
      *
      * @example Passeig de Sant Joan
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -199,7 +199,7 @@ class Verblijfplaats
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
      * @Assert\Type("boolean")
@@ -211,7 +211,7 @@ class Verblijfplaats
      *
      * @example Barcelona
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -225,7 +225,7 @@ class Verblijfplaats
      *
      * @example 2005-01-01
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\Column(type="object", nullable=true)
      */
     private $datumAanvangAdreshouding;
@@ -235,7 +235,7 @@ class Verblijfplaats
      *
      * @example 01-01-2005
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
      */
@@ -246,7 +246,7 @@ class Verblijfplaats
      *
      * @example 01-01-2005
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
      */
@@ -257,7 +257,7 @@ class Verblijfplaats
      *
      * @example 01-01-2005
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
      */
@@ -268,7 +268,7 @@ class Verblijfplaats
      *
      * @example Barcelona
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", nullable=true)
      */
@@ -279,7 +279,7 @@ class Verblijfplaats
      *
      * @example Spain
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
@@ -291,7 +291,7 @@ class Verblijfplaats
      *
      * @example Spain
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\OneToOne(targetEntity="App\Entity\VerblijfBuitenland", inversedBy="verblijfplaats", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
@@ -302,7 +302,7 @@ class Verblijfplaats
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */
@@ -321,7 +321,7 @@ class Verblijfplaats
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="integer", nullable=true)
      */

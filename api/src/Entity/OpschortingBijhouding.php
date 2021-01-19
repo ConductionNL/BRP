@@ -39,7 +39,7 @@ class OpschortingBijhouding
      *
      * @example
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
@@ -54,7 +54,7 @@ class OpschortingBijhouding
      *
      * @example 01-01-2000
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate")
      */

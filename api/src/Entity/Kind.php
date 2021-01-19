@@ -41,6 +41,7 @@ class Kind
      * @var string Burgerservicenummer of this kind
      *
      * @example 123456782
+     * @Groups({"read", "write"})
      *
      * @ORM\Column(type="string", length=9)
      * @Assert\NotBlank
@@ -49,6 +50,20 @@ class Kind
      * )
      */
     private $burgerservicenummer;
+
+    /**
+     * @var string Burgerservicenummer of this kind
+     *
+     * @example 123456782
+     * @Groups({"show_family"})
+     *
+     * @ORM\Column(type="string", length=9, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     max = 9
+     * )
+     */
+    private $bsn;
 
     /**
      * @var int Leeftijd of this kind
@@ -116,6 +131,11 @@ class Kind
     }
 
     public function getBurgerservicenummer(): ?string
+    {
+        return $this->burgerservicenummer;
+    }
+
+    public function getBsn(): ?string
     {
         return $this->burgerservicenummer;
     }

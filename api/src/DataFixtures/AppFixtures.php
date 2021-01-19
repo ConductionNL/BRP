@@ -292,18 +292,16 @@ class AppFixtures extends Fixture
                 $ingeschrevenpersoon->setGeslachtsaanduiding('X');
                 $ingeschrevenpersoon->setLeeftijd(null);
 
-                if ($row[13] != '' || $row[14] != '' || $row[11] != '' || $row[12] != '') {
-                    $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
+                $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
 
-                    $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[13]);
-                    $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[14]);
-                    $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[11]);
-                    $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
-                    $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
-                    $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
-                    if (array_key_exists(24, $row)) {
-                        $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[24]);
-                    }
+                $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[13]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[14]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[11]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
+                $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
+                if (array_key_exists(24, $row)) {
+                    $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[24]);
                 }
 
                 $voorvoegsel = ''.$row[4];

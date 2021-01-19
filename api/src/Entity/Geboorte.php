@@ -47,7 +47,7 @@ class Geboorte
      *
      * @example The Netherlands
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
@@ -60,7 +60,7 @@ class Geboorte
      *
      * @example Amsterdam
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
@@ -73,7 +73,7 @@ class Geboorte
      *
      * @example 01-01-2000
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate",nullable=true)
      */
@@ -81,7 +81,7 @@ class Geboorte
 
     /**
      * @todo docblocks
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */

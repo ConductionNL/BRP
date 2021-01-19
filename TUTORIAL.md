@@ -141,7 +141,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Organisation
 {
     /**
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      */
     private $name;
 }
@@ -286,7 +286,7 @@ We can now prevent circular references by setting a max depth on the properties 
      * @var ArrayCollection $stuffs Some stuff that is attached to this example resource
      * 
      * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Stuff", inversedBy="examples")
      */
     private $stuffs;     
@@ -395,7 +395,7 @@ Next we need to tell the specific properties that we want to log that they are l
 	 *      max = 255
 	 * )
      * @Gedmo\Versioned
-	 * @Groups({"read","write"})
+	 * @Groups({"read", "write", "show_family"})
      * @ORM\Column(type="string", length=255)
      */
     private $name;
