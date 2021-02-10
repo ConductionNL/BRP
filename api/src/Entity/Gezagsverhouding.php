@@ -35,7 +35,7 @@ class Gezagsverhouding
 
     /**
      * @todo docblocks
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
      * @Assert\Type("bool")
@@ -45,7 +45,7 @@ class Gezagsverhouding
 
     /**
      * @todo docblocks
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
@@ -56,7 +56,7 @@ class Gezagsverhouding
 
     /**
      * @todo docblocks
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */

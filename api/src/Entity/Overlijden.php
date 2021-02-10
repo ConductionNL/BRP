@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
@@ -39,7 +40,7 @@ class Overlijden
      *
      * @example false
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
      * @Assert\NotBlank
@@ -48,11 +49,11 @@ class Overlijden
     private $indicatieOverleden;
 
     /**
-     * @var string Datum of this Overlijden
+     * @var IncompleteDate Datum of this Overlijden
      *
      * @example 01-01-2000
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate")
      */
@@ -102,7 +103,7 @@ class Overlijden
 
     /**
      * @todo docblocks
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */
@@ -139,12 +140,12 @@ class Overlijden
         return $this;
     }
 
-    public function getDatum()
+    public function getDatum(): IncompleteDate
     {
         return $this->datum;
     }
 
-    public function setDatum($datum): self
+    public function setDatum(IncompleteDate $datum): self
     {
         $this->datum = $datum;
 

@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -33,7 +33,7 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function IngeschrevenpersoonOnBsn(GetResponseForControllerResultEvent $event)
+    public function IngeschrevenpersoonOnBsn(ViewEvent $event)
     {
         $result = $event->getControllerResult();
         $burgerservicenummer = $event->getRequest()->attributes->get('burgerservicenummer');
@@ -67,11 +67,22 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
         $result = $this->em->getRepository(Ingeschrevenpersoon::class)->findOneBy(['burgerservicenummer' => $burgerservicenummer]);
 
         // now we need to overide the normal subscriber
-        $json = $this->serializer->serialize(
-            $result,
-            $renderType,
-            ['enable_max_depth' => true]
-        );
+        if (
+            $event->getRequest()->query->has('geefFamilie') &&
+            $event->getRequest()->query->get('geefFamilie') == 'true'
+        ) {
+            $json = $this->serializer->serialize(
+                $result,
+                $renderType,
+                ['enable_max_depth' => true, 'groups' => ['show_family']]
+            );
+        } else {
+            $json = $this->serializer->serialize(
+                $result,
+                $renderType,
+                ['enable_max_depth' => true]
+            );
+        }
 
         $response = new Response(
             $json,
