@@ -1,66 +1,84 @@
-Additional Information
-----
-
-For deployment to kubernetes clusters we use Helm 3.
-
-For an in depth installation guide you can refer to the [installation guide](INSTALLATION.md).
-
-- [Contributing](CONTRIBUTING.md)
-
-- [ChangeLogs](CHANGELOG.md)
-
-- [RoadMap](ROADMAP.md)
-
-- [Security](SECURITY.md)
-
-- [Licence](LICENSE.md)
+# Brpservice
 
 Description
 ----
+This is an implementation of the VNG BRP reference component, with the goal of providing an "in between solution" for applications that need the national BRP, but have a production date before the production date of the national BRP. As such it aims to provide a national BRP experience for the time being.  
 
-Het Basis Registratie Personen component is een implementatie van de door Haal Centraal ontwikkelde API-specificatie in de vorm van een Common Ground container. Dat betekent dat het ten opzichte van die referentie een aantal extra opties kent (zoals extended en filteren van data). Dit Common Ground component kan op twee manieren worden ingezet. Om te beginnen kan het aan de achterkant worden voorzien van datafixtures in de vorm van een excel sheet. Op deze manier kan er een “specifieke” mock worden gecreëerd voor het testen van applicaties (al dan niet in combinatie met Digispoof). Het is echter ook mogelijke om het BRP Component in te zetten in samenhang met het StuF component, in dat geval worden API-verzoeken op het BRP vertaald naar StuF berichten op GBA of GBAV aansluiting en levert het component daadwerkelijk een BRP koppeling.
-
-Tutorial
+Additional Information
 ----
 
-For information on how to work with the component you can refer to the tutorial [here](TUTORIAL.md).
+- [Contributing](CONTRIBUTING.md)
+- [ChangeLogs](CHANGELOG.md)
+- [RoadMap](ROADMAP.md)
+- [Security](SECURITY.md)
+- [Licence](LICENSE.md)
 
-#### Setup your local environment
-Before we can spin up our component we must first get a local copy from our repository, we can either do this through the command line or use a Git client. 
 
-For this example we're going to use [GitKraken](https://www.gitkraken.com/) but you can use any tool you like, feel free to skip this part if you are already familiar with setting up a local clone of your repository.
+Installation
+----
+We differentiate between two way's of installing this component, a local installation as part of the provided developers toolkit or an [helm](https://helm.sh/) installation on an development or production environment. 
 
-Open gitkraken press "clone a repo" and fill in the form (select where on your local machine you want the repository to be stored, and fill in the link of your repository on github), press "clone a repo" and you should then see GitKraken downloading your code. After it's done press "open now" (in the box on top) and voilá your codebase (you should see an initial commit on a master branch).
-
-You can now navigate to the folder where you just installed your code, it should contain some folders and files and generally look like this. We will get into the files later, lets first spin up our component!
-
-Next make sure you have [docker desktop](https://www.docker.com/products/docker-desktop) running on your computer.
-
-Open a command window (example) and browse to the folder where you just stuffed your code, navigating in a command window is done by cd, so for our example we could type 
-cd c:\repos\common-ground\my-component (if you installed your code on a different disk then where the cmd window opens first type <diskname>: for example D: and hit enter to go to that disk, D in this case). We are now in our folder, so let's go! Type docker-compose up and hit enter. From now on whenever we describe a command line command we will document it as follows (the $ isn't actually typed but represents your folder structure):
-
+#### Local installation
+First make sure you have [docker desktop](https://www.docker.com/products/docker-desktop) running on your computer. Then clone the repository to a directory on your local machine through a [git command](https://github.com/git-guides/git-clone) or [git kraken](https://www.gitkraken.com) (ui for git). If successful you can now navigate to the directory of your cloned repository in a command prompt and execute docker-compose up. 
 ```CLI
 $ docker-compose up
 ```
+This will build the docker image and run the used containers and when seeing the log from the php container: "NOTICE: ready to handle connections", u are ready to view the documentation at localhost on your preferred browser.
 
-Your computer should now start up your local development environment. Don't worry about al the code coming by, let's just wait until it finishes. You're free to watch along and see what exactly docker is doing, you will know when it's finished when it tells you that it is ready to handle connections. 
+#### Instalation on Kubernetes or Haven
+As a haven compliant commonground component this component is installable on kubernetes trough helm. The helm files can be found in the api/helm folder. For installing this component trough helm simply open your (still) favorite command line interface and run 
+```CLI
+$ helm install [name] ./api/helm --kubeconfig kubeconfig.yaml --namespace [name] --set settings.env=prod,settings.debug=0,settings.cache=1
+```
+For an in depth installation guide you can refer to the [installation guide](INSTALLATION.md), it also contains a short tutorial on getting your cluster ready to expose your installation to the world
 
-Open your browser type [<http://localhost/>](https://localhost) as address and hit enter, you should now see your common ground component up and running.
+Standards
+----
 
-#### Additional Calls
-The BRP component is a bit different to most components regarding calls. First and formost, the BRP component only supports GET calls to its entities.
-On top of that, the IngeschrevenPersoon entity contains a number of extra supported calls:
-- /ingeschrevenpersoon/uuid/{id}: This call identifies and returns the requested person based on their unique id in the database
-- /ingeschrevenpersoon/{bsn}: This call identifies and returns the requested person based on their social security number (burgerservicenummer/bsn) as per specification by HaalCentraal.
-- /ingeschrevenpersonen/{bsn}/ouders: This call returns the parent-resources linked to the person that is requested as per specification by Haal Centraal.
-- /ingeschrevenpersonen/{bsn}/kinderen: This call returns the child-resources linked to the person that is requested as per specification by Haal Centraal.
-- /ingeschrevenpersonen/{bsn}/partners: This call returns the partner-resources linked to the person that is requested as per specification by Haal Centraal.
+This component adheres to international, national and local standards (in that order), notable standards are:
+
+- Any applicable [W3C](https://www.w3.org) standard, including but not limited to [rest](https://www.w3.org/2001/sw/wiki/REST), [JSON-LD](https://www.w3.org/TR/json-ld11/) and [WEBSUB](https://www.w3.org/TR/websub/)
+- Any applicable [schema](https://schema.org/) standard
+- [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md)
+- [GAIA-X](https://www.data-infrastructure.eu/GAIAX/Navigation/EN/Home/home.html)
+- [Publiccode](https://docs.italia.it/italia/developers-italia/publiccodeyml-en/en/master/index.html), see the [publiccode](api/public/schema/publiccode.yaml) for further information
+- [Forum Stanaardisatie](https://www.forumstandaardisatie.nl/open-standaarden)
+- [NL API Strategie](https://docs.geostandaarden.nl/api/API-Strategie/)
+- [Common Ground Realisatieprincipes](https://componentencatalogus.commonground.nl/20190130_-_Common_Ground_-_Realisatieprincipes.pdf)
+- [Haven](https://haven.commonground.nl/docs/de-standaard)
+- [NLX](https://docs.nlx.io/understanding-the-basics/introduction)
+- [Standard for Public Code](https://standard.publiccode.net/), see the [compliancy scan](publiccode.md) for further information. 
+
+Developers toolkit and technical information
+----
+
+We make our datamodels with the tool [modelio](https://www.modelio.org) which can be found along the OAS documentation and the postman collection in api/public/schema.
+If you need development support we provide that through the [samenorganiseren slack channel](https://join.slack.com/t/samenorganiseren/shared_invite/zt-dex1d7sk-wy11sKYWCF0qQYjJHSMW5Q).
+
+Couple of quick tips when you start developing
+- If you haven't setup the component locally read the Installation part for setting up your local environment.
+- You can find the other components on [Github](https://github.com/ConductionNL).
+- Take a look at the [commonground componenten catalogus](https://componentencatalogus.commonground.nl/componenten?) to prevent development collitions. 
+- Use [Commongroun.conduction.nl](https://commonground.conduction.nl/) for easy deployment of test environments to deploy your development to.
+- For information on how to work with the component you can refer to the tutorial [here](TUTORIAL.md).
+  
+
+Contributing
+----
+First of al please read the [Contributing](CONTRIBUTING.md) guideline's ;)
+
+But most imporantly, welcome! We strife to keep an active community at [commonground.nl](https://commonground.nl/), please drop by and tell is what you are thinking about so that we can help you along.
+
 
 Credits
 ----
 
 Information about the authors of this component can be found [here](AUTHORS.md)
 
-The source used for this component is [Haal Centraal](https://github.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen)
 
-Copyright © [Utrecht](https://www.utrecht.nl/) 2019
+
+
+Copyright � [Gemeente 's-Hertogenbosch](https://www.s-hertogenbosch.nl/) 2019
+
+[Licensed under the EUPL](LICENCE.md)
+
