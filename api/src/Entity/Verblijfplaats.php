@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
@@ -17,6 +19,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\VerblijfplaatsRepository")
  * @Gedmo\Loggable
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "postcode": "exact",
+ *     "huisnummer":"exact",
+ *     "huisnummertoevoeging":"exact",
+ *     "huisletter":"exact",
+ *     "naamopenbareruimte":"exact",
+ *     "gemeentevaninschrijving":"exact",
+ *     "identificatiecodenummeraanduiding":"exact",
+ *     })
  */
 class Verblijfplaats
 {

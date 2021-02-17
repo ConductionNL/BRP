@@ -20,7 +20,9 @@ parameters:
     env(CONTAINER_PROJECT_NAME): ''
     env(CONTAINER_REPRO): ''
 
-api_platform:            
+api_platform:
+    graphql:
+        nesting_separator: __
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
 
@@ -34,7 +36,7 @@ api_platform:
         - Version: %env(APP_VERSION)%
         - Repository: [online](%env(APP_REPRO)%) / [zip](%env(APP_REPRO)%/archive/master.zip)
         - Docker Image: [online](%env(APP_CONTAINER)%) 
-        - Datamodel: [postman](/schema/%env(APP_NAME)%.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
+        - Datamodel: [postman](schema/%env(APP_NAME)%.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
         
         %env(APP_DESCRIPTION)%         
     
@@ -88,3 +90,4 @@ api_platform:
     # Mercure integration, remove if unwanted
     # mercure:
     #    hub_url: '%env(MERCURE_SUBSCRIBE_URL)%'
+
