@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Conduction\CommonGroundBundle\ValueObject\UnderInvestigation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -120,7 +121,7 @@ class Ingeschrevenpersoon
      *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
-     * @Groups({"read"})
+     * @Groups({"read", "show_family"})
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
@@ -133,7 +134,7 @@ class Ingeschrevenpersoon
      *
      * @example 123456782
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=9)
      * @Assert\NotBlank
@@ -148,7 +149,7 @@ class Ingeschrevenpersoon
      *
      * @example John
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\ManyToOne(targetEntity="App\Entity\NaamPersoon", inversedBy="ingeschrevenpersonen", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
      * @MaxDepth(1)
@@ -160,7 +161,7 @@ class Ingeschrevenpersoon
      *
      * @example 01-01-2000
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Geboorte", inversedBy="ingeschrevenpersonen", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="uuid")
      * @MaxDepth(1)
@@ -172,7 +173,7 @@ class Ingeschrevenpersoon
      *
      * @example true
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
      * @Assert\NotBlank
@@ -185,7 +186,7 @@ class Ingeschrevenpersoon
      *
      * @example male
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=7)
      * @Assert\NotBlank
@@ -200,7 +201,7 @@ class Ingeschrevenpersoon
      *
      * @example 18
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Type("integer")
@@ -212,22 +213,27 @@ class Ingeschrevenpersoon
      *
      * @example 01-01-2000
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate",nullable=true)
      */
     private $datumEersteInschrijvingGBA;
 
     /**
-     * @Groups({"read", "write"})
+     * @var bool Wether the ingeschreven persoon has the right to vote
+     *
+     * @example true
+     *
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="object")
      */
     private $kiesrecht;
 
     /**
-     * @todo docblocks
-     * @Groups({"read", "write"})
+     * @var UnderInvestigation If the ingeschreven persoon is being investigated, and the properties of that investigation
+     *
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */
@@ -238,14 +244,14 @@ class Ingeschrevenpersoon
      *
      * @example Dutch
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\OneToMany(targetEntity="App\Entity\Nationaliteit", mappedBy="ingeschrevenpersoon", orphanRemoval=true)
      * @MaxDepth(1)
      */
     private $nationaliteit;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\OneToOne(targetEntity="App\Entity\OpschortingBijhouding", inversedBy="ingeschrevenpersoon", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
      * @MaxDepth(1)
@@ -257,7 +263,7 @@ class Ingeschrevenpersoon
      *
      * @example false
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\OneToOne(targetEntity="App\Entity\Overlijden", inversedBy="ingeschrevenpersoon", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
      * @MaxDepth(1)
@@ -265,11 +271,11 @@ class Ingeschrevenpersoon
     private $overlijden;
 
     /**
-     * @var Overlijden Checks if ingeschreven persoon is overlijden
+     * @var Verblijfplaats the residence of the ingeschrevenpersoon
      *
      * @example false
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\OneToOne(targetEntity="App\Entity\Verblijfplaats", inversedBy="ingeschrevenpersoon", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
      * @MaxDepth(1)
@@ -279,7 +285,7 @@ class Ingeschrevenpersoon
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\OneToOne(targetEntity="App\Entity\Gezagsverhouding", inversedBy="ingeschrevenpersoon", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
      * @MaxDepth(1)
@@ -289,7 +295,7 @@ class Ingeschrevenpersoon
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\OneToOne(targetEntity="App\Entity\Verblijfstitel", inversedBy="ingeschrevenpersoon", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
      * @MaxDepth(1)
@@ -297,19 +303,21 @@ class Ingeschrevenpersoon
     private $verblijfstitel;
 
     /**
-     * @var Ouder Ouders of ingeschreven persoon
+     * @var Collection Ouders of ingeschreven persoon
      *
      * @example James, Jessica
      *
+     * @Groups({"show_family"})
      * @ORM\OneToMany(targetEntity="App\Entity\Ouder", mappedBy="ingeschrevenpersoon", orphanRemoval=true, cascade={"persist", "remove"})
      * @MaxDepth(1)
      */
     private $ouders;
 
     /**
-     * @var Kind Kinderen of ingeschreven persoon
+     * @var Collection Kinderen of ingeschreven persoon
      *
      * @example John
+     * @Groups({"show_family"})
      *
      * @ORM\OneToMany(targetEntity="App\Entity\Kind", mappedBy="ingeschrevenpersoon", orphanRemoval=true, cascade={"persist", "remove"})
      * @MaxDepth(1)
@@ -317,9 +325,10 @@ class Ingeschrevenpersoon
     private $kinderen;
 
     /**
-     * @var Partner Partner of ingeschreven persoon
+     * @var Collection Partner of ingeschreven persoon
      *
      * @example Mike
+     * @Groups({"show_family"})
      *
      * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="ingeschrevenpersoon", orphanRemoval=true, cascade={"persist", "remove"})
      * @MaxDepth(1)

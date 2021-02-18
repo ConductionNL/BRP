@@ -48,7 +48,7 @@ class NaamPersoon
      *
      * @example male
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
@@ -63,7 +63,7 @@ class NaamPersoon
      *
      * @example A
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
@@ -78,7 +78,7 @@ class NaamPersoon
      *
      * @example Michael Smith
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
@@ -93,7 +93,7 @@ class NaamPersoon
      *
      * @example van der
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
@@ -106,7 +106,7 @@ class NaamPersoon
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */
@@ -117,7 +117,7 @@ class NaamPersoon
      *
      * @example Dhr
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
@@ -130,7 +130,7 @@ class NaamPersoon
     /**
      * @todo docblocks
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      */
@@ -141,7 +141,7 @@ class NaamPersoon
      *
      * @example male
      *
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank

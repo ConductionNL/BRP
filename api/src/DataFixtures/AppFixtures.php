@@ -297,18 +297,16 @@ class AppFixtures extends Fixture
                 $ingeschrevenpersoon->setGeslachtsaanduiding('X');
                 $ingeschrevenpersoon->setLeeftijd(null);
 
-                if ($row[13] != '' || $row[14] != '' || $row[11] != '' || $row[12] != '') {
-                    $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
+                $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
 
-                    $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[13]);
-                    $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[14]);
-                    $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[11]);
-                    $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
-                    $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
-                    $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
-                    if (array_key_exists(24, $row)) {
-                        $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[24]);
-                    }
+                $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[13]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[14]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[11]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
+                $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
+                if (array_key_exists(24, $row)) {
+                    $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[24]);
                 }
 
                 $voorvoegsel = ''.$row[4];
@@ -332,9 +330,7 @@ class AppFixtures extends Fixture
 
                 try {
                     $geboortedatum = new DateTime($row[7]);
-//                    echo $geboortedatum->format('Y');
-//                    echo $geboortedatum->format('m');
-//                    echo $geboortedatum->format('d');
+//                    echo $geboortedatum->format('Y-m-d')."\n";
                     new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d'));
                     $ingeschrevenpersoon->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
 //                    var_dump($ingeschrevenpersoon->getGeboorte());
@@ -379,9 +375,7 @@ class AppFixtures extends Fixture
 
                     try {
                         $geboortedatum = new DateTime($partnerRow[7]);
-//                        echo $geboortedatum->format('Y');
-//                        echo $geboortedatum->format('m');
-//                        echo $geboortedatum->format('d');
+//                        echo $geboortedatum->format('Y-m-d')."\n";
                         $partner->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
                     } catch (\Exception $e) {
                     }
@@ -419,9 +413,7 @@ class AppFixtures extends Fixture
 
                         try {
                             $geboortedatum = new DateTime($childRow[7]);
-//                            echo $geboortedatum->format('Y');
-//                            echo $geboortedatum->format('m');
-//                            echo $geboortedatum->format('d');
+//                            echo $geboortedatum->format('Y-m-d')."\n";
                             $kind->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
                         } catch (\Exception $e) {
                         }
@@ -463,9 +455,7 @@ class AppFixtures extends Fixture
 
                         try {
                             $geboortedatum = new DateTime($parentRow[7]);
-//                            echo $geboortedatum->format('Y');
-//                            echo $geboortedatum->format('m');
-//                            echo $geboortedatum->format('d');
+//                            echo $geboortedatum->format('Y-m-d')."\n";
                             $ouder->getGeboorte()->setDatum(new IncompleteDate($geboortedatum->format('Y'), $geboortedatum->format('m'), $geboortedatum->format('d')));
                         } catch (\Exception $e) {
                         }

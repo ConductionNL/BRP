@@ -40,7 +40,7 @@ class Overlijden
      *
      * @example false
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
      * @Assert\NotBlank
@@ -53,7 +53,7 @@ class Overlijden
      *
      * @example 01-01-2000
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate")
      */
@@ -103,7 +103,7 @@ class Overlijden
 
     /**
      * @todo docblocks
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */

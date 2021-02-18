@@ -52,6 +52,20 @@ class Ouder
     private $burgerservicenummer;
 
     /**
+     * @var string Burgerservicenummer of this kind
+     *
+     * @example 123456782
+     * @Groups({"show_family"})
+     *
+     * @ORM\Column(type="string", length=9, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     max = 9
+     * )
+     */
+    private $bsn;
+
+    /**
      * @var string Geslachts aanduiding of this Ouder
      *
      * @example female
@@ -156,6 +170,11 @@ class Ouder
         $this->burgerservicenummer = $burgerservicenummer;
 
         return $this;
+    }
+
+    public function getBsn(): ?string
+    {
+        return $this->burgerservicenummer;
     }
 
     public function getGeslachtsaanduiding(): ?string

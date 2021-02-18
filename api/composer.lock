@@ -619,12 +619,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ConductionNL/CommonGroundBundle.git",
-                "reference": "849f92f620a87129963734207736aab1980f2ad7"
+                "reference": "c106ca645136cda1a87c9658ccc47f0c4c7294b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ConductionNL/CommonGroundBundle/zipball/849f92f620a87129963734207736aab1980f2ad7",
-                "reference": "849f92f620a87129963734207736aab1980f2ad7",
+                "url": "https://api.github.com/repos/ConductionNL/CommonGroundBundle/zipball/c106ca645136cda1a87c9658ccc47f0c4c7294b1",
+                "reference": "c106ca645136cda1a87c9658ccc47f0c4c7294b1",
                 "shasum": ""
             },
             "require": {
@@ -702,12 +702,7 @@
                 "postcode",
                 "rsin"
             ],
-            "support": {
-                "email": "ruben@conduction.nl",
-                "issues": "https://github.com/ConductionNL/ConductionCommonGroundBundle/issues",
-                "source": "https://github.com/ConductionNL/ConductionCommonGroundBundle"
-            },
-            "time": "2021-02-04T17:40:58+00:00"
+            "time": "2021-02-18T16:40:43+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -5020,6 +5015,7 @@
                 "issues": "https://github.com/sensiolabs/security-checker/issues",
                 "source": "https://github.com/sensiolabs/security-checker/tree/master"
             },
+            "abandoned": "https://github.com/fabpot/local-php-security-checker",
             "time": "2019-11-01T13:20:14+00:00"
         },
         {
@@ -10486,12 +10482,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -12340,5 +12336,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }

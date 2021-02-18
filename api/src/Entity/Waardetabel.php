@@ -40,7 +40,7 @@ class Waardetabel
     /**
      * @todo docblocks
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
@@ -52,7 +52,7 @@ class Waardetabel
     /**
      * @todo docblocks
      *
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
      *     max = 255

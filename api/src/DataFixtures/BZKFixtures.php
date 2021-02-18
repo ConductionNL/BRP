@@ -103,25 +103,23 @@ class BZKFixtures extends Fixture
                         $ingeschrevenpersoon->setGeslachtsaanduiding('X');
                     }
 
-                    if ($row[13] != '' || $row[14] != '' || $row[11] != '' || $row[12] != '') {
-                        $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
+                    $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
 
-                        $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[162]);
-                        $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[163]);
-                        $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[156]);
-                        $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[158]);
-                        if ($row[159]) {
-                            $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging($row[159]);
-                        } else {
-                            $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
-                        }
-                        if ($row[160]) {
-                            $ingeschrevenpersoon->getVerblijfplaats()->setHuisletter($row[160]);
-                        }
-                        $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
-                        if (array_key_exists(164, $row)) {
-                            $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[164]);
-                        }
+                    $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[162]);
+                    $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[163]);
+                    $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[156]);
+                    $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[158]);
+                    if ($row[159]) {
+                        $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging($row[159]);
+                    } else {
+                        $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
+                    }
+                    if ($row[160]) {
+                        $ingeschrevenpersoon->getVerblijfplaats()->setHuisletter($row[160]);
+                    }
+                    $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
+                    if (array_key_exists(164, $row)) {
+                        $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[164]);
                     }
 
                     $voorvoegsel = ''.$row[4];

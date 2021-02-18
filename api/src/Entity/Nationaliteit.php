@@ -33,7 +33,7 @@ class Nationaliteit
     private $uuid;
 
     /**
-     * @Groups({"read","write"})
+     * @Groups({"read", "write", "show_family"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Ingeschrevenpersoon", inversedBy="nationaliteit", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
