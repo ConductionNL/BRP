@@ -1,9 +1,5 @@
 # AUTHORS
-[![Conduction](resources/logo-conduction.svg)](https://conduction.nl) 
+This component was created by conduction (https://www.conduction.nl/team) for the municipality of ['s-Hertogenbosch](https://www.s-hertogenbosch.nl/). But based  on the [common ground proto component](https://github.com/ConductionNL/commonground-component). For more information on building your own common ground component please read the [tutorial](https://github.com/ConductionNL/commonground-component/blob/master/TUTORIAL.md).  
 
-Created by the [Conduction team](https://www.conduction.nl/team). 
-Commercial support for common ground components available from [Conduction](https://www.conduction.nl).
-
-# Bases
-This component is based on [api platform](https://api-platform.com) by [Kévin Dunglas](https://dunglas.fr), which is in turn based on the [Symfony](https://symfony.com) framework for PHP.
-
+[!['s-Hertogenbosch](https://raw.githubusercontent.com/ConductionNL/processes/master/resources/logo-s-hertogenbosch.svg?sanitize=true "'s-Hertogenbosch")](https://www.s-hertogenbosch.nl/)
+[![Conduction](https://raw.githubusercontent.com/ConductionNL/processes/master/resources/logo-conduction.svg?sanitize=true "Conduction")](https://www.conduction.nl/)
