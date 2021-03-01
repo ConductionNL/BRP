@@ -3,10 +3,10 @@ entries:
   brpservice:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-02-22T08:09:12.8739723Z"
+    created: "2021-03-01T19:29:58.6350069Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: d6e051f7b1c4cc96e39a3b9019318250868d22338bfaa270c415c2570c3c948c
+    digest: aea1783509b3896a717f95629731439aa1995d8ea81e028a4140b881c92a9452
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -31,7 +31,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-02-22T08:09:12.9159457Z"
+    created: "2021-03-01T19:29:58.6599277Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -60,4 +60,4 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2021-02-22T08:09:12.837948Z"
+generated: "2021-03-01T19:29:58.6180986Z"
