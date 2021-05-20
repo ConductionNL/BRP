@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
+class StufSubscriber implements EventSubscriberInterface
 {
     private $params;
     private $em;
@@ -32,11 +32,11 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['IngeschrevenpersoonOnBsn', EventPriorities::PRE_VALIDATE],
+            KernelEvents::VIEW => ['Ingeschrevenpersoon', EventPriorities::PRE_VALIDATE],
         ];
     }
 
-    public function IngeschrevenpersoonOnBsn(ViewEvent $event)
+    public function Ingeschrevenpersoon(ViewEvent $event)
     {
         $result = $event->getControllerResult();
         $burgerservicenummer = $event->getRequest()->attributes->get('burgerservicenummer');
@@ -47,7 +47,8 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
         $method = $event->getRequest()->getMethod();
 
         // Lats make sure that some one posts correctly
-        if (Request::METHOD_GET !== $method || $event->getRequest()->get('_route') != 'api_ingeschrevenpersoons_get_on_bsn_collection' || $this->params->get('mode') != 'local') {
+        if (Request::METHOD_GET !== $method || $this->params->get('mode') != 'StUF') {
+            var_dump($this->params->get('mode'));
             return;
         }
 
@@ -66,8 +67,7 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
                 $contentType = 'application/json';
                 $renderType = 'json';
         }
-
-        $result = $this->em->getRepository(Ingeschrevenpersoon::class)->findOneBy(['burgerservicenummer' => $burgerservicenummer]);
+        $this->stUFService->performRequest($event->getRequest());
 
         // now we need to overide the normal subscriber
         if (
