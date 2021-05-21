@@ -38,7 +38,7 @@ class StufSubscriber implements EventSubscriberInterface
 
     public function Ingeschrevenpersoon(ViewEvent $event)
     {
-        $result = $event->getControllerResult();
+//        $result = $event->getControllerResult();
         $burgerservicenummer = $event->getRequest()->attributes->get('burgerservicenummer');
         $contentType = $event->getRequest()->headers->get('accept');
         if (!$contentType) {
@@ -48,7 +48,6 @@ class StufSubscriber implements EventSubscriberInterface
 
         // Lats make sure that some one posts correctly
         if (Request::METHOD_GET !== $method || $this->params->get('mode') != 'StUF') {
-            var_dump($this->params->get('mode'));
             return;
         }
 
@@ -67,7 +66,7 @@ class StufSubscriber implements EventSubscriberInterface
                 $contentType = 'application/json';
                 $renderType = 'json';
         }
-        $this->stUFService->performRequest($event->getRequest());
+        $result = $this->stUFService->performRequest($event->getRequest());
 
         // now we need to overide the normal subscriber
         if (
