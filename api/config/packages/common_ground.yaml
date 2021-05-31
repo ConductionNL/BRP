@@ -56,6 +56,11 @@ parameters:
     env(APP_MAJOR_VERSION): "v1"
     env(APP_DIGISPOOF_LOCATION): "https://zuid-drecht.nl/digispoof"
     env(APP_EHERKENNING_LOCATION): "https://zuid-drecht.nl/eherkenning"
+    
+    env(APP_MODE): "fixtures"
+    env(STUF_URI): ""
+    env(APP_CERT): ""
+    env(APP_KEY): ""
 
     app_env: "%env(APP_ENV)%"
     app_container: "%env(APP_CONTAINER)%"
@@ -96,6 +101,13 @@ parameters:
     gmail_secret: "%env(GMAIL_SECRET)%"
     idin_id: "%env(IDIN_ID)%"
     idin_secret: "%env(IDIN_SECRET)%"
+    
+    mode: "%env(APP_MODE)%"
+    
+    app_certificate: "%env(APP_CERT)%"
+    app_ssl_key: "%env(APP_KEY)%"
+    
+    stuf_uri: "%env(STUF_URI)%"
 
     # Busnes Engine
     env(APP_COMMONGROUND_BE_LOCATION): "https://ac.%env(APP_DOMAIN)%"
