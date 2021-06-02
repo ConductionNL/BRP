@@ -25,8 +25,10 @@ use GuzzleHttp\Client;
 use DateTime;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class StUFService
 {
@@ -109,19 +111,21 @@ class StUFService
                     'ns:gelijk' => [
                         '@StUF:entiteittype'                            => 'NPS',
                         'ns:inp.bsn'                                    => $request->attributes->has('burgerservicenummer') ? $request->attributes->get('burgerservicenummer') : ($request->query->has('burgerservicenummer') ? $request->attributes->get('burgerservicenummer') : null),
-                        'ns:geboortedatum'                              => $request->query->has('geboorte.datum') ?  $request->query->get('geboorte.datum') : null,
-                        'ns:geboorteplaats'                             => $request->query->has('geboorte.plaats') ?  $request->query->get('geboorte.plaats') : null,
+                        'ns:geslachtsnaam'                              => $request->query->has('naam_geslachtsnaam') ?  $request->query->get('naam_geslachtsnaam') : null,
+                        'ns:voorvoegselGeslachtsnaam'                   => $request->query->has('naam_voorvoegsel') ? $request->query->get('naam_voorvoegsel') : null,
+                        'ns:voornamen'                                  => $request->query->has('naam_voornamen') ? $request->query->get('naam_voornamen') : null,
                         'ns:geslachtsaanduiding'                        => $request->query->has('geslachtsaanduiding') ?  $request->query->get('geslachtsaanduiding') : null,
-                        'ns:geslachtsnaam'                              => $request->query->has('naam.geslachtsnaam') ?  $request->query->get('naam.geslachtsnaam') : null,
-                        'ns:voorvoegselGeslachtsnaam'                   => $request->query->has('naam.voorvoegsel') ? $request->query->get('naam.voorvoegsel') : null,
-                        'ns:voornamen'                                  => $request->query->has('naam.voornamen') ? $request->query->get('naam.voornamen') : null,
-                        'ns:verblijfsadres.wpl.identificatie'           => $request->query->has('verblijfplaats.gemeenteVanInschrijving') ? $request->query->get('verblijfplaats.gemeenteVanInschrijving') : null,
-                        'ns:verblijfadres.aoa.identificatie'            => $request->query->has('verblijfplaats.nummeraanduidingIdentificatie') ? $request->query->get('verblijfplaats.nummeraanduidingIdentificatie') : null,
-                        'ns:verblijfsadres.aoa.postcode'                => $request->query->has('verblijfplaats.postcode') ? $request->query->get('verblijfplaats.postcode') : null,
-                        'ns:verblijfsadres.aoa.straat'                  => $request->query->has('verblijfplaats.straat') ? $request->query->get('verblijfplaats.straat') : null,
-                        'ns:verblijfsadres.aoa.huisnummer'              => $request->query->has('verblijfplaats.huisnummer') ? $request->query->get('verblijfplaats.huisnummer') : null,
-                        'ns:verblijfsadres.aoa.huisletter'              => $request->query->has('verblijfplaats.huisletter') ? $request->query->get('verblijfplaats.huisletter') : null,
-                        'ns:verblijfsadres.aoa.huisnummertoevoeging'    => $request->query->has('verblijfplaats.huisnummertoevoeging') ? $request->query->get('verblijfplaats.huisnummertoevoeging') : null,
+                        'ns:geboortedatum'                              => $request->query->has('geboorte_datum') ?  $request->query->get('geboorte_datum') : null,
+                        'ns:inp.geboorteplaats'                         => $request->query->has('geboorte_plaats') ?  $request->query->get('geboorte_plaats') : null,
+                        'ns:verblijfsadres' => [
+                            'ns:aoa.identificatie'            => $request->query->has('verblijfplaats_nummeraanduidingIdentificatie') ? $request->query->get('verblijfplaats_nummeraanduidingIdentificatie') : null,
+                            'ns:wpl.identificatie'           => $request->query->has('verblijfplaats_gemeenteVanInschrijving') ? $request->query->get('verblijfplaats_gemeenteVanInschrijving') : null,
+                            'ns:gor.straatnaam'                  => $request->query->has('verblijfplaats_straat') ? $request->query->get('verblijfplaats_straat') : null,
+                            'ns:aoa.postcode'                => $request->query->has('verblijfplaats_postcode') ? $request->query->get('verblijfplaats_postcode') : null,
+                            'ns:aoa.huisnummer'              => $request->query->has('verblijfplaats_huisnummer') ? $request->query->get('verblijfplaats_huisnummer') : null,
+                            'ns:aoa.huisletter'              => $request->query->has('verblijfplaats_huisletter') ? $request->query->get('verblijfplaats_huisletter') : null,
+                            'ns:aoa.huisnummertoevoeging'    => $request->query->has('verblijfplaats_huisnummertoevoeging') ? $request->query->get('verblijfplaats_huisnummertoevoeging') : null,
+                        ],
                     ],
                     'ns:scope' => [
                         'ns:object' => [
@@ -265,12 +269,12 @@ class StUFService
         $result->setVoornamen($answer['voornamen']);
         $result->setVoorvoegsel(is_array($answer['voorvoegselGeslachtsnaam']) ? '' : $answer['voorvoegselGeslachtsnaam']);
         $result->setAanschrijfwijze((key_exists('aanhefAanschrijving', $answer)? $answer['aanschrijfwijze'] : null) . ' ' .
-            (key_exists('voornamenAanschrijving', $answer) ? $answer['voornamenAanschrijving'] : $answer['voornamen']) . ' ' .
-            (key_exists('geslachtsnaamAanschrijving', $answer) ? $answer['geslachtsnaamAanschrijving'] : $answer['geslachtsnaam']) . ' ' .
+            (key_exists('voornamenAanschrijving', $answer) && !is_array($answer['voornamenAanschrijving']) ? $answer['voornamenAanschrijving'] : $answer['voornamen']) . ' ' .
+            (key_exists('geslachtsnaamAanschrijving', $answer) && !is_array($answer['geslachtsnaamAanschrijving']) ? $answer['geslachtsnaamAanschrijving'] : $answer['geslachtsnaam']) . ' ' .
             (key_exists('adellijkeTitelPredikaat', $answer) && !is_array($answer['adellijkeTitelPredikaat']) ? $answer['adellijkeTitelPredikaat'] : null));
         $result->setGebuikInLopendeTekst(
-            (key_exists('voornamenAanschrijving', $answer) ? $answer['voornamenAanschrijving'] : $answer['voornamen']) . ' ' .
-            (key_exists('geslachtsnaamAanschrijving', $answer) ? $answer['geslachtsnaamAanschrijving'] : $answer['geslachtsnaam'])
+            (key_exists('voornamenAanschrijving', $answer) && !is_array($answer['voornamenAanschrijving']) ? $answer['voornamenAanschrijving'] : $answer['voornamen']) . ' ' .
+            (key_exists('geslachtsnaamAanschrijving', $answer) && !is_array($answer['geslachtsnaamAanschrijving']) ? $answer['geslachtsnaamAanschrijving'] : $answer['geslachtsnaam'])
         );
         $this->entityManager->persist($result);
 
@@ -401,7 +405,7 @@ class StUFService
         $partner->setNaam($this->createNaamPersoon($answer['gerelateerde']));
         $partner->setGeboorte($this->createGeboorte($answer['gerelateerde']));
         $partner->setGeslachtsaanduiding($answer['gerelateerde']['geslachtsaanduiding']);
-        $partner->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
+        is_array($answer['gerelateerde']['inp.bsn']) ?? $partner->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
         $partner->setAangaanHuwelijkPartnerschap($this->createAangaanHuwelijkPartnerschap($answer));
 
         return $partner;
@@ -413,7 +417,7 @@ class StUFService
         $kind->setNaam($this->createNaamPersoon($answer['gerelateerde']));
         $kind->setGeboorte($this->createGeboorte($answer['gerelateerde']));
         $kind->setLeeftijd($this->createLeeftijd($answer['gerelateerde']['geboortedatum']));
-        $kind->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
+        is_array($answer['gerelateerde']['inp.bsn']) ?? $kind->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
         !key_exists('inOnderzoek', $answer) ?? $kind->setInOnderzoek($answer['inOnderzoek']);
 
         return $kind;
@@ -422,7 +426,7 @@ class StUFService
     public function createOuder(array $answer): Ouder
     {
         $ouder = new Ouder();
-        $ouder->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
+        is_array($answer['gerelateerde']['inp.bsn']) ?? $ouder->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
         $ouder->setNaam($this->createNaamPersoon($answer['gerelateerde']));
         $ouder->setGeboorte($this->createGeboorte($answer['gerelateerde']));
         $ouder->setGeslachtsaanduiding($answer['gerelateerde']['geslachtsaanduiding']);
@@ -435,9 +439,9 @@ class StUFService
 
     public function createPartners(array $answer, Ingeschrevenpersoon $ingeschrevenpersoon): Ingeschrevenpersoon
     {
-        if(key_exists('@a:entiteittype', $answer)){
+        if(key_exists('@a:entiteittype', $answer) && !key_exists('#', $answer['gerelateerde'])){
             $ingeschrevenpersoon->addPartner($this->createPartner($answer));
-        } else {
+        } elseif(!key_exists('#', $answer['gerelateerde'])) {
             foreach($answer as $partner){
                 $ingeschrevenpersoon->addPartner($this->createPartner($partner));
             }
@@ -471,9 +475,15 @@ class StUFService
 
     public function addRelatives(array $answer, Ingeschrevenpersoon $ingeschrevenpersoon): Ingeschrevenpersoon
     {
-        $ingeschrevenpersoon = $this->createPartners($answer['inp.heeftAlsEchtgenootPartner'], $ingeschrevenpersoon);
-        $ingeschrevenpersoon = $this->createKinderen($answer['inp.heeftAlsKinderen'], $ingeschrevenpersoon);
-        $ingeschrevenpersoon = $this->createOuders($answer['inp.heeftAlsOuders'], $ingeschrevenpersoon);
+        isset($answer['inp.heeftAlsEchtgenootPartner']) ?
+            $ingeschrevenpersoon = $this->createPartners($answer['inp.heeftAlsEchtgenootPartner'], $ingeschrevenpersoon):
+            null;
+        isset($answer['inp.heeftAlsKinderen']) ?
+            $ingeschrevenpersoon = $this->createKinderen($answer['inp.heeftAlsKinderen'], $ingeschrevenpersoon) :
+            null;
+        isset($answer['inp.heeftAlsOuders']) ?
+            $ingeschrevenpersoon = $this->createOuders($answer['inp.heeftAlsOuders'], $ingeschrevenpersoon):
+            null;
         return $ingeschrevenpersoon;
     }
 
@@ -502,12 +512,16 @@ class StUFService
         if($verblijfsTitel) {
             $result->setVerblijfstitel($verblijfsTitel);
         }
-        return $this->addRelatives($answer, $result);
+        $result = $this->addRelatives($answer, $result);
+        $this->entityManager->persist($result);
+        return $result;
     }
 
-    public function performRequest (Request $request): Ingeschrevenpersoon
+    public function performRequest (Request $request): array
     {
         $requestMessage = $this->createStufMessage($request);
+//        var_dump($request->query->all());
+//        echo $requestMessage;
 
         $response = $this->client->post('', ['body' => $requestMessage]);
         if($response->getStatusCode() != 200 && $response->getStatusCode() != 201 && $response->getStatusCode() != 202){
@@ -515,11 +529,63 @@ class StUFService
             die;
         }
         $result = $this->xmlEncoder->decode($response->getBody()->getContents(), 'xml');
-        $answer = $result['s:Body']['npsLa01']['antwoord']['object'];
+//        var_dump($result);
+        if(key_exists('antwoord', $result['s:Body']['npsLa01'])){
+            return $result['s:Body']['npsLa01']['antwoord']['object'];
+        } else {
+            throw new HttpException(404, "Person not found");
+        }
+    }
 
-        $persoon =  $this->createIngeschrevenPersoon($answer);
+    public function createIngeschrevenPersonen(array $results): array
+    {
+        $processedResults = [];
+        foreach($results as $result){
+            try{
+                $processedResults[] = $this->createIngeschrevenPersoon($result);
+            } catch (Exception $exception) {
+//                var_dump($result);
+                throw $exception;
+            }
+        }
+        return $processedResults;
+    }
 
-        $this->entityManager->persist($persoon);
-        return $persoon;
+    public function getIngeschrevenPersonen(array $result, Request $request, SerializerService $serializerService): array
+    {
+        if(key_exists('@a:entiteittype', $result)){
+            $results[] = $this->createIngeschrevenPersoon($result);
+        } else {
+            $results = $this->createIngeschrevenPersonen($result);
+        }
+        switch ($serializerService->getRenderType()) {
+            case 'jsonhal':
+                $response['adressen'] = $results;
+                $response['totalItems'] = count($results);
+                $response['itemsPerPage'] = count($results);
+                $response['_links'] = $response['_links'] = ['self' => "/ingeschrevenpersonen?{$request->getQueryString()}"];
+                break;
+            default:
+                $response['@context'] = '/contexts/IngeschrevenPersoon';
+                $response['@id'] = '/IngeschrevenPersonen';
+                $response['@type'] = 'hydra:Collection';
+                $response['hydra:member'] = $results;
+                $response['hydra:totalItems'] = count($results);
+                break;
+        }
+        return $response;
+    }
+
+    public function getResults (Request $request, SerializerInterface $serializer): Response
+    {
+        $serializerService = new SerializerService($request, $serializer);
+        $result = $this->performRequest($request);
+        if($request->attributes->has('burgerservicenummer')){
+            $result = $this->createIngeschrevenPersoon($result);
+        } else {
+            $result = $this->getIngeschrevenPersonen($result, $request, $serializerService);
+        }
+        return $serializerService->createResponse($serializerService->serialize($result));
+
     }
 }

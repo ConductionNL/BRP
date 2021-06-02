@@ -38,60 +38,12 @@ class StufSubscriber implements EventSubscriberInterface
 
     public function Ingeschrevenpersoon(ViewEvent $event)
     {
-//        $result = $event->getControllerResult();
-        $burgerservicenummer = $event->getRequest()->attributes->get('burgerservicenummer');
-        $contentType = $event->getRequest()->headers->get('accept');
-        if (!$contentType) {
-            $contentType = $event->getRequest()->headers->get('Accept');
-        }
         $method = $event->getRequest()->getMethod();
 
         // Lats make sure that some one posts correctly
         if (Request::METHOD_GET !== $method || $this->params->get('mode') != 'StUF') {
             return;
         }
-
-        // Lets set a return content type
-        switch ($contentType) {
-            case 'application/json':
-                $renderType = 'json';
-                break;
-            case 'application/ld+json':
-                $renderType = 'jsonld';
-                break;
-            case 'application/hal+json':
-                $renderType = 'jsonhal';
-                break;
-            default:
-                $contentType = 'application/json';
-                $renderType = 'json';
-        }
-        $result = $this->stUFService->performRequest($event->getRequest());
-
-        // now we need to overide the normal subscriber
-        if (
-            $event->getRequest()->query->has('geefFamilie') &&
-            $event->getRequest()->query->get('geefFamilie') == 'true'
-        ) {
-            $json = $this->serializer->serialize(
-                $result,
-                $renderType,
-                ['enable_max_depth' => true, 'groups' => ['show_family']]
-            );
-        } else {
-            $json = $this->serializer->serialize(
-                $result,
-                $renderType,
-                ['enable_max_depth' => true]
-            );
-        }
-
-        $response = new Response(
-            $json,
-            Response::HTTP_OK,
-            ['content-type' => $contentType]
-        );
-
-        $event->setResponse($response);
+        $event->setResponse($this->stUFService->getResults($event->getRequest(), $this->serializer));
     }
 }

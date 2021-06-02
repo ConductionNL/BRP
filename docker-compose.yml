@@ -70,6 +70,10 @@ services:
       - NOTIFICATION_ENABLED=${NOTIFICATION_ENABLED}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - APP_MODE=${APP_MODE}
+      - APP_CERT=${APP_CERT}
+      - APP_KEY=${APP_KEY}
+      - STUF_URI=${STUF_URI}
     ports:
       - "82:80"
 
