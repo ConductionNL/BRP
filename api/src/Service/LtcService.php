@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\Entity\Waardetabel;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
@@ -35,6 +33,7 @@ class LtcService
             $nationaliteit->setCode('0001');
             $nationaliteit->setOmschrijving('Nederlandse');
         }
+
         return $nationaliteit;
     }
 
@@ -57,6 +56,7 @@ class LtcService
             $geboorteplaats->setCode('1999');
             $geboorteplaats->setOmschrijving('Registratie Niet Ingezetenen (RNI)');
         }
+
         return $geboorteplaats;
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +13,13 @@ class SerializerService
     private Request $request;
     private SerializerInterface $serializer;
 
-    public function __construct(Request $request, SerializerInterface $serializer){
+    public function __construct(Request $request, SerializerInterface $serializer)
+    {
         $this->request = $request;
         $this->serializer = $serializer;
-        $this->contentType = (string)$request->headers->get('accept');
+        $this->contentType = (string) $request->headers->get('accept');
         if (!$this->contentType) {
-            $this->contentType = (string)$request->headers->get('Accept');
+            $this->contentType = (string) $request->headers->get('Accept');
         }
         switch ($this->contentType) {
             case 'application/json':

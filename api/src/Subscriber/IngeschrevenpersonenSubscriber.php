@@ -54,7 +54,7 @@ class IngeschrevenpersonenSubscriber implements EventSubscriberInterface
         $event->getRequest()->server->set('QUERY_STRING', $query);
 
         $queryParameters = $event->getRequest()->query->all();
-        foreach($queryParameters as $key => $parameter){
+        foreach ($queryParameters as $key => $parameter) {
             $cleanKey = str_replace('__', '.', $key);
             $event->getRequest()->query->set($cleanKey, $parameter);
         }

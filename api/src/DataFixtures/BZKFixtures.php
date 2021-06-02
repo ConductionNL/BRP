@@ -12,7 +12,6 @@ use App\Entity\Ouder;
 use App\Entity\Overlijden;
 use App\Entity\Partner;
 use App\Entity\Verblijfplaats;
-use App\Entity\Waardetabel;
 use App\Service\LtcService;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
