@@ -12,7 +12,7 @@ use App\Entity\Ouder;
 use App\Entity\Overlijden;
 use App\Entity\Partner;
 use App\Entity\Verblijfplaats;
-use App\Entity\Waardetabel;
+use App\Service\LtcService;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use Conduction\CommonGroundBundle\ValueObject\UnderInvestigation;
@@ -26,16 +26,19 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class BZKFixtures extends Fixture
 {
-    private $params;
+    private ParameterBagInterface $parameterBag;
 
-    private $commonGroundService;
+    private CommonGroundService $commonGroundService;
+
+    private LtcService $ltcService;
 
 //    private $encoder;
 //
-    public function __construct(ParameterBagInterface $params, CommonGroundService $commonGroundService)
+    public function __construct(ParameterBagInterface $params, CommonGroundService $commonGroundService, LtcService $ltcService)
     {
-        $this->params = $params;
+        $this->parameterBag = $params;
         $this->commonGroundService = $commonGroundService;
+        $this->ltcService = $ltcService;
 //        $this->encoder = $encoder;
     }
 
@@ -46,7 +49,7 @@ class BZKFixtures extends Fixture
          *  Basis waarde tabel
          */
 
-        if (!$this->params->get('app_build_all_fixtures') || $this->params->get('app_build_all_fixtures') == 'false') {
+        if (!$this->parameterBag->get('app_build_all_fixtures') || $this->parameterBag->get('app_build_all_fixtures') == 'false') {
             $this->loadFromExcel($manager, 'BZKgegevens');
         }
     }
@@ -141,40 +144,9 @@ class BZKFixtures extends Fixture
                         $ingeschrevenpersoon->getNaam()->setGebuikInLopendeTekst($voorletters.' '.$row[4].' '.$row[5]);
                     }
 
-                    $nationaliteit = new Waardetabel();
-                    $nationaliteiten = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel32'], ['nationaliteitcode'=>$row[73]])['hydra:member'];
-                    if (
-                        count($nationaliteiten) > 0 &&
-                        $fetchedNationaliteit = $nationaliteiten[0]
-                    ) {
-                        if (key_exists('nationaliteitcode', $fetchedNationaliteit) && key_exists('omschrijving', $fetchedNationaliteit)) {
-                            $nationaliteit->setCode($fetchedNationaliteit['nationaliteitcode']);
-                            $nationaliteit->setOmschrijving($fetchedNationaliteit['omschrijving']);
-                        } else {
-                            $nationaliteit->setCode('0001');
-                            $nationaliteit->setOmschrijving('Nederlandse');
-                        }
-                    } else {
-                        $nationaliteit->setCode('0001');
-                        $nationaliteit->setOmschrijving('Nederlandse');
-                    }
-                    $geboorteplaats = new Waardetabel();
-                    $gemeentes = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel33'], ['gemeentecode'=>$row[151]])['hydra:member'];
-                    if (
-                        count($gemeentes) > 0 &&
-                        $gemeente = $gemeentes[0]
-                    ) {
-                        if (key_exists('gemeentecode', $gemeente) && key_exists('omschrijving', $gemeente)) {
-                            $geboorteplaats->setCode($gemeente['gemeentecode']);
-                            $geboorteplaats->setOmschrijving($gemeente['omschrijving']);
-                        } else {
-                            $geboorteplaats->setCode('1999');
-                            $geboorteplaats->setOmschrijving('Registratie Niet Ingezetenen (RNI)');
-                        }
-                    } else {
-                        $geboorteplaats->setCode('1999');
-                        $geboorteplaats->setOmschrijving('Registratie Niet Ingezetenen (RNI)');
-                    }
+                    $nationaliteit = $this->ltcService->getLand($row[73]);
+
+                    $geboorteplaats = $this->ltcService->getGemeente($row[151]);
 
                     $ingeschrevenpersoon->getGeboorte()->setLand($nationaliteit);
                     $ingeschrevenpersoon->getGeboorte()->setPlaats($geboorteplaats);
