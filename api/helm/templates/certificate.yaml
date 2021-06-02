@@ -10,7 +10,5 @@ metadata:
         app.kubernetes.io/managed-by: {{ .Release.Service }}
 type: kubernetes.io/tls
 data:
-    tls.crt: |
-        {{ .Values.security.certificate | quote }}
-    tls.key: |
-        {{ .Values.security.privateKey | quote }}
+    tls.crt: {{ .Values.security.certificate | quote }}
+    tls.key: {{ .Values.security.privateKey | quote }}
