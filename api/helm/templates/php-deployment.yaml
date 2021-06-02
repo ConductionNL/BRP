@@ -201,7 +201,7 @@ spec:
                     key: mode
                     name: {{ template "fullname" . }}
             {{- if (eq .Values.settings.mode "StUF")}}
-            - name: APP_CERTIFICATE
+            - name: APP_CERT
               valueFrom:
                 secretKeyRef:
                   key: certificate
