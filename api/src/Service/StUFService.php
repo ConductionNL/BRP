@@ -353,21 +353,21 @@ class StUFService
     public function createVerblijfplaats(array $answer): Verblijfplaats
     {
         $result = new Verblijfplaats();
-        $result->setIdentificatiecodeNummeraanduiding($answer['verblijfsadres']['aoa.identificatie']);
-        $result->setBagId($answer['verblijfsadres']['aoa.identificatie']);
-        $result->setIdentificatiecodeVerblijfplaats($answer['verblijfsadres']['wpl.identificatie']);
-        $result->setWoonplaatsnaam($answer['verblijfsadres']['wpl.woonplaatsNaam']);
-        $result->setNaamOpenbareRuimte($answer['verblijfsadres']['gor.openbareRuimteNaam']);
+        is_array($answer['verblijfsadres']['aoa.identificatie']) ?? $result->setIdentificatiecodeNummeraanduiding($answer['verblijfsadres']['aoa.identificatie']);
+        is_array($answer['verblijfsadres']['aoa.identificatie']) ?? $result->setBagId($answer['verblijfsadres']['aoa.identificatie']);
+        is_array($answer['verblijfsadres']['wpl.identificatie']) ?? $result->setIdentificatiecodeVerblijfplaats($answer['verblijfsadres']['wpl.identificatie']);
+        is_array($answer['verblijfsadres']['wpl.woonplaatsNaam']) ?? $result->setWoonplaatsnaam($answer['verblijfsadres']['wpl.woonplaatsNaam']);
+        is_array($answer['verblijfsadres']['wpl.identificatie']) ?? $result->setNaamOpenbareRuimte($answer['verblijfsadres']['gor.openbareRuimteNaam']);
         is_array($answer['verblijfsadres']['inp.locatiebeschrijving']) ?? $result->setLocatiebeschrijving($answer['verblijfsadres']['inp.locatiebeschrijving']);
-        $result->setStraatnaam($answer['verblijfsadres']['gor.straatnaam']);
-        $result->setPostcode($answer['verblijfsadres']['aoa.postcode']);
-        $result->setHuisnummer($answer['verblijfsadres']['aoa.huisnummer']);
+        is_array($answer['verblijfsadres']['gor.straatnaam']) ?? $result->setStraatnaam($answer['verblijfsadres']['gor.straatnaam']);
+        is_array($answer['verblijfsadres']['aoa.postcode']) ?? $result->setPostcode($answer['verblijfsadres']['aoa.postcode']);
+        is_array($answer['verblijfsadres']['aoa.huisnummer']) ?? $result->setHuisnummer($answer['verblijfsadres']['aoa.huisnummer']);
         is_array($answer['verblijfsadres']['aoa.huisletter']) ?? $result->setHuisletter($answer['verblijfsadres']['aoa.huisletter']);
         is_array($answer['verblijfsadres']['aoa.huisnummertoevoeging']) ?? $result->setHuisnummertoevoeging($answer['verblijfsadres']['aoa.huisnummertoevoeging']);
-        $result->setDatumAanvangAdreshouding($answer['verblijfsadres']['begindatumVerblijf']);
+        is_array($answer['verblijfsadres']['begindatumVerblijf']) ?? $result->setDatumAanvangAdreshouding($answer['verblijfsadres']['begindatumVerblijf']);
         !key_exists('sub.verblijfBuitenland', $answer) ?? $result->setVerblijfBuitenland($this->createVerblijfBuitenland($answer));
-        $result->setGemeenteVanInschrijving($this->ltcService->getGemeente($answer['inp.gemeenteVanInschrijving']));
-        $result->setDatumInschrijvingInGemeente($answer['inp.datumInschrijving']);
+        is_array($answer['inp.gemeenteVanInschrijving']) ?? $result->setGemeenteVanInschrijving($this->ltcService->getGemeente($answer['inp.gemeenteVanInschrijving']));
+        is_array($answer['inp.datumInschrijving']) ?? $result->setDatumInschrijvingInGemeente($answer['inp.datumInschrijving']);
         is_array($answer['inp.datumVestigingInNederland']) ?? $result->setDatumVestigingInNederland($answer['inp.datumVestigingInNederland']);
 //        $result->setDatumIngangGeldigheid($answer['StUF:tijdvakGeldigheid']['StUF:beginGeldigheid']);
         is_array($answer['inp.immigratieLand']) ?? $result->setLandVanwaarIngeschreven($this->ltcService->getLand($answer['inp.immigratieLand']));
