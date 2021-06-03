@@ -265,7 +265,7 @@ class StUFService
         $result->setVoorletters($answer['voorletters']);
         $result->setVoornamen($answer['voornamen']);
         $result->setVoorvoegsel(is_array($answer['voorvoegselGeslachtsnaam']) ? '' : $answer['voorvoegselGeslachtsnaam']);
-        $result->setAanschrijfwijze((key_exists('aanhefAanschrijving', $answer) ? $answer['aanschrijfwijze'] : null).' '.
+        $result->setAanschrijfwijze((key_exists('aanhefAanschrijving', $answer) && !is_array($answer['aanhefAanschrijving']) ? $answer['aanhefAanschrijving'] : null).' '.
             (key_exists('voornamenAanschrijving', $answer) && !is_array($answer['voornamenAanschrijving']) ? $answer['voornamenAanschrijving'] : $answer['voornamen']).' '.
             (key_exists('geslachtsnaamAanschrijving', $answer) && !is_array($answer['geslachtsnaamAanschrijving']) ? $answer['geslachtsnaamAanschrijving'] : $answer['geslachtsnaam']).' '.
             (key_exists('adellijkeTitelPredikaat', $answer) && !is_array($answer['adellijkeTitelPredikaat']) ? $answer['adellijkeTitelPredikaat'] : null));
@@ -294,8 +294,8 @@ class StUFService
     {
         $result = new Geboorte();
         $result->setDatum($this->createIncompleteDate($answer['geboortedatum']));
-        $result->setLand($this->ltcService->getLand($answer['inp.geboorteLand']));
-        $result->setPlaats($this->ltcService->getGemeente($answer['inp.geboorteplaats']));
+        !is_array($answer['inp.geboorteLand']) ? $result->setLand($this->ltcService->getLand($answer['inp.geboorteLand'])) : null;
+        !is_array($answer['inp.geboorteplaats']) ? $result->setPlaats($this->ltcService->getGemeente($answer['inp.geboorteplaats'])) : null;
 
         $this->entityManager->persist($result);
 
@@ -314,8 +314,8 @@ class StUFService
     public function createOpschortingBijhouding(array $answer): ?OpschortingBijhouding
     {
         $result = new OpschortingBijhouding();
-        is_array($answer['inp.datumOpschortingBijhouding']) ?? $result->setDatum($this->createIncompleteDate($answer['inp.datumOpschortingBijhouding']));
-        is_array($answer['inp.redenOpschortingBijhouding']) ?? $result->setReden($answer['inp.redenOpschortingBijhouding']);
+        !is_array($answer['inp.datumOpschortingBijhouding']) ? $result->setDatum($this->createIncompleteDate($answer['inp.datumOpschortingBijhouding'])) : null;
+        !is_array($answer['inp.redenOpschortingBijhouding']) ? $result->setReden($answer['inp.redenOpschortingBijhouding']) : null;
 
         if (!is_array($answer['inp.datumOpschortingBijhouding'])) {
             return $result;
@@ -327,9 +327,9 @@ class StUFService
     public function createOverlijden(array $answer): ?Overlijden
     {
         $result = new Overlijden();
-        is_array($answer['overlijdensdatum']) ?? $result->setDatum($this->createIncompleteDate($answer['overlijdensdatum']));
-        is_array($answer['inp.overlijdenLand']) ?? $result->setPlaats($this->ltcService->getLand($answer['inp.overlijdenLand']));
-        is_array($answer['inp.overlijdenplaats']) ?? $result->setPlaats($this->ltcService->getGemeente($answer['inp.overlijdenplaats']));
+        !is_array($answer['overlijdensdatum']) ? $result->setDatum($this->createIncompleteDate($answer['overlijdensdatum'])) : null;
+        !is_array($answer['inp.overlijdenLand']) ? $result->setPlaats($this->ltcService->getLand($answer['inp.overlijdenLand'])) : null;
+        !is_array($answer['inp.overlijdenplaats']) ? $result->setPlaats($this->ltcService->getGemeente($answer['inp.overlijdenplaats'])) : null;
 
         if (!is_array($answer['overlijdensdatum'])) {
             return $result;
@@ -353,24 +353,24 @@ class StUFService
     public function createVerblijfplaats(array $answer): Verblijfplaats
     {
         $result = new Verblijfplaats();
-        is_array($answer['verblijfsadres']['aoa.identificatie']) ?? $result->setIdentificatiecodeNummeraanduiding($answer['verblijfsadres']['aoa.identificatie']);
-        is_array($answer['verblijfsadres']['aoa.identificatie']) ?? $result->setBagId($answer['verblijfsadres']['aoa.identificatie']);
-        is_array($answer['verblijfsadres']['wpl.identificatie']) ?? $result->setIdentificatiecodeVerblijfplaats($answer['verblijfsadres']['wpl.identificatie']);
-        is_array($answer['verblijfsadres']['wpl.woonplaatsNaam']) ?? $result->setWoonplaatsnaam($answer['verblijfsadres']['wpl.woonplaatsNaam']);
-        is_array($answer['verblijfsadres']['wpl.identificatie']) ?? $result->setNaamOpenbareRuimte($answer['verblijfsadres']['gor.openbareRuimteNaam']);
-        is_array($answer['verblijfsadres']['inp.locatiebeschrijving']) ?? $result->setLocatiebeschrijving($answer['verblijfsadres']['inp.locatiebeschrijving']);
-        is_array($answer['verblijfsadres']['gor.straatnaam']) ?? $result->setStraatnaam($answer['verblijfsadres']['gor.straatnaam']);
-        is_array($answer['verblijfsadres']['aoa.postcode']) ?? $result->setPostcode($answer['verblijfsadres']['aoa.postcode']);
-        is_array($answer['verblijfsadres']['aoa.huisnummer']) ?? $result->setHuisnummer($answer['verblijfsadres']['aoa.huisnummer']);
-        is_array($answer['verblijfsadres']['aoa.huisletter']) ?? $result->setHuisletter($answer['verblijfsadres']['aoa.huisletter']);
-        is_array($answer['verblijfsadres']['aoa.huisnummertoevoeging']) ?? $result->setHuisnummertoevoeging($answer['verblijfsadres']['aoa.huisnummertoevoeging']);
-        is_array($answer['verblijfsadres']['begindatumVerblijf']) ?? $result->setDatumAanvangAdreshouding($answer['verblijfsadres']['begindatumVerblijf']);
+        !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setIdentificatiecodeNummeraanduiding($answer['verblijfsadres']['aoa.identificatie']) : null;
+        !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setBagId($answer['verblijfsadres']['aoa.identificatie']) : null;
+        !is_array($answer['verblijfsadres']['wpl.identificatie']) ? $result->setIdentificatiecodeVerblijfplaats($answer['verblijfsadres']['wpl.identificatie']) : null;
+        !is_array($answer['verblijfsadres']['wpl.woonplaatsNaam']) ? $result->setWoonplaatsnaam($answer['verblijfsadres']['wpl.woonplaatsNaam']) : null;
+        !is_array($answer['verblijfsadres']['wpl.identificatie']) ? $result->setNaamOpenbareRuimte($answer['verblijfsadres']['gor.openbareRuimteNaam']) : null;
+        !is_array($answer['verblijfsadres']['inp.locatiebeschrijving']) ? $result->setLocatiebeschrijving($answer['verblijfsadres']['inp.locatiebeschrijving']) : null;
+        !is_array($answer['verblijfsadres']['gor.straatnaam']) ? $result->setStraatnaam($answer['verblijfsadres']['gor.straatnaam']) : null;
+        !is_array($answer['verblijfsadres']['aoa.postcode']) ? $result->setPostcode($answer['verblijfsadres']['aoa.postcode']) : null;
+        !is_array($answer['verblijfsadres']['aoa.huisnummer']) ? $result->setHuisnummer($answer['verblijfsadres']['aoa.huisnummer']) : null;
+        !is_array($answer['verblijfsadres']['aoa.huisletter']) ? $result->setHuisletter($answer['verblijfsadres']['aoa.huisletter']) : null;
+        !is_array($answer['verblijfsadres']['aoa.huisnummertoevoeging']) ? $result->setHuisnummertoevoeging($answer['verblijfsadres']['aoa.huisnummertoevoeging']) : null;
+        !is_array($answer['verblijfsadres']['begindatumVerblijf']) ? $result->setDatumAanvangAdreshouding($answer['verblijfsadres']['begindatumVerblijf']) : null;
         !key_exists('sub.verblijfBuitenland', $answer) ?? $result->setVerblijfBuitenland($this->createVerblijfBuitenland($answer));
-        is_array($answer['inp.gemeenteVanInschrijving']) ?? $result->setGemeenteVanInschrijving($this->ltcService->getGemeente($answer['inp.gemeenteVanInschrijving']));
-        is_array($answer['inp.datumInschrijving']) ?? $result->setDatumInschrijvingInGemeente($answer['inp.datumInschrijving']);
-        is_array($answer['inp.datumVestigingInNederland']) ?? $result->setDatumVestigingInNederland($answer['inp.datumVestigingInNederland']);
+        !is_array($answer['inp.gemeenteVanInschrijving']) ? $result->setGemeenteVanInschrijving($this->ltcService->getGemeente($answer['inp.gemeenteVanInschrijving'])) : null;
+        !is_array($answer['inp.datumInschrijving']) ? $result->setDatumInschrijvingInGemeente($answer['inp.datumInschrijving']) : null;
+        !is_array($answer['inp.datumVestigingInNederland']) ? $result->setDatumVestigingInNederland($answer['inp.datumVestigingInNederland']) : null;
 //        $result->setDatumIngangGeldigheid($answer['StUF:tijdvakGeldigheid']['StUF:beginGeldigheid']);
-        is_array($answer['inp.immigratieLand']) ?? $result->setLandVanwaarIngeschreven($this->ltcService->getLand($answer['inp.immigratieLand']));
+        !is_array($answer['inp.immigratieLand']) ? $result->setLandVanwaarIngeschreven($this->ltcService->getLand($answer['inp.immigratieLand'])) : null;
 
         return $result;
     }
@@ -394,9 +394,9 @@ class StUFService
     {
         $result = new AangaanHuwelijkPartnerschap();
 
-        $result->setLand($this->ltcService->getLand($answer['landSluiting']));
-        $result->setPlaats($this->ltcService->getGemeente($answer['plaatsSluiting']));
-        $result->setDatum($this->createIncompleteDate($answer['datumSluiting']));
+        is_array($answer['landSluiting']) ? null : $result->setLand($this->ltcService->getLand($answer['landSluiting']));
+        is_array($answer['plaatsSluiting']) ? null : $result->setPlaats($this->ltcService->getGemeente($answer['plaatsSluiting']));
+        is_array($answer['datumSluiting']) ? null : $result->setDatum($this->createIncompleteDate($answer['datumSluiting']));
         !key_exists('inOnderzoek', $answer) ?? $result->setInOnderzoek($answer['inOnderzoek']);
 
         return $result;
@@ -407,8 +407,8 @@ class StUFService
         $partner = new Partner();
         $partner->setNaam($this->createNaamPersoon($answer['gerelateerde']));
         $partner->setGeboorte($this->createGeboorte($answer['gerelateerde']));
-        $partner->setGeslachtsaanduiding($answer['gerelateerde']['geslachtsaanduiding']);
-        is_array($answer['gerelateerde']['inp.bsn']) ?? $partner->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
+        is_array($answer['gerelateerde']['geslachtsaanduiding']) ? null : $partner->setGeslachtsaanduiding( $answer['gerelateerde']['geslachtsaanduiding'] );
+        is_array($answer['gerelateerde']['inp.bsn']) ? null : $partner->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
         $partner->setAangaanHuwelijkPartnerschap($this->createAangaanHuwelijkPartnerschap($answer));
 
         return $partner;
@@ -432,21 +432,23 @@ class StUFService
         is_array($answer['gerelateerde']['inp.bsn']) ?? $ouder->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
         $ouder->setNaam($this->createNaamPersoon($answer['gerelateerde']));
         $ouder->setGeboorte($this->createGeboorte($answer['gerelateerde']));
-        $ouder->setGeslachtsaanduiding($answer['gerelateerde']['geslachtsaanduiding']);
+        !is_array($answer['gerelateerde']['geslachtsaanduiding']) ? $ouder->setGeslachtsaanduiding($answer['gerelateerde']['geslachtsaanduiding']) : null;
         !key_exists('inOnderzoek', $answer) ?? $ouder->setInOnderzoek($answer['inOnderzoek']);
         !key_exists('datumIngangFamilierechtelijkeBetrekking', $answer) ?? $ouder->setDatumIngangFamilierechtelijkeBetreking($answer['datumIngangFamilierechtelijkeBetrekking']);
-        is_array($answer['ouderAanduiding']) ?? $ouder->setOuderAanduiding($answer['ouderAanduiding']);
+        !is_array($answer['ouderAanduiding']) ? $ouder->setOuderAanduiding($answer['ouderAanduiding']) : null;
 
         return $ouder;
     }
 
     public function createPartners(array $answer, Ingeschrevenpersoon $ingeschrevenpersoon): Ingeschrevenpersoon
     {
-        if (key_exists('@a:entiteittype', $answer) && !key_exists('#', $answer['gerelateerde'])) {
+        if ((key_exists('@a:entiteittype', $answer) || key_exists('@StUF:entiteittype', $answer)) && !key_exists("#", $answer) && !key_exists('#', $answer['gerelateerde'])) {
             $ingeschrevenpersoon->addPartner($this->createPartner($answer));
-        } elseif (!key_exists('#', $answer['gerelateerde'])) {
+        } else {
             foreach ($answer as $partner) {
-                $ingeschrevenpersoon->addPartner($this->createPartner($partner));
+                if (is_array($partner) && key_exists('gerelateerde',$partner) && !key_exists('#', $partner['gerelateerde'])){
+                    $ingeschrevenpersoon->addPartner($this->createPartner($partner));
+                }
             }
         }
 
@@ -455,11 +457,13 @@ class StUFService
 
     public function createKinderen(array $answer, Ingeschrevenpersoon $ingeschrevenpersoon): Ingeschrevenpersoon
     {
-        if (key_exists('@a:entiteittype', $answer)) {
+        if ((key_exists('@a:entiteittype', $answer) || key_exists('@StUF:entiteittype', $answer)) && !key_exists("#", $answer) && !key_exists('#', $answer['gerelateerde'])) {
             $ingeschrevenpersoon->addKind($this->createKind($answer));
         } else {
-            foreach ($answer as $partner) {
-                $ingeschrevenpersoon->addKind($this->createKind($partner));
+            foreach ($answer as $kind) {
+                if (is_array($kind) && key_exists('gerelateerde',$kind) && !key_exists('#', $kind['gerelateerde'])) {
+                    $ingeschrevenpersoon->addKind($this->createKind($kind));
+                }
             }
         }
 
@@ -468,11 +472,13 @@ class StUFService
 
     public function createOuders(array $answer, Ingeschrevenpersoon $ingeschrevenpersoon): Ingeschrevenpersoon
     {
-        if (key_exists('@a:entiteittype', $answer)) {
+        if ((key_exists('@a:entiteittype', $answer) || key_exists('@StUF:entiteittype', $answer)) && !key_exists("#", $answer) && !key_exists('#', $answer['gerelateerde'])) {
             $ingeschrevenpersoon->addOuder($this->createOuder($answer));
         } else {
-            foreach ($answer as $partner) {
-                $ingeschrevenpersoon->addOuder($this->createOuder($partner));
+            foreach ($answer as $ouder) {
+                if (is_array($ouder) && key_exists('gerelateerde',$ouder) && !key_exists('#', $ouder['gerelateerde'])) {
+                    $ingeschrevenpersoon->addOuder($this->createOuder($ouder));
+                }
             }
         }
 
