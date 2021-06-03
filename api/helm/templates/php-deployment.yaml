@@ -32,7 +32,7 @@ spec:
             secret:
                 secretName: privaterootg1-certificate
                 defaultMode: 420
-      {{ endif }}
+      {{ end }}
       containers:
         - name: {{ .Values.settings.name }}-php
         {{ if eq .Values.settings.env "prod"}}
@@ -51,7 +51,7 @@ spec:
             - mountPath: /usr/local/share/ca-certificates
               name: ca-certificates
               readOnly: true
-              {{ endif }}
+              {{ end }}
           env:
             - name: JWT_SECRET_KEY
               value: '%kernel.project_dir%/config/jwt/private.pem'
