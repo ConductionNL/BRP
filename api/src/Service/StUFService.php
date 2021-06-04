@@ -261,7 +261,7 @@ class StUFService
     public function createNaamPersoon(array $answer): NaamPersoon
     {
         $result = new NaamPersoon();
-        $result->setGeslachtsnaam($answer['geslachtsnaam']);
+        $result->setGeslachtsnaam(is_array($answer['geslachtsnaam']) ? null: $answer['geslachtsnaam']);
         $result->setVoorletters($answer['voorletters']);
         $result->setVoornamen($answer['voornamen']);
         $result->setVoorvoegsel(is_array($answer['voorvoegselGeslachtsnaam']) ? '' : $answer['voorvoegselGeslachtsnaam']);
@@ -508,7 +508,7 @@ class StUFService
         $result->setGeboorte($this->createGeboorte($answer));
         $result->setGeslachtsaanduiding($answer['geslachtsaanduiding']);
 //        $result->setDatumEersteInschrijvingGBA($this->createIncompleteDate($answer['StUF:tijdstipRegistratie']));
-        $result->setGeheimhoudingPersoonsgegevens($answer['inp.indicatieGeheim']);
+        $result->setGeheimhoudingPersoonsgegevens(!is_array($answer['inp.indicatieGeheim']) ? $answer['inp.indicatieGeheim'] : false);
         $result->setInOnderzoek(key_exists('inOnderzoek', $answer) ? $answer['inOnderzoek'] : false);
         $result->setLeeftijd($this->createLeeftijd($answer['geboortedatum']));
         $result->setKiesrecht(!$answer['ing.aanduidingUitgeslotenKiesrecht']);

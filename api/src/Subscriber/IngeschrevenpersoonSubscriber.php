@@ -48,7 +48,6 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
 
         // Lats make sure that some one posts correctly
         if (Request::METHOD_GET !== $method || $event->getRequest()->get('_route') != 'api_ingeschrevenpersoons_get_on_bsn_collection' || $this->params->get('mode') != 'Fixtures') {
-            var_dump('bye!');
             return;
         }
 
