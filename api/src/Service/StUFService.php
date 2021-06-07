@@ -354,7 +354,7 @@ class StUFService
     {
         $result = new Verblijfplaats();
         !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setIdentificatiecodeNummeraanduiding($answer['verblijfsadres']['aoa.identificatie']) : null;
-        !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setBagId($answer['verblijfsadres']['aoa.identificatie']) : null;
+        !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setBagId(intval($answer['verblijfsadres']['aoa.identificatie'])) : null;
         !is_array($answer['verblijfsadres']['wpl.identificatie']) ? $result->setIdentificatiecodeVerblijfplaats($answer['verblijfsadres']['wpl.identificatie']) : null;
         !is_array($answer['verblijfsadres']['wpl.woonplaatsNaam']) ? $result->setWoonplaatsnaam($answer['verblijfsadres']['wpl.woonplaatsNaam']) : null;
         !is_array($answer['verblijfsadres']['wpl.identificatie']) ? $result->setNaamOpenbareRuimte($answer['verblijfsadres']['gor.openbareRuimteNaam']) : null;
