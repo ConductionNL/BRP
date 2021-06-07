@@ -106,7 +106,7 @@ class StUFService
                     ],
                     'ns:gelijk' => [
                         '@StUF:entiteittype'                            => 'NPS',
-                        'ns:inp.bsn'                                    => $request->attributes->has('burgerservicenummer') ? $request->attributes->get('burgerservicenummer') : ($request->query->has('burgerservicenummer') ? $request->attributes->get('burgerservicenummer') : null),
+                        'ns:inp.bsn'                                    => $request->attributes->has('burgerservicenummer') ? $request->attributes->get('burgerservicenummer') : ($request->query->has('burgerservicenummer') ? $request->query->get('burgerservicenummer') : null),
                         'ns:geslachtsnaam'                              => $request->query->has('naam_geslachtsnaam') ? $request->query->get('naam_geslachtsnaam') : null,
                         'ns:voorvoegselGeslachtsnaam'                   => $request->query->has('naam_voorvoegsel') ? $request->query->get('naam_voorvoegsel') : null,
                         'ns:voornamen'                                  => $request->query->has('naam_voornamen') ? $request->query->get('naam_voornamen') : null,
@@ -534,16 +534,12 @@ class StUFService
     public function performRequest(Request $request): array
     {
         $requestMessage = $this->createStufMessage($request);
-//        var_dump($request->query->all());
-//        echo $requestMessage;
-
         $response = $this->client->post('', ['body' => $requestMessage]);
         if ($response->getStatusCode() != 200 && $response->getStatusCode() != 201 && $response->getStatusCode() != 202) {
             echo $response->getBody()->getContents();
             exit;
         }
         $result = $this->xmlEncoder->decode($response->getBody()->getContents(), 'xml');
-//        var_dump($result);
         if (key_exists('antwoord', $result['s:Body']['npsLa01'])) {
             return $result['s:Body']['npsLa01']['antwoord']['object'];
         } else {
@@ -558,7 +554,6 @@ class StUFService
             try {
                 $processedResults[] = $this->createIngeschrevenPersoon($result);
             } catch (Exception $exception) {
-//                var_dump($result);
                 throw $exception;
             }
         }
