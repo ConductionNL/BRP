@@ -40,6 +40,12 @@ class StUFService
         $this->entityManager = $entityManager;
         $this->parameterBag = $parameterBag;
         $this->ltcService = $ltcService;
+
+        //If the mode is not StUF, then we will not need to configure this service.
+        if($this->parameterBag->get('mode') != 'StUF'){
+            return;
+        }
+
         if ($this->parameterBag->has('stuf_uri')) {
             $baseUri = $this->parameterBag->get('stuf_uri');
         } else {
