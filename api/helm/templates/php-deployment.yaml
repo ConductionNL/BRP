@@ -27,7 +27,7 @@ spec:
             secret:
               secretName: {{ template "fullname" . }}-dependencies
               defaultMode: 420
-          {{- if eq .Values.settings.mode "StUF" }}
+          {{- if eq .Values.config.mode "StUF" }}
           - name: certificates
             secret:
               secretName: { { template "fullname" . } }-certificate
@@ -48,7 +48,7 @@ spec:
               subPath: dependencies.yaml
               name: dependencies
               readOnly: true
-            {{- if eq .Values.settings.mode "StUF" }}
+            {{- if eq .Values.config.mode "StUF" }}
             - mountPath: /var/run/certs
               name: certificates
               readOnly: true
@@ -124,7 +124,7 @@ spec:
                 configMapKeyRef:
                   key: mode
                   name: {{ template "fullname" . }}
-            {{- if (eq .Values.settings.mode "StUF") }}
+            {{- if (eq .Values.config.mode "StUF") }}
             - name: APP_CERT
                 valueFrom:
                 secretKeyRef:
