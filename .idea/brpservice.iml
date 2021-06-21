@@ -37,8 +37,6 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/guzzlehttp/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/laminas/laminas-code" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/laminas/laminas-eventmanager" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/laminas/laminas-zendframework-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/league/html-to-markdown" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/maennchen/zipstream-php" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/markbaker/complex" />
@@ -90,7 +88,6 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/http-client-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/http-foundation" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/http-kernel" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/intl" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/maker-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/mercure" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/mercure-bundle" />
@@ -136,6 +133,13 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/webonyx/graphql-php" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/willdurand/negotiation" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/cli-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/lines-of-code" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/complexity" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/password-hasher" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php81" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/lcobucci/clock" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
