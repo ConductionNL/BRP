@@ -3,7 +3,7 @@ entries:
   brpservice:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-06-21T10:18:49.7528709Z"
+    created: "2021-06-21T12:05:31.2514677Z"
     description: Het Basis Registratie Personen Component is een implementatie van
       de door Haal Centraal ontwikkelde API-specificatie in de vorm van een Common
       Ground container. Dat betekent dat het ten opzichte van die referentie een aantal
@@ -40,7 +40,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-06-21T10:18:49.7956192Z"
+    created: "2021-06-21T12:05:31.2650536Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -69,4 +69,4 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2021-06-21T10:18:49.7066787Z"
+generated: "2021-06-21T12:05:31.2371014Z"
