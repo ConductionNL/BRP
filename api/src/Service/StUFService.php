@@ -40,6 +40,12 @@ class StUFService
         $this->entityManager = $entityManager;
         $this->parameterBag = $parameterBag;
         $this->ltcService = $ltcService;
+
+        //If the mode is not StUF, then we will not need to configure this service.
+        if($this->parameterBag->get('mode') != 'StUF'){
+            return;
+        }
+
         if ($this->parameterBag->has('stuf_uri')) {
             $baseUri = $this->parameterBag->get('stuf_uri');
         } else {
@@ -354,7 +360,7 @@ class StUFService
     {
         $result = new Verblijfplaats();
         !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setIdentificatiecodeNummeraanduiding($answer['verblijfsadres']['aoa.identificatie']) : null;
-        !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setBagId($answer['verblijfsadres']['aoa.identificatie']) : null;
+        !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setBagId(intval($answer['verblijfsadres']['aoa.identificatie'])) : null;
         !is_array($answer['verblijfsadres']['wpl.identificatie']) ? $result->setIdentificatiecodeVerblijfplaats($answer['verblijfsadres']['wpl.identificatie']) : null;
         !is_array($answer['verblijfsadres']['wpl.woonplaatsNaam']) ? $result->setWoonplaatsnaam($answer['verblijfsadres']['wpl.woonplaatsNaam']) : null;
         !is_array($answer['verblijfsadres']['wpl.identificatie']) ? $result->setNaamOpenbareRuimte($answer['verblijfsadres']['gor.openbareRuimteNaam']) : null;
