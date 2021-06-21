@@ -30,7 +30,7 @@ spec:
           {{- if eq .Values.config.mode "StUF" }}
           - name: certificates
             secret:
-              secretName: { { template "fullname" . } }-certificate
+              secretName: {{ template "fullname" . }}-certificate
               defaultMode: 420
           - name: ca-certificates
             secret:
@@ -139,7 +139,7 @@ spec:
                 valueFrom:
                   configMapKeyRef:
                     key: stuf_uri
-                    name: { { template "fullname" . } }
+                    name: {{ template "fullname" . }}
             {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
