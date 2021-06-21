@@ -42,7 +42,7 @@ class StUFService
         $this->ltcService = $ltcService;
 
         //If the mode is not StUF, then we will not need to configure this service.
-        if($this->parameterBag->get('mode') != 'StUF'){
+        if ($this->parameterBag->get('mode') != 'StUF') {
             return;
         }
 
@@ -267,7 +267,7 @@ class StUFService
     public function createNaamPersoon(array $answer): NaamPersoon
     {
         $result = new NaamPersoon();
-        $result->setGeslachtsnaam(is_array($answer['geslachtsnaam']) ? null: $answer['geslachtsnaam']);
+        $result->setGeslachtsnaam(is_array($answer['geslachtsnaam']) ? null : $answer['geslachtsnaam']);
         $result->setVoorletters($answer['voorletters']);
         $result->setVoornamen($answer['voornamen']);
         $result->setVoorvoegsel(is_array($answer['voorvoegselGeslachtsnaam']) ? '' : $answer['voorvoegselGeslachtsnaam']);
@@ -413,7 +413,7 @@ class StUFService
         $partner = new Partner();
         $partner->setNaam($this->createNaamPersoon($answer['gerelateerde']));
         $partner->setGeboorte($this->createGeboorte($answer['gerelateerde']));
-        is_array($answer['gerelateerde']['geslachtsaanduiding']) ? null : $partner->setGeslachtsaanduiding( $answer['gerelateerde']['geslachtsaanduiding'] );
+        is_array($answer['gerelateerde']['geslachtsaanduiding']) ? null : $partner->setGeslachtsaanduiding($answer['gerelateerde']['geslachtsaanduiding']);
         is_array($answer['gerelateerde']['inp.bsn']) ? null : $partner->setBurgerservicenummer($answer['gerelateerde']['inp.bsn']);
         $partner->setAangaanHuwelijkPartnerschap($this->createAangaanHuwelijkPartnerschap($answer));
 
@@ -448,11 +448,11 @@ class StUFService
 
     public function createPartners(array $answer, Ingeschrevenpersoon $ingeschrevenpersoon): Ingeschrevenpersoon
     {
-        if ((key_exists('@a:entiteittype', $answer) || key_exists('@StUF:entiteittype', $answer)) && !key_exists("#", $answer) && !key_exists('#', $answer['gerelateerde'])) {
+        if ((key_exists('@a:entiteittype', $answer) || key_exists('@StUF:entiteittype', $answer)) && !key_exists('#', $answer) && !key_exists('#', $answer['gerelateerde'])) {
             $ingeschrevenpersoon->addPartner($this->createPartner($answer));
         } else {
             foreach ($answer as $partner) {
-                if (is_array($partner) && key_exists('gerelateerde',$partner) && !key_exists('#', $partner['gerelateerde'])){
+                if (is_array($partner) && key_exists('gerelateerde', $partner) && !key_exists('#', $partner['gerelateerde'])) {
                     $ingeschrevenpersoon->addPartner($this->createPartner($partner));
                 }
             }
@@ -463,11 +463,11 @@ class StUFService
 
     public function createKinderen(array $answer, Ingeschrevenpersoon $ingeschrevenpersoon): Ingeschrevenpersoon
     {
-        if ((key_exists('@a:entiteittype', $answer) || key_exists('@StUF:entiteittype', $answer)) && !key_exists("#", $answer) && !key_exists('#', $answer['gerelateerde'])) {
+        if ((key_exists('@a:entiteittype', $answer) || key_exists('@StUF:entiteittype', $answer)) && !key_exists('#', $answer) && !key_exists('#', $answer['gerelateerde'])) {
             $ingeschrevenpersoon->addKind($this->createKind($answer));
         } else {
             foreach ($answer as $kind) {
-                if (is_array($kind) && key_exists('gerelateerde',$kind) && !key_exists('#', $kind['gerelateerde'])) {
+                if (is_array($kind) && key_exists('gerelateerde', $kind) && !key_exists('#', $kind['gerelateerde'])) {
                     $ingeschrevenpersoon->addKind($this->createKind($kind));
                 }
             }
@@ -478,11 +478,11 @@ class StUFService
 
     public function createOuders(array $answer, Ingeschrevenpersoon $ingeschrevenpersoon): Ingeschrevenpersoon
     {
-        if ((key_exists('@a:entiteittype', $answer) || key_exists('@StUF:entiteittype', $answer)) && !key_exists("#", $answer) && !key_exists('#', $answer['gerelateerde'])) {
+        if ((key_exists('@a:entiteittype', $answer) || key_exists('@StUF:entiteittype', $answer)) && !key_exists('#', $answer) && !key_exists('#', $answer['gerelateerde'])) {
             $ingeschrevenpersoon->addOuder($this->createOuder($answer));
         } else {
             foreach ($answer as $ouder) {
-                if (is_array($ouder) && key_exists('gerelateerde',$ouder) && !key_exists('#', $ouder['gerelateerde'])) {
+                if (is_array($ouder) && key_exists('gerelateerde', $ouder) && !key_exists('#', $ouder['gerelateerde'])) {
                     $ingeschrevenpersoon->addOuder($this->createOuder($ouder));
                 }
             }
