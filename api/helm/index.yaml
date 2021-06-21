@@ -3,10 +3,19 @@ entries:
   brpservice:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-06-03T15:05:06.886137+02:00"
-    description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
-      beschikbaar.
-    digest: 294d890366f26eb099ea6564178f7950bb42918b73fd12d8dbd4c532cf8e54c8
+    created: "2021-06-21T10:18:49.7528709Z"
+    description: Het Basis Registratie Personen Component is een implementatie van
+      de door Haal Centraal ontwikkelde API-specificatie in de vorm van een Common
+      Ground container. Dat betekent dat het ten opzichte van die referentie een aantal
+      extra opties kent (zoals extended en filteren van data). Dit Common Ground component
+      kan op twee manieren worden ingezet. Om te beginnen kan het aan de achterkant
+      worden voorzien van datafixtures in de vorm van een Excel sheet. Op deze manier
+      kan er een “specifieke” mock worden gecreëerd voor het testen van applicaties
+      (al dan niet in combinatie met Digispoof). Het is echter ook mogelijke om het
+      BRP Component in te zetten in samenhang met het StuF Component, in dat geval
+      worden API-verzoeken op het BRP vertaald naar StuF berichten op GBA of GBAV
+      aansluiting en levert het component daadwerkelijk een BRP koppeling.
+    digest: 96242722217f5e5eb80bf1785db82d65f360682e29b1538949a391f236cb57e5
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -31,7 +40,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-06-03T15:05:06.8980924+02:00"
+    created: "2021-06-21T10:18:49.7956192Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -60,4 +69,4 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2021-06-03T15:05:06.8742468+02:00"
+generated: "2021-06-21T10:18:49.7066787Z"

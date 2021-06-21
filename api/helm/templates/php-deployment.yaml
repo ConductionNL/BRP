@@ -1,219 +1,132 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.settings.name }}-php
+  name: {{ .Release.Name }}-php
   labels:
-    app.kubernetes.io/name: {{ .Values.settings.name }}-php
-    app.kubernetes.io/part-of: {{ .Values.settings.name }}
+    app.kubernetes.io/name: {{ .Release.Name }}-php
+    app.kubernetes.io/part-of: {{ .Release.Name }}
     helm.sh/chart: {{ include "chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ .Values.settings.name }}-php
+      app.kubernetes.io/name: {{ .Release.Name }}-php
   replicas: {{ .Values.php.replicaCount }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ .Values.settings.name }}-php
-        app.kubernetes.io/part-of: {{ .Values.settings.name }}
+        app.kubernetes.io/name: {{ .Release.Name }}-php
+        app.kubernetes.io/part-of: {{ .Release.Name }}
         helm.sh/chart: {{ include "chart" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
     spec:
-      {{ if eq .Values.settings.mode "StUF" }}
       volumes:
+          - name: dependencies
+            secret:
+              secretName: {{ template "fullname" . }}-dependencies
+              defaultMode: 420
+          {{- if eq .Values.settings.mode "StUF" }}
           - name: certificates
             secret:
-                secretName: {{ template "fullname" . }}-certificate
-                defaultMode: 420
+              secretName: { { template "fullname" . } }-certificate
+              defaultMode: 420
           - name: ca-certificates
             secret:
-                secretName: privaterootg1-certificate
-                defaultMode: 420
-      {{ end }}
+              secretName: privaterootg1-certificate
+              defaultMode: 420
+          {{- end }}
       containers:
-        - name: {{ .Values.settings.name }}-php
-        {{ if eq .Values.settings.env "prod"}}
-          image: "{{ .Values.settings.registryBase }}/{{ .Values.settings.projectName }}-php:latest"
-        {{ else }}
-          image: "{{ .Values.settings.registryBase }}/{{ .Values.settings.projectName }}-php:{{ .Values.settings.env }}"
-        {{ end }}
-          imagePullPolicy: {{ .Values.settings.pullPolicy }}
+        - name: {{ .Release.Name }}-php
+          image: "{{ .Values.php.image }}:{{ .Values.php.tag }}"
+          imagePullPolicy: {{ .Values.php.pullPolicy }}
           ports:
             - containerPort: 9000
-              {{ if eq .Values.settings.mode "StUF" }}
           volumeMounts:
+            - mountPath: /config/packages/dependencies.yaml
+              subPath: dependencies.yaml
+              name: dependencies
+              readOnly: true
+            {{- if eq .Values.settings.mode "StUF" }}
             - mountPath: /var/run/certs
               name: certificates
               readOnly: true
             - mountPath: /usr/local/share/ca-certificates
               name: ca-certificates
               readOnly: true
-              {{ end }}
+            {{- end }}
           env:
             - name: JWT_SECRET_KEY
               value: '%kernel.project_dir%/config/jwt/private.pem'
             - name: JWT_PUBLIC_KEY
               value: '%kernel.project_dir%/config/jwt/public.pem'
             - name: JWT_PASSPHRASE
-              value: 'bafe1dc254b45471754c221081f874aa' #@todo this should be a variable
+              value: 'bafe1dc254b45471754c221081f874aa'
+            - name: APP_ENV
+              value: 'prod'
             - name: TRUSTED_HOSTS
               valueFrom:
                 configMapKeyRef:
-                    key: trusted-hosts
-                    name: {{ template "fullname" . }}
+                  name: {{ template "fullname" . }}
+                  key: trusted-hosts
             - name: TRUSTED_PROXIES
               valueFrom:
                 configMapKeyRef:
-                    key: trusted-proxies
-                    name: {{ template "fullname" . }}
-            - name: APP_NAME
-              valueFrom:
-                configMapKeyRef:
-                    key: app-name
-                    name: {{ template "fullname" . }}
-            - name: APP_DESCRIPTION
-              valueFrom:
-                configMapKeyRef:
-                    key: app-description
-                    name: {{ template "fullname" . }}
+                  name: {{ template "fullname" . }}
+                  key: trusted-proxies
             - name: APP_VERSION
               valueFrom:
                 configMapKeyRef:
-                    key: app-version
-                    name: {{ template "fullname" . }}
-            - name: APP_ENV
-              valueFrom:
-                configMapKeyRef:
-                    key: env
-                    name: {{ template "fullname" . }}
+                  name: {{ template "fullname" . }}
+                  key: app-version
             - name: APP_DEBUG
               valueFrom:
                 configMapKeyRef:
-                    key: debug
-                    name: {{ template "fullname" . }}
-            - name: APP_TYPE
-              valueFrom:
-                  configMapKeyRef:
-                      key: app-type
-                      name: {{ template "fullname" . }}
-            {{ if .Values.settings.id }}
-            - name: APP_ID
-              valueFrom:
-                    configMapKeyRef:
-                        key: app-id
-                        name: {{ template "fullname" . }}
-            {{ end }}
-            - name: APP_DEMO
-              valueFrom:
-                configMapKeyRef:
-                    key: app-demo
-                    name: {{ template "fullname" . }}
-
-            - name: APP_REPRO
-              valueFrom:
-                  configMapKeyRef:
-                      key: app-repro
-                      name: {{ template "fullname" . }}
-            - name: APP_DOMAIN
-              valueFrom:
-                  configMapKeyRef:
-                      key: app-domain
-                      name: {{ template "fullname" . }}
+                  name: {{ template "fullname" . }}
+                  key: debug
             - name: APP_CACHE
               valueFrom:
                   configMapKeyRef:
-                      key: cache
                       name: {{ template "fullname" . }}
-            # config
-            - name: AUTH_ENABLED
-              valueFrom:
-                configMapKeyRef:
-                    key: app-auth
-                    name: {{ template "fullname" . }}
-            - name: AUDITTRAIL_ENABLED
-              valueFrom:
-                configMapKeyRef:
-                    key: app-audittrail
-                    name: {{ template "fullname" . }}
-            - name: NOTIFICATION_ENABLED
-              valueFrom:
-                configMapKeyRef:
-                    key: app-notification
-                    name: {{ template "fullname" . }}
-            - name: APP_WEB
-              valueFrom:
-                configMapKeyRef:
-                    key: app-web
-                    name: {{ template "fullname" . }}
-            - name: APP_SUBPATH_ROUTING
-              valueFrom:
-                configMapKeyRef:
-                    key: app-subpath-routing
-                    name: {{ template "fullname" . }}
-            - name: APP_SUBPATH
-              valueFrom:
-                configMapKeyRef:
-                    key: app-subpath
-                    name: {{ template "fullname" . }}
-            
-            # bla bla      
+                      key: cache      
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  key: database-url
                   name: {{ template "fullname" . }}
+                  key: database-url
+            - name: CORS_ALLOW_ORIGIN
+              valueFrom:
+                  configMapKeyRef:
+                      name: {{ template "fullname" . }}
+                      key: app-corsAllowOrigin
             - name: APP_APPLICATION_KEY
               valueFrom:
                 secretKeyRef:
-                  key: app_application_key
                   name: {{ template "fullname" . }}
-            {{- if (eq $.Values.settings.type "application" ) }}
+                  key: app_application_key
+          {{ if .Values.redis.enabled }}
             - name: REDIS_HOST
               valueFrom:
                 configMapKeyRef:
-                  key: redis-host
                   name: {{ template "fullname" . }}
+                  key: redis-host
             - name: REDIS_PORT
               valueFrom:
                 configMapKeyRef:
+                  name: {{ template "fullname" . }}
                   key: redis-port
-                  name: {{ template "fullname" . }}
-            - name: APP_DIGISPOOF_LOCATION
-              valueFrom:
-                configMapKeyRef:
-                  key: digispoof-location
-                  name: {{ template "fullname" . }}
-            - name: APP_EHERKENNING_LOCATION
-              valueFrom:
-                configMapKeyRef:
-                  key: eherkenning-location
-                  name: {{ template "fullname" . }}
             {{- end }}
             - name: APP_URL
-              {{- if and (eq $.Values.settings.env "prod") (eq $.Values.settings.type "component") }}
-              value: https://{{ $.Values.settings.domain }}/api/{{ $.Values.settings.majorVersion }}/{{ $.Values.settings.subpath }}
-              {{- else if and (eq $.Values.settings.env "prod") $.Values.settings.subpath }}
-              value: https://{{ $.Values.settings.domain }}/{{ $.Values.settings.subpath }}
-              {{- else if eq $.Values.settings.env "prod" }}
-              value: https://{{ $.Values.settings.domain }}
-              {{- else if eq $.Values.settings.type "component" }}
-              value: https://{{ $.Values.settings.env }}.{{ $.Values.settings.domain }}/api/{{ $.Values.settings.majorVersion }}/{{ $.Values.settings.subpath }}
-              {{- else if $.Values.settings.subpath }}
-              value: https://{{ $.Values.settings.env }}.{{ $.Values.settings.domain }}/{{ $.Values.settings.subpath }}
-              {{- else }}
-              value: https://{{ $.Values.settings.env }}.{{ $.Values.settings.domain }}
-              {{- end }}
+              value: https://{{ $.Values.ingress.domain }}/{{ $.Values.ingress.path }}
             - name: APP_MODE
               valueFrom:
                 configMapKeyRef:
-                    key: mode
-                    name: {{ template "fullname" . }}
-            {{- if (eq .Values.settings.mode "StUF")}}
+                  key: mode
+                  name: {{ template "fullname" . }}
+            {{- if (eq .Values.settings.mode "StUF") }}
             - name: APP_CERT
-              valueFrom:
+                valueFrom:
                 secretKeyRef:
                   key: certificate
                   name: {{ template "fullname" . }}
@@ -223,10 +136,10 @@ spec:
                   key: private_key
                   name: {{ template "fullname" . }}
             - name: STUF_URI
-              valueFrom:
-                configMapKeyRef:
-                  key: stuf_uri
-                  name: {{ template "fullname" . }}
+                valueFrom:
+                  configMapKeyRef:
+                    key: stuf_uri
+                    name: { { template "fullname" . } }
             {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
