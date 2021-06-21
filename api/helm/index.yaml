@@ -3,9 +3,9 @@ entries:
   brpservice:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-06-21T14:15:14.9286116+02:00"
+    created: "2021-06-21T14:22:00.5589781+02:00"
     description: Het Basis Registratie Personen Component is een implementatie van de door Haal Centraal ontwikkelde API-specificatie in de vorm van een Common Ground container. Dat betekent dat het ten opzichte van die referentie een aantal extra opties kent (zoals extended en filteren van data). Dit Common Ground component kan op twee manieren worden ingezet. Om te beginnen kan het aan de achterkant worden voorzien van datafixtures in de vorm van een Excel sheet. Op deze manier kan er een “specifieke” mock worden gecreëerd voor het testen van applicaties (al dan niet in combinatie met Digispoof). Het is echter ook mogelijke om het BRP Component in te zetten in samenhang met het StuF Component, in dat geval worden API-verzoeken op het BRP vertaald naar StuF berichten op GBA of GBAV aansluiting en levert het component daadwerkelijk een BRP koppeling.
-    digest: 90cdb61fd594932bd525248b4a8781259e3e01e256edb7320d78b1c29d7c8765
+    digest: 963e0a5291273c80e41bc437209e83f1374ccad71fe7ca79961b33fa04a5eef1
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -30,7 +30,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-06-21T14:15:14.9316095+02:00"
+    created: "2021-06-21T14:22:00.5709524+02:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -63,7 +63,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 6.0.11
-    created: "2021-06-21T14:15:14.9356098+02:00"
+    created: "2021-06-21T14:22:00.576951+02:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -90,4 +90,4 @@ entries:
     urls:
     - charts/redis-12.7.7.tgz
     version: 12.7.7
-generated: "2021-06-21T14:15:14.9196096+02:00"
+generated: "2021-06-21T14:22:00.5469491+02:00"

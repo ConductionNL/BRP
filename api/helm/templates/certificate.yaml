@@ -3,8 +3,8 @@ kind: Secret
 metadata:
     name: {{ template "fullname" . }}-certificate
     labels:
-        app.kubernetes.io/name: {{ .Relase.name }}
-        app.kubernetes.io/part-of: {{ .Relase.name }}
+        app.kubernetes.io/name: {{ .Release.name }}
+        app.kubernetes.io/part-of: {{ .Release.name }}
         helm.sh/chart: {{ include "chart" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
