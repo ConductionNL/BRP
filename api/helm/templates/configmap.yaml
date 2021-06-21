@@ -25,5 +25,5 @@ data:
 
   {{- end }}
 
-  mode: { { .Values.config.mode } }
-  stuf_uri: { { .Values.security.stufUri } }
+  mode: {{ .Values.config.mode }}
+  stuf_uri: {{ .Values.security.stufUri }}
