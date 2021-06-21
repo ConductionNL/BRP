@@ -1,3 +1,4 @@
+{{- if eq .Values.config.mode "StUF" }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -12,3 +13,4 @@ type: kubernetes.io/tls
 data:
     tls.crt: {{ .Values.security.certificate | quote }}
     tls.key: {{ .Values.security.privateKey | quote }}
+{{- end }}
