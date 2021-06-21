@@ -49,6 +49,11 @@ class AppFixtures extends Fixture
 
             return;
         }
+        if ($this->params->get('app_domain') == 'waardepapieren-gemeentehoorn' || strpos($this->params->get('app_domain'), 'waardepapieren-gemeentehoorn') !== false) {
+            $this->loadFromExcel($manager, 'Yard');
+
+            return;
+        }
         if (
             $this->params->get('app_domain') == 'verhuizen.accp.s-hertogenbosch.nl' ||
             strpos($this->params->get('app_domain'), 'verhuizen.accp.s-hertogenbosch.nl') !== false ||

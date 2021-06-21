@@ -36,7 +36,6 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/guzzlehttp/guzzle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/guzzlehttp/psr7" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/jdorn/sql-formatter" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/laminas/laminas-code" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/laminas/laminas-eventmanager" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/laminas/laminas-zendframework-bridge" />

@@ -4,6 +4,7 @@ namespace App\Subscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Ingeschrevenpersoon;
+use App\Service\StUFService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,12 +19,14 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
     private $params;
     private $em;
     private $serializer;
+    private StUFService $stUFService;
 
-    public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, SerializerInterface $serializer)
+    public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, SerializerInterface $serializer, StUFService $stUFService)
     {
         $this->params = $params;
         $this->em = $em;
         $this->serializer = $serializer;
+        $this->stUFService = $stUFService;
     }
 
     public static function getSubscribedEvents()
@@ -44,7 +47,7 @@ class IngeschrevenpersoonSubscriber implements EventSubscriberInterface
         $method = $event->getRequest()->getMethod();
 
         // Lats make sure that some one posts correctly
-        if (Request::METHOD_GET !== $method || $event->getRequest()->get('_route') != 'api_ingeschrevenpersoons_get_on_bsn_collection') {
+        if (Request::METHOD_GET !== $method || $event->getRequest()->get('_route') != 'api_ingeschrevenpersoons_get_on_bsn_collection' || $this->params->get('mode') != 'Fixtures') {
             return;
         }
 

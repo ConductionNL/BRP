@@ -1,30 +1,14 @@
-{{ if false }}
-apiVersion: cert-manager.io/v1alpha2
-kind: Certificate
+apiVersion: v1
+kind: Secret
 metadata:
-    name: {{ .Values.settings.name }}-{{ .Values.settings.env }}-cert
+    name: {{ template "fullname" . }}-certificate
     labels:
         app.kubernetes.io/name: {{ .Values.settings.name }}
         app.kubernetes.io/part-of: {{ .Values.settings.name }}
         helm.sh/chart: {{ include "chart" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
-spec:
-  secretName: {{ template "fullname" . }}
-  duration: 24h
-  renewBefore: 12h
-  dnsNames:
-#  {{- if eq .Values.settings.env "prod" }}
-#  - {{ .Values.settings.name }}.{{ .Values.settings.domain }}    
-#  {{- else }}      
-#  - {{ .Values.settings.name }}.{{ .Values.settings.env }}.{{ .Values.settings.domain }}    
-#  {{- end }}
-  {{- if eq $.Values.settings.env "prod" }}
-    - {{ $.Values.settings.subdomain }}.{{ $.Values.settings.domain }}
-  {{- else }}      
-  - {{ $.Values.settings.subdomain }}.{{ $.Values.settings.env }}.{{ $.Values.settings.domain }}    
-  {{- end }}
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-{{ end }}
+type: kubernetes.io/tls
+data:
+    tls.crt: {{ .Values.security.certificate | quote }}
+    tls.key: {{ .Values.security.privateKey | quote }}

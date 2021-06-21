@@ -22,6 +22,17 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
     spec:
+      {{ if eq .Values.settings.mode "StUF" }}
+      volumes:
+          - name: certificates
+            secret:
+                secretName: {{ template "fullname" . }}-certificate
+                defaultMode: 420
+          - name: ca-certificates
+            secret:
+                secretName: privaterootg1-certificate
+                defaultMode: 420
+      {{ end }}
       containers:
         - name: {{ .Values.settings.name }}-php
         {{ if eq .Values.settings.env "prod"}}
@@ -32,6 +43,15 @@ spec:
           imagePullPolicy: {{ .Values.settings.pullPolicy }}
           ports:
             - containerPort: 9000
+              {{ if eq .Values.settings.mode "StUF" }}
+          volumeMounts:
+            - mountPath: /var/run/certs
+              name: certificates
+              readOnly: true
+            - mountPath: /usr/local/share/ca-certificates
+              name: ca-certificates
+              readOnly: true
+              {{ end }}
           env:
             - name: JWT_SECRET_KEY
               value: '%kernel.project_dir%/config/jwt/private.pem'
@@ -42,212 +62,136 @@ spec:
             - name: TRUSTED_HOSTS
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: trusted-hosts
+                    key: trusted-hosts
+                    name: {{ template "fullname" . }}
             - name: TRUSTED_PROXIES
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: trusted-proxies
+                    key: trusted-proxies
+                    name: {{ template "fullname" . }}
             - name: APP_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-name
-            - name: APP_TITLE
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-title
+                    key: app-name
+                    name: {{ template "fullname" . }}
             - name: APP_DESCRIPTION
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-description
+                    key: app-description
+                    name: {{ template "fullname" . }}
             - name: APP_VERSION
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-version
+                    key: app-version
+                    name: {{ template "fullname" . }}
             - name: APP_ENV
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: env
+                    key: env
+                    name: {{ template "fullname" . }}
             - name: APP_DEBUG
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: debug
+                    key: debug
+                    name: {{ template "fullname" . }}
             - name: APP_TYPE
               valueFrom:
                   configMapKeyRef:
-                      name: {{ template "fullname" . }}
                       key: app-type
+                      name: {{ template "fullname" . }}
             {{ if .Values.settings.id }}
             - name: APP_ID
               valueFrom:
                     configMapKeyRef:
-                        name: {{ template "fullname" . }}
                         key: app-id
+                        name: {{ template "fullname" . }}
             {{ end }}
             - name: APP_DEMO
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-demo
-            - name: APP_DOMAINS
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-domains-json
+                    key: app-demo
+                    name: {{ template "fullname" . }}
 
             - name: APP_REPRO
               valueFrom:
                   configMapKeyRef:
-                      name: {{ template "fullname" . }}
                       key: app-repro
-            - name: APP_CONTAINER
-              valueFrom:
-                  configMapKeyRef:
                       name: {{ template "fullname" . }}
-                      key: app-container
             - name: APP_DOMAIN
               valueFrom:
                   configMapKeyRef:
-                      name: {{ template "fullname" . }}
                       key: app-domain
-            - name: APP_CASH
+                      name: {{ template "fullname" . }}
+            - name: APP_CACHE
               valueFrom:
                   configMapKeyRef:
+                      key: cache
                       name: {{ template "fullname" . }}
-                      key: cache      
-            # organization
-            - name: ORGANIZATION_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: organization-name
-            - name: ORGANIZATION_EMAIL_ADDRESS
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: organization-email
-            - name: ORGANIZATION_COUNTRY_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: organization-country
-            - name: ORGANIZATION_STATE
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: organization-state
-            - name: ORGANIZATION_LOCALITY
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: organization-locality
-            - name: ORGANIZATION_UNIT_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: organization-unit
             # config
             - name: AUTH_ENABLED
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-auth
+                    key: app-auth
+                    name: {{ template "fullname" . }}
             - name: AUDITTRAIL_ENABLED
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-audittrail
+                    key: app-audittrail
+                    name: {{ template "fullname" . }}
             - name: NOTIFICATION_ENABLED
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-notification
-            - name: HEALTH_ENABLED
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-health
-            - name: ARCHIVE_ENABLED
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-archive
+                    key: app-notification
+                    name: {{ template "fullname" . }}
             - name: APP_WEB
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-web
+                    key: app-web
+                    name: {{ template "fullname" . }}
             - name: APP_SUBPATH_ROUTING
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-subpath-routing
+                    key: app-subpath-routing
+                    name: {{ template "fullname" . }}
             - name: APP_SUBPATH
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app-subpath
+                    key: app-subpath
+                    name: {{ template "fullname" . }}
             
             # bla bla      
-            - name: CORS_ALLOW_ORIGIN
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: cors-allow-origin
-            - name: VARNISH_URL
-              value: {{ .Values.settings.name }}-varnish
-            - name: APP_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: secret
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "fullname" . }}
                   key: database-url
-            - name: MERCURE_PUBLISH_URL
-              valueFrom:
-                configMapKeyRef:
                   name: {{ template "fullname" . }}
-                  key: mercure-publish-url
-            - name: MERCURE_SUBSCRIBE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: mercure-subscribe-url
-            - name: MERCURE_JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: mercure-jwt-secret
-            - name: APP_COMMONGROUND_ID
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app_commonground_id
-            - name: APP_COMMONGROUND_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: app_commonground_key
             - name: APP_APPLICATION_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "fullname" . }}
                   key: app_application_key
-            - name: APP_USER_KEY
-              valueFrom:
-                secretKeyRef:
                   name: {{ template "fullname" . }}
-                  key: app_user_key
+            {{- if (eq $.Values.settings.type "application" ) }}
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: redis-host
+                  name: {{ template "fullname" . }}
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: redis-port
+                  name: {{ template "fullname" . }}
+            - name: APP_DIGISPOOF_LOCATION
+              valueFrom:
+                configMapKeyRef:
+                  key: digispoof-location
+                  name: {{ template "fullname" . }}
+            - name: APP_EHERKENNING_LOCATION
+              valueFrom:
+                configMapKeyRef:
+                  key: eherkenning-location
+                  name: {{ template "fullname" . }}
+            {{- end }}
             - name: APP_URL
               {{- if and (eq $.Values.settings.env "prod") (eq $.Values.settings.type "component") }}
               value: https://{{ $.Values.settings.domain }}/api/{{ $.Values.settings.majorVersion }}/{{ $.Values.settings.subpath }}
@@ -262,6 +206,28 @@ spec:
               {{- else }}
               value: https://{{ $.Values.settings.env }}.{{ $.Values.settings.domain }}
               {{- end }}
+            - name: APP_MODE
+              valueFrom:
+                configMapKeyRef:
+                    key: mode
+                    name: {{ template "fullname" . }}
+            {{- if (eq .Values.settings.mode "StUF")}}
+            - name: APP_CERT
+              valueFrom:
+                secretKeyRef:
+                  key: certificate
+                  name: {{ template "fullname" . }}
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: private_key
+                  name: {{ template "fullname" . }}
+            - name: STUF_URI
+              valueFrom:
+                configMapKeyRef:
+                  key: stuf_uri
+                  name: {{ template "fullname" . }}
+            {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}

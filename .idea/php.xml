@@ -39,7 +39,6 @@
       <path value="$PROJECT_DIR$/api/vendor/twig/twig" />
       <path value="$PROJECT_DIR$/api/vendor/behat/transliterator" />
       <path value="$PROJECT_DIR$/api/vendor/gedmo/doctrine-extensions" />
-      <path value="$PROJECT_DIR$/api/vendor/jdorn/sql-formatter" />
       <path value="$PROJECT_DIR$/api/vendor/psr/link" />
       <path value="$PROJECT_DIR$/api/vendor/psr/log" />
       <path value="$PROJECT_DIR$/api/vendor/stof/doctrine-extensions-bundle" />
@@ -154,8 +153,6 @@
       <path value="$PROJECT_DIR$/api/vendor/phpdocumentor/reflection-docblock" />
       <path value="$PROJECT_DIR$/api/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/api/vendor/sumup/sumup-ecom-php-sdk" />
-      <path value="$PROJECT_DIR$/api/vendor/symfony/debug" />
-      <path value="$PROJECT_DIR$/api/vendor/symfony/inflector" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
