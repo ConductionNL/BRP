@@ -44,7 +44,7 @@ spec:
           ports:
             - containerPort: 9000
           volumeMounts:
-            - mountPath: /srv/config/packages/dependencies.yaml
+            - mountPath: /srv/api/config/packages/dependencies.yaml
               subPath: dependencies.yaml
               name: dependencies
               readOnly: true
