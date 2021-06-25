@@ -14,7 +14,7 @@ class LtcService
         $this->commonGroundService = $commonGroundService;
     }
 
-    public function getLand(string $code): Waardetabel
+    public function getLand(?string $code): Waardetabel
     {
         $nationaliteit = new Waardetabel();
         $nationaliteiten = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel32'], ['nationaliteitcode'=>$code])['hydra:member'];
@@ -37,7 +37,7 @@ class LtcService
         return $nationaliteit;
     }
 
-    public function getGemeente(string $code): Waardetabel
+    public function getGemeente(?string $code): Waardetabel
     {
         $geboorteplaats = new Waardetabel();
         $gemeentes = $this->commonGroundService->getResourceList(['component'=>'ltc', 'type'=>'tabel33'], ['gemeentecode'=>$code])['hydra:member'];
