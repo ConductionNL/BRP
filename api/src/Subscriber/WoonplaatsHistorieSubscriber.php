@@ -3,6 +3,7 @@
 namespace App\Subscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Service\GbavService;
 use App\Service\StUFService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -12,19 +13,19 @@ use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class StufSubscriber implements EventSubscriberInterface
+class WoonplaatsHistorieSubscriber implements EventSubscriberInterface
 {
-    private $params;
-    private $em;
-    private $serializer;
-    private StUFService $stUFService;
+    private ParameterBagInterface $parameterBag;
+    private EntityManagerInterface $entityManager;
+    private SerializerInterface $serializer;
+    private GbavService $gbavService;
 
-    public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, SerializerInterface $serializer, StUFService $stUFService)
+    public function __construct(ParameterBagInterface $parameterBag, EntityManagerInterface $entityManager, SerializerInterface $serializer)
     {
-        $this->params = $params;
-        $this->em = $em;
+        $this->parameterBag = $parameterBag;
+        $this->entityManager = $entityManager;
         $this->serializer = $serializer;
-        $this->stUFService = $stUFService;
+        $this->gbavService = new GbavService($this->parameterBag);
     }
 
     public static function getSubscribedEvents()
@@ -38,12 +39,14 @@ class StufSubscriber implements EventSubscriberInterface
     {
         $method = $event->getRequest()->getMethod();
         $route = $event->getRequest()->attributes->get('_route');
-        var_dump($route);
 
         // Lats make sure that some one posts correctly
-        if (Request::METHOD_GET !== $method || $this->params->get('mode') != 'StUF' || $route != 'api_ingeschrevenpersoons_get_on_bsn_collection') {
+        if (Request::METHOD_GET !== $method || $route != 'api_ingeschrevenpersoons_get_woongeschiedenis_collection') {
             return;
+        } elseif ($this->parameterBag->get('mode') != 'StUF'){
+            return;
+            //@TODO: We could support this in fixture mode also, by the means of time travel
         }
-        $event->setResponse($this->stUFService->getResults($event->getRequest(), $this->serializer));
+        $event->setResponse($this->gbavService->getWoongeschiedenis($event->getRequest(), $this->serializer));
     }
 }
