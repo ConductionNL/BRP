@@ -42,7 +42,8 @@ class GbavService
             throw new Exception('The SSL certificate for two sided SSL have not been configured. The SSL certificate is required for this mode');
         }
         $this->headers = [
-            'Content-Type' => 'text/xml',
+            'Content-Type'  => 'text/xml',
+            'SOAPAction'    => '""',
         ];
         $this->guzzleConfig = [
             'http_errors' => false,
@@ -68,7 +69,7 @@ class GbavService
                 'v1:Header'     => [
                     'v1:AfnemerscodeGBA'    => '510155',
                     'v1:Afdeling'           => 'INFORMATIEMANAGEMENT',  //@TODO: find appropriate department
-                    'v1:Gebruiker'          => 'WAARDEPAPIEREN-BROKER', //@TODO: find appropriate user
+                    'v1:Gebruiker'          => 'KLANT', //@TODO: find appropriate user
                     'v1:Applicatie'         => 'WAAR',
                 ],
             ],
