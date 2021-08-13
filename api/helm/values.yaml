@@ -26,8 +26,8 @@ security:
       apiKey: 45c1a4b6-59d3-4a6e-86bf-88a872f35845
 
 php:
-  repository: docker.io/conduction/protocomponent-php
-  image: docker.io/conduction/brpservice-php
+  repository: ghcr.io/conductionnl/protocomponent-php
+  image: ghcr.io/conductionnl/brpservice-php
   tag: latest
   env: prod
   replicaCount: 2
@@ -48,7 +48,7 @@ redis:
   pullPolicy: IfNotPresent
 
 nginx:
-  repository: docker.io/conduction/protocomponent-nginx
+  repository: ghcr.io/conductionnl/protocomponent-nginx
   image: ghcr.io/conductionnl/brpservice-nginx
   tag: latest
   pullPolicy: Always
@@ -73,7 +73,6 @@ ingress:
   type: "nginx"
   hostname: brpservice.local
   path: /
-  type: "traefik"
   annotations:
     # kubernetes.io/ingress.global-static-ip-name: chart-ip
     # kubernetes.io/ingress.class: gce
