@@ -24,7 +24,6 @@ use Exception;
 use GuzzleHttp\Client;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -305,7 +304,7 @@ class StUFService
     {
         $result = new Geboorte();
 //        var_dump($answer['geboortedatum']);
-        !is_array($answer['geboortedatum']) ? $result->setDatum($this->layerService->stringToIncompleteDate($answer['geboortedatum'])): null;
+        !is_array($answer['geboortedatum']) ? $result->setDatum($this->layerService->stringToIncompleteDate($answer['geboortedatum'])) : null;
         !is_array($answer['inp.geboorteLand']) ? $result->setLand($this->ltcService->getLand($answer['inp.geboorteLand'])) : null;
         !is_array($answer['inp.geboorteplaats']) ? $result->setPlaats($this->ltcService->getGemeente($answer['inp.geboorteplaats'])) : null;
 
@@ -365,8 +364,9 @@ class StUFService
     public function createVerblijfplaats(array $answer): Verblijfplaats
     {
         $result = new Verblijfplaats();
-        if(!key_exists('verblijfsadres', $answer)){
+        if (!key_exists('verblijfsadres', $answer)) {
             $result->setVertrokkenOnbekendWaarheen(true);
+
             return $result;
         }
 
@@ -401,6 +401,7 @@ class StUFService
 
         if (!is_array($answer['vbt.aanduidingVerblijfstitel'])) {
             $this->entityManager->persist($result);
+
             return $result;
         }
 
