@@ -5,7 +5,6 @@ namespace App\Subscriber;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Service\GbavService;
 use App\Service\LayerService;
-use App\Service\StUFService;
 use Conduction\CommonGroundBundle\Service\SerializerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -46,7 +45,7 @@ class WoonplaatsHistorieSubscriber implements EventSubscriberInterface
         // Lats make sure that some one posts correctly
         if (Request::METHOD_GET !== $method || $route != 'api_ingeschrevenpersoons_get_woongeschiedenis_collection') {
             return;
-        } elseif ($this->parameterBag->get('mode') != 'StUF'){
+        } elseif ($this->parameterBag->get('mode') != 'StUF') {
             return;
             //@TODO: We could support this in fixture mode also, by the means of time travel
         }

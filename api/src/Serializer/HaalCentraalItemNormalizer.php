@@ -128,8 +128,8 @@ final class HaalCentraalItemNormalizer extends AbstractItemNormalizer
         $options = $this->getFactoryOptions($context);
 
         $components = [
-            'states' => [],
-            'links' => [],
+            'states'   => [],
+            'links'    => [],
             'embedded' => [],
         ];
 
@@ -262,7 +262,7 @@ final class HaalCentraalItemNormalizer extends AbstractItemNormalizer
             return true;
         }
 
-        ++$context[$key];
+        $context[$key]++;
 
         return false;
     }

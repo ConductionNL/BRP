@@ -381,7 +381,6 @@ class Verblijfplaats
      */
     private ?IncompleteDate $datumAanvangAdresBuitenland = null;
 
-
     public function getId(): ?string
     {
         return $this->uuid;
@@ -745,6 +744,7 @@ class Verblijfplaats
 
         return $this;
     }
+
     public function getDatumAanvangAdresBuitenland(): ?IncompleteDate
     {
         return $this->datumAanvangAdresBuitenland;
