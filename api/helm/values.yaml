@@ -48,7 +48,7 @@ redis:
 
 nginx:
   repository: docker.io/conduction/protocomponent-nginx
-  image: docker.io/conduction/brpservice-nginx
+  image: ghcr.io/conductionnl/brpservice-nginx
   tag: latest
   pullPolicy: Always
   replicaCount: 2
@@ -69,6 +69,7 @@ postgresql:
 
 ingress:
   enabled: false
+  type: "nginx"
   hostname: brpservice.local
   path: /
   annotations:

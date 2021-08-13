@@ -15,14 +15,17 @@ use App\Entity\Partner;
 use App\Entity\VerblijfBuitenland;
 use App\Entity\Verblijfplaats;
 use App\Entity\Verblijfstitel;
+use Conduction\CommonGroundBundle\Service\SerializerService;
 use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use GuzzleHttp\Client;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -34,12 +37,14 @@ class StUFService
     private XmlEncoder $xmlEncoder;
     private EntityManagerInterface $entityManager;
     private LtcService $ltcService;
+    private LayerService $layerService;
 
-    public function __construct(ParameterBagInterface $parameterBag, EntityManagerInterface $entityManager, LtcService $ltcService)
+    public function __construct(LayerService $layerService)
     {
-        $this->entityManager = $entityManager;
-        $this->parameterBag = $parameterBag;
-        $this->ltcService = $ltcService;
+        $this->layerService = $layerService;
+        $this->entityManager = $layerService->getEntityManager();
+        $this->parameterBag = $layerService->getParameterBag();
+        $this->ltcService = new LtcService($layerService->getCommonGroundService());
 
         //If the mode is not StUF, then we will not need to configure this service.
         if ($this->parameterBag->get('mode') != 'StUF') {
@@ -268,15 +273,15 @@ class StUFService
     {
         $result = new NaamPersoon();
         $result->setGeslachtsnaam(is_array($answer['geslachtsnaam']) ? null : $answer['geslachtsnaam']);
-        $result->setVoorletters($answer['voorletters']);
-        $result->setVoornamen($answer['voornamen']);
+        is_array($answer['voorletters']) ?? $result->setVoorletters($answer['voorletters']);
+        is_array($answer['voornamen']) ?? $result->setVoornamen($answer['voornamen']);
         $result->setVoorvoegsel(is_array($answer['voorvoegselGeslachtsnaam']) ? '' : $answer['voorvoegselGeslachtsnaam']);
         $result->setAanschrijfwijze((key_exists('aanhefAanschrijving', $answer) && !is_array($answer['aanhefAanschrijving']) ? $answer['aanhefAanschrijving'] : null).' '.
-            (key_exists('voornamenAanschrijving', $answer) && !is_array($answer['voornamenAanschrijving']) ? $answer['voornamenAanschrijving'] : $answer['voornamen']).' '.
+            (key_exists('voornamenAanschrijving', $answer) && !is_array($answer['voornamenAanschrijving']) ? $answer['voornamenAanschrijving'] : (is_array($answer['voornamen']) ? '' : $answer['voornamen'])).' '.
             (key_exists('geslachtsnaamAanschrijving', $answer) && !is_array($answer['geslachtsnaamAanschrijving']) ? $answer['geslachtsnaamAanschrijving'] : $answer['geslachtsnaam']).' '.
             (key_exists('adellijkeTitelPredikaat', $answer) && !is_array($answer['adellijkeTitelPredikaat']) ? $answer['adellijkeTitelPredikaat'] : null));
         $result->setGebuikInLopendeTekst(
-            (key_exists('voornamenAanschrijving', $answer) && !is_array($answer['voornamenAanschrijving']) ? $answer['voornamenAanschrijving'] : $answer['voornamen']).' '.
+            (key_exists('voornamenAanschrijving', $answer) && !is_array($answer['voornamenAanschrijving']) ? $answer['voornamenAanschrijving'] : (is_array($answer['voornamen']) ? '' : $answer['voornamen'])).' '.
             (key_exists('geslachtsnaamAanschrijving', $answer) && !is_array($answer['geslachtsnaamAanschrijving']) ? $answer['geslachtsnaamAanschrijving'] : $answer['geslachtsnaam'])
         );
         $this->entityManager->persist($result);
@@ -299,7 +304,8 @@ class StUFService
     public function createGeboorte(array $answer): Geboorte
     {
         $result = new Geboorte();
-        $result->setDatum($this->createIncompleteDate($answer['geboortedatum']));
+//        var_dump($answer['geboortedatum']);
+        !is_array($answer['geboortedatum']) ? $result->setDatum($this->layerService->stringToIncompleteDate($answer['geboortedatum'])): null;
         !is_array($answer['inp.geboorteLand']) ? $result->setLand($this->ltcService->getLand($answer['inp.geboorteLand'])) : null;
         !is_array($answer['inp.geboorteplaats']) ? $result->setPlaats($this->ltcService->getGemeente($answer['inp.geboorteplaats'])) : null;
 
@@ -344,25 +350,29 @@ class StUFService
         return null;
     }
 
-    public function createVerblijfBuitenland(array $answer): VerblijfBuitenland
+    public function createVerblijfBuitenland(array $answer, VerblijfPlaats $verblijfplaats): Verblijfplaats
     {
-        $result = new VerblijfBuitenland();
+//        $result = new VerblijfBuitenland();
 
-        $result->setLand($this->ltcService->getLand($answer['sub.verblijfBuitenland']['lnd.landcode']));
-        $result->setAdresregel1($answer['sub.verblijfBuitenland']['sub.adresBuitenland1']);
-        $result->setAdresregel2($answer['sub.verblijfBuitenland']['sub.adresBuitenland2']);
-        $result->setAdresregel3($answer['sub.verblijfBuitenland']['sub.adresBuitenland3']);
+        $verblijfplaats->setLand($this->ltcService->getLand($answer['sub.verblijfBuitenland']['lnd.landcode']));
+        $verblijfplaats->setAdresregel1($answer['sub.verblijfBuitenland']['sub.adresBuitenland1']);
+        $verblijfplaats->setAdresregel2($answer['sub.verblijfBuitenland']['sub.adresBuitenland2']);
+        $verblijfplaats->setAdresregel3($answer['sub.verblijfBuitenland']['sub.adresBuitenland3']);
 
-        return $result;
+        return $verblijfplaats;
     }
 
     public function createVerblijfplaats(array $answer): Verblijfplaats
     {
         $result = new Verblijfplaats();
-        !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setIdentificatiecodeNummeraanduiding($answer['verblijfsadres']['aoa.identificatie']) : null;
-        !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setBagId(intval($answer['verblijfsadres']['aoa.identificatie'])) : null;
-        !is_array($answer['verblijfsadres']['wpl.identificatie']) ? $result->setIdentificatiecodeVerblijfplaats($answer['verblijfsadres']['wpl.identificatie']) : null;
-        !is_array($answer['verblijfsadres']['wpl.woonplaatsNaam']) ? $result->setWoonplaatsnaam($answer['verblijfsadres']['wpl.woonplaatsNaam']) : null;
+        if(!key_exists('verblijfsadres', $answer)){
+            $result->setVertrokkenOnbekendWaarheen(true);
+            return $result;
+        }
+
+        !is_array($answer['verblijfsadres']['aoa.identificatie']) ? $result->setNummeraanduidingIdentificatie($answer['verblijfsadres']['aoa.identificatie']) : null;
+        !is_array($answer['verblijfsadres']['wpl.identificatie']) ? $result->setAdresseerbaarObjectIdentificatie($answer['verblijfsadres']['wpl.identificatie']) : null;
+        !is_array($answer['verblijfsadres']['wpl.woonplaatsNaam']) ? $result->setWoonplaats($answer['verblijfsadres']['wpl.woonplaatsNaam']) : null;
         !is_array($answer['verblijfsadres']['wpl.identificatie']) ? $result->setNaamOpenbareRuimte($answer['verblijfsadres']['gor.openbareRuimteNaam']) : null;
         !is_array($answer['verblijfsadres']['inp.locatiebeschrijving']) ? $result->setLocatiebeschrijving($answer['verblijfsadres']['inp.locatiebeschrijving']) : null;
         !is_array($answer['verblijfsadres']['gor.straatnaam']) ? $result->setStraatnaam($answer['verblijfsadres']['gor.straatnaam']) : null;
@@ -370,11 +380,11 @@ class StUFService
         !is_array($answer['verblijfsadres']['aoa.huisnummer']) ? $result->setHuisnummer($answer['verblijfsadres']['aoa.huisnummer']) : null;
         !is_array($answer['verblijfsadres']['aoa.huisletter']) ? $result->setHuisletter($answer['verblijfsadres']['aoa.huisletter']) : null;
         !is_array($answer['verblijfsadres']['aoa.huisnummertoevoeging']) ? $result->setHuisnummertoevoeging($answer['verblijfsadres']['aoa.huisnummertoevoeging']) : null;
-        !is_array($answer['verblijfsadres']['begindatumVerblijf']) ? $result->setDatumAanvangAdreshouding($answer['verblijfsadres']['begindatumVerblijf']) : null;
-        !key_exists('sub.verblijfBuitenland', $answer) ?? $result->setVerblijfBuitenland($this->createVerblijfBuitenland($answer));
+        !is_array($answer['verblijfsadres']['begindatumVerblijf']) ? $result->setDatumAanvangAdreshouding($this->layerService->stringToIncompleteDate($answer['verblijfsadres']['begindatumVerblijf'])) : null;
+        !key_exists('sub.verblijfBuitenland', $answer) ?? $result = $this->createVerblijfBuitenland($answer, $result);
         !is_array($answer['inp.gemeenteVanInschrijving']) ? $result->setGemeenteVanInschrijving($this->ltcService->getGemeente($answer['inp.gemeenteVanInschrijving'])) : null;
-        !is_array($answer['inp.datumInschrijving']) ? $result->setDatumInschrijvingInGemeente($answer['inp.datumInschrijving']) : null;
-        !is_array($answer['inp.datumVestigingInNederland']) ? $result->setDatumVestigingInNederland($answer['inp.datumVestigingInNederland']) : null;
+        !is_array($answer['inp.datumInschrijving']) ? $result->setDatumInschrijvingInGemeente($this->layerService->stringToIncompleteDate($answer['inp.datumInschrijving'])) : null;
+        !is_array($answer['inp.datumVestigingInNederland']) ? $result->setDatumVestigingInNederland($this->layerService->stringToIncompleteDate($answer['inp.datumVestigingInNederland'])) : null;
 //        $result->setDatumIngangGeldigheid($answer['StUF:tijdvakGeldigheid']['StUF:beginGeldigheid']);
         !is_array($answer['inp.immigratieLand']) ? $result->setLandVanwaarIngeschreven($this->ltcService->getLand($answer['inp.immigratieLand'])) : null;
 
@@ -390,6 +400,7 @@ class StUFService
         is_array($answer['ing.datumVerliesVerblijfstitel']) ?? $result->setDatumEinde($answer['ing.datumVerliesVerblijfstitel']);
 
         if (!is_array($answer['vbt.aanduidingVerblijfstitel'])) {
+            $this->entityManager->persist($result);
             return $result;
         }
 
@@ -530,6 +541,7 @@ class StUFService
         $verblijfsTitel = $this->createVerlijfstitel($answer);
         if ($verblijfsTitel) {
             $result->setVerblijfstitel($verblijfsTitel);
+            $this->entityManager->persist($result->getVerblijfstitel());
         }
         $result = $this->addRelatives($answer, $result);
         $this->entityManager->persist($result);
@@ -567,14 +579,14 @@ class StUFService
         return $processedResults;
     }
 
-    public function getIngeschrevenPersonen(array $result, Request $request, SerializerService $serializerService): array
+    public function getIngeschrevenPersonen(array $result, Request $request, SerializerService $serializerService): ArrayCollection
     {
         if (key_exists('@a:entiteittype', $result)) {
             $results[] = $this->createIngeschrevenPersoon($result);
         } else {
             $results = $this->createIngeschrevenPersonen($result);
         }
-        switch ($serializerService->getRenderType()) {
+        switch ($serializerService->getRenderType($request->headers->get('Accept'))) {
             case 'jsonhal':
                 $response['adressen'] = $results;
                 $response['totalItems'] = count($results);
@@ -590,19 +602,18 @@ class StUFService
                 break;
         }
 
-        return $response;
+        return new ArrayCollection($response);
     }
 
-    public function getResults(Request $request, SerializerInterface $serializer): Response
+    public function getResults(RequestEvent $event, SerializerInterface $serializer): void
     {
-        $serializerService = new SerializerService($request, $serializer);
-        $result = $this->performRequest($request);
-        if ($request->attributes->has('burgerservicenummer')) {
+        $serializerService = new SerializerService($serializer);
+        $result = $this->performRequest($event->getRequest());
+        if ($event->getRequest()->attributes->has('burgerservicenummer')) {
             $result = $this->createIngeschrevenPersoon($result);
         } else {
-            $result = $this->getIngeschrevenPersonen($result, $request, $serializerService);
+            $result = $this->getIngeschrevenPersonen($result, $event->getRequest(), $serializerService);
         }
-
-        return $serializerService->createResponse($serializerService->serialize($result));
+        $serializerService->setResponse($result, $event);
     }
 }

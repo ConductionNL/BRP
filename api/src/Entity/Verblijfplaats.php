@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Conduction\CommonGroundBundle\ValueObject\IncompleteDate;
+use Conduction\CommonGroundBundle\ValueObject\UnderInvestigation;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
@@ -42,7 +44,7 @@ class Verblijfplaats
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $uuid;
+    private UuidInterface $uuid;
 
     /**
      * @todo docblocks
@@ -54,7 +56,7 @@ class Verblijfplaats
      *     max  = 255
      * )
      */
-    private $aanduidingBijHuisnummer;
+    private ?string $aanduidingBijHuisnummer = null;
 
     /**
      * @todo docblocks
@@ -66,10 +68,10 @@ class Verblijfplaats
      *     max  = 255
      * )
      */
-    private $funtieAdres;
+    private ?string $funtieAdres = null;
 
     /**
-     * @var string Huisletter of this Verblijfplaats
+     * @var string|null Huisletter of this Verblijfplaats
      *
      * @example B
      *
@@ -80,10 +82,10 @@ class Verblijfplaats
      *     max  = 255
      * )
      */
-    private $huisletter;
+    private ?string $huisletter = null;
 
     /**
-     * @var int Huisnummer of this Verblijfplaats
+     * @var int|null Huisnummer of this Verblijfplaats
      *
      * @example 21
      *
@@ -92,7 +94,7 @@ class Verblijfplaats
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Type("integer")
      */
-    private $huisnummer;
+    private ?int $huisnummer = null;
 
     /**
      * @var string Huisnummertoevoeging of this Verblijfplaats
@@ -106,7 +108,7 @@ class Verblijfplaats
      *     max = 255
      * )
      */
-    private $huisnummertoevoeging;
+    private ?string $huisnummertoevoeging = null;
 
     /**
      * @todo docblocks
@@ -118,7 +120,7 @@ class Verblijfplaats
      *     max = 255
      * )
      */
-    private $identificatiecodeNummeraanduiding;
+    private ?string $nummeraanduidingIdentificatie = null;
 
     /**
      * @todo docblocks
@@ -130,7 +132,7 @@ class Verblijfplaats
      *     max = 255
      * )
      */
-    private $identificatiecodeVerblijfplaats;
+    private ?string $adresseerbaarObjectIdentificatie = null;
 
     /**
      * @todo docblocks
@@ -140,10 +142,10 @@ class Verblijfplaats
      * @ORM\Column(type="boolean")
      * @Assert\Type("boolean")
      */
-    private $indentificatieVestigingVanuitBuitenland = false;
+    private bool $indicatieVestigingVanuitBuitenland = false;
 
     /**
-     * @var string Locatiebeschrijving of this Verblijfplaats
+     * @var string|null Locatiebeschrijving of this Verblijfplaats
      *
      * @example Appartment
      *
@@ -154,7 +156,7 @@ class Verblijfplaats
      *     max = 255
      * )
      */
-    private $locatiebeschrijving;
+    private ?string $locatiebeschrijving = null;
 
     /**
      * @todo docblocks
@@ -166,7 +168,7 @@ class Verblijfplaats
      *     max = 255
      * )
      */
-    private $naamOpenbareRuimte;
+    private ?string $naamOpenbareRuimte = null;
 
     /**
      * @var string Postcode of this Verblijfplaats
@@ -180,10 +182,10 @@ class Verblijfplaats
      *     max = 255
      * )
      */
-    private $postcode;
+    private ?string $postcode = null;
 
     /**
-     * @var string Straatnaam of this Verblijfplaats
+     * @var string|null Straatnaam of this Verblijfplaats
      *
      * @example Passeig de Sant Joan
      *
@@ -194,7 +196,7 @@ class Verblijfplaats
      *     max = 255
      * )
      */
-    private $straatnaam;
+    private ?string $straatnaam = null;
 
     /**
      * @todo docblocks
@@ -204,10 +206,20 @@ class Verblijfplaats
      * @ORM\Column(type="boolean")
      * @Assert\Type("boolean")
      */
-    private $vanuitVertrokkenOnbekendWaarheen = false;
+    private bool $vanuitVertrokkenOnbekendWaarheen = false;
 
     /**
-     * @var string Woonplaatsnaam of this Verblijfplaats
+     * @todo docblocks
+     *
+     * @Groups({"read", "write", "show_family"})
+     * @Gedmo\Versioned
+     * @ORM\Column(type="boolean")
+     * @Assert\Type("boolean")
+     */
+    private bool $vertrokkenOnbekendWaarheen = false;
+
+    /**
+     * @var string|null Woonplaatsnaam of this Verblijfplaats
      *
      * @example Barcelona
      *
@@ -218,20 +230,20 @@ class Verblijfplaats
      *     max = 255
      * )
      */
-    private $woonplaatsnaam;
+    private ?string $woonplaats = null;
 
     /**
-     * @var string Datum aanvang adreshouding of this Verblijfplaats
+     * @var IncompleteDate|null Datum aanvang adreshouding of this Verblijfplaats
      *
      * @example 2005-01-01
      *
      * @Groups({"read", "write", "show_family"})
-     * @ORM\Column(type="object", nullable=true)
+     * @ORM\Column(type="incompleteDate", nullable=true)
      */
-    private $datumAanvangAdreshouding;
+    private ?IncompleteDate $datumAanvangAdreshouding = null;
 
     /**
-     * @var string Datum ingang geldigheid of this Verblijfplaats
+     * @var IncompleteDate|null Datum ingang geldigheid of this Verblijfplaats
      *
      * @example 01-01-2005
      *
@@ -239,10 +251,10 @@ class Verblijfplaats
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
      */
-    private $datumIngangGeldigheid;
+    private ?IncompleteDate $datumIngangGeldigheid = null;
 
     /**
-     * @var string Datum inschrijving in gemeente of this Verblijfplaats
+     * @var IncompleteDate|null Datum inschrijving in gemeente of this Verblijfplaats
      *
      * @example 01-01-2005
      *
@@ -250,10 +262,10 @@ class Verblijfplaats
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
      */
-    private $datumInschrijvingInGemeente;
+    private ?IncompleteDate $datumInschrijvingInGemeente = null;
 
     /**
-     * @var string Datum vestiging in Nederland of this Verblijfplaats
+     * @var IncompleteDate|null Datum vestiging in Nederland of this Verblijfplaats
      *
      * @example 01-01-2005
      *
@@ -261,18 +273,19 @@ class Verblijfplaats
      * @Gedmo\Versioned
      * @ORM\Column(type="incompleteDate", nullable=true)
      */
-    private $datumVestigingInNederland;
+    private ?IncompleteDate $datumVestigingInNederland = null;
 
     /**
-     * @var string Gemeente van inschrijving of this Verblijfplaats
+     * @var Waardetabel|null Gemeente van inschrijving of this Verblijfplaats
      *
      * @example Barcelona
      *
      * @Groups({"read", "write", "show_family"})
      * @Gedmo\Versioned
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
+     * @MaxDepth(1)
      */
-    private $gemeenteVanInschrijving;
+    private ?Waardetabel $gemeenteVanInschrijving = null;
 
     /**
      * @var string Land van  waar ingeschreven of this Verblijfplaats
@@ -284,20 +297,20 @@ class Verblijfplaats
      * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
      * @MaxDepth(1)
      */
-    private $landVanwaarIngeschreven;
+    private ?Waardetabel $landVanwaarIngeschreven = null;
 
-    /**
-     * @var VerblijfBuitenland VerblijfBuitenland of this Verblijfplaats
-     *
-     * @example Spain
-     *
-     * @Groups({"read", "write", "show_family"})
-     * @Gedmo\Versioned
-     * @ORM\OneToOne(targetEntity="App\Entity\VerblijfBuitenland", inversedBy="verblijfplaats", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
-     * @MaxDepth(1)
-     */
-    private $verblijfBuitenland;
+//    /**
+//     * @var VerblijfBuitenland VerblijfBuitenland of this Verblijfplaats
+//     *
+//     * @example Spain
+//     *
+//     * @Groups({"read", "write", "show_family"})
+//     * @Gedmo\Versioned
+//     * @ORM\OneToOne(targetEntity="App\Entity\VerblijfBuitenland", inversedBy="verblijfplaats", cascade={"persist", "remove"})
+//     * @ORM\JoinColumn(nullable=true, referencedColumnName="uuid")
+//     * @MaxDepth(1)
+//     */
+//    private ?$verblijfBuitenland;
 
     /**
      * @todo docblocks
@@ -306,7 +319,7 @@ class Verblijfplaats
      * @Gedmo\Versioned
      * @ORM\Column(type="underInvestigation", nullable=true)
      */
-    private $inOnderzoek;
+    private ?UnderInvestigation $inOnderzoek = null;
 
     /**
      * @todo docblocks
@@ -316,24 +329,66 @@ class Verblijfplaats
      * @ORM\JoinColumn(nullable=true)
      * @MaxDepth(1)
      */
-    private $ingeschrevenpersoon;
+    private ?Ingeschrevenpersoon $ingeschrevenpersoon = null;
+
+//    /**
+//     * @todo docblocks
+//     *
+//     * @Groups({"read", "write", "show_family"})
+//     * @Gedmo\Versioned
+//     * @ORM\Column(type="integer", nullable=true)
+//     */
+//    private $bagId;
 
     /**
-     * @todo docblocks
-     *
-     * @Groups({"read", "write", "show_family"})
-     * @Gedmo\Versioned
-     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read"})
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $bagId;
+    private ?string $adresregel1 = null;
 
-    // On an object level we stil want to be able to gett the id
+    /**
+     * @Groups({"read"})
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $adresregel2 = null;
+
+    /**
+     * @Groups({"read"})
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $adresregel3 = null;
+
+    /**
+     * @var Waardetabel|null Land of this VerblijfBuitenland
+     *
+     * @example Spain
+     *
+     * @Gedmo\Versioned
+     * @Groups({"read"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Waardetabel", cascade={"persist"})
+     * @MaxDepth(1)
+     */
+    private ?Waardetabel $land = null;
+
+    /**
+     * @Groups({"read"})
+     * @ORM\Column(type="incompleteDate",nullable=true)
+     */
+    private ?IncompleteDate $datumTot = null;
+
+    /**
+     * @ORM\Column(type="incompleteDate",nullable=true)
+     */
+    private ?IncompleteDate $datumAanvangAdresBuitenland = null;
+
+
     public function getId(): ?string
     {
         return $this->uuid;
     }
 
-    public function getUuid(): ?string
+    // On an object level we stil want to be able to gett the id
+    public function getUuid(): ?UuidInterface
     {
         return $this->uuid;
     }
@@ -398,38 +453,38 @@ class Verblijfplaats
         return $this;
     }
 
-    public function getIdentificatiecodeNummeraanduiding(): ?string
+    public function getNummeraanduidingIdentificatie(): ?string
     {
-        return $this->identificatiecodeNummeraanduiding;
+        return $this->nummeraanduidingIdentificatie;
     }
 
-    public function setIdentificatiecodeNummeraanduiding(?string $identificatiecodeNummeraanduiding): self
+    public function setNummeraanduidingIdentificatie(?string $nummeraanduidingIdentificatie): self
     {
-        $this->identificatiecodeNummeraanduiding = $identificatiecodeNummeraanduiding;
+        $this->nummeraanduidingIdentificatie = $nummeraanduidingIdentificatie;
 
         return $this;
     }
 
-    public function getIdentificatiecodeVerblijfplaats(): ?string
+    public function getAdresseerbaarObjectIdentificatie(): ?string
     {
-        return $this->identificatiecodeVerblijfplaats;
+        return $this->adresseerbaarObjectIdentificatie;
     }
 
-    public function setIdentificatiecodeVerblijfplaats(?string $identificatiecodeVerblijfplaats): self
+    public function setAdresseerbaarObjectIdentificatie(?string $adresseerbaarObjectIdentificatie): self
     {
-        $this->identificatiecodeVerblijfplaats = $identificatiecodeVerblijfplaats;
+        $this->adresseerbaarObjectIdentificatie = $adresseerbaarObjectIdentificatie;
 
         return $this;
     }
 
-    public function getIndentificatieVestigingVanuitBuitenland(): ?bool
+    public function getIndicatieVestigingVanuitBuitenland(): ?bool
     {
-        return $this->indentificatieVestigingVanuitBuitenland;
+        return $this->indicatieVestigingVanuitBuitenland;
     }
 
-    public function setIndentificatieVestigingVanuitBuitenland(bool $indentificatieVestigingVanuitBuitenland): self
+    public function setIndicatieVestigingVanuitBuitenland(bool $indicatieVestigingVanuitBuitenland): self
     {
-        $this->indentificatieVestigingVanuitBuitenland = $indentificatieVestigingVanuitBuitenland;
+        $this->indicatieVestigingVanuitBuitenland = $indicatieVestigingVanuitBuitenland;
 
         return $this;
     }
@@ -494,60 +549,72 @@ class Verblijfplaats
         return $this;
     }
 
-    public function getWoonplaatsnaam(): ?string
+    public function getVertrokkenOnbekendWaarheen(): ?bool
     {
-        return $this->woonplaatsnaam;
+        return $this->vertrokkenOnbekendWaarheen;
     }
 
-    public function setWoonplaatsnaam(?string $woonplaatsnaam): self
+    public function setVertrokkenOnbekendWaarheen(bool $vertrokkenOnbekendWaarheen): self
     {
-        $this->woonplaatsnaam = $woonplaatsnaam;
+        $this->vertrokkenOnbekendWaarheen = $vertrokkenOnbekendWaarheen;
 
         return $this;
     }
 
-    public function getDatumAanvangAdreshouding()
+    public function getWoonplaats(): ?string
+    {
+        return $this->woonplaats;
+    }
+
+    public function setWoonplaats(?string $woonplaats): self
+    {
+        $this->woonplaats = $woonplaats;
+
+        return $this;
+    }
+
+    public function getDatumAanvangAdreshouding(): ?IncompleteDate
     {
         return $this->datumAanvangAdreshouding;
     }
 
-    public function setDatumAanvangAdreshouding($datumAanvangAdreshouding): self
+    public function setDatumAanvangAdreshouding(?IncompleteDate $datumAanvangAdreshouding): self
     {
         $this->datumAanvangAdreshouding = $datumAanvangAdreshouding;
 
         return $this;
     }
 
-    public function getDatumIngangGeldigheid()
+    public function getDatumIngangGeldigheid(): ?IncompleteDate
     {
         return $this->datumIngangGeldigheid;
     }
 
-    public function setDatumIngangGeldigheid($datumIngangGeldigheid): self
+    public function setDatumIngangGeldigheid(?IncompleteDate $datumIngangGeldigheid): self
     {
         $this->datumIngangGeldigheid = $datumIngangGeldigheid;
 
         return $this;
     }
 
-    public function getDatumInschrijvingInGemeente()
+    public function getDatumInschrijvingInGemeente(): ?IncompleteDate
     {
         return $this->datumInschrijvingInGemeente;
     }
 
-    public function setDatumInschrijvingInGemeente($datumInschrijvingInGemeente): self
+    public function setDatumInschrijvingInGemeente(?IncompleteDate $datumInschrijvingInGemeente): self
     {
         $this->datumInschrijvingInGemeente = $datumInschrijvingInGemeente;
 
         return $this;
     }
 
-    public function getDatumVestigingInNederland()
+    public function getDatumVestigingInNederland(): ?IncompleteDate
     {
         return $this->datumVestigingInNederland;
     }
 
-    public function setDatumVestigingInNederland($datumVestigingInNederland): self
+    public function setDatumVestigingInNederland(?IncompleteDate $datumVestigingInNederland): self
     {
         $this->datumVestigingInNederland = $datumVestigingInNederland;
 
@@ -578,17 +645,17 @@ class Verblijfplaats
         return $this;
     }
 
-    public function getVerblijfBuitenland(): ?VerblijfBuitenland
-    {
-        return $this->verblijfBuitenland;
-    }
-
-    public function setVerblijfBuitenland(?VerblijfBuitenland $verblijfBuitenland): self
-    {
-        $this->verblijfBuitenland = $verblijfBuitenland;
-
-        return $this;
-    }
+//    public function getVerblijfBuitenland(): ?VerblijfBuitenland
+//    {
+//        return $this->verblijfBuitenland;
+//    }
+//
+//    public function setVerblijfBuitenland(?VerblijfBuitenland $verblijfBuitenland): self
+//    {
+//        $this->verblijfBuitenland = $verblijfBuitenland;
+//
+//        return $this;
+//    }
 
     public function getInOnderzoek()
     {
@@ -619,14 +686,85 @@ class Verblijfplaats
         return $this;
     }
 
-    public function getBagId(): ?int
+//    public function getBagId(): ?int
+//    {
+//        return $this->bagId;
+//    }
+//
+//    public function setBagId(?int $bagId): self
+//    {
+//        $this->bagId = $bagId;
+//
+//        return $this;
+//    }
+
+    public function getAdresregel1(): ?string
     {
-        return $this->bagId;
+        return $this->adresregel1;
     }
 
-    public function setBagId(?int $bagId): self
+    public function setAdresregel1(?string $adresregel1): self
     {
-        $this->bagId = $bagId;
+        $this->adresregel1 = $adresregel1;
+
+        return $this;
+    }
+
+    public function getAdresregel2(): ?string
+    {
+        return $this->adresregel2;
+    }
+
+    public function setAdresregel2(?string $adresregel2): self
+    {
+        $this->adresregel2 = $adresregel2;
+
+        return $this;
+    }
+
+    public function getAdresregel3(): ?string
+    {
+        return $this->adresregel3;
+    }
+
+    public function setAdresregel3(?string $adresregel3): self
+    {
+        $this->adresregel3 = $adresregel3;
+
+        return $this;
+    }
+
+    public function getDatumTot(): ?IncompleteDate
+    {
+        return $this->datumTot;
+    }
+
+    public function setDatumTot(?IncompleteDate $datumTot): self
+    {
+        $this->datumTot = $datumTot;
+
+        return $this;
+    }
+    public function getDatumAanvangAdresBuitenland(): ?IncompleteDate
+    {
+        return $this->datumAanvangAdresBuitenland;
+    }
+
+    public function setDatumAanvangAdresBuitenland(?IncompleteDate $datumAanvangAdresBuitenland): self
+    {
+        $this->datumAanvangAdresBuitenland = $datumAanvangAdresBuitenland;
+
+        return $this;
+    }
+
+    public function getLand(): ?Waardetabel
+    {
+        return $this->land;
+    }
+
+    public function setLand(?Waardetabel $land): self
+    {
+        $this->land = $land;
 
         return $this;
     }

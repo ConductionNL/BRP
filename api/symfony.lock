@@ -22,6 +22,9 @@
     "behat/transliterator": {
         "version": "v1.3.0"
     },
+    "brick/math": {
+        "version": "0.9.2"
+    },
     "composer/ca-bundle": {
         "version": "1.2.8"
     },
@@ -136,6 +139,9 @@
     },
     "ezyang/htmlpurifier": {
         "version": "v4.13.0"
+    },
+    "fgrosse/phpasn1": {
+        "version": "v2.3.0"
     },
     "fig/link-util": {
         "version": "1.1.1"
@@ -402,6 +408,12 @@
         "files": [
             "config/packages/security_checker.yaml"
         ]
+    },
+    "spomky-labs/aes-key-wrap": {
+        "version": "v6.0.0"
+    },
+    "spomky-labs/base64url": {
+        "version": "v2.0.4"
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
@@ -737,6 +749,9 @@
             "ref": "e97ae40ca09c6fa35e69accec8833d1e10445a06"
         }
     },
+    "thecodingmachine/safe": {
+        "version": "v1.3.3"
+    },
     "theseer/tokenizer": {
         "version": "1.2.0"
     },
@@ -754,6 +769,9 @@
     },
     "twig/twig": {
         "version": "v2.13.1"
+    },
+    "web-token/jwt-framework": {
+        "version": "v2.2.10"
     },
     "webmozart/assert": {
         "version": "1.9.1"

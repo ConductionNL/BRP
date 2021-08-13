@@ -4,7 +4,9 @@ namespace App\Subscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Service\GbavService;
+use App\Service\LayerService;
 use App\Service\StUFService;
+use Conduction\CommonGroundBundle\Service\SerializerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -17,15 +19,16 @@ class WoonplaatsHistorieSubscriber implements EventSubscriberInterface
 {
     private ParameterBagInterface $parameterBag;
     private EntityManagerInterface $entityManager;
+    private SerializerService $serializerService;
     private SerializerInterface $serializer;
     private GbavService $gbavService;
 
-    public function __construct(ParameterBagInterface $parameterBag, EntityManagerInterface $entityManager, SerializerInterface $serializer)
+    public function __construct(LayerService $layerService, SerializerInterface $serializer)
     {
-        $this->parameterBag = $parameterBag;
-        $this->entityManager = $entityManager;
-        $this->serializer = $serializer;
-        $this->gbavService = new GbavService($this->parameterBag);
+        $this->parameterBag = $layerService->getParameterBag();
+        $this->entityManager = $layerService->getEntityManager();
+        $this->serializerService = new SerializerService($serializer);
+        $this->gbavService = new GbavService($layerService);
     }
 
     public static function getSubscribedEvents()
@@ -47,6 +50,6 @@ class WoonplaatsHistorieSubscriber implements EventSubscriberInterface
             return;
             //@TODO: We could support this in fixture mode also, by the means of time travel
         }
-        $event->setResponse($this->gbavService->getWoongeschiedenis($event->getRequest(), $this->serializer));
+        $this->serializerService->setResponse($this->gbavService->getWoongeschiedenis($event->getRequest()), $event);
     }
 }
