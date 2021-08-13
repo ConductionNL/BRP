@@ -13,6 +13,7 @@ security:
   applicationKey: "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
   secret: ""
   stufUri: "https://example.com"
+  gbavUri: "https://example.com"
   certificate: ""
   privateKey: ""
   jwt:

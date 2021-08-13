@@ -10816,8 +10816,8 @@ paths:
             GetVerblijfplaatsItem:
               operationId: getVerblijfplaatsItem
               parameters:
-                uuid: '$response.body#/uuid'
-              description: 'The `uuid` value returned in the response can be used as the `uuid` parameter in `GET /verblijfplaats/{uuid}`.'
+                id: '$response.body#/id'
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /verblijfplaats/{id}`.'
         400:
           description: 'Invalid input'
         422:
@@ -10870,7 +10870,7 @@ paths:
         required: true
       deprecated: false
     parameters: []
-  '/verblijfplaats/{uuid}':
+  '/verblijfplaats/{id}':
     get:
       operationId: getVerblijfplaatsItem
       tags:
@@ -10924,7 +10924,7 @@ paths:
       description: 'Retrieves a Verblijfplaats resource.'
       parameters:
         -
-          name: uuid
+          name: id
           in: path
           description: 'Resource identifier'
           required: true
@@ -10987,8 +10987,8 @@ paths:
             GetVerblijfplaatsItem:
               operationId: getVerblijfplaatsItem
               parameters:
-                uuid: '$response.body#/uuid'
-              description: 'The `uuid` value returned in the response can be used as the `uuid` parameter in `GET /verblijfplaats/{uuid}`.'
+                id: '$response.body#/id'
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /verblijfplaats/{id}`.'
         400:
           description: 'Invalid input'
         422:
@@ -10999,7 +10999,7 @@ paths:
       description: 'Replaces the Verblijfplaats resource.'
       parameters:
         -
-          name: uuid
+          name: id
           in: path
           description: 'Resource identifier'
           required: true
@@ -11067,7 +11067,7 @@ paths:
       description: 'Removes the Verblijfplaats resource.'
       parameters:
         -
-          name: uuid
+          name: id
           in: path
           description: 'Resource identifier'
           required: true
@@ -11130,8 +11130,8 @@ paths:
             GetVerblijfplaatsItem:
               operationId: getVerblijfplaatsItem
               parameters:
-                uuid: '$response.body#/uuid'
-              description: 'The `uuid` value returned in the response can be used as the `uuid` parameter in `GET /verblijfplaats/{uuid}`.'
+                id: '$response.body#/id'
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /verblijfplaats/{id}`.'
         400:
           description: 'Invalid input'
         422:
@@ -11142,7 +11142,7 @@ paths:
       description: 'Updates the Verblijfplaats resource.'
       parameters:
         -
-          name: uuid
+          name: id
           in: path
           description: 'Resource identifier'
           required: true
@@ -14740,7 +14740,7 @@ components:
       type: object
       description: ''
       properties:
-        uuid:
+        id:
           readOnly: true
           type: string
           format: uuid
@@ -14766,15 +14766,15 @@ components:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
           nullable: true
-        identificatiecodeNummeraanduiding:
+        nummeraanduidingIdentificatie:
           maxLength: 255
           type: string
           nullable: true
-        identificatiecodeVerblijfplaats:
+        adresseerbaarObjectIdentificatie:
           maxLength: 255
           type: string
           nullable: true
-        indentificatieVestigingVanuitBuitenland:
+        indicatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           maxLength: 255
@@ -14797,44 +14797,74 @@ components:
           nullable: true
         vanuitVertrokkenOnbekendWaarheen:
           type: boolean
-        woonplaatsnaam:
+        vertrokkenOnbekendWaarheen:
+          type: boolean
+        woonplaats:
           maxLength: 255
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
           nullable: true
         datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
-          type: string
           nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate-read'
         datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate-read'
         datumInschrijvingInGemeente:
           description: 'Datum inschrijving in gemeente of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate-read'
         datumVestigingInNederland:
           description: 'Datum vestiging in Nederland of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate-read'
         gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
-          type: string
           nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel-read'
         landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
           nullable: true
           anyOf:
             -
               $ref: '#/components/schemas/Waardetabel-read'
-        verblijfBuitenland:
-          description: 'VerblijfBuitenland of this Verblijfplaats'
+        inOnderzoek:
           nullable: true
           anyOf:
             -
-              $ref: '#/components/schemas/VerblijfBuitenland-read'
-        inOnderzoek: {  }
-        bagId:
-          type: integer
+              $ref: '#/components/schemas/UnderInvestigation-read'
+        adresregel1:
+          type: string
           nullable: true
+        adresregel2:
+          type: string
+          nullable: true
+        adresregel3:
+          type: string
+          nullable: true
+        land:
+          description: 'Land of this VerblijfBuitenland'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel-read'
+        datumTot:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate-read'
     Verblijfplaats-write:
       type: object
       description: ''
@@ -14861,15 +14891,15 @@ components:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
           nullable: true
-        identificatiecodeNummeraanduiding:
+        nummeraanduidingIdentificatie:
           maxLength: 255
           type: string
           nullable: true
-        identificatiecodeVerblijfplaats:
+        adresseerbaarObjectIdentificatie:
           maxLength: 255
           type: string
           nullable: true
-        indentificatieVestigingVanuitBuitenland:
+        indicatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           maxLength: 255
@@ -14892,44 +14922,54 @@ components:
           nullable: true
         vanuitVertrokkenOnbekendWaarheen:
           type: boolean
-        woonplaatsnaam:
+        vertrokkenOnbekendWaarheen:
+          type: boolean
+        woonplaats:
           maxLength: 255
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
           nullable: true
         datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
-          type: string
           nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate-write'
         datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate-write'
         datumInschrijvingInGemeente:
           description: 'Datum inschrijving in gemeente of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate-write'
         datumVestigingInNederland:
           description: 'Datum vestiging in Nederland of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate-write'
         gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
-          type: string
           nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel-write'
         landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
           nullable: true
           anyOf:
             -
               $ref: '#/components/schemas/Waardetabel-write'
-        verblijfBuitenland:
-          description: 'VerblijfBuitenland of this Verblijfplaats'
+        inOnderzoek:
           nullable: true
           anyOf:
             -
-              $ref: '#/components/schemas/VerblijfBuitenland-write'
-        inOnderzoek: {  }
-        bagId:
-          type: integer
-          nullable: true
+              $ref: '#/components/schemas/UnderInvestigation-write'
     Verblijfplaats.jsonld-read:
       type: object
       description: ''
@@ -14957,7 +14997,7 @@ components:
         '@type':
           readOnly: true
           type: string
-        uuid:
+        id:
           readOnly: true
           type: string
           format: uuid
@@ -14983,15 +15023,15 @@ components:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
           nullable: true
-        identificatiecodeNummeraanduiding:
+        nummeraanduidingIdentificatie:
           maxLength: 255
           type: string
           nullable: true
-        identificatiecodeVerblijfplaats:
+        adresseerbaarObjectIdentificatie:
           maxLength: 255
           type: string
           nullable: true
-        indentificatieVestigingVanuitBuitenland:
+        indicatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           maxLength: 255
@@ -15014,44 +15054,74 @@ components:
           nullable: true
         vanuitVertrokkenOnbekendWaarheen:
           type: boolean
-        woonplaatsnaam:
+        vertrokkenOnbekendWaarheen:
+          type: boolean
+        woonplaats:
           maxLength: 255
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
           nullable: true
         datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
-          type: string
           nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate.jsonld-read'
         datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate.jsonld-read'
         datumInschrijvingInGemeente:
           description: 'Datum inschrijving in gemeente of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate.jsonld-read'
         datumVestigingInNederland:
           description: 'Datum vestiging in Nederland of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate.jsonld-read'
         gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
-          type: string
           nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel.jsonld-read'
         landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
           nullable: true
           anyOf:
             -
               $ref: '#/components/schemas/Waardetabel.jsonld-read'
-        verblijfBuitenland:
-          description: 'VerblijfBuitenland of this Verblijfplaats'
+        inOnderzoek:
           nullable: true
           anyOf:
             -
-              $ref: '#/components/schemas/VerblijfBuitenland.jsonld-read'
-        inOnderzoek: {  }
-        bagId:
-          type: integer
+              $ref: '#/components/schemas/UnderInvestigation.jsonld-read'
+        adresregel1:
+          type: string
           nullable: true
+        adresregel2:
+          type: string
+          nullable: true
+        adresregel3:
+          type: string
+          nullable: true
+        land:
+          description: 'Land of this VerblijfBuitenland'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel.jsonld-read'
+        datumTot:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate.jsonld-read'
     Verblijfplaats.jsonld-write:
       type: object
       description: ''
@@ -15101,15 +15171,15 @@ components:
           description: 'Huisnummertoevoeging of this Verblijfplaats'
           type: string
           nullable: true
-        identificatiecodeNummeraanduiding:
+        nummeraanduidingIdentificatie:
           maxLength: 255
           type: string
           nullable: true
-        identificatiecodeVerblijfplaats:
+        adresseerbaarObjectIdentificatie:
           maxLength: 255
           type: string
           nullable: true
-        indentificatieVestigingVanuitBuitenland:
+        indicatieVestigingVanuitBuitenland:
           type: boolean
         locatiebeschrijving:
           maxLength: 255
@@ -15132,44 +15202,54 @@ components:
           nullable: true
         vanuitVertrokkenOnbekendWaarheen:
           type: boolean
-        woonplaatsnaam:
+        vertrokkenOnbekendWaarheen:
+          type: boolean
+        woonplaats:
           maxLength: 255
           description: 'Woonplaatsnaam of this Verblijfplaats'
           type: string
           nullable: true
         datumAanvangAdreshouding:
           description: 'Datum aanvang adreshouding of this Verblijfplaats'
-          type: string
           nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate.jsonld-write'
         datumIngangGeldigheid:
           description: 'Datum ingang geldigheid of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate.jsonld-write'
         datumInschrijvingInGemeente:
           description: 'Datum inschrijving in gemeente of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate.jsonld-write'
         datumVestigingInNederland:
           description: 'Datum vestiging in Nederland of this Verblijfplaats'
-          type: string
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/IncompleteDate.jsonld-write'
         gemeenteVanInschrijving:
           description: 'Gemeente van inschrijving of this Verblijfplaats'
-          type: string
           nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Waardetabel.jsonld-write'
         landVanwaarIngeschreven:
           description: 'Land van  waar ingeschreven of this Verblijfplaats'
           nullable: true
           anyOf:
             -
               $ref: '#/components/schemas/Waardetabel.jsonld-write'
-        verblijfBuitenland:
-          description: 'VerblijfBuitenland of this Verblijfplaats'
+        inOnderzoek:
           nullable: true
           anyOf:
             -
-              $ref: '#/components/schemas/VerblijfBuitenland.jsonld-write'
-        inOnderzoek: {  }
-        bagId:
-          type: integer
-          nullable: true
+              $ref: '#/components/schemas/UnderInvestigation.jsonld-write'
     Verblijfstitel-read:
       type: object
       description: ''
@@ -15271,11 +15351,9 @@ components:
     Waardetabel-read:
       type: object
       description: ''
+      required:
+        - code
       properties:
-        id:
-          readOnly: true
-          type: string
-          format: uuid
         code:
           maxLength: 255
           type: string
@@ -15283,8 +15361,6 @@ components:
           maxLength: 255
           type: string
           nullable: true
-      required:
-        - code
     Waardetabel-write:
       type: object
       description: ''
@@ -15301,6 +15377,8 @@ components:
     Waardetabel.jsonld-read:
       type: object
       description: ''
+      required:
+        - code
       properties:
         '@context':
           readOnly: true
@@ -15325,10 +15403,6 @@ components:
         '@type':
           readOnly: true
           type: string
-        id:
-          readOnly: true
-          type: string
-          format: uuid
         code:
           maxLength: 255
           type: string
@@ -15336,8 +15410,6 @@ components:
           maxLength: 255
           type: string
           nullable: true
-      required:
-        - code
     Waardetabel.jsonld-write:
       type: object
       description: ''

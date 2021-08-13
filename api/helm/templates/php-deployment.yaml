@@ -126,7 +126,7 @@ spec:
                   name: {{ template "fullname" . }}
             {{- if (eq .Values.config.mode "StUF") }}
             - name: APP_CERT
-                valueFrom:
+              valueFrom:
                 secretKeyRef:
                   key: certificate
                   name: {{ template "fullname" . }}
@@ -136,9 +136,14 @@ spec:
                   key: private_key
                   name: {{ template "fullname" . }}
             - name: STUF_URI
-                valueFrom:
+              valueFrom:
                   configMapKeyRef:
                     key: stuf_uri
+                    name: {{ template "fullname" . }}
+            - name: GBAV_URI
+              valueFrom:
+                  configMapKeyRef:
+                    key: gbav_uri
                     name: {{ template "fullname" . }}
             {{- end }}
           resources:
