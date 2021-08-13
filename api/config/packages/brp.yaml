@@ -1,0 +1,6 @@
+parameters:
+  mode: "%env(APP_MODE)%"
+  stuf_uri: "%env(STUF_URI)%"
+  gbav_uri: "%env(GBAV_URI)%"
+  env(APP_MODE): "fixtures"
+  env(STUF_URI): ""

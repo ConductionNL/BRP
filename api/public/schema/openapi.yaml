@@ -10816,8 +10816,8 @@ paths:
             GetVerblijfplaatsItem:
               operationId: getVerblijfplaatsItem
               parameters:
-                id: '$response.body#/id'
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /verblijfplaats/{id}`.'
+                uuid: '$response.body#/uuid'
+              description: 'The `uuid` value returned in the response can be used as the `uuid` parameter in `GET /verblijfplaats/{uuid}`.'
         400:
           description: 'Invalid input'
         422:
@@ -10870,7 +10870,7 @@ paths:
         required: true
       deprecated: false
     parameters: []
-  '/verblijfplaats/{id}':
+  '/verblijfplaats/{uuid}':
     get:
       operationId: getVerblijfplaatsItem
       tags:
@@ -10924,7 +10924,7 @@ paths:
       description: 'Retrieves a Verblijfplaats resource.'
       parameters:
         -
-          name: id
+          name: uuid
           in: path
           description: 'Resource identifier'
           required: true
@@ -10987,8 +10987,8 @@ paths:
             GetVerblijfplaatsItem:
               operationId: getVerblijfplaatsItem
               parameters:
-                id: '$response.body#/id'
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /verblijfplaats/{id}`.'
+                uuid: '$response.body#/uuid'
+              description: 'The `uuid` value returned in the response can be used as the `uuid` parameter in `GET /verblijfplaats/{uuid}`.'
         400:
           description: 'Invalid input'
         422:
@@ -10999,7 +10999,7 @@ paths:
       description: 'Replaces the Verblijfplaats resource.'
       parameters:
         -
-          name: id
+          name: uuid
           in: path
           description: 'Resource identifier'
           required: true
@@ -11067,7 +11067,7 @@ paths:
       description: 'Removes the Verblijfplaats resource.'
       parameters:
         -
-          name: id
+          name: uuid
           in: path
           description: 'Resource identifier'
           required: true
@@ -11130,8 +11130,8 @@ paths:
             GetVerblijfplaatsItem:
               operationId: getVerblijfplaatsItem
               parameters:
-                id: '$response.body#/id'
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /verblijfplaats/{id}`.'
+                uuid: '$response.body#/uuid'
+              description: 'The `uuid` value returned in the response can be used as the `uuid` parameter in `GET /verblijfplaats/{uuid}`.'
         400:
           description: 'Invalid input'
         422:
@@ -11142,7 +11142,7 @@ paths:
       description: 'Updates the Verblijfplaats resource.'
       parameters:
         -
-          name: id
+          name: uuid
           in: path
           description: 'Resource identifier'
           required: true
@@ -14740,7 +14740,7 @@ components:
       type: object
       description: ''
       properties:
-        id:
+        uuid:
           readOnly: true
           type: string
           format: uuid
@@ -14997,7 +14997,7 @@ components:
         '@type':
           readOnly: true
           type: string
-        id:
+        uuid:
           readOnly: true
           type: string
           format: uuid

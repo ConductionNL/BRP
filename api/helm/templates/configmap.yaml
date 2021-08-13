@@ -26,5 +26,5 @@ data:
   {{- end }}
 
   mode: {{ .Values.config.mode }}
-  stuf_uri: {{ .Values.security.stufUri }}
-  gbav_uri: {{ .Values.security.gbavUri }}
+  stuf_uri: {{ .Values.security.stufUri | quote }}
+  gbav_uri: {{ .Values.security.gbavUri | quote}}
