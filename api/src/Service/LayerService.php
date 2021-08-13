@@ -44,9 +44,12 @@ class LayerService
         );
     }
 
-    function isAssociativeArray(array $array): bool
+    public function isAssociativeArray(array $array): bool
     {
-        if (array() === $array) return false;
+        if ([] === $array) {
+            return false;
+        }
+
         return array_keys($array) !== range(0, count($array) - 1);
     }
 }
