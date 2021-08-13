@@ -73,6 +73,7 @@ ingress:
   type: "nginx"
   hostname: brpservice.local
   path: /
+  type: "traefik"
   annotations:
     # kubernetes.io/ingress.global-static-ip-name: chart-ip
     # kubernetes.io/ingress.class: gce
