@@ -85,6 +85,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     				"description"="Beschrijving"
  *     			}
  *     		},
+ *          "get_woongeschiedenis"={
+ *              "method"="GET",
+ *              "path"="/ingeschrevenpersonen/{burgerservicenummer}/verblijfplaatshistorie",
+ *     			"requirements"={"burgerservicenummer"="\d+"},
+ *          }
  *     },
  *     itemOperations={
  *     		"get"={

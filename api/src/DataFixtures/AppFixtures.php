@@ -82,9 +82,9 @@ class AppFixtures extends Fixture
         $persoon->setLeeftijd(22);
 
         // Adres gegevensv
-        $persoon->getVerblijfplaats()->setBagId(123456789);
+        $persoon->getVerblijfplaats()->setNummeraanduidingIdentificatie('123456789');
         $persoon->getVerblijfplaats()->setPostcode('1012RJ');
-        $persoon->getVerblijfplaats()->setWoonplaatsnaam('Amsterdam');
+        $persoon->getVerblijfplaats()->setWoonplaats('Amsterdam');
         $persoon->getVerblijfplaats()->setStraatnaam('Nieuwezijds Voorburgwal ');
         $persoon->getVerblijfplaats()->setHuisnummer('147');
         $persoon->getVerblijfplaats()->setHuisnummertoevoeging('');
@@ -123,9 +123,9 @@ class AppFixtures extends Fixture
         $persoon->setLeeftijd(23);
 
         // Adres gegevens
-        $persoon->getVerblijfplaats()->setBagId(123456789);
+        $persoon->getVerblijfplaats()->setNummeraanduidingIdentificatie('123456789');
         $persoon->getVerblijfplaats()->setPostcode('1012RJ');
-        $persoon->getVerblijfplaats()->setWoonplaatsnaam('Amsterdam');
+        $persoon->getVerblijfplaats()->setWoonplaats('Amsterdam');
         $persoon->getVerblijfplaats()->setStraatnaam('Nieuwezijds Voorburgwal ');
         $persoon->getVerblijfplaats()->setHuisnummer('147');
         $persoon->getVerblijfplaats()->setHuisnummertoevoeging('');
@@ -164,9 +164,9 @@ class AppFixtures extends Fixture
         $persoon->setLeeftijd(5);
 
         // Adres gegevens
-        $persoon->getVerblijfplaats()->setBagId(123456789);
+        $persoon->getVerblijfplaats()->setNummeraanduidingIdentificatie('123456789');
         $persoon->getVerblijfplaats()->setPostcode('1012RJ');
-        $persoon->getVerblijfplaats()->setWoonplaatsnaam('Amsterdam');
+        $persoon->getVerblijfplaats()->setWoonplaats('Amsterdam');
         $persoon->getVerblijfplaats()->setStraatnaam('Nieuwezijds Voorburgwal ');
         $persoon->getVerblijfplaats()->setHuisnummer('147');
         $persoon->getVerblijfplaats()->setHuisnummertoevoeging('');
@@ -300,13 +300,13 @@ class AppFixtures extends Fixture
                 $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
 
                 $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[13]);
-                $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[14]);
+                $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaats($row[14]);
                 $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[11]);
                 $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[12]);
                 $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummertoevoeging('');
                 $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
                 if (array_key_exists(24, $row)) {
-                    $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[24]);
+                    $ingeschrevenpersoon->getVerblijfplaats()->setAdresseerbaarObjectIdentificatie($row[24]);
                 }
 
                 $voorvoegsel = ''.$row[4];

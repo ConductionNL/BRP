@@ -37,11 +37,12 @@ class StufSubscriber implements EventSubscriberInterface
     public function Ingeschrevenpersoon(ViewEvent $event)
     {
         $method = $event->getRequest()->getMethod();
+        $route = $event->getRequest()->attributes->get('_route');
 
         // Lats make sure that some one posts correctly
-        if (Request::METHOD_GET !== $method || $this->params->get('mode') != 'StUF') {
+        if (Request::METHOD_GET !== $method || $this->params->get('mode') != 'StUF' || $route != 'api_ingeschrevenpersoons_get_on_bsn_collection') {
             return;
         }
-        $event->setResponse($this->stUFService->getResults($event->getRequest(), $this->serializer));
+        $this->stUFService->getResults($event, $this->serializer);
     }
 }

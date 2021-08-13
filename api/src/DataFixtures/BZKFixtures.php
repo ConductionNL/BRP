@@ -109,7 +109,7 @@ class BZKFixtures extends Fixture
                     $ingeschrevenpersoon->setVerblijfplaats(new Verblijfplaats());
 
                     $ingeschrevenpersoon->getVerblijfplaats()->setPostcode($row[162]);
-                    $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaatsnaam($row[163]);
+                    $ingeschrevenpersoon->getVerblijfplaats()->setWoonplaats($row[163]);
                     $ingeschrevenpersoon->getVerblijfplaats()->setStraatnaam($row[156]);
                     $ingeschrevenpersoon->getVerblijfplaats()->setHuisnummer($row[158]);
                     if ($row[159]) {
@@ -122,7 +122,7 @@ class BZKFixtures extends Fixture
                     }
                     $ingeschrevenpersoon->getVerblijfplaats()->setIngeschrevenpersoon($ingeschrevenpersoon);
                     if (array_key_exists(164, $row)) {
-                        $ingeschrevenpersoon->getVerblijfplaats()->setIdentificatiecodeVerblijfplaats($row[164]);
+                        $ingeschrevenpersoon->getVerblijfplaats()->setAdresseerbaarObjectIdentificatie($row[164]);
                     }
 
                     $voorvoegsel = ''.$row[4];

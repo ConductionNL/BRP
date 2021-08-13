@@ -83,12 +83,12 @@ class Verblijfstitel
     // On an object level we stil want to be able to gett the id
     public function getId(): ?string
     {
-        return $this->id;
+        return $this->uuid;
     }
 
     public function getUuid(): ?string
     {
-        return $this->id;
+        return $this->uuid;
     }
 
     public function getAanduiding(): ?Waardetabel

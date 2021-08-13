@@ -27,3 +27,4 @@ data:
 
   mode: {{ .Values.config.mode }}
   stuf_uri: {{ .Values.security.stufUri }}
+  gbav_uri: {{ .Values.security.gbavUri }}
