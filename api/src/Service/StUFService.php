@@ -272,8 +272,8 @@ class StUFService
     {
         $result = new NaamPersoon();
         $result->setGeslachtsnaam(is_array($answer['geslachtsnaam']) ? null : $answer['geslachtsnaam']);
-        is_array($answer['voorletters']) ?? $result->setVoorletters($answer['voorletters']);
-        is_array($answer['voornamen']) ?? $result->setVoornamen($answer['voornamen']);
+        !is_array($answer['voorletters']) ? $result->setVoorletters($answer['voorletters']) : null;
+        !is_array($answer['voornamen']) ? $result->setVoornamen($answer['voornamen']) : null;
         $result->setVoorvoegsel(is_array($answer['voorvoegselGeslachtsnaam']) ? '' : $answer['voorvoegselGeslachtsnaam']);
         $result->setAanschrijfwijze((key_exists('aanhefAanschrijving', $answer) && !is_array($answer['aanhefAanschrijving']) ? $answer['aanhefAanschrijving'] : null).' '.
             (key_exists('voornamenAanschrijving', $answer) && !is_array($answer['voornamenAanschrijving']) ? $answer['voornamenAanschrijving'] : (is_array($answer['voornamen']) ? '' : $answer['voornamen'])).' '.
