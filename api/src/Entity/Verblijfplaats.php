@@ -376,11 +376,6 @@ class Verblijfplaats
      */
     private ?IncompleteDate $datumTot = null;
 
-    /**
-     * @ORM\Column(type="incompleteDate",nullable=true)
-     */
-    private ?IncompleteDate $datumAanvangAdresBuitenland = null;
-
     public function getId(): ?string
     {
         return $this->uuid;
@@ -741,18 +736,6 @@ class Verblijfplaats
     public function setDatumTot(?IncompleteDate $datumTot): self
     {
         $this->datumTot = $datumTot;
-
-        return $this;
-    }
-
-    public function getDatumAanvangAdresBuitenland(): ?IncompleteDate
-    {
-        return $this->datumAanvangAdresBuitenland;
-    }
-
-    public function setDatumAanvangAdresBuitenland(?IncompleteDate $datumAanvangAdresBuitenland): self
-    {
-        $this->datumAanvangAdresBuitenland = $datumAanvangAdresBuitenland;
 
         return $this;
     }
