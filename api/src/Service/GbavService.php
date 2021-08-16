@@ -193,6 +193,7 @@ class GbavService
                 case '1010':
                     $result->setFuntieAdres($item['waarde'] == 'W' ? 'woonadres' : 'briefadres');
                     break;
+                case '1320':
                 case '1030':
                     $result->setDatumAanvangAdreshouding($this->layerService->stringToIncompleteDate($item['waarde']));
                     break;
@@ -233,10 +234,6 @@ class GbavService
                 case '1310':
                     $item['waarde'] == '0000' ? $result->setVertrokkenOnbekendWaarheen(true) : null;
                     $result->setLand($this->ltcService->getLand($item['waarde']));
-                    break;
-                case '1320':
-                    $result->setDatumAanvangAdresBuitenland($this->layerService->stringToIncompleteDate($item['waarde']));
-                    $result->setDatumAanvangAdreshouding($this->layerService->stringToIncompleteDate($item['waarde']));
                     break;
                 case '1330':
                     $result->setAdresregel1($item['waarde']);
