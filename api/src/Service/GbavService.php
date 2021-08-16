@@ -342,7 +342,7 @@ class GbavService
     {
         foreach($results as $key=>$result){
             if($result instanceof Verblijfplaats && !$result->getDatumTot()){
-                unset($result[$key]);
+                unset($results[$key]);
             }
         }
         return $results;
