@@ -236,6 +236,7 @@ class GbavService
                     break;
                 case '1320':
                     $result->setDatumAanvangAdresBuitenland($this->layerService->stringToIncompleteDate($item['waarde']));
+                    $result->setDatumAanvangAdreshouding($this->layerService->stringToIncompleteDate($item['waarde']));
                     break;
                 case '1330':
                     $result->setAdresregel1($item['waarde']);
@@ -331,8 +332,6 @@ class GbavService
         for ($iterator = count($results) - 1; $iterator > 0; $iterator--) {
             if ($results[$iterator - 1]->getDatumAanvangAdreshouding()) {
                 $results[$iterator]->setDatumTot($results[$iterator - 1]->getDatumAanvangAdreshouding());
-            } elseif ($results[$iterator - 1]->getDatumAanvangAdresBuitenland()) {
-                $results[$iterator]->setDatumTot($results[$iterator - 1]->getDatumAanvangAdresBuitenland());
             }
         }
 

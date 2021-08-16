@@ -72,12 +72,12 @@ class LtcService
                 $geboorteplaats->setCode($gemeente['gemeentecode']);
                 $geboorteplaats->setOmschrijving($gemeente['omschrijving']);
             } else {
-                $geboorteplaats->setCode('1999');
-                $geboorteplaats->setOmschrijving('Registratie Niet Ingezetenen (RNI)');
+                $geboorteplaats->setCode('0000');
+                $geboorteplaats->setOmschrijving('Onbekend');
             }
         } else {
-            $geboorteplaats->setCode('1999');
-            $geboorteplaats->setOmschrijving('Registratie Niet Ingezetenen (RNI)');
+            $geboorteplaats->setCode('0000');
+            $geboorteplaats->setOmschrijving('Onbekend');
         }
 
         return $geboorteplaats;
