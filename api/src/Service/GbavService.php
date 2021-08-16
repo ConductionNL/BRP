@@ -384,7 +384,7 @@ class GbavService
 
         $results = $this->setEndDate($results);
 
-        $this->removeCurrentAddress($results);
+        $results = $this->removeCurrentAddress($results);
 
         return new ArrayCollection($results);
     }
