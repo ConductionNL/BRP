@@ -386,7 +386,7 @@ class GbavService
             var_dump($content);
             var_dump($response->getBody());
             echo $content;
-            echo $requestMessage
+            echo $requestMessage;
             exit;
         }
         $results = $this->processGbavResult($decoded);
