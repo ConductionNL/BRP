@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 
 class GbavService
 {
@@ -379,7 +380,13 @@ class GbavService
         ) {
             throw new NotFoundHttpException("Geen verblijfplaatshistorie gevonden voor BSN $bsn");
         }
-        $decoded = $this->xmlEncoder->decode($content, 'xml');
+        try {
+            $decoded = $this->xmlEncoder->decode($content, 'xml');
+        } catch (NotEncodableValueException $e) {
+            echo $content;
+            echo $e->getMessage();
+            exit;
+        }
         $results = $this->processGbavResult($decoded);
 
         $results = $this->setEndDate($results);
