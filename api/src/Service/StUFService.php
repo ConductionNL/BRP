@@ -555,7 +555,9 @@ class StUFService
         $requestMessage = $this->createStufMessage($request);
         $response = $this->client->post('', ['body' => $requestMessage]);
         if ($response->getStatusCode() != 200 && $response->getStatusCode() != 201 && $response->getStatusCode() != 202) {
-            echo $response->getBody()->getContents();
+            echo 'Error Code: ' . $response->getStatusCode();
+            echo 'Response Body: ' . $response->getBody()->getContents();
+            echo 'Request Body: ' . $requestMessage;
             exit;
         }
         $result = $this->xmlEncoder->decode($response->getBody()->getContents(), 'xml');
