@@ -555,9 +555,10 @@ class StUFService
         $requestMessage = $this->createStufMessage($request);
         $response = $this->client->post('', ['body' => $requestMessage]);
         if ($response->getStatusCode() != 200 && $response->getStatusCode() != 201 && $response->getStatusCode() != 202) {
-            echo 'Error Code: ' . $response->getStatusCode();
-            echo 'Response Body: ' . $response->getBody()->getContents();
-            echo 'Request Body: ' . $requestMessage;
+            echo 'Endpoint: ' . $this->parameterBag->get('stuf_uri') . '\n';
+            echo 'Error Code: ' . $response->getStatusCode() . '\n';
+            echo 'Response Body: ' . $response->getBody()->getContents() . '\n';
+            echo 'Request Body: ' . $requestMessage . '\n';
             exit;
         }
         $result = $this->xmlEncoder->decode($response->getBody()->getContents(), 'xml');
