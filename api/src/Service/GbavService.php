@@ -383,8 +383,9 @@ class GbavService
         try {
             $decoded = $this->xmlEncoder->decode($content, 'xml');
         } catch (NotEncodableValueException $e) {
+            var_dump($content);
+            var_dump($response->getBody());
             echo $content;
-            echo $e->getMessage();
             exit;
         }
         $results = $this->processGbavResult($decoded);
