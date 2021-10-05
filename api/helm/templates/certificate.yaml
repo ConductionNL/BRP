@@ -1,16 +1,12 @@
-{{- if eq .Values.config.mode "StUF" }}
+{{- if and (eq .Values.config.mode "StUF") (not .Values.security.certificate.existingSecret) }}
 apiVersion: v1
 kind: Secret
 metadata:
-    name: {{ template "fullname" . }}-certificate
-    labels:
-        app.kubernetes.io/name: {{ .Release.Name }}
-        app.kubernetes.io/part-of: {{ .Release.Name }}
-        helm.sh/chart: {{ include "chart" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/managed-by: {{ .Release.Service }}
+  name: {{ .Chart.Name }}-certificate
+  labels:
+  {{- include "template.labels" . | nindent 4 }}
 type: kubernetes.io/tls
 data:
-    tls.crt: {{ .Values.security.certificate | quote }}
-    tls.key: {{ .Values.security.privateKey | quote }}
+    tls.crt: {{ .Values.security.certificate.certificate | quote }}
+    tls.key: {{ .Values.security.certificate.privateKey | quote }}
 {{- end }}
