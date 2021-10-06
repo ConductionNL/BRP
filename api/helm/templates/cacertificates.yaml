@@ -1,0 +1,19 @@
+{{- $postgresqlServiceName := include "postgresql.fullname" . -}}
+{{- $sslmode := "disable"}}
+{{- if .Values.postgresql.tls.enabled }}
+{{- $sslmode := "require" }}
+{{- end }}
+{{- if .Values.security.caCertificates.certificates }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Chart.Name }}-ca-certificates
+  labels:
+    {{- include "template.labels" . | nindent 4 }}
+type: Opaque
+data:
+  {{- range $file, $values := .Values.security.caCertificates.certificates }}
+    {{ $file }}: |
+{{ $values | toYaml | indent 6 }}
+    {{- end }}
+{{- end }}

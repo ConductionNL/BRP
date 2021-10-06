@@ -4,7 +4,7 @@ apiVersion: v2
 appVersion: V1.0
 description: 'Het Basis Registratie Personen Component is een implementatie van de door Haal Centraal ontwikkelde API-specificatie in de vorm van een Common Ground container. Dat betekent dat het ten opzichte van die referentie een aantal extra opties kent (zoals extended en filteren van data). Dit Common Ground component kan op twee manieren worden ingezet. Om te beginnen kan het aan de achterkant worden voorzien van datafixtures in de vorm van een Excel sheet. Op deze manier kan er een “specifieke” mock worden gecreëerd voor het testen van applicaties (al dan niet in combinatie met Digispoof). Het is echter ook mogelijke om het BRP Component in te zetten in samenhang met het StuF Component, in dat geval worden API-verzoeken op het BRP vertaald naar StuF berichten op GBA of GBAV aansluiting en levert het component daadwerkelijk een BRP koppeling.'
 name: brpservice
-version: 1.0.0
+version: 1.1.0
 home: https://www.conduction.nl
 icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
 sources:
@@ -23,9 +23,9 @@ maintainers:
 dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
-      version: 10.1.1
+      version: 10.10.3
       condition: postgresql.enabled
     - name: redis
       repository: https://charts.bitnami.com/bitnami
-      version: 12.7.7
+      version: 15.3.2
       condition: redis.enabled
