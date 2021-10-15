@@ -129,6 +129,11 @@ spec:
                 configMapKeyRef:
                   key: url
                   name: {{ .Chart.Name }}
+            - name: APP_MODE
+              valueFrom:
+                configMapKeyRef:
+                    key: mode
+                    name: {{ .Chart.Name }}
             {{- if (eq .Values.config.mode "StUF") }}
             - name: APP_CERT
               valueFrom:

@@ -5,7 +5,7 @@ entries:
       artifacthub.io/containsSecurityUpdates: "true"
     apiVersion: v2
     appVersion: V1.0
-    created: "2021-10-06T10:06:04.0978464+02:00"
+    created: "2021-10-15T15:07:50.544945094+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -26,7 +26,7 @@ entries:
       BRP Component in te zetten in samenhang met het StuF Component, in dat geval
       worden API-verzoeken op het BRP vertaald naar StuF berichten op GBA of GBAV
       aansluiting en levert het component daadwerkelijk een BRP koppeling.
-    digest: abe3ff82278a83b8efbb87b8f650c7808475de549cb2ab2aee0c96851cb085fd
+    digest: 193345d81dc6d2df881f5d90757bb6e108126694843279f1b1a78224bfc22574
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -50,7 +50,7 @@ entries:
       artifacthub.io/containsSecurityUpdates: "true"
     apiVersion: v2
     appVersion: V1.0
-    created: "2021-10-06T10:06:04.0522842+02:00"
+    created: "2021-10-15T15:07:50.531678813+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -93,7 +93,7 @@ entries:
     version: 1.0.0
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-10-06T10:06:04.0306961+02:00"
+    created: "2021-10-15T15:07:50.520026985+02:00"
     description: Het Basis Registratie Personen Component is een implementatie van
       de door Haal Centraal ontwikkelde API-specificatie in de vorm van een Common
       Ground container. Dat betekent dat het ten opzichte van die referentie een aantal
@@ -130,7 +130,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.13.0
-    created: "2021-10-06T10:06:04.1242338+02:00"
+    created: "2021-10-15T15:07:50.552360643+02:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -164,7 +164,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 6.2.5
-    created: "2021-10-06T10:06:04.1569198+02:00"
+    created: "2021-10-15T15:07:50.561654534+02:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -193,4 +193,4 @@ entries:
     urls:
     - charts/redis-15.3.2.tgz
     version: 15.3.2
-generated: "2021-10-06T10:06:04.0009427+02:00"
+generated: "2021-10-15T15:07:50.507520524+02:00"
