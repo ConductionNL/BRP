@@ -451,9 +451,6 @@
             "bin/console"
         ]
     },
-    "symfony/contracts": {
-        "version": "v1.1.0"
-    },
     "symfony/dependency-injection": {
         "version": "v5.1.10"
     },
