@@ -40,7 +40,7 @@ class StufSubscriber implements EventSubscriberInterface
         $route = $event->getRequest()->attributes->get('_route');
 
         // Lats make sure that some one posts correctly
-        if (Request::METHOD_GET !== $method || $this->params->get('mode') != 'StUF' || $route != 'api_ingeschrevenpersoons_get_on_bsn_collection') {
+        if (Request::METHOD_GET !== $method || $this->params->get('mode') != 'StUF' || ($route != 'api_ingeschrevenpersoons_get_on_bsn_collection' && $route != 'api_ingeschrevenpersoons_get_collection')) {
             return;
         }
         $this->stUFService->getResults($event, $this->serializer);
